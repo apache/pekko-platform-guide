@@ -1,9 +1,9 @@
 package sample.shoppingcart
 
-import java.io.File
 import java.util.UUID
 
 import scala.concurrent.duration._
+
 import akka.actor.testkit.typed.scaladsl.ActorTestKit
 import akka.actor.typed.eventstream.EventStream
 import akka.cluster.MemberStatus
@@ -11,13 +11,11 @@ import akka.cluster.sharding.typed.scaladsl.ClusterSharding
 import akka.cluster.typed.Cluster
 import akka.cluster.typed.Join
 import akka.pattern.StatusReply
-import akka.persistence.cassandra.testkit.CassandraLauncher
 import akka.persistence.typed.PersistenceId
 import akka.persistence.typed.scaladsl.Effect
 import akka.persistence.typed.scaladsl.EventSourcedBehavior
 import com.typesafe.config.Config
 import com.typesafe.config.ConfigFactory
-import org.apache.commons.io.FileUtils
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.TestSuite
 import org.scalatest.concurrent.Eventually
@@ -28,11 +26,13 @@ import org.scalatest.time.Span
 import org.scalatest.wordspec.AnyWordSpecLike
 
 object IntegrationSpec {
+  private val keyspace = s"IntegrationSpec_${System.currentTimeMillis()}"
+
   val config: Config = ConfigFactory.parseString(s"""
       akka.cluster {
          seed-nodes = []
       }
-      
+
       akka.persistence.cassandra {
         events-by-tag {
           eventual-consistency-delay = 200ms
@@ -41,18 +41,21 @@ object IntegrationSpec {
         query {
           refresh-interval = 500 ms
         }
-      
+
+        journal.keyspace = $keyspace
         journal.keyspace-autocreate = on
         journal.tables-autocreate = on
+        snapshot.keyspace = $keyspace
         snapshot.keyspace-autocreate = on
         snapshot.tables-autocreate = on
       }
       datastax-java-driver {
-        basic.contact-points = ["127.0.0.1:19042"]
+        basic.contact-points = ["127.0.0.1:9042"]
         basic.load-balancing-policy.local-datacenter = "datacenter1"
       }
       
-      event-processor {
+      akka.projection.cassandra.offset-store.keyspace = $keyspace
+      shopping.event-processor {
         keep-alive-interval = 1 seconds
       }
       akka.loglevel = DEBUG
@@ -74,8 +77,6 @@ class IntegrationSpec
   implicit private val patience: PatienceConfig =
     PatienceConfig(3.seconds, Span(100, org.scalatest.time.Millis))
 
-  private val databaseDirectory = new File("target/cassandra-IntegrationSpec")
-
   private def roleConfig(role: String): Config =
     ConfigFactory.parseString(s"akka.cluster.roles = [$role]")
 
@@ -89,13 +90,6 @@ class IntegrationSpec
   private val systems3 = List(testKit1.system, testKit2.system, testKit3.system)
 
   override protected def beforeAll(): Unit = {
-    CassandraLauncher.start(
-      databaseDirectory,
-      CassandraLauncher.DefaultTestConfigResource,
-      clean = true,
-      port = 19042, // default is 9042, but use different for test
-      CassandraLauncher.classpathForResources("logback-test.xml"))
-
     // avoid concurrent creation of keyspace and tables
     initializePersistence()
     Main.createTables(testKit1.system)
@@ -123,9 +117,6 @@ class IntegrationSpec
     testKit3.shutdownTestKit()
     testKit2.shutdownTestKit()
     testKit1.shutdownTestKit()
-
-    CassandraLauncher.stop()
-    FileUtils.deleteDirectory(databaseDirectory)
   }
 
   "Shopping Cart application" should {

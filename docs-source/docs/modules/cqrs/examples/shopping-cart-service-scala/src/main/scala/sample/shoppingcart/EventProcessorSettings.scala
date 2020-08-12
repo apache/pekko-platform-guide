@@ -6,7 +6,7 @@ import com.typesafe.config.Config
 object EventProcessorSettings {
 
   def apply(system: ActorSystem[_]): EventProcessorSettings = {
-    apply(system.settings.config.getConfig("event-processor"))
+    apply(system.settings.config.getConfig("shopping.event-processor"))
   }
 
   def apply(config: Config): EventProcessorSettings = {
