@@ -3,7 +3,7 @@ val AkkaPersistenceCassandraVersion = "1.0.0"
 val AkkaHttpVersion = "10.1.10"
 val AkkaProjectionVersion = "0.3"
 
-lazy val `akka-sample-cqrs-scala` = project
+lazy val `shopping-cart-service-scala` = project
   .in(file("."))
   .settings(
     organization := "com.lightbend.akka.samples",
@@ -33,7 +33,7 @@ lazy val `akka-sample-cqrs-scala` = project
     //end::libraryDependencies[]
     fork in run := false,
     Global / cancelable := false, // ctrl-c
-    mainClass in (Compile, run) := Some("sample.cqrs.Main"),
+    mainClass in (Compile, run) := Some("sample.shoppingcart.Main"),
     // disable parallel tests
     parallelExecution in Test := false,
     // show full stack traces and test case durations
