@@ -22,11 +22,7 @@ This is implemented using [Akka Projections](https://doc.akka.io/docs/akka-proje
 
 ## Running the sample code
 
-1. Start a Cassandra server by running:
-
-```
-sbt "runMain sample.shoppingcart.Main cassandra"
-```
+1. Start a local Cassandra server on default port 9042
 
 2. Start a node that runs the write model:
 

@@ -18,7 +18,6 @@ lazy val `shopping-cart-service-scala` = project
         "com.typesafe.akka" %% "akka-persistence-query" % AkkaVersion,
         "com.typesafe.akka" %% "akka-serialization-jackson" % AkkaVersion,
         "com.typesafe.akka" %% "akka-persistence-cassandra" % AkkaPersistenceCassandraVersion,
-        "com.typesafe.akka" %% "akka-persistence-cassandra-launcher" % AkkaPersistenceCassandraVersion,
         "com.lightbend.akka" %% "akka-projection-eventsourced" % AkkaProjectionVersion,
         "com.lightbend.akka" %% "akka-projection-cassandra" % AkkaProjectionVersion,
         "com.typesafe.akka" %% "akka-http" % AkkaHttpVersion,
@@ -28,8 +27,7 @@ lazy val `shopping-cart-service-scala` = project
         "com.typesafe.akka" %% "akka-actor-testkit-typed" % AkkaVersion % Test,
         "com.typesafe.akka" %% "akka-stream-testkit" % AkkaVersion % Test,
         "com.lightbend.akka" %% "akka-projection-testkit" % AkkaProjectionVersion % Test,
-        "org.scalatest" %% "scalatest" % "3.1.0" % Test,
-        "commons-io" % "commons-io" % "2.4" % Test),
+        "org.scalatest" %% "scalatest" % "3.1.0" % Test),
     //end::libraryDependencies[]
     fork in run := false,
     Global / cancelable := false, // ctrl-c
