@@ -23,10 +23,10 @@ link:https://www.youtube.com/watch?v=6ECsFlNNIAM[Watch on YouTube ,role=yt-widge
 
 This example project uses
 
-- link:https://doc.akka.io/docs/akka/current/typed/cluster-sharding.html[Akka Cluster Sharding]
-- link:https://doc.akka.io/docs/akka-persistence-cassandra/current/[Akka Persistence Cassandra]
-- link:https://doc.akka.io/docs/akka-projection/current/[Akka Projection]
-- link:https://doc.akka.io/docs/akka-http/current/[Akka HTTP]
+- link:{akka}/typed/cluster-sharding.html[Akka Cluster Sharding]
+- link:{akka-persistence-cassandra}/[Akka Persistence Cassandra]
+- link:{akka-projection}/[Akka Projection]
+- link:{akka-http}[Akka HTTP]
 
 The exact dependencies are shown below:
 
@@ -37,14 +37,6 @@ sbt::
 [source,scala]
 ----
 include::example$akka-sample-cqrs-scala/build.sbt[tag=libraryDependencies]
-----
---
-Maven::
-+
---
-[source,xml]
-----
-include::example$akka-sample-cqrs-java/pom.xml[tag=dependencies]
 ----
 --
 
