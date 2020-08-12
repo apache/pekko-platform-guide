@@ -1,0 +1,16 @@
+*#
+*.log
+*.orig
+*.jfr
+*.iml
+*.ipr
+*.iws
+*.pyc
+*.tm.epoch
+*.vim
+.DS_Store
+.cache
+.classpath
+.history
+.idea
+logs

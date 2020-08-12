@@ -1,0 +1,5 @@
+name: "" # root
+version: "snapshot"
+title: Akka Samples
+nav:
+- modules/ROOT/nav.adoc

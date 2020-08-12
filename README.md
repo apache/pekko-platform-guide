@@ -1,41 +1,69 @@
 Akka Microservices
 ==================
 
-Learn more at [akka.io](http://akka.io/).
+Learn more at [akka.io](https://akka.io/).
 
 Reference Documentation
 -----------------------
 
-The reference documentation is available at [doc.akka.io](http://doc.akka.io).
+The reference documentation is available at [doc.akka.io](https://doc.akka.io).
 
-Community
----------
-You can join these groups and chats to discuss and ask Akka related questions:
-
-- Forums: [discuss.akka.io](https://discuss.akka.io)
-- Chat room about *using* Akka: [![gitter: akka/akka](https://img.shields.io/badge/gitter%3A-akka%2Fakka-blue.svg?style=flat-square)](https://gitter.im/akka/akka)
-
-In addition to that, you may enjoy following:
-
-- The [news](http://akka.io/news) section of the page, which is updated whenever a new version is released
-- The [Akka Team Blog](http://blog.akka.io)
-- [@akkateam](https://twitter.com/akkateam) on Twitter
-- Questions tagged [#akka on StackOverflow](http://stackoverflow.com/questions/tagged/akka)
-
-Contributing
+Example code
 ------------
-Contributions are *very* welcome!
 
-If you see an issue that you'd like to see fixed, the best way to make it happen is to help out by submitting a pull request implementing it.
+The example projects used in the documentation are located at
 
-Refer to the [CONTRIBUTING.md](https://github.com/akka/akka/blob/master/CONTRIBUTING.md) file for more details about the workflow,
-and general hints on how to prepare your pull request. You can also ask for clarifications or guidance in GitHub issues directly,
-or in the akka/dev chat if a more real time communication would be of benefit.
+* [Akka Microservices (Event sourcing and CQRS) in Scala](docs-source/docs/modules/cqrs/examples/akka-sample-cqrs-scala)
 
-A chat room is available for all questions related to *developing and contributing* to Akka:
-[![gitter: akka/dev](https://img.shields.io/badge/gitter%3A-akka%2Fdev-blue.svg?style=flat-square)](https://gitter.im/akka/dev)
+
+Antora-based Akka Documentation
+-------------------------------
+
+This folder contains the sources for parts of the [Akka web site](https://akka.io/akka-microservices-samples).
+
+This folder is structured as follows:
+- The root directory contains the `makefile` for the documentation generation process.
+- The structured documentation is located under `docs-source/`.
+
+Contributions to the documentation are welcome and encouraged.
+If you are unfamiliar with the project or with asciidoc, please read the contribution guidelines below.
+
+Contributing to the Akka Documentation
+--------------------------------------
+
+Detailed information about working with the documentation is provided in the [docs-source](docs-source/README.adoc) folder.
+
+Building the Documentation
+--------------------------
+
+This part of the Akka documentation is built using [Antora](https://docs.antora.org/antora/2.1/), from asciidoc sources.
+The building process is managed by `make` using the [makefile](./makefile) script.
+
+
+To build the documentation, use `make` with the following commands:
+
+* `make html-author-mode` 
+
+    Generates the documentation, in 'author' mode, to display review comments and TODOs. The result is available at `target/staging/index.html`.
+
+* `make all` (default) 
+
+    Generates the complete documentation bundle.
+
+* `make html`
+
+    Generates the html documentation and homepage. 
+
+* `make check-links`
+
+    Checks that the external links point to a reachable URL.
+
+* `make list-todos`
+
+    List all the TODOs, review comments, unresolve references, etc. from the documentation.
 
 License
 -------
 
 Akka is Open Source and available under the Apache 2 License.
+

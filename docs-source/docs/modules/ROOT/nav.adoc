@@ -1,0 +1,7 @@
+include::partial$include.adoc[]
+.Akka Samples
+
+* xref:index.adoc[Overview]
+
+* xref:cqrs:index.adoc[CQRS Sample]
+** xref:cqrs:server.adoc[Server]

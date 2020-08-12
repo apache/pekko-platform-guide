@@ -1,0 +1,17 @@
+= Akka Samples
+:toc:
+:toc-title: ON THIS PAGE
+:toclevels: 2
+:description: Examples projects to illustrate features of Akka
+
+include::ROOT:partial$include.adoc[]
+
+:imagesdir: assets/images
+
+
+xref:cqrs:index.adoc[Event sourcing and CQRS example]
+
+This example illustrates how Akka Persistence enables Event sourcing and how Akka Projection simplifies CQRS for the event-sourced entities.
+
+
+**This documentation was last published: {localdate}**
