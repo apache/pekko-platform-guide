@@ -61,7 +61,7 @@ class ProjectionSpec
 
       val eventProbe = createTestProbe[ShoppingCart.Event]()
       system.eventStream ! EventStream.Subscribe(eventProbe.ref)
-      projectionTestKit.run(Guardian.createProjectionFor(system, settings, 0)) {
+      projectionTestKit.run(EventProcessor.createProjectionFor(system, settings, 0)) {
         val added = eventProbe.expectMessageType[ShoppingCart.ItemAdded]
         added.cartId should ===("cart-1")
         added.itemId should ===("25")

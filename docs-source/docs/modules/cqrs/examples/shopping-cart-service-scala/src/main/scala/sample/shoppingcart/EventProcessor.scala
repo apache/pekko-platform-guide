@@ -1,17 +1,18 @@
 package sample.shoppingcart
 
 import akka.actor.typed.ActorSystem
-import akka.cluster.sharding.typed.{ClusterShardingSettings, ShardedDaemonProcessSettings}
+import akka.cluster.sharding.typed.ClusterShardingSettings
+import akka.cluster.sharding.typed.ShardedDaemonProcessSettings
 import akka.cluster.sharding.typed.scaladsl.ShardedDaemonProcess
 import akka.persistence.cassandra.query.scaladsl.CassandraReadJournal
 import akka.persistence.query.Offset
-import akka.projection.{ProjectionBehavior, ProjectionId}
+import akka.projection.ProjectionBehavior
+import akka.projection.ProjectionId
 import akka.projection.cassandra.scaladsl.CassandraProjection
 import akka.projection.eventsourced.EventEnvelope
 import akka.projection.eventsourced.scaladsl.EventSourcedProvider
-import akka.projection.scaladsl.{AtLeastOnceProjection, SourceProvider}
-
-import akka.actor.typed.ActorSystem
+import akka.projection.scaladsl.AtLeastOnceProjection
+import akka.projection.scaladsl.SourceProvider
 import com.typesafe.config.Config
 
 object EventProcessorSettings {
@@ -32,9 +33,9 @@ final case class EventProcessorSettings(tagPrefix: String, parallelism: Int)
 object EventProcessor {
 
   def createProjectionFor(
-                           system: ActorSystem[_],
-                           settings: EventProcessorSettings,
-                           index: Int): AtLeastOnceProjection[Offset, EventEnvelope[ShoppingCart.Event]] = {
+      system: ActorSystem[_],
+      settings: EventProcessorSettings,
+      index: Int): AtLeastOnceProjection[Offset, EventEnvelope[ShoppingCart.Event]] = {
     val tag = s"${settings.tagPrefix}-$index"
     // tag::projection[]
     val sourceProvider: SourceProvider[Offset, EventEnvelope[ShoppingCart.Event]] =
@@ -50,7 +51,7 @@ object EventProcessor {
     // end::projection[]
   }
 
-  def apply(system: ActorSystem[_], settings: EventProcessorSettings): Unit = {
+  def init(system: ActorSystem[_], settings: EventProcessorSettings): Unit = {
     // we only want to run the daemon processes on the read-model nodes
     val shardingSettings = ClusterShardingSettings(system)
     val shardedDaemonProcessSettings =
