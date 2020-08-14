@@ -1,7 +1,7 @@
 val AkkaVersion = "2.6.8"
 val AkkaPersistenceCassandraVersion = "1.0.1"
 val AkkaHttpVersion = "10.2.0"
-val AkkaProjectionVersion = "0.3"
+val AkkaProjectionVersion = "1.0.0-RC1"
 
 enablePlugins(AkkaGrpcPlugin)
 
