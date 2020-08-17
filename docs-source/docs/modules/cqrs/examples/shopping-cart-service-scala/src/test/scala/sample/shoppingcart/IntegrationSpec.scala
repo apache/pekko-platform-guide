@@ -183,7 +183,20 @@ class IntegrationSpec
       updatedCart3.items.head.quantity should ===(18)
 
       eventProbe3.expectMessage(ShoppingCart.ItemAdded("cart-2", "bar", 17))
-      eventProbe3.expectMessage(ShoppingCart.ItemQuantityAdjusted("cart-2", "bar", 18))
+      eventProbe3.expectMessage(ShoppingCart.ItemQuantityAdjusted("cart-2", "bar", 18, 17))
+
+      // ItemPopularityProjection has consumed the events and updated db
+      eventually {
+        client1
+          .getItemPopularity(proto.GetItemPopularityRequest(itemId = "foo"))
+          .futureValue
+          .popularityCount should ===(42)
+
+        client1
+          .getItemPopularity(proto.GetItemPopularityRequest(itemId = "bar"))
+          .futureValue
+          .popularityCount should ===(18)
+      }
     }
 
     "continue event processing from offset" in {
@@ -210,6 +223,14 @@ class IntegrationSpec
       // note that node4 is new, but continues reading from previous offset, i.e. not receiving events
       // that have already been consumed
       eventProbe4.expectMessage(ShoppingCart.ItemAdded("cart-3", "abc", 43))
+
+      // ItemPopularityProjection has consumed the events and updated db
+      eventually {
+        client1
+          .getItemPopularity(proto.GetItemPopularityRequest(itemId = "abc"))
+          .futureValue
+          .popularityCount should ===(43)
+      }
     }
 
   }

@@ -15,7 +15,7 @@ Events from the shopping carts are tagged and consumed by the read model.
 
 ## Read model
 
-The read model is implemented in such a way that 'load' is sharded over a number of processors. This number is `event-processor.parallelism`.
+The read model is implemented in such a way that 'load' is sharded over a number of processors.
 This is implemented using [Akka Projections](https://doc.akka.io/docs/akka-projection/current) which is then running on top of
  [Sharded Daemon Process](https://doc.akka.io/docs/akka/current/typed/cluster-sharded-daemon-process.html).
 
@@ -57,6 +57,9 @@ grpcurl -d '{"cartId":"cart1", "itemId":"socks", "quantity":5}' -plaintext 127.0
 
 # check out cart
 grpcurl -d '{"cartId":"cart1"}' -plaintext 127.0.0.1:8051 shoppingcart.ShoppingCartService.Checkout
+
+# get item popularity
+grpcurl -d '{"itemId":"socks"}' -plaintext 127.0.0.1:8051 shoppingcart.ShoppingCartService.GetItemPopularity
 ```
 
 or same `curl` commands to port 8052.
