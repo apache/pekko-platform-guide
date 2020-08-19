@@ -18,10 +18,6 @@ Service discovery
 
 link:grpc-services.adoc#_grpc_clients[See gRPC]
 
-== HTTP
-
-link:rest-services.adoc[See REST services]
-
 == Kafka
 
 link:https://github.com/edenhill/kafkacat[kafkacat]
