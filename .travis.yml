@@ -1,0 +1,62 @@
+language: scala
+services:
+  - docker
+
+# make comparing to origin/master work and fetch full history for correct current and previous version detection
+git:
+  depth: 500
+
+before_install:
+  # using jabba for custom jdk management
+  - if [ ! -f ~/.jabba/jabba.sh ]; then curl -L -v --retry 5 -o jabba-install.sh https://raw.githubusercontent.com/shyiko/jabba/0.11.2/install.sh && bash jabba-install.sh; fi
+  - . ~/.jabba/jabba.sh
+  - jabba install ${JDK:=adopt@~1.11-0}
+  - jabba use ${JDK:=adopt@~1.11-0}
+
+# default script for jobs, that do not have any specified
+script:
+  - cd "$DIR"
+  - java -version
+  - sbt -jvm-opts .jvmopts-travis "$CMD"
+
+jobs:
+  include:
+    - stage: check
+      env:
+        DIR="docs-source/docs/modules/cqrs/examples/shopping-analytics-service-scala"
+        CMD="Test/compile; scalafmtCheckAll"
+      name: "Compile and check code style."
+    - env:
+        DIR="docs-source/docs/modules/cqrs/examples/shopping-cart-service-scala"
+        CMD="Test/compile; scalafmtCheckAll"
+      name: "Compile and check code style."
+    - env:
+        DIR="docs-source/docs/modules/cqrs/examples/shopping-order-service-scala"
+        CMD="Test/compile; scalafmtCheckAll"
+      name: "Compile and check code style."
+
+stages:
+  - name: check
+    if: NOT tag =~ ^v
+
+after_failure:
+  - docker-compose logs
+
+before_cache:
+  - find $HOME/.ivy2 -name "ivydata-*.properties" -delete
+  - find $HOME/.sbt -name "*.lock" -delete
+
+cache:
+  directories:
+   - $HOME/.m2
+   - $HOME/.ivy2/cache
+   - $HOME/.sbt/boot
+   - $HOME/.sbt/launchers
+   - $HOME/.cache/coursier
+   - $HOME/.jabba
+
+# safelist
+branches:
+  only:
+    - main
+    - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
