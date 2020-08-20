@@ -17,18 +17,21 @@ lazy val `shopping-cart-service-scala` = project
     //tag::libraryDependencies[]
     libraryDependencies ++= Seq(
         "com.typesafe.akka" %% "akka-cluster-sharding-typed" % AkkaVersion,
+        "com.typesafe.akka" %% "akka-persistence-cassandra" % AkkaPersistenceCassandraVersion,
+        "com.lightbend.akka" %% "akka-projection-eventsourced" % AkkaProjectionVersion,
+        "com.lightbend.akka" %% "akka-projection-cassandra" % AkkaProjectionVersion,
+        "com.typesafe.akka" %% "akka-http" % AkkaHttpVersion,
+        "com.typesafe.akka" %% "akka-http2-support" % AkkaHttpVersion,
+
         "com.typesafe.akka" %% "akka-persistence-typed" % AkkaVersion,
         "com.typesafe.akka" %% "akka-persistence-query" % AkkaVersion,
         "com.typesafe.akka" %% "akka-serialization-jackson" % AkkaVersion,
         "com.typesafe.akka" %% "akka-discovery" % AkkaVersion,
-        "com.typesafe.akka" %% "akka-persistence-cassandra" % AkkaPersistenceCassandraVersion,
-        "com.lightbend.akka" %% "akka-projection-eventsourced" % AkkaProjectionVersion,
-        "com.lightbend.akka" %% "akka-projection-cassandra" % AkkaProjectionVersion,
         "com.typesafe.akka" %% "akka-stream-kafka" % AlpakkaKafkaVersion,
-        "com.typesafe.akka" %% "akka-http" % AkkaHttpVersion,
-        "com.typesafe.akka" %% "akka-http2-support" % AkkaHttpVersion,
         "com.typesafe.akka" %% "akka-slf4j" % AkkaVersion,
+
         "ch.qos.logback" % "logback-classic" % "1.2.3",
+
         "com.typesafe.akka" %% "akka-actor-testkit-typed" % AkkaVersion % Test,
         "com.typesafe.akka" %% "akka-stream-testkit" % AkkaVersion % Test,
         "com.lightbend.akka" %% "akka-projection-testkit" % AkkaProjectionVersion % Test,
