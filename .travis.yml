@@ -21,7 +21,7 @@ script:
 
 jobs:
   include:
-    - stage: check
+    - stage: compile
       env:
         DIR="docs-source/docs/modules/cqrs/examples/shopping-analytics-service-scala"
         CMD="Test/compile; scalafmtCheckAll"
@@ -35,9 +35,16 @@ jobs:
         CMD="Test/compile; scalafmtCheckAll"
       name: "Compile and check code style."
 
+    - stage: site
+      script:
+        - make html-author-mode
+      name: "Run Antora to create site"
+
 stages:
-  - name: check
+  - name: compile
     if: NOT tag =~ ^v
+
+  - name: site
 
 after_failure:
   - docker-compose logs
