@@ -93,9 +93,8 @@ class Guardian(context: ActorContext[Nothing]) extends AbstractBehavior[Nothing]
 
   // can be overridden in tests
   protected def orderServiceClient(system: ActorSystem[_]): ShoppingOrderService = {
-    val orderServiceGrpcPort = system.settings.config.getInt("shopping-order.grpc.port")
     val orderServiceClientSettings =
-      GrpcClientSettings.connectToServiceAt("127.0.0.1", orderServiceGrpcPort)(system).withTls(false)
+      GrpcClientSettings.usingServiceDiscovery("order-service-grpc")(system).withTls(false)
     val orderServiceClient = ShoppingOrderServiceClient(orderServiceClientSettings)(system)
     orderServiceClient
   }
