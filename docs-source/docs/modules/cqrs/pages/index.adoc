@@ -34,7 +34,7 @@ This example project uses
 - link:{akka}/typed/cluster-sharding.html[Akka Cluster Sharding]
 - link:{akka-persistence-cassandra}/[Akka Persistence Cassandra]
 - link:{akka-projection}/[Akka Projection]
-- link:{akka-http}/[Akka HTTP]
+- link:{akka-grpc}/[Akka gRPC]
 
 The exact dependencies are shown below:
 
@@ -45,6 +45,16 @@ sbt::
 [source,scala]
 ----
 include::example$shopping-cart-service-scala/build.sbt[tag=libraryDependencies]
+----
+--
+
+[.tabset]
+sbt::
++
+--
+[source,scala]
+----
+include::example$shopping-cart-service-scala/project/plugins.sbt[tag=libraryDependencies]
 ----
 --
 
