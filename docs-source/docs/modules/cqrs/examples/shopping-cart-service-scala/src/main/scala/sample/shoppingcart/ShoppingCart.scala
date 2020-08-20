@@ -142,7 +142,7 @@ object ShoppingCart {
       val n = math.abs(entityContext.entityId.hashCode % projectionParallelism)
       val projectionTag = s"${ShoppingCart.TagPrefix}-$n"
       ShoppingCart(entityContext.entityId, Set(projectionTag))
-    }.withRole("write-model"))
+    })
   }
 
   def apply(cartId: String, tags: Set[String]): Behavior[Command] = {

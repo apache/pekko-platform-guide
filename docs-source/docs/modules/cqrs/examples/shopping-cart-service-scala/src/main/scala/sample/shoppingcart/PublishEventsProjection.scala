@@ -2,7 +2,6 @@ package sample.shoppingcart
 
 import akka.actor.CoordinatedShutdown
 import akka.actor.typed.ActorSystem
-import akka.cluster.sharding.typed.ClusterShardingSettings
 import akka.cluster.sharding.typed.ShardedDaemonProcessSettings
 import akka.cluster.sharding.typed.scaladsl.ShardedDaemonProcess
 import akka.kafka.ProducerSettings
@@ -52,16 +51,11 @@ object PublishEventsProjection {
         sendProducer.close()
     }
 
-    // we only want to run the daemon processes on the read-model nodes
-    val shardingSettings = ClusterShardingSettings(system)
-    val shardedDaemonProcessSettings =
-      ShardedDaemonProcessSettings(system).withShardingSettings(shardingSettings.withRole("read-model"))
-
     ShardedDaemonProcess(system).init(
       name = "PublishEventsProjection",
       projectionParallelism,
       index => ProjectionBehavior(createProjectionFor(system, topic, sendProducer, index)),
-      shardedDaemonProcessSettings,
+      ShardedDaemonProcessSettings(system),
       Some(ProjectionBehavior.Stop))
   }
 

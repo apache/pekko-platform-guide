@@ -8,7 +8,6 @@ import akka.actor.typed.Behavior
 import akka.actor.typed.scaladsl.AbstractBehavior
 import akka.actor.typed.scaladsl.ActorContext
 import akka.actor.typed.scaladsl.Behaviors
-import akka.cluster.typed.Cluster
 import akka.grpc.GrpcClientSettings
 import akka.projection.cassandra.scaladsl.CassandraProjection
 import akka.stream.alpakka.cassandra.scaladsl.CassandraSessionRegistry
@@ -37,7 +36,7 @@ object Main {
     val system =
       ActorSystem[Nothing](Guardian(), "Shopping", config(port, grpcPort))
 
-    if (Cluster(system).selfMember.hasRole("read-model"))
+    if (port == 2551)
       createTables(system)
   }
 
@@ -84,14 +83,12 @@ class Guardian(context: ActorContext[Nothing]) extends AbstractBehavior[Nothing]
   val itemPopularityRepository =
     new ItemPopularityRepositoryImpl(session, itemPopularityKeyspace)(system.executionContext)
 
-  if (Cluster(system).selfMember.hasRole("read-model")) {
-    PublishEventsProjection.init(system, projectionParallelism)
+  PublishEventsProjection.init(system, projectionParallelism)
 
-    ItemPopularityProjection.init(system, itemPopularityRepository, projectionParallelism)
+  ItemPopularityProjection.init(system, itemPopularityRepository, projectionParallelism)
 
-    val orderService = orderServiceClient(system)
-    SendOrderProjection.init(system, projectionParallelism, orderService)
-  }
+  val orderService = orderServiceClient(system)
+  SendOrderProjection.init(system, projectionParallelism, orderService)
 
   // can be overridden in tests
   protected def orderServiceClient(system: ActorSystem[_]): ShoppingOrderService = {

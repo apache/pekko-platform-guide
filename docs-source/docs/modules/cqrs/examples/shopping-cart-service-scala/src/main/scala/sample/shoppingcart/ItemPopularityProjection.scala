@@ -1,7 +1,6 @@
 package sample.shoppingcart
 
 import akka.actor.typed.ActorSystem
-import akka.cluster.sharding.typed.ClusterShardingSettings
 import akka.cluster.sharding.typed.ShardedDaemonProcessSettings
 import akka.cluster.sharding.typed.scaladsl.ShardedDaemonProcess
 import akka.persistence.cassandra.query.scaladsl.CassandraReadJournal
@@ -35,16 +34,11 @@ object ItemPopularityProjection {
   }
 
   def init(system: ActorSystem[_], repository: ItemPopularityRepository, projectionParallelism: Int): Unit = {
-    // we only want to run the daemon processes on the read-model nodes
-    val shardingSettings = ClusterShardingSettings(system)
-    val shardedDaemonProcessSettings =
-      ShardedDaemonProcessSettings(system).withShardingSettings(shardingSettings.withRole("read-model"))
-
     ShardedDaemonProcess(system).init(
       name = "ItemPopularityProjection",
       projectionParallelism,
       index => ProjectionBehavior(createProjectionFor(system, repository, index)),
-      shardedDaemonProcessSettings,
+      ShardedDaemonProcessSettings(system),
       Some(ProjectionBehavior.Stop))
   }
 

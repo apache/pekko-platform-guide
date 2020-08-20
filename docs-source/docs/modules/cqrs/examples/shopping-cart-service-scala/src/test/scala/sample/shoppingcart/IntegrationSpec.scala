@@ -45,6 +45,7 @@ object IntegrationSpec {
     .parseString(s"""
       akka.cluster {
          seed-nodes = []
+         jmx.multi-mbeans-in-same-jvm = on
       }
 
       akka.persistence.cassandra {
@@ -82,15 +83,14 @@ object IntegrationSpec {
     """)
     .withFallback(ConfigFactory.load())
 
-  private def nodeConfig(role: String, grpcPort: Int): Config =
+  private def nodeConfig(grpcPort: Int): Config =
     ConfigFactory.parseString(s"""
-      akka.cluster.roles = [$role]
       shopping-cart.grpc.port = $grpcPort
       """)
 
-  class TestNodeFixture(role: String, grpcPort: Int) {
+  class TestNodeFixture(grpcPort: Int) {
     val testKit =
-      ActorTestKit("IntegrationSpec", nodeConfig(role, grpcPort).withFallback(IntegrationSpec.config))
+      ActorTestKit("IntegrationSpec", nodeConfig(grpcPort).withFallback(IntegrationSpec.config))
 
     def system: ActorSystem[_] = testKit.system
 
@@ -99,24 +99,6 @@ object IntegrationSpec {
     lazy val client: proto.ShoppingCartService =
       proto.ShoppingCartServiceClient(clientSettings)(testKit.system)
 
-    // stub of the ShoppingOrderService
-    val orderServiceProbe = testKit.createTestProbe[OrderRequest]()
-    private val orderService: ShoppingOrderService = new ShoppingOrderService {
-      override def order(in: OrderRequest): Future[OrderResponse] = {
-        orderServiceProbe.ref ! in
-        Future.successful(OrderResponse(ok = true))
-      }
-    }
-
-    def guardian(): Behavior[Nothing] = {
-      Behaviors.setup[Nothing] { context =>
-        new Guardian(context) {
-          override protected def orderServiceClient(system: ActorSystem[_]): ShoppingOrderService = {
-            orderService
-          }
-        }
-      }
-    }
   }
 }
 
@@ -135,14 +117,32 @@ class IntegrationSpec
   private val grpcPorts = SocketUtil.temporaryServerAddresses(4, "127.0.0.1").map(_.getPort)
 
   // one TestKit (ActorSystem) per cluster node
-  private val testNode1 = new TestNodeFixture("write-model", grpcPorts(0))
-  private val testNode2 = new TestNodeFixture("write-model", grpcPorts(1))
-  private val testNode3 = new TestNodeFixture("read-model", grpcPorts(2))
-  private val testNode4 = new TestNodeFixture("read-model", grpcPorts(3))
+  private val testNode1 = new TestNodeFixture(grpcPorts(0))
+  private val testNode2 = new TestNodeFixture(grpcPorts(1))
+  private val testNode3 = new TestNodeFixture(grpcPorts(2))
 
   private val systems3 = List(testNode1, testNode2, testNode3).map(_.testKit.system)
 
   private val kafkaTopicProbe = testNode1.testKit.createTestProbe[Any]()
+
+  // stub of the ShoppingOrderService
+  private val orderServiceProbe = testNode1.testKit.createTestProbe[OrderRequest]()
+  private val testOrderService: ShoppingOrderService = new ShoppingOrderService {
+    override def order(in: OrderRequest): Future[OrderResponse] = {
+      orderServiceProbe.ref ! in
+      Future.successful(OrderResponse(ok = true))
+    }
+  }
+
+  def guardian(): Behavior[Nothing] = {
+    Behaviors.setup[Nothing] { context =>
+      new Guardian(context) {
+        override protected def orderServiceClient(system: ActorSystem[_]): ShoppingOrderService = {
+          testOrderService
+        }
+      }
+    }
+  }
 
   override protected def beforeAll(): Unit = {
     // avoid concurrent creation of keyspace and tables
@@ -205,18 +205,16 @@ class IntegrationSpec
   override protected def afterAll(): Unit = {
     super.afterAll()
 
-    testNode1.testKit.shutdownTestKit()
-    testNode2.testKit.shutdownTestKit()
     testNode3.testKit.shutdownTestKit()
-    testNode4.testKit.shutdownTestKit()
+    testNode2.testKit.shutdownTestKit()
+    testNode1.testKit.shutdownTestKit()
   }
 
   "Shopping Cart application" should {
     "init and join Cluster" in {
-      testNode1.testKit.spawn[Nothing](testNode1.guardian(), "guardian")
-      testNode2.testKit.spawn[Nothing](testNode2.guardian(), "guardian")
-      testNode3.testKit.spawn[Nothing](testNode3.guardian(), "guardian")
-      // node4 is initialized and joining later
+      testNode1.testKit.spawn[Nothing](guardian(), "guardian")
+      testNode2.testKit.spawn[Nothing](guardian(), "guardian")
+      testNode3.testKit.spawn[Nothing](guardian(), "guardian")
 
       systems3.foreach { sys =>
         Cluster(sys).manager ! Join(Cluster(testNode1.system).selfMember.address)
@@ -281,48 +279,13 @@ class IntegrationSpec
       val response4 = testNode2.client.checkout(proto.CheckoutRequest(cartId = "cart-2"))
       response4.futureValue.checkedOut should ===(true)
 
-      val orderRequest = testNode3.orderServiceProbe.expectMessageType[OrderRequest]
+      val orderRequest = orderServiceProbe.expectMessageType[OrderRequest]
       orderRequest.cartId should ===("cart-2")
       orderRequest.items.head.itemId should ===("bar")
       orderRequest.items.head.quantity should ===(18)
 
       val published4 = kafkaTopicProbe.expectMessageType[proto.CheckedOut]
       published4.cartId should ===("cart-2")
-    }
-
-    "continue event processing from offset" in {
-      // give it time to write the offset before shutting down
-      Thread.sleep(1000)
-      testNode3.testKit.shutdownTestKit()
-
-      testNode4.testKit.spawn[Nothing](Guardian(), "guardian")
-
-      Cluster(testNode4.system).manager ! Join(Cluster(testNode1.system).selfMember.address)
-
-      // let the node join and become Up
-      eventually(PatienceConfiguration.Timeout(10.seconds)) {
-        Cluster(testNode4.system).selfMember.status should ===(MemberStatus.Up)
-      }
-
-      // update from client1, consume event on node4
-      val response1 = testNode1.client.addItem(proto.AddItemRequest(cartId = "cart-3", itemId = "abc", quantity = 43))
-      response1.futureValue.items.head.itemId should ===("abc")
-
-      // note that node4 is new, but continues reading from previous offset, i.e. not receiving events
-      // that have already been consumed
-
-      // ItemPopularityProjection has consumed the events and updated db
-      eventually {
-        testNode1.client
-          .getItemPopularity(proto.GetItemPopularityRequest(itemId = "abc"))
-          .futureValue
-          .popularityCount should ===(43)
-      }
-
-      val published1 = kafkaTopicProbe.expectMessageType[proto.ItemAdded]
-      published1.cartId should ===("cart-3")
-      published1.itemId should ===("abc")
-      published1.quantity should ===(43)
     }
 
   }

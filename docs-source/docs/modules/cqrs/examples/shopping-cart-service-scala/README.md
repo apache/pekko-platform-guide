@@ -24,23 +24,23 @@ This is implemented using [Akka Projections](https://doc.akka.io/docs/akka-proje
 
 1. Start a local Cassandra server on default port 9042
 
-2. Start a node that runs the write model:
+2. Start a node on port 2551:
 
 ```
-sbt -Dakka.cluster.roles.0=write-model "runMain sample.shoppingcart.Main 2551"
+sbt "runMain sample.shoppingcart.Main 2551"
 ```
 
-3. Start a node that runs the read model:
+3. (Optional) Start another node on port 2552:
 
 ```
-sbt -Dakka.cluster.roles.0=read-model "runMain sample.shoppingcart.Main 2552"
+sbt "runMain sample.shoppingcart.Main 2552"
 ```
 
-4. More write or read nodes can be started started by defining roles and port:
+4. (Optional) More can be started started by defining different ports:
 
 ```
-sbt -Dakka.cluster.roles.0=write-model "runMain sample.shoppingcart.Main 2553"
-sbt -Dakka.cluster.roles.0=read-model "runMain sample.shoppingcart.Main 2554"
+sbt "runMain sample.shoppingcart.Main 2553"
+sbt "runMain sample.shoppingcart.Main 2554"
 ```
 
 Try it with [grpcurl](https://github.com/fullstorydev/grpcurl):
