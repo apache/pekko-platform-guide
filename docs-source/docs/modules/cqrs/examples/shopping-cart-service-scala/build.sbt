@@ -33,6 +33,7 @@ lazy val `shopping-cart-service-scala` = project
         "ch.qos.logback" % "logback-classic" % "1.2.3",
 
         "com.typesafe.akka" %% "akka-actor-testkit-typed" % AkkaVersion % Test,
+        "com.typesafe.akka" %% "akka-persistence-testkit" % AkkaVersion % Test,
         "com.typesafe.akka" %% "akka-stream-testkit" % AkkaVersion % Test,
         "com.lightbend.akka" %% "akka-projection-testkit" % AkkaProjectionVersion % Test,
         "org.scalatest" %% "scalatest" % "3.1.0" % Test),

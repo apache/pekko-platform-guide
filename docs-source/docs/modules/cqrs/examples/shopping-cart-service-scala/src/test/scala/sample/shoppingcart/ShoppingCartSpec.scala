@@ -1,87 +1,97 @@
 package sample.shoppingcart
 
-import java.util.UUID
-
 import akka.actor.testkit.typed.scaladsl.ScalaTestWithActorTestKit
 import akka.pattern.StatusReply
+import akka.persistence.testkit.scaladsl.EventSourcedBehaviorTestKit
+import com.typesafe.config.ConfigFactory
+import org.scalatest.BeforeAndAfterEach
 import org.scalatest.wordspec.AnyWordSpecLike
 
-class ShoppingCartSpec
-    extends ScalaTestWithActorTestKit(s"""
-      akka.persistence.journal.plugin = "akka.persistence.journal.inmem"
-      akka.persistence.snapshot-store.plugin = "akka.persistence.snapshot-store.local"
-      akka.persistence.snapshot-store.local.dir = "target/snapshot-${UUID.randomUUID().toString}"
-    """)
-    with AnyWordSpecLike {
+object ShoppingCartSpec {
+  val config = ConfigFactory
+    .parseString("""
+      akka.actor.serialization-bindings {
+        "sample.shoppingcart.CborSerializable" = jackson-cbor
+      }
+      """)
+    .withFallback(EventSourcedBehaviorTestKit.config)
+}
 
-  private var counter = 0
-  def newCartId(): String = {
-    counter += 1
-    s"cart-$counter"
+class ShoppingCartSpec
+    extends ScalaTestWithActorTestKit(ShoppingCartSpec.config)
+    with AnyWordSpecLike
+    with BeforeAndAfterEach {
+
+  private val cartId = "testCart"
+  private val eventSourcedTestKit =
+    EventSourcedBehaviorTestKit[ShoppingCart.Command, ShoppingCart.Event, ShoppingCart.State](
+      system,
+      ShoppingCart(cartId, Set.empty))
+
+  override protected def beforeEach(): Unit = {
+    super.beforeEach()
+    eventSourcedTestKit.clear()
   }
 
   "The Shopping Cart" should {
 
     "add item" in {
-      val cart = testKit.spawn(ShoppingCart(newCartId(), Set.empty))
-      val probe = testKit.createTestProbe[StatusReply[ShoppingCart.Summary]]()
-      cart ! ShoppingCart.AddItem("foo", 42, probe.ref)
-      probe.expectMessage(StatusReply.Success(ShoppingCart.Summary(Map("foo" -> 42), checkedOut = false)))
+      val result1 = eventSourcedTestKit.runCommand[StatusReply[ShoppingCart.Summary]](replyTo =>
+        ShoppingCart.AddItem("foo", 42, replyTo))
+      result1.reply should ===(StatusReply.Success(ShoppingCart.Summary(Map("foo" -> 42), checkedOut = false)))
+      result1.event should ===(ShoppingCart.ItemAdded(cartId, "foo", 42))
     }
 
     "reject already added item" in {
-      val cart = testKit.spawn(ShoppingCart(newCartId(), Set.empty))
-      val probe = testKit.createTestProbe[StatusReply[ShoppingCart.Summary]]()
-      cart ! ShoppingCart.AddItem("foo", 42, probe.ref)
-      probe.receiveMessage().isSuccess should ===(true)
-      cart ! ShoppingCart.AddItem("foo", 13, probe.ref)
-      probe.receiveMessage().isError should ===(true)
+      val result1 =
+        eventSourcedTestKit.runCommand[StatusReply[ShoppingCart.Summary]](ShoppingCart.AddItem("foo", 42, _))
+      result1.reply.isSuccess should ===(true)
+      val result2 =
+        eventSourcedTestKit.runCommand[StatusReply[ShoppingCart.Summary]](ShoppingCart.AddItem("foo", 13, _))
+      result2.reply.isError should ===(true)
     }
 
     "remove item" in {
-      val cart = testKit.spawn(ShoppingCart(newCartId(), Set.empty))
-      val probe = testKit.createTestProbe[StatusReply[ShoppingCart.Summary]]()
-      cart ! ShoppingCart.AddItem("foo", 42, probe.ref)
-      probe.receiveMessage().isSuccess should ===(true)
-      cart ! ShoppingCart.RemoveItem("foo", probe.ref)
-      probe.expectMessage(StatusReply.Success(ShoppingCart.Summary(Map.empty, checkedOut = false)))
+      val result1 =
+        eventSourcedTestKit.runCommand[StatusReply[ShoppingCart.Summary]](ShoppingCart.AddItem("foo", 42, _))
+      result1.reply.isSuccess should ===(true)
+      val result2 = eventSourcedTestKit.runCommand[StatusReply[ShoppingCart.Summary]](ShoppingCart.RemoveItem("foo", _))
+      result2.reply should ===(StatusReply.Success(ShoppingCart.Summary(Map.empty, checkedOut = false)))
+      result2.event should ===(ShoppingCart.ItemRemoved(cartId, "foo", 42))
     }
 
     "adjust quantity" in {
-      val cart = testKit.spawn(ShoppingCart(newCartId(), Set.empty))
-      val probe = testKit.createTestProbe[StatusReply[ShoppingCart.Summary]]()
-      cart ! ShoppingCart.AddItem("foo", 42, probe.ref)
-      probe.receiveMessage().isSuccess should ===(true)
-      cart ! ShoppingCart.AdjustItemQuantity("foo", 43, probe.ref)
-      probe.expectMessage(StatusReply.Success(ShoppingCart.Summary(Map("foo" -> 43), checkedOut = false)))
+      val result1 =
+        eventSourcedTestKit.runCommand[StatusReply[ShoppingCart.Summary]](ShoppingCart.AddItem("foo", 42, _))
+      result1.reply.isSuccess should ===(true)
+      val result2 =
+        eventSourcedTestKit.runCommand[StatusReply[ShoppingCart.Summary]](ShoppingCart.AdjustItemQuantity("foo", 43, _))
+      result2.reply should ===(StatusReply.Success(ShoppingCart.Summary(Map("foo" -> 43), checkedOut = false)))
+      result2.event should ===(ShoppingCart.ItemQuantityAdjusted(cartId, "foo", 43, 42))
     }
 
     "checkout" in {
-      val cart = testKit.spawn(ShoppingCart(newCartId(), Set.empty))
-      val probe = testKit.createTestProbe[StatusReply[ShoppingCart.Summary]]()
-      cart ! ShoppingCart.AddItem("foo", 42, probe.ref)
-      probe.receiveMessage().isSuccess should ===(true)
-      cart ! ShoppingCart.Checkout(probe.ref)
-      probe.expectMessage(StatusReply.Success(ShoppingCart.Summary(Map("foo" -> 42), checkedOut = true)))
+      val result1 =
+        eventSourcedTestKit.runCommand[StatusReply[ShoppingCart.Summary]](ShoppingCart.AddItem("foo", 42, _))
+      result1.reply.isSuccess should ===(true)
+      val result2 = eventSourcedTestKit.runCommand[StatusReply[ShoppingCart.Summary]](ShoppingCart.Checkout(_))
+      result2.reply should ===(StatusReply.Success(ShoppingCart.Summary(Map("foo" -> 42), checkedOut = true)))
+      result2.event.asInstanceOf[ShoppingCart.CheckedOut].cartId should ===(cartId)
 
-      cart ! ShoppingCart.AddItem("bar", 13, probe.ref)
-      probe.receiveMessage().isError should ===(true)
+      val result3 =
+        eventSourcedTestKit.runCommand[StatusReply[ShoppingCart.Summary]](ShoppingCart.AddItem("bar", 13, _))
+      result3.reply.isError should ===(true)
     }
 
     "keep its state" in {
-      val cartId = newCartId()
-      val cart = testKit.spawn(ShoppingCart(cartId, Set.empty))
-      val probe = testKit.createTestProbe[StatusReply[ShoppingCart.Summary]]()
-      cart ! ShoppingCart.AddItem("foo", 42, probe.ref)
-      probe.expectMessage(StatusReply.Success(ShoppingCart.Summary(Map("foo" -> 42), checkedOut = false)))
+      val result1 =
+        eventSourcedTestKit.runCommand[StatusReply[ShoppingCart.Summary]](ShoppingCart.AddItem("foo", 42, _))
+      result1.reply should ===(StatusReply.Success(ShoppingCart.Summary(Map("foo" -> 42), checkedOut = false)))
 
-      testKit.stop(cart)
+      eventSourcedTestKit.restart()
 
-      // start again with same cartId
-      val restartedCart = testKit.spawn(ShoppingCart(cartId, Set.empty))
-      val stateProbe = testKit.createTestProbe[ShoppingCart.Summary]()
-      restartedCart ! ShoppingCart.Get(stateProbe.ref)
-      stateProbe.expectMessage(ShoppingCart.Summary(Map("foo" -> 42), checkedOut = false))
+      val result2 = eventSourcedTestKit.runCommand[ShoppingCart.Summary](ShoppingCart.Get(_))
+      result2.reply should ===(ShoppingCart.Summary(Map("foo" -> 42), checkedOut = false))
     }
   }
 
