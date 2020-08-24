@@ -7,6 +7,10 @@ include::ROOT:partial$include.adoc[]
 
 In this part we will create the `ShoppingCart` entity that manages the state for each shopping cart. It is using Event Sourcing to persist events that represents changes to the state of the cart. At first it will handle the command to add items to the cart. In next part of the tutorial it will be expanded to handle more commands and events.
 
+.This part of the xref:tutorial/overview.adoc[full example] will focus on the `ShoppingCart` entity.
+[caption=""]
+image::example-entity.png[Example entity]
+
 You will learn how to:
 
 * implement an Event Sourced entity
