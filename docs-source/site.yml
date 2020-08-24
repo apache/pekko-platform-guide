@@ -4,10 +4,10 @@ site:
   
 content:
   sources:
-  - url: git@github.com:akka/akka-mircoservices-samples.git
-    start-paths: 
-      - docs-source/docs
-    branches: [2.6]
+  - url: git@github.com:akka/akka-microservices-samples.git
+    start-paths:
+    - docs-source/docs
+    branches: [main]
 
 ui: 
   bundle:

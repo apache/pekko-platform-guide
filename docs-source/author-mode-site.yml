@@ -1,12 +1,13 @@
 site:
-  title: "Akka Samples Site"
-  url: https://akka.io/akka-samples
+  title: "Akka Platform Guide"
+  url: https://akka.io/akka-platform-guide
   
 content:
   sources:
   - url: ./../
+    start-paths:
+    - docs-source/docs
     branches: [HEAD]
-    start-path: docs-source/docs
 
 
 ui:
