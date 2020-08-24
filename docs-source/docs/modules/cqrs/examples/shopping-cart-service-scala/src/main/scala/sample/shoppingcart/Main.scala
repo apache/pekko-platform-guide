@@ -12,10 +12,12 @@ import sample.shoppingorder.proto.{ ShoppingOrderService, ShoppingOrderServiceCl
 import scala.concurrent.Await
 import scala.concurrent.duration._
 
+// tag::start-grpc[]
 object Main {
 
   def main(args: Array[String]): Unit = {
     val system = ActorSystem[Nothing](Guardian(), "Cart")
+    // end::start-grpc[]
     if (system.settings.config.getBoolean("shopping-cart.create-tables")) {
       createTables(system)
     }
@@ -35,6 +37,7 @@ object Main {
   }
 
 }
+// tag::start-grpc[]
 
 object Guardian {
   def apply(): Behavior[Nothing] = {
@@ -44,6 +47,7 @@ object Guardian {
 
 class Guardian(context: ActorContext[Nothing]) extends AbstractBehavior[Nothing](context) {
   val system = context.system
+// end::start-grpc[]
 
   AkkaManagement(system).start()
 

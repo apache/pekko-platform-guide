@@ -15,8 +15,10 @@ import org.slf4j.LoggerFactory
 import sample.shoppingcart.proto.GetItemPopularityRequest
 import sample.shoppingcart.proto.GetItemPopularityResponse
 
+// tag::addItem[]
 class ShoppingCartServiceImpl(itemPopularityRepository: ItemPopularityRepository)(implicit system: ActorSystem[_])
     extends proto.ShoppingCartService {
+// end::addItem[]
   import system.executionContext
 
   private val logger = LoggerFactory.getLogger(getClass)
@@ -24,6 +26,7 @@ class ShoppingCartServiceImpl(itemPopularityRepository: ItemPopularityRepository
   implicit private val timeout: Timeout =
     Timeout.create(system.settings.config.getDuration("shopping-cart.askTimeout"))
 
+// tag::addItem[]
   private val sharding = ClusterSharding(system)
 
   override def addItem(in: proto.AddItemRequest): Future[proto.Cart] = {
@@ -34,6 +37,7 @@ class ShoppingCartServiceImpl(itemPopularityRepository: ItemPopularityRepository
     val response = reply.map(cart => toProtoCart(cart))
     convertError(response)
   }
+// end::addItem[]
 
   override def updateItem(in: proto.UpdateItemRequest): Future[proto.Cart] = {
     logger.info("updateItem {} to cart {}", in.itemId, in.cartId)
