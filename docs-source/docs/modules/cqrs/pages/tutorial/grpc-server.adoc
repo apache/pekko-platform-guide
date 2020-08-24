@@ -5,7 +5,7 @@
 
 include::ROOT:partial$include.adoc[]
 
-In this part we will create the `ShoppingCartService` with gRPC. At first it will only have one operation to add items to a cart. It will be a dummy implementation that is only logging the calls. In later parts of the tutorial it will be expanded with more operations and real implementations.
+In this part we will create the `ShoppingCartService` with gRPC. At first, it will only have one operation to add items to a cart. It will be a dummy implementation that is only logging the calls. In later parts of the tutorial it will be expanded with more operations and real implementations.
 
 You will learn how to:
 
@@ -15,13 +15,20 @@ You will learn how to:
 * interact with the service from the command line
 * deploy for the first time to the cloud
 
-TODO link to gRPC concepts
+The motivation for using gRPC as inter-service protocol is explained in the link:{akka-grpc}/whygrpc.html[Akka gRPC "Why gRPC?"] documentation.
 
 == Service definition
 
 First you should define the interface of the service in a protobuf service descriptor. It should be located in the `src/main/protobuf/ShoppingCartService.proto`.
 
-TODO proto
+[source,protobuf]
+----
+include::example$shopping-cart-service-scala/src/main/protobuf/ShoppingCartService.proto[]
+----
+
+<1> Defines the requests a client may send to the service in the serivce definition
+<2> Describes the request to add an item to the shopping cart
+<3> For simplicity, most requests share a common response, for easier evolution of an interface, separate responses are often a better choice (See xref:how-to:evolve-grpc-apis.adoc[] for details).
 
 == Generate code
 
@@ -35,7 +42,10 @@ sbt compile
 
 Let's implement the `ShoppingCart` trait. Create a `ShoppingCartServiceImpl` class that extends the generated `ShoppingCartService` trait. Implement the `addItem` method from the trait by logging the call and return a successful `Future`.
 
-TODO ShoppingCartServiceImpl code
+[source,scala]
+----
+include::example$shopping-cart-service-scala/src/main/scala/sample/shoppingcart/ShoppingCartServiceImpl.scala[tag=addItem]
+----
 
 == Server
 
@@ -50,7 +60,13 @@ include::example$shopping-cart-service-scala/src/main/scala/sample/shoppingcart/
 
 To run the service as a Java application we need a class with a `main` method. Add a `Main` class that is initializing the `ActorSystem` and the `ShoppingCartServer` like this:
 
-TODO Main code
+ifdef::todo:[this source is a blend from multiple files:]
+
+[source,scala]
+----
+include::example$shopping-cart-service-scala/src/main/scala/sample/shoppingcart/Main.scala[tag=start-grpc]
+include::example$shopping-cart-service-scala/src/main/scala/sample/shoppingcart/ShoppingCartServer.scala[tag=start-grpc]
+----
 
 == Run
 
@@ -84,6 +100,4 @@ Note the logging from the `ShoppingCartServiceImpl` in the console of the servic
 
 You can stop the service with `ctrl-c`.
 
-== Deploy
-
-TODO deploy to cloud and try it
+ifdef::todo:[== Deploy]
