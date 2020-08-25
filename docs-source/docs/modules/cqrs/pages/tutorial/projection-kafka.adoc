@@ -5,7 +5,7 @@
 
 include::ROOT:partial$include.adoc[]
 
-In this part we will add another Projection from the events of the `ShoppingCart` entity. This Projection publishes the events to a Kafka message broker. We will also add another service, the `ShoppingAnalyticsService` that consumes the events from the Kafka topic.
+In this part, we will add another Projection from the events of the `ShoppingCart` entity. This Projection publishes the events to a Kafka message broker. We will also add another service, the `ShoppingAnalyticsService` that consumes the events from the Kafka topic.
 
 .This part of the xref:tutorial/overview.adoc[full example] will focus on the Kafka producer in the `PublishEventsProjection` and Kafka consumer in `ShoppingAnalyticsService`.
 [caption=""]

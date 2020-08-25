@@ -5,7 +5,7 @@
 
 include::ROOT:partial$include.adoc[]
 
-In this part we will add another Projection from the events of the `ShoppingCart` entity. This Projection calls another service when the shopping carts are checked out. We will also add the other service, the `ShoppingOrderService` that provides the gRPC service that is called.
+In this part, we will add another Projection from the events of the `ShoppingCart` entity. This Projection calls another service when the shopping carts are checked out. We will also add the other service, the `ShoppingOrderService` that provides the gRPC service that is called.
 
 .This part of the xref:tutorial/overview.adoc[full example] will focus on the gRPC client in the `SendOrderProjection` .
 [caption=""]

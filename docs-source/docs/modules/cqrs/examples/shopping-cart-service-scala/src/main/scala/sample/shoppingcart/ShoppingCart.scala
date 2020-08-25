@@ -158,7 +158,7 @@ object ShoppingCart {
         commandHandler = (state, command) =>
           //The shopping cart behavior changes if it's checked out or not.
           // The commands are handled differently for each case.
-          if (state.isCheckedOut) checkedOutShoppingCart(cartId, state, command)
+          if (state.isCheckedOut) checkedOutShoppingCart(cartId, state, command) // <1>
           else openShoppingCart(cartId, state, command),
         // end::commandHandler[]
         // tag::evenHandler[]

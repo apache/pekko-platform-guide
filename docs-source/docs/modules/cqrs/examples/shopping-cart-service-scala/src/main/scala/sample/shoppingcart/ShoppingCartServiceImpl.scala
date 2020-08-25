@@ -39,6 +39,7 @@ class ShoppingCartServiceImpl(itemPopularityRepository: ItemPopularityRepository
   }
 // end::addItem[]
 
+  // tag::moreOperations[]
   override def updateItem(in: proto.UpdateItemRequest): Future[proto.Cart] = {
     logger.info("updateItem {} to cart {}", in.itemId, in.cartId)
     val entityRef = sharding.entityRefFor(ShoppingCart.EntityKey, in.cartId)
@@ -74,6 +75,7 @@ class ShoppingCartServiceImpl(itemPopularityRepository: ItemPopularityRepository
     }
     convertError(response)
   }
+  // end::moreOperations[]
 
   private def toProtoCart(cart: ShoppingCart.Summary): proto.Cart = {
     proto.Cart(
