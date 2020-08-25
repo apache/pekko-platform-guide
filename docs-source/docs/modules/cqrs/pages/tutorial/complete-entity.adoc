@@ -15,6 +15,10 @@ TODO:
 * run locally, try with grpcurl
 * deploy to cloud
 
+.This part of the xref:tutorial/overview.adoc[full example] will focus on the shopping cart entity.
+[caption=""]
+image::example-entity.png[Example entity]
+
 == More commands
 
 Our example handles commands differently whether the shopping cart is checked out or not. This command handler implements the "external" API of our entity.
