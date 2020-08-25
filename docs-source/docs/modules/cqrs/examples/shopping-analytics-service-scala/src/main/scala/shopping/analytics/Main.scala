@@ -1,4 +1,4 @@
-package sample.shoppinganalytics
+package shopping.analytics
 
 import akka.actor.typed.ActorSystem
 import akka.actor.typed.Behavior

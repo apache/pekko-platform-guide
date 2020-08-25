@@ -48,7 +48,7 @@ Let's implement the `ShoppingCart` trait. Create a `ShoppingCartServiceImpl` cla
 
 [source,scala]
 ----
-include::example$shopping-cart-service-scala/src/main/scala/sample/shoppingcart/ShoppingCartServiceImpl.scala[tag=addItem]
+include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/ShoppingCartServiceImpl.scala[tag=addItem]
 ----
 
 == Server
@@ -57,7 +57,7 @@ The service implementation is running by an Akka HTTP server. Add the following 
 
 [source,scala]
 ----
-include::example$shopping-cart-service-scala/src/main/scala/sample/shoppingcart/ShoppingCart.scala[]
+include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/ShoppingCart.scala[]
 ----
 
 == Main
@@ -68,8 +68,8 @@ ifdef::todo:[this source is a blend from multiple files:]
 
 [source,scala]
 ----
-include::example$shopping-cart-service-scala/src/main/scala/sample/shoppingcart/Main.scala[tag=start-grpc]
-include::example$shopping-cart-service-scala/src/main/scala/sample/shoppingcart/ShoppingCartServer.scala[tag=start-grpc]
+include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/Main.scala[tag=start-grpc]
+include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/ShoppingCartServer.scala[tag=start-grpc]
 ----
 
 == Run

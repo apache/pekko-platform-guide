@@ -1,4 +1,4 @@
-package sample.shoppingorder
+package shopping.order
 
 import akka.actor.typed.ActorSystem
 import akka.actor.typed.Behavior

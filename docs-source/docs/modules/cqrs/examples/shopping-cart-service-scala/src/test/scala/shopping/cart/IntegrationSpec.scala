@@ -1,4 +1,4 @@
-package sample.shoppingcart
+package shopping.cart
 
 import java.util.UUID
 
@@ -33,9 +33,9 @@ import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.time.Span
 import org.scalatest.wordspec.AnyWordSpecLike
-import sample.shoppingorder.proto.OrderRequest
-import sample.shoppingorder.proto.OrderResponse
-import sample.shoppingorder.proto.ShoppingOrderService
+import shopping.order.proto.OrderRequest
+import shopping.order.proto.OrderResponse
+import shopping.order.proto.ShoppingOrderService
 
 object IntegrationSpec {
   private val uniqueQualifier = System.currentTimeMillis()

@@ -1,4 +1,4 @@
-package sample.shoppingcart
+package shopping.cart
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future

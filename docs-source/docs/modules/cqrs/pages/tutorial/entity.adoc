@@ -39,7 +39,7 @@ TODO code for EventSourcedBehavior, command and event handlers (only for AddItem
 
 [source,scala]
 ----
-include::example$shopping-cart-service-scala/src/main/scala/sample/shoppingcart/ShoppingCart.scala[tag=openShoppingCart]
+include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/ShoppingCart.scala[tag=openShoppingCart]
 ----
 
 <1> Matching the `AddItem` command
@@ -69,7 +69,7 @@ The template project includes this marker interface `CborSerializable`:
 
 [source,scala]
 ----
-include::example$shopping-cart-service-scala/src/main/scala/sample/shoppingcart/CborSerializable.scala[]
+include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/CborSerializable.scala[]
 ----
 
 The interface is configured in the `application.conf` file to enable CBOR serialization.
@@ -87,7 +87,7 @@ A test for the `AddItem` command looks like this:
 
 [source,scala]
 ----
-include::example$shopping-cart-service-scala/src/test/scala/sample/shoppingcart/ShoppingCartSpec.scala[]
+include::example$shopping-cart-service-scala/src/test/scala/shopping/cart/ShoppingCartSpec.scala[]
 ----
 
 Run the test with:

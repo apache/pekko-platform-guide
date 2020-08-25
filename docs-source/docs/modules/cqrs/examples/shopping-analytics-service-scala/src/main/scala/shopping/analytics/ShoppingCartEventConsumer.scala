@@ -1,4 +1,4 @@
-package sample.shoppinganalytics
+package shopping.analytics
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
@@ -21,7 +21,7 @@ import sample.shoppingcart.proto
 
 object ShoppingCartEventConsumer {
 
-  private val log = LoggerFactory.getLogger("sample.shoppinganalytics.ShoppingCartEventConsumer")
+  private val log = LoggerFactory.getLogger("shopping.analytics.ShoppingCartEventConsumer")
 
   def init(system: ActorSystem[_]): Unit = {
     implicit val sys: ActorSystem[_] = system

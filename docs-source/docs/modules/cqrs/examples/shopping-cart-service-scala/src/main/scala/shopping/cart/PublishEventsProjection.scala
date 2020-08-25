@@ -1,4 +1,4 @@
-package sample.shoppingcart
+package shopping.cart
 
 import akka.actor.CoordinatedShutdown
 import akka.actor.typed.ActorSystem

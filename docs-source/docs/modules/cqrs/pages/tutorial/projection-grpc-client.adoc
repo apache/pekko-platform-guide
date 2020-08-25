@@ -40,21 +40,21 @@ Implement the `ShoppingOrderService` in a new class `ShoppingOrderServiceImpl`:
 
 [source,scala]
 ----
-include::example$shopping-order-service-scala/src/main/scala/sample/shoppingorder/ShoppingOrderServiceImpl.scala[]
+include::example$shopping-order-service-scala/src/main/scala/shopping/order/ShoppingOrderServiceImpl.scala[]
 ----
 
 Similar to the xref:tutorial/grpc-server.adoc[gRPC server for the ShoppingCartService] we need to initialize the gRPC server. Add a `ShoppingOrderServer` object:
 
 [source,scala]
 ----
-include::example$shopping-order-service-scala/src/main/scala/sample/shoppingorder/ShoppingOrderServer.scala[]
+include::example$shopping-order-service-scala/src/main/scala/shopping/order/ShoppingOrderServer.scala[]
 ----
 
 and call the `ShoppingOrderServer.init` from `Main`:
 
 [source,scala]
 ----
-include::example$shopping-order-service-scala/src/main/scala/sample/shoppingorder/Main.scala[]
+include::example$shopping-order-service-scala/src/main/scala/shopping/order/Main.scala[]
 ----
 
 == Call service from Projection
@@ -71,7 +71,7 @@ Add a `SendOrderProjectionHandler` class that is the Projection `Handler` for pr
 
 [source,scala]
 ----
-include::example$shopping-cart-service-scala/src/main/scala/sample/shoppingcart/SendOrderProjectionHandler.scala[]
+include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/SendOrderProjectionHandler.scala[]
 ----
 
 <1> `ShoppingOrderService` is the gRPC client
@@ -92,14 +92,14 @@ Place the initialization code of the Projection in an `SendOrderProjection` obje
 
 [source,scala]
 ----
-include::example$shopping-cart-service-scala/src/main/scala/sample/shoppingcart/SendOrderProjection.scala[]
+include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/SendOrderProjection.scala[]
 ----
 
 In the `Guardian` in `Main.scala` you can invoke the `SendOrderProjection.init` and create the gRPC client for the `ShoppingOrderService` like this:
 
 [source,scala]
 ----
-include::example$shopping-cart-service-scala/src/main/scala/sample/shoppingcart/Main.scala[tag=SendOrderProjection]
+include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/Main.scala[tag=SendOrderProjection]
 ----
 
 The gRPC client is using service discovery to locate the `ShoppingOrderService`. For local development add the following to `src/main/resources/local-shared.conf`, which is loaded when running locally:

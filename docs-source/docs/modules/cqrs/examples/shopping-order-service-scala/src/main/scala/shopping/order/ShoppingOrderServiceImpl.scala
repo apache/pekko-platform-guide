@@ -1,10 +1,10 @@
-package sample.shoppingorder
+package shopping.order
 
 import scala.concurrent.Future
 
 import org.slf4j.LoggerFactory
-import sample.shoppingorder.proto.OrderRequest
-import sample.shoppingorder.proto.OrderResponse
+import shopping.order.proto.OrderRequest
+import shopping.order.proto.OrderResponse
 
 class ShoppingOrderServiceImpl extends proto.ShoppingOrderService {
 

@@ -1,4 +1,4 @@
-package sample.shoppingcart
+package shopping.cart
 
 import java.util.concurrent.TimeoutException
 
@@ -12,8 +12,8 @@ import akka.pattern.StatusReply
 import akka.util.Timeout
 import io.grpc.Status
 import org.slf4j.LoggerFactory
-import sample.shoppingcart.proto.GetItemPopularityRequest
-import sample.shoppingcart.proto.GetItemPopularityResponse
+import shopping.cart.proto.GetItemPopularityRequest
+import shopping.cart.proto.GetItemPopularityResponse
 
 // tag::addItem[]
 class ShoppingCartServiceImpl(itemPopularityRepository: ItemPopularityRepository)(implicit system: ActorSystem[_])

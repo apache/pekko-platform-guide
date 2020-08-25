@@ -1,4 +1,4 @@
-package sample.shoppingcart
+package shopping.cart
 
 import akka.actor.testkit.typed.scaladsl.ScalaTestWithActorTestKit
 import akka.pattern.StatusReply
@@ -11,7 +11,7 @@ object ShoppingCartSpec {
   val config = ConfigFactory
     .parseString("""
       akka.actor.serialization-bindings {
-        "sample.shoppingcart.CborSerializable" = jackson-cbor
+        "shopping.cart.CborSerializable" = jackson-cbor
       }
       """)
     .withFallback(EventSourcedBehaviorTestKit.config)

@@ -36,7 +36,7 @@ When you have completed your code you can compare it with:
 
 [source,scala]
 ----
-include::example$shopping-cart-service-scala/src/main/scala/sample/shoppingcart/ShoppingCart.scala[]
+include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/ShoppingCart.scala[]
 ----
 
 <1> handles commands differently whether the shopping cart is checked out or not
@@ -47,7 +47,7 @@ Add unit tests for the new commands in `ShoppingCartSpec`:
 
 [source,scala]
 ----
-include::example$shopping-cart-service-scala/src/test/scala/sample/shoppingcart/ShoppingCartSpec.scala[]
+include::example$shopping-cart-service-scala/src/test/scala/shopping/cart/ShoppingCartSpec.scala[]
 ----
 
 Run the test with:
@@ -75,7 +75,7 @@ Then you can add implementations of the new operations in `ShoppingCartServiceIm
 
 [source,scala]
 ----
-include::example$shopping-cart-service-scala/src/main/scala/sample/shoppingcart/ShoppingCartServiceImpl.scala[tag=moreOperations]
+include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/ShoppingCartServiceImpl.scala[tag=moreOperations]
 ----
 
 == Run

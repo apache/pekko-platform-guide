@@ -1,4 +1,4 @@
-package sample.shoppingcart
+package shopping.cart
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
@@ -10,9 +10,9 @@ import akka.projection.eventsourced.EventEnvelope
 import akka.projection.scaladsl.Handler
 import akka.util.Timeout
 import org.slf4j.LoggerFactory
-import sample.shoppingorder.proto.Item
-import sample.shoppingorder.proto.OrderRequest
-import sample.shoppingorder.proto.ShoppingOrderService
+import shopping.order.proto.Item
+import shopping.order.proto.OrderRequest
+import shopping.order.proto.ShoppingOrderService
 
 class SendOrderProjectionHandler(system: ActorSystem[_], orderService: ShoppingOrderService) // <1>
     extends Handler[EventEnvelope[ShoppingCart.Event]] {

@@ -43,7 +43,7 @@ Add a `PublishEventsProjectionHandler` class that is the Projection `Handler` fo
 
 [source,scala]
 ----
-include::example$shopping-cart-service-scala/src/main/scala/sample/shoppingcart/PublishEventsProjectionHandler.scala[]
+include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/PublishEventsProjectionHandler.scala[]
 ----
 
 <1> `SendProducer` comes from the Kafka connector in Alpakka.
@@ -60,7 +60,7 @@ Place the initialization code of the Projection in an `PublishEventsProjection` 
 
 [source,scala]
 ----
-include::example$shopping-cart-service-scala/src/main/scala/sample/shoppingcart/PublishEventsProjection.scala[]
+include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/PublishEventsProjection.scala[]
 ----
 
 The `SendProducer` is initialized using some configuration that you need to add. It defines how to connect to the Kafka broker.
@@ -83,7 +83,7 @@ Then you need to call the `PublishEventsProjection.init` from the `Guardian` in 
 
 [source,scala]
 ----
-include::example$shopping-cart-service-scala/src/main/scala/sample/shoppingcart/Main.scala[tag=PublishEventsProjection]
+include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/Main.scala[tag=PublishEventsProjection]
 ----
 
 == Consuming the events
@@ -104,7 +104,7 @@ Create a `ShoppingCartEventConsumer` object that runs an Akka Stream with a Kafk
 
 [source,scala]
 ----
-include::example$shopping-analytics-service-scala/src/main/scala/sample/shoppinganalytics/ShoppingCartEventConsumer.scala[]
+include::example$shopping-analytics-service-scala/src/main/scala/shopping/analytics/ShoppingCartEventConsumer.scala[]
 ----
 
 <1> Kafka Consumer stream.
@@ -121,7 +121,7 @@ To run the new service we also need a `Main` class, which calls the initializati
 
 [source,scala]
 ----
-include::example$shopping-analytics-service-scala/src/main/scala/sample/shoppinganalytics/Main.scala[]
+include::example$shopping-analytics-service-scala/src/main/scala/shopping/analytics/Main.scala[]
 ----
 
 == Run

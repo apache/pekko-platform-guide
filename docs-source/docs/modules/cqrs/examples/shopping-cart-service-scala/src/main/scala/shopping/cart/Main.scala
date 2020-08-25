@@ -1,4 +1,4 @@
-package sample.shoppingcart
+package shopping.cart
 
 import akka.actor.typed.{ ActorSystem, Behavior }
 import akka.actor.typed.scaladsl.{ AbstractBehavior, ActorContext, Behaviors }
@@ -7,7 +7,7 @@ import akka.management.scaladsl.AkkaManagement
 import akka.projection.cassandra.scaladsl.CassandraProjection
 import akka.stream.alpakka.cassandra.scaladsl.CassandraSessionRegistry
 import org.slf4j.LoggerFactory
-import sample.shoppingorder.proto.{ ShoppingOrderService, ShoppingOrderServiceClient }
+import shopping.order.proto.{ ShoppingOrderService, ShoppingOrderServiceClient }
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
@@ -33,7 +33,7 @@ object Main {
     val session = CassandraSessionRegistry(system).sessionFor("akka.projection.cassandra.session-config")
     Await.result(ItemPopularityRepositoryImpl.createItemPopularityTable(session, keyspace), 30.seconds)
 
-    LoggerFactory.getLogger("sample.shoppingcart.Main").info("Created keyspace [{}] and tables", keyspace)
+    LoggerFactory.getLogger("shopping.cart.Main").info("Created keyspace [{}] and tables", keyspace)
   }
 
 }

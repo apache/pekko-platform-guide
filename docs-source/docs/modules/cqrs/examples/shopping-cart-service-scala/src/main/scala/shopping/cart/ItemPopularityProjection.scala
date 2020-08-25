@@ -1,4 +1,4 @@
-package sample.shoppingcart
+package shopping.cart
 
 import akka.actor.typed.ActorSystem
 import akka.cluster.sharding.typed.ShardedDaemonProcessSettings
@@ -12,34 +12,35 @@ import akka.projection.eventsourced.EventEnvelope
 import akka.projection.eventsourced.scaladsl.EventSourcedProvider
 import akka.projection.scaladsl.AtLeastOnceProjection
 import akka.projection.scaladsl.SourceProvider
-import sample.shoppingorder.proto.ShoppingOrderService
 
-object SendOrderProjection {
-
-  def init(system: ActorSystem[_], orderService: ShoppingOrderService): Unit = {
-    ShardedDaemonProcess(system).init(
-      name = "SendOrderProjection",
+object ItemPopularityProjection {
+  def init(system: ActorSystem[_], repository: ItemPopularityRepository): Unit = {
+    ShardedDaemonProcess(system).init( // <1>
+      name = "ItemPopularityProjection",
       ShoppingCart.tags.size,
-      index => ProjectionBehavior(createProjectionFor(system, orderService, index)),
+      index => ProjectionBehavior(createProjectionFor(system, repository, index)),
       ShardedDaemonProcessSettings(system),
       Some(ProjectionBehavior.Stop))
   }
 
   private def createProjectionFor(
       system: ActorSystem[_],
-      orderService: ShoppingOrderService,
+      repository: ItemPopularityRepository,
       index: Int): AtLeastOnceProjection[Offset, EventEnvelope[ShoppingCart.Event]] = {
-    val tag = ShoppingCart.tags(index)
-    val sourceProvider: SourceProvider[Offset, EventEnvelope[ShoppingCart.Event]] =
+    val tag = ShoppingCart.tags(index) // <2>
+    // tag::projection[]
+    val sourceProvider: SourceProvider[Offset, EventEnvelope[ShoppingCart.Event]] = // <3>
       EventSourcedProvider.eventsByTag[ShoppingCart.Event](
         system = system,
-        readJournalPluginId = CassandraReadJournal.Identifier,
+        readJournalPluginId = CassandraReadJournal.Identifier, // <4>
         tag = tag)
 
-    CassandraProjection.atLeastOnce(
-      projectionId = ProjectionId("orders", tag),
+    CassandraProjection.atLeastOnce( // <5>
+      projectionId = ProjectionId("item-popularity", tag),
       sourceProvider,
-      handler = () => new SendOrderProjectionHandler(system, orderService))
+      handler = () => new ItemPopularityProjectionHandler(tag, system, repository)
+    ) // <6>
+    // end::projection[]
   }
 
 }

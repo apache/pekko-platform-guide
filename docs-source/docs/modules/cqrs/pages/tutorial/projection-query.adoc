@@ -25,7 +25,7 @@ You implement the event processing of the Projection in a `Handler`. Add a class
 
 [source,scala]
 ----
-include::example$shopping-cart-service-scala/src/main/scala/sample/shoppingcart/ItemPopularityProjectionHandler.scala[]
+include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/ItemPopularityProjectionHandler.scala[]
 ----
 
 <1> extends `akka.projection.scaladsl.Handler`
@@ -36,7 +36,7 @@ The `ItemPopularityRepository` encapsulates the database access and can have a s
 
 [source,scala]
 ----
-include::example$shopping-cart-service-scala/src/main/scala/sample/shoppingcart/ItemPopularityRepository.scala[]
+include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/ItemPopularityRepository.scala[]
 ----
 
 <1> using link:https://docs.datastax.com/en/cql-oss/3.x/cql/cql_reference/counter_type.html[counter data type]
@@ -57,7 +57,7 @@ Edit the `ShoppingCart.scala` to include the following:
 
 [source,scala]
 ----
-include::example$shopping-cart-service-scala/src/main/scala/sample/shoppingcart/ShoppingCart.scala[tag=tagging]
+include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/ShoppingCart.scala[tag=tagging]
 ----
 
 One of the tags is selected based on the `cartId`, which is the `entityContext.entityId`.
@@ -66,7 +66,7 @@ The tag is assigned to the `EventSourcedBehavior`:
 
 [source,scala]
 ----
-include::example$shopping-cart-service-scala/src/main/scala/sample/shoppingcart/ShoppingCart.scala[tag=withTagger]
+include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/ShoppingCart.scala[tag=withTagger]
 ----
 
 <1> `withTagger` to assign the projectionTag
@@ -79,7 +79,7 @@ Place the initialization code of the Projection in an `ItemPopularityProjection`
 
 [source,scala]
 ----
-include::example$shopping-cart-service-scala/src/main/scala/sample/shoppingcart/ItemPopularityProjection.scala[]
+include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/ItemPopularityProjection.scala[]
 ----
 
 <1> `ShardedDaemonProcess` will manage the Projection instances. It makes sure that they are always running and distributes them over the nodes in the Akka Cluster.
@@ -98,7 +98,7 @@ Then you need to call the `ItemPopularityProjection.init` from the `Guardian` in
 
 [source,scala]
 ----
-include::example$shopping-cart-service-scala/src/main/scala/sample/shoppingcart/Main.scala[tag=ItemPopularityProjection]
+include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/Main.scala[tag=ItemPopularityProjection]
 ----
 
 <1> The `CassandraSession` is looked up from the `CassandraSessionRegistry`
@@ -128,7 +128,7 @@ Add the `getItemPopularity` method to the `ShoppingCartServiceImpl`:
 
 [source,scala]
 ----
-include::example$shopping-cart-service-scala/src/main/scala/sample/shoppingcart/ShoppingCartServiceImpl.scala[tag=getItemPopularity]
+include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/ShoppingCartServiceImpl.scala[tag=getItemPopularity]
 ----
 
 For this you have to add the `ItemPopularityRepository` as a constructor parameter to the `ShoppingCartServiceImpl`. The `ItemPopularityRepository` instance is created in `Main.scala` so pass that instance as parameter to `ShoppingCartServer.start` and then to  `ShoppingCartServiceImpl`.

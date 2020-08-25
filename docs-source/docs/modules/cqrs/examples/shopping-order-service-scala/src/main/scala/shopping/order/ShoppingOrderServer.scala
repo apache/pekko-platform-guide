@@ -1,4 +1,4 @@
-package sample.shoppingcart
+package shopping.order
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
@@ -13,22 +13,17 @@ import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.HttpRequest
 import akka.http.scaladsl.model.HttpResponse
 
-object ShoppingCartServer {
+object ShoppingOrderServer {
 
-  def start(
-      interface: String,
-      port: Int,
-      system: ActorSystem[_],
-      itemPopularityRepository: ItemPopularityRepository): Unit = {
+  def start(interface: String, port: Int, system: ActorSystem[_]): Unit = {
     implicit val sys: ActorSystem[_] = system
-    // tag::start-grpc[]
     implicit val ec: ExecutionContext = system.executionContext
 
     val service: HttpRequest => Future[HttpResponse] =
       ServiceHandler.concatOrNotFound(
-        proto.ShoppingCartServiceHandler.partial(new ShoppingCartServiceImpl(itemPopularityRepository)),
+        proto.ShoppingOrderServiceHandler.partial(new ShoppingOrderServiceImpl),
         // ServerReflection enabled to support grpcurl without import-path and proto parameters
-        ServerReflection.partial(List(proto.ShoppingCartService)))
+        ServerReflection.partial(List(proto.ShoppingOrderService)))
 
     val bound =
       Http().newServerAt(interface, port).bind(service).map(_.addToCoordinatedShutdown(3.seconds))
@@ -36,11 +31,10 @@ object ShoppingCartServer {
     bound.onComplete {
       case Success(binding) =>
         val address = binding.localAddress
-        system.log.info("Shopping online at gRPC server {}:{}", address.getHostString, address.getPort)
+        system.log.info("Shopping order at gRPC server {}:{}", address.getHostString, address.getPort)
       case Failure(ex) =>
         system.log.error("Failed to bind gRPC endpoint, terminating system", ex)
         system.terminate()
-      // end::start-grpc[]
     }
   }
 
