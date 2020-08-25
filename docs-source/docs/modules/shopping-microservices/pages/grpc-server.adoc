@@ -7,7 +7,7 @@ include::ROOT:partial$include.adoc[]
 
 In this part, we will create the `ShoppingCartService` with gRPC. At first, it will only have one operation to add items to a cart. It will be a dummy implementation that is only logging the calls. In later parts of the tutorial it will be expanded with more operations and real implementations.
 
-.This part of the xref:tutorial/overview.adoc[full example] will focus on the gRPC `ShoppingCartService`.
+.This part of the xref:overview.adoc[full example] will focus on the gRPC `ShoppingCartService`.
 [caption=""]
 image::example-grpc-server.png[Example gRPC service]
 

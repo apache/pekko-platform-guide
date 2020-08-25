@@ -7,7 +7,7 @@ include::ROOT:partial$include.adoc[]
 
 In this part, we will create an link:{akka-projection}/[Akka Projections] from the events of the `ShoppingCart` entity. The Projection updates counts in the database to keep track of how popular the items are. The database can be queried for how popular an item is, which is a query that the `ShoppingCart` entities themselves can't answer since they can only be addressed by individual cart identifiers.
 
-.This part of the xref:tutorial/overview.adoc[full example] will focus on the `ItemPopularityProjection` and a query representation in the database.
+.This part of the xref:overview.adoc[full example] will focus on the `ItemPopularityProjection` and a query representation in the database.
 [caption=""]
 image::example-projection-query.png[Example query]
 

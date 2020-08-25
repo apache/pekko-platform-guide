@@ -7,7 +7,7 @@ include::ROOT:partial$include.adoc[]
 
 In this part, we will add another Projection from the events of the `ShoppingCart` entity. This Projection calls another service when the shopping carts are checked out. We will also add the other service, the `ShoppingOrderService` that provides the gRPC service that is called.
 
-.This part of the xref:tutorial/overview.adoc[full example] will focus on the gRPC client in the `SendOrderProjection` .
+.This part of the xref:overview.adoc[full example] will focus on the gRPC client in the `SendOrderProjection` .
 [caption=""]
 image::example-projection-grpc-client.png[Example gRPC client]
 
@@ -21,7 +21,7 @@ TODO link to synchronous communication concepts
 
 Let's add another service that is responsible for the orders of the shopping carts.
 
-Create a project named `shopping-order-service` in a separate directory in the same way as the `shopping-cart-service` was created. See xref:tutorial/dev-env.adoc[Build].
+Create a project named `shopping-order-service` in a separate directory in the same way as the `shopping-cart-service` was created. See xref:dev-env.adoc[Build].
 
 First, define the interface of the service in a protobuf service descriptor. It should be located in the `src/main/protobuf/ShoppingOrderService.proto` in the new `shopping-order-service` project.
 
@@ -43,7 +43,7 @@ Implement the `ShoppingOrderService` in a new class `ShoppingOrderServiceImpl`:
 include::example$shopping-order-service-scala/src/main/scala/shopping/order/ShoppingOrderServiceImpl.scala[]
 ----
 
-Similar to the xref:tutorial/grpc-server.adoc[gRPC server for the ShoppingCartService] we need to initialize the gRPC server. Add a `ShoppingOrderServer` object:
+Similar to the xref:grpc-server.adoc[gRPC server for the ShoppingCartService] we need to initialize the gRPC server. Add a `ShoppingOrderServer` object:
 
 [source,scala]
 ----
@@ -59,7 +59,7 @@ include::example$shopping-order-service-scala/src/main/scala/shopping/order/Main
 
 == Call service from Projection
 
-The new Projection in the `shopping-cart-service` will be similar to what we developed in the xref:tutorial/projection-kafka.adoc[previous step], but it will call the `ShoppingOrderService` for `ShoppingCart.CheckedOut` events.
+The new Projection in the `shopping-cart-service` will be similar to what we developed in the xref:projection-kafka.adoc[previous step], but it will call the `ShoppingOrderService` for `ShoppingCart.CheckedOut` events.
 
 First we need to include the service definition. Copy the `ShoppingOrderService.proto` file from the `shopping-order-service` to the `shopping-cart-service/src/main/protobuf` directory and generate code by compiling the project:
 
@@ -86,7 +86,7 @@ If the call to the `ShoppingOrderService` fails the returned `Future[Done]` is f
 
 == Initialize the Projection
 
-The tagging of the events is already in place from a xref:tutorial/projection-query.adoc#_tagging[previous step].
+The tagging of the events is already in place from a xref:projection-query.adoc#_tagging[previous step].
 
 Place the initialization code of the Projection in an `SendOrderProjection` object:
 

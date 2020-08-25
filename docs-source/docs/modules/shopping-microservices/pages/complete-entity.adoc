@@ -9,11 +9,11 @@ In this part, we will complete the `ShoppingCart` entity with more commands and 
 
 You will learn how to:
 
-* implement an Event Sourced entity by expanding the xref:tutorial/entity.adoc[previous step]
+* implement an Event Sourced entity by expanding the xref:entity.adoc[previous step]
 
 == More commands and events
 
-.This part of the xref:tutorial/overview.adoc[full example] will focus on the shopping cart entity.
+.This part of the xref:overview.adoc[full example] will focus on the shopping cart entity.
 [caption=""]
 image::example-entity.png[Example entity]
 
@@ -30,7 +30,7 @@ and corresponding events:
 * `ItemQuantityAdjusted`
 * `CheckedOut`
 
-Adding those commands, events and adjusting the `State` is very similar to the `AddItem` command and `ItemAdded` event in the xref:tutorial/entity.adoc[previous step], which means that this is a good exercise for you to solidify your knowledge of how to implement an `EventSourcedBehavior`. If you like, you can start with <<Expand the unit test>> for a test driven approach.
+Adding those commands, events and adjusting the `State` is very similar to the `AddItem` command and `ItemAdded` event in the xref:entity.adoc[previous step], which means that this is a good exercise for you to solidify your knowledge of how to implement an `EventSourcedBehavior`. If you like, you can start with <<Expand the unit test>> for a test driven approach.
 
 When you have completed your code you can compare it with:
 

@@ -7,7 +7,7 @@ include::ROOT:partial$include.adoc[]
 
 In this part, we will add another Projection from the events of the `ShoppingCart` entity. This Projection publishes the events to a Kafka message broker. We will also add another service, the `ShoppingAnalyticsService` that consumes the events from the Kafka topic.
 
-.This part of the xref:tutorial/overview.adoc[full example] will focus on the Kafka producer in the `PublishEventsProjection` and Kafka consumer in `ShoppingAnalyticsService`.
+.This part of the xref:overview.adoc[full example] will focus on the Kafka producer in the `PublishEventsProjection` and Kafka consumer in `ShoppingAnalyticsService`.
 [caption=""]
 image::example-projection-kafka.png[Example Kafka]
 
@@ -37,7 +37,7 @@ sbt compile
 
 == Sending to Kafka from a Projection
 
-The new Projection will be similar to what we developed in the xref:tutorial/projection-query.adoc[previous step], but it will send the events to a Kafka topic instead of updating a database.
+The new Projection will be similar to what we developed in the xref:projection-query.adoc[previous step], but it will send the events to a Kafka topic instead of updating a database.
 
 Add a `PublishEventsProjectionHandler` class that is the Projection `Handler` for processing the events:
 
@@ -54,7 +54,7 @@ The serialization converts the `ShoppingCart.Event` classes to the Protobuf repr
 
 == Initialize the Projection
 
-The tagging of the events is already in place from the xref:tutorial/projection-query.adoc#_tagging[previous step].
+The tagging of the events is already in place from the xref:projection-query.adoc#_tagging[previous step].
 
 Place the initialization code of the Projection in an `PublishEventsProjection` object:
 
@@ -90,7 +90,7 @@ include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/Main.s
 
 Let's add another service that consumes the events from the Kafka topic.
 
-Create a project named `shopping-analytics-service` in a separate directory in the same way as the `shopping-cart-service` was created. See xref:tutorial/dev-env.adoc[Build].
+Create a project named `shopping-analytics-service` in a separate directory in the same way as the `shopping-cart-service` was created. See xref:dev-env.adoc[Build].
 
 This service will receive the events in the Protobuf format defined in the `ShoppingCartEvents.proto` from the `shopping-cart-service`. Copy that file to the `shopping-analytics-service/src/main/protobuf` and generate code by compiling the project:
 
