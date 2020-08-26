@@ -65,12 +65,14 @@ include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/Publis
 
 The `SendProducer` is initialized using some configuration that you need to add. It defines how to connect to the Kafka broker.
 
-Add the following to `src/main/resources/kafka.conf`, which is included from `application.conf`:
+Add the following to `src/main/resources/kafka.conf`:
 
 [source,conf]
 ----
 include::example$shopping-cart-service-scala/src/main/resources/kafka.conf[]
 ----
+
+Include `kafka.conf` from `application.conf`.
 
 And for local development add the following to `src/main/resources/local-shared.conf`, which is loaded when running locally:
 
@@ -88,11 +90,15 @@ include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/Main.s
 
 == Consuming the events
 
+=== New project
+
 Let's add another service that consumes the events from the Kafka topic.
 
 Create a project named `shopping-analytics-service` in a separate directory in the same way as the `shopping-cart-service` was created. See xref:dev-env.adoc#_template_project[Template project].
 
 Adjust the port numbers in the `local1.conf`, `local2.conf`, `local3.conf`, and `local4.conf` files according to the ports defined in xref:dev-env.adoc#_config_for_local_development[Config for local development].
+
+=== Protobuf
 
 This service will receive the events in the Protobuf format defined in the `ShoppingCartEvents.proto` from the `shopping-cart-service`. Copy that file to the `shopping-analytics-service/src/main/protobuf` and generate code by compiling the project:
 
@@ -101,6 +107,8 @@ sbt compile
 ----
 
 Note that different services should not share code, but the Protobuf specification can be copied since that is the published interface of the service.
+
+=== Consumer
 
 Create a `ShoppingCartEventConsumer` object that runs an Akka Stream with a Kafka `Consumer.committableSource` from Alpakka Kafka.
 
@@ -119,7 +127,29 @@ include::example$shopping-analytics-service-scala/src/main/scala/shopping/analyt
 
 Note how the deserialization is using the type information from the Protobuf `Any` to decide which type of event to deserialize.
 
-To run the new service we also need a `Main` class, which calls the initialization of the `ShoppingCartEventConsumer`.
+=== Configuration
+
+The `Consumer` is initialized using some configuration that you need to add. It defines how to connect to the Kafka broker.
+
+Add the following to `src/main/resources/kafka.conf`:
+
+[source,conf]
+----
+include::example$shopping-analytics-service-scala/src/main/resources/kafka.conf[]
+----
+
+Include `kafka.conf` from `application.conf`.
+
+And for local development add the following to `src/main/resources/local-shared.conf`, which is loaded when running locally:
+
+[source,conf]
+----
+include::example$shopping-analytics-service-scala/src/main/resources/local-shared.conf[tag=kafka]
+----
+
+=== Main
+
+Edit the `Main` class that is included from the template project. It should initialize the `ActorSystem` and the `ShoppingCartEventConsumer` like this:
 
 [source,scala]
 ----
@@ -151,7 +181,7 @@ sbt -Dconfig.resource=local1.conf run
 Try it with `grpcurl`. Add 1 pencil to a cart:
 
 ----
-grpcurl -d '{"cartId":"cart1", "itemId":"pencil", "quantity":1}' -plaintext 127.0.0.1:8051 shoppingcart.ShoppingCartService.AddItem
+grpcurl -d '{"cartId":"cart1", "itemId":"pencil", "quantity":1}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.AddItem
 ----
 
 Look at the log output in the terminal of the `shopping-analytics-service`. There you should see the logging from the ``:
@@ -162,4 +192,4 @@ ItemAdded: 1 pencil to cart cart1
 
 == Deploy
 
-TODO deploy the updated shopping-cart-service and the new shopping-analytics-service to the cloud and try it
+ifdef::todo[TODO: deploy the updated shopping-cart-service and the new shopping-analytics-service to the cloud and try it]

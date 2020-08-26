@@ -28,7 +28,7 @@ object ItemPopularityProjection {
       repository: ItemPopularityRepository,
       index: Int): AtLeastOnceProjection[Offset, EventEnvelope[ShoppingCart.Event]] = {
     val tag = ShoppingCart.tags(index) // <2>
-    // tag::projection[]
+
     val sourceProvider: SourceProvider[Offset, EventEnvelope[ShoppingCart.Event]] = // <3>
       EventSourcedProvider.eventsByTag[ShoppingCart.Event](
         system = system,
@@ -40,7 +40,6 @@ object ItemPopularityProjection {
       sourceProvider,
       handler = () => new ItemPopularityProjectionHandler(tag, system, repository)
     ) // <6>
-    // end::projection[]
   }
 
 }

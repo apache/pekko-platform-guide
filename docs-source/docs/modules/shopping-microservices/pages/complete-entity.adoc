@@ -30,6 +30,8 @@ and corresponding events:
 * `ItemQuantityAdjusted`
 * `CheckedOut`
 
+When the cart has been checked out it should not accept any more changes from `AddItem`, `RemoveItem` and `AdjustItemQuantity` commands. It should still be possible to `Get` the current state of a checked out cart.
+
 Adding those commands, events and adjusting the `State` is very similar to the `AddItem` command and `ItemAdded` event in the xref:entity.adoc[previous step], which means that this is a good exercise for you to solidify your knowledge of how to implement an `EventSourcedBehavior`. If you like, you can start with <<Expand the unit test>> for a test driven approach.
 
 When you have completed your code you can compare it with:
@@ -40,6 +42,8 @@ include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/Shoppi
 ----
 
 <1> handles commands differently whether the shopping cart is checked out or not
+
+ifdef::todo[TODO: the tagging should not be shown in this part]
 
 == Expand the unit test
 
@@ -65,10 +69,19 @@ Let's add corresponding operations as the commands in `ShoppingCartService.proto
 include::example$shopping-cart-service-scala/src/main/protobuf/ShoppingCartService.proto[]
 ----
 
+ifdef::todo[TODO: GetItemPopularity should not be shown in this part]
+
 Generate code by compiling the project:
 
 ----
 sbt compile
+----
+
+You will see a compilation error in `ShoppingCartServiceImpl.scala`, but that is expected with the changed Protobuf definition. We will fix that that now. You have to include the new `checkedOut` flag when converting from `ShoppingCart.Summary` to `proto.Cart`.
+
+[source,scala]
+----
+include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/ShoppingCartServiceImpl.scala[tag=toProtoCart]
 ----
 
 Then you can add implementations of the new operations in `ShoppingCartServiceImpl` in the same way as `addItem`:
@@ -122,4 +135,4 @@ grpcurl -d '{"cartId":"cart2"}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingC
 
 == Deploy
 
-TODO deploy the updated version to the cloud and try it
+ifdef::todo[TODO: deploy the updated version to the cloud and try it]

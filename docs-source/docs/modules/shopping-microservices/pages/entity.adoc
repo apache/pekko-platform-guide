@@ -5,7 +5,7 @@
 
 include::ROOT:partial$include.adoc[]
 
-In this part, we will create the `ShoppingCart` entity that manages the state for each shopping cart. The `ShoppingCart` is using Event Sourcing to persist events that represents changes to the state of the cart. At first it will handle the command to add items to the cart. In next part of the tutorial it will be expanded to handle more commands and events.
+In this part, we will create the `ShoppingCart` entity that manages the state for each shopping cart. The `ShoppingCart` is using Event Sourcing to persist events that represents changes to the state of the cart. At first, it only will handle the command to add items to the cart. In xref:complete-entity.adoc[next part] of the tutorial we will expand it to handle more commands and events.
 
 .This part of the xref:overview.adoc[full example] will focus on the `ShoppingCart` entity.
 [caption=""]
@@ -19,7 +19,7 @@ You will learn how to:
 * send requests from the gRPC service implementation to the entities
 * update the deployment from the xref:grpc-server.adoc[previous step]
 
-TODO links to event sourcing and sharding concepts
+Read the xref:concepts:event-sourcing.adoc[Event Sourcing] section if you are unfamiliar with that concept.
 
 == Event Sourced entity
 
@@ -45,7 +45,7 @@ include::example$02-shopping-cart-service-scala/src/main/scala/shopping/cart/Sho
 
 === State
 
-The state of the `ShoppingCart` contain a `Map` of items that have been added to the cart.
+The state of the `ShoppingCart` contains a `Map` of items that have been added to the cart.
 
 [source,scala]
 ----
@@ -54,7 +54,7 @@ include::example$02-shopping-cart-service-scala/src/main/scala/shopping/cart/Sho
 
 === Command handler
 
-An Event Sourced entity is implemented with the `EventSourcedBehavior` and defines command handlers:
+You implement the Event Sourced entity with the `EventSourcedBehavior`. It defines command handlers:
 
 [source,scala]
 ----
@@ -87,7 +87,7 @@ include::example$02-shopping-cart-service-scala/src/main/scala/shopping/cart/Sho
 
 === Initialization
 
-To put this together we need some initialization code:
+To glue this together we need some initialization code:
 
 [source,scala]
 ----
@@ -96,7 +96,7 @@ include::example$02-shopping-cart-service-scala/src/main/scala/shopping/cart/Sho
 
 <1> The entities are distributed over the nodes in the Akka Cluster with Cluster Sharding.
 
-<2> Command and event handler are defined with the `EventSourcedBehavior`
+<2> Command and event handler are defined with the `EventSourcedBehavior`.
 
 <3> Snapshotting is an optimization to reduce recovery when the entity is started.
 
@@ -133,7 +133,7 @@ include::example$shopping-cart-service-scala/src/main/resources/application.conf
 
 To test the `ShoppingCart` entity you can write a unit test using the `EventSourcedBehaviorTestKit`.
 
-A test for the `AddItem` command looks like this:
+A test for the `AddItem` command looks like this in `src/test/scala/shopping/cart/ShoppingCartSpec.scala`:
 
 [source,scala]
 ----
@@ -158,6 +158,8 @@ include::example$02-shopping-cart-service-scala/src/main/scala/shopping/cart/Sho
 ----
 
 If the command was successful the entity replied with `StatusReply.Success` with the updated `ShoppingCart.Summary`. If the validation in the entity failed it replied with `StatusReply.Error`, which will fail the `Future` that is returned from `askWithStatus`.
+
+Also, you need to include the new `ActorSystem` parameter to the constructor when creating an instance of `ShoppingCartServiceImpl` from the `ShoppingCartServer`.
 
 == Cassandra
 
@@ -192,13 +194,13 @@ sbt -Dconfig.resource=local1.conf run
 Try it with `grpcurl`. Add 3 socks to a cart:
 
 ----
-grpcurl -d '{"cartId":"cart1", "itemId":"socks", "quantity":3}' -plaintext 127.0.0.1:8051 shoppingcart.ShoppingCartService.AddItem
+grpcurl -d '{"cartId":"cart1", "itemId":"socks", "quantity":3}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.AddItem
 ----
 
 Try the validation logic by trying to add the same item again, which should result in an error:
 
 ----
-grpcurl -d '{"cartId":"cart1", "itemId":"socks", "quantity":5}' -plaintext 127.0.0.1:8051 shoppingcart.ShoppingCartService.AddItem
+grpcurl -d '{"cartId":"cart1", "itemId":"socks", "quantity":5}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.AddItem
 ----
 
 To verify that the events are actually saved and the state can be recovered from the events you can stop the service with `ctrl-c` and then start it again.
@@ -206,7 +208,7 @@ To verify that the events are actually saved and the state can be recovered from
 Add 2 t-shirts to the same cart:
 
 ----
-grpcurl -d '{"cartId":"cart1", "itemId":"t-shirt", "quantity":2}' -plaintext 127.0.0.1:8051 shoppingcart.ShoppingCartService.AddItem
+grpcurl -d '{"cartId":"cart1", "itemId":"t-shirt", "quantity":2}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.AddItem
 ----
 
 Then the returned updated cart should still contain the 3 socks.
@@ -231,6 +233,6 @@ docker-compose down
 
 == Deploy
 
-TODO deploy the updated version to the cloud and try it
+ifdef::todo[TODO deploy the updated version to the cloud and try it]
 
 

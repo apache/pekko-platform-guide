@@ -4,21 +4,21 @@ import java.util.concurrent.TimeoutException
 
 import scala.concurrent.Future
 
-import akka.actor.typed.ActorRef
 import akka.actor.typed.ActorSystem
 import akka.cluster.sharding.typed.scaladsl.ClusterSharding
 import akka.grpc.GrpcServiceException
-import akka.pattern.StatusReply
 import akka.util.Timeout
 import io.grpc.Status
 import org.slf4j.LoggerFactory
-import shopping.cart.proto.GetItemPopularityRequest
-import shopping.cart.proto.GetItemPopularityResponse
 
-// tag::addItem[]
+// tag::moreOperations[]
+import akka.actor.typed.ActorRef
+import akka.pattern.StatusReply
+
+// end::moreOperations[]
+
 class ShoppingCartServiceImpl(system: ActorSystem[_], itemPopularityRepository: ItemPopularityRepository)
     extends proto.ShoppingCartService {
-// end::addItem[]
   import system.executionContext
 
   private val logger = LoggerFactory.getLogger(getClass)
@@ -26,7 +26,6 @@ class ShoppingCartServiceImpl(system: ActorSystem[_], itemPopularityRepository: 
   implicit private val timeout: Timeout =
     Timeout.create(system.settings.config.getDuration("shopping-cart.askTimeout"))
 
-// tag::addItem[]
   private val sharding = ClusterSharding(system)
 
   override def addItem(in: proto.AddItemRequest): Future[proto.Cart] = {
@@ -37,7 +36,6 @@ class ShoppingCartServiceImpl(system: ActorSystem[_], itemPopularityRepository: 
     val response = reply.map(cart => toProtoCart(cart))
     convertError(response)
   }
-// end::addItem[]
 
   // tag::moreOperations[]
   override def updateItem(in: proto.UpdateItemRequest): Future[proto.Cart] = {
@@ -78,6 +76,7 @@ class ShoppingCartServiceImpl(system: ActorSystem[_], itemPopularityRepository: 
   }
   // end::moreOperations[]
 
+  // tag::toProtoCart[]
   private def toProtoCart(cart: ShoppingCart.Summary): proto.Cart = {
     proto.Cart(
       cart.checkedOut,
@@ -85,6 +84,7 @@ class ShoppingCartServiceImpl(system: ActorSystem[_], itemPopularityRepository: 
         case (itemId, quantity) => proto.Item(itemId, quantity)
       }.toSeq)
   }
+  // end::toProtoCart[]
 
   private def convertError[T](response: Future[T]): Future[T] = {
     response.recoverWith {
@@ -96,7 +96,7 @@ class ShoppingCartServiceImpl(system: ActorSystem[_], itemPopularityRepository: 
   }
 
   // tag::getItemPopularity[]
-  override def getItemPopularity(in: GetItemPopularityRequest): Future[GetItemPopularityResponse] = {
+  override def getItemPopularity(in: proto.GetItemPopularityRequest): Future[proto.GetItemPopularityResponse] = {
     itemPopularityRepository.getItem(in.itemId).map {
       case Some(count) => proto.GetItemPopularityResponse(in.itemId, count)
       case None        => proto.GetItemPopularityResponse(in.itemId, 0L)

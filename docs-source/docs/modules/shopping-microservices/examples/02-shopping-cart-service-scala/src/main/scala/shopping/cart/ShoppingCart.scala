@@ -1,6 +1,7 @@
+// tag::obj[]
 package shopping.cart
 
-import scala.concurrent.duration._
+// end::obj[]
 
 // tag::commands[]
 import akka.actor.typed.ActorRef
@@ -9,6 +10,7 @@ import akka.pattern.StatusReply
 // end::commands[]
 
 // tag::init[]
+import scala.concurrent.duration._
 import akka.actor.typed.ActorSystem
 import akka.actor.typed.Behavior
 import akka.actor.typed.SupervisorStrategy
@@ -21,11 +23,11 @@ import akka.persistence.typed.scaladsl.RetentionCriteria
 
 // end::init[]
 
-// tag::commandHandler
+// tag::commandHandler[]
 import akka.persistence.typed.scaladsl.Effect
 import akka.persistence.typed.scaladsl.ReplyEffect
 
-// end::commandHandler
+// end::commandHandler[]
 
 // tag::obj[]
 object ShoppingCart {
@@ -111,7 +113,7 @@ object ShoppingCart {
   // end::init[]
 
   // tag::commandHandler[]
-  private def handleCommand(cartId: String, state: State, command: Command): ReplyEffect[Event, State] =
+  private def handleCommand(cartId: String, state: State, command: Command): ReplyEffect[Event, State] = {
     command match {
       case AddItem(itemId, quantity, replyTo) => // <1>
         if (state.hasItem(itemId))
@@ -125,6 +127,8 @@ object ShoppingCart {
               StatusReply.Success(Summary(updatedCart.items))
             }
     }
+  }
+
   // end::commandHandler[]
 
   // tag::eventHandler[]
