@@ -59,11 +59,13 @@ and call the `ShoppingOrderServer.init` from `Main`:
 include::example$shopping-order-service-scala/src/main/scala/shopping/order/Main.scala[]
 ----
 
+ifdef::todo[TODO: describe grpc.port configuration]
+
 == Call service from Projection
 
 The new Projection in the `shopping-cart-service` will be similar to what we developed in the xref:projection-kafka.adoc[previous step], but it will call the `ShoppingOrderService` for `ShoppingCart.CheckedOut` events.
 
-First we need to include the service definition. Copy the `ShoppingOrderService.proto` file from the `shopping-order-service` to the `shopping-cart-service/src/main/protobuf` directory and generate code by compiling the project:
+First we need to include the service definition. Copy the `ShoppingOrderService.proto` file from the `shopping-order-service` to the `shopping-cart-service/src/main/protobuf` directory and generate code by compiling the `shopping-cart-service` project:
 
 ----
 sbt compile
@@ -129,8 +131,6 @@ Try the new order service directly with `grpcurl`:
 
 ----
 grpcurl -d '{"cartId":"cart1", "items":[{"itemId":"socks", "quantity":3}, {"itemId":"t-shirt", "quantity":2}]}' -plaintext 127.0.0.1:8301 shoppingorder.ShoppingOrderService.Order
-
-grpcurl -d '{"cartId":"cart1"}' -plaintext 127.0.0.1:8301 shoppingcart.ShoppingCartService.Checkout
 ----
 
 Keep the `shopping-order-service` running, and in another terminal run the `shopping-cart-service` with:
@@ -150,9 +150,9 @@ grpcurl -d '{"cartId":"cart1"}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingC
 In the terminal of the `shopping-order-service` you should see the log of the order:
 
 ----
-Order 3 items from cart cart1
+Order 12 items from cart cart1
 ----
 
 == Deploy
 
-TODO deploy the updated shopping-cart-service and the new shopping-order-service to the cloud and try it
+ifdef::todo[TODO: deploy the updated shopping-cart-service and the new shopping-order-service to the cloud and try it]

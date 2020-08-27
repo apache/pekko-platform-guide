@@ -39,7 +39,7 @@ NOTE: This guide doesn't cover how REST services can be implemented with Akka HT
 Asynchronous service communication decouples services at a higher degree. Sending and receiving is decoupled in time and both parts do not necessarily act at the same time.
 To ensure delivery of messages asynchronous communication may require extra measures like sending acknowledgements.
 
-ifdef::todo:[
+ifdef::todo[TODO:
 * Kafka
 * Show protobuf (implemented in Cloudflow, examples in Alpakka Kafka)
 * Confluent Cloud Protobuf https://www.confluent.io/blog/using-protobuf-in-confluent-cloud/

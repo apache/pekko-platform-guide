@@ -9,15 +9,16 @@ package shoppingcart;
 
 // tag::GetItemPopularity[]
 service ShoppingCartService { // <1>
-// end::GetItemPopularity
+// end::GetItemPopularity[]
     rpc AddItem (AddItemRequest) returns (Cart) {}
     rpc UpdateItem (UpdateItemRequest) returns (Cart) {}
     rpc Checkout (CheckoutRequest) returns (Cart) {}
     rpc GetCart (GetCartRequest) returns (Cart) {}
 
-    // tag::GetItemPopularity
+    // tag::GetItemPopularity[]
     rpc GetItemPopularity(GetItemPopularityRequest) returns (GetItemPopularityResponse) {}
 }
+
 // end::GetItemPopularity[]
 
 message AddItemRequest { // <2>

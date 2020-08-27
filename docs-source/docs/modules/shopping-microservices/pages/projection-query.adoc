@@ -5,7 +5,7 @@
 
 include::ROOT:partial$include.adoc[]
 
-In this part, we will create an link:{akka-projection}/[Akka Projections] from the events of the `ShoppingCart` entity. The Projection updates counts in the database to keep track of how popular the items are. The database can be queried for how popular an item is, which is a query that the `ShoppingCart` entities themselves can't answer since they can only be addressed by individual cart identifiers.
+In this part, we will create an link:{akka-projection}/[Akka Projection] from the events of the `ShoppingCart` entity. The Projection updates counts in the database to keep track of how popular the items are. The database can be queried for how popular an item is, which is a query that the `ShoppingCart` entities themselves can't answer since they can only be addressed by individual cart identifiers.
 
 .This part of the xref:overview.adoc[full example] will focus on the `ItemPopularityProjection` and a query representation in the database.
 [caption=""]
@@ -17,7 +17,7 @@ You will learn how to:
 * distribute the Projection instances over the nodes in the Akka Cluster
 * work with an asynchronous API for Cassandra
 
-TODO link to projection and cqrs concepts
+Read the xref:concepts:cqrs.adoc[CQRS] section as a background to why it is good to build a query representation from the events of the entities with a Projection.
 
 == Processing events in a Projection
 
@@ -41,7 +41,7 @@ include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/ItemPo
 
 <1> using link:https://docs.datastax.com/en/cql-oss/3.x/cql/cql_reference/counter_type.html[counter data type]
 
-The `CassandraSession` comes from the Cassandra connector in Alpakka and provides an asynchronous API for executing cql statements to Cassandra. In the initialization code, introduced later, we will see how to get access to a `CassandraSession`.
+The `CassandraSession` comes from the Cassandra connector in Alpakka and provides an asynchronous API for executing __CQL__ statements to Cassandra. In the initialization code, introduced later, we will see how to get access to a `CassandraSession`.
 
 You can learn more about the `CassandraSession` in the link:{alpakka}/cassandra.html[Alpakka reference documentation].
 
@@ -51,7 +51,7 @@ We want to connect the events from the `ShoppingCart` with the Projection. Sever
 
 === Tagging
 
-To connect the events from the entities with the projection we need to tag the events. We should use several tags, each with a slice number, to distribute the events over several Projection instances. The tag is selected based on the modulo of the entity id's hash code (stable identifier) and the total number of tags. Each entity instance will tag its events using one of those tags, and the entity instance will always use the same tag.
+To connect the events from the entities with the Projection we need to tag the events. We should use several tags, each with a slice number, to distribute the events over several Projection instances. The tag is selected based on the modulo of the entity id's hash code (stable identifier) and the total number of tags. Each entity instance will tag its events using one of those tags, and the entity instance will always use the same tag.
 
 Edit the `ShoppingCart.scala` to include the following:
 
@@ -62,7 +62,7 @@ include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/Shoppi
 
 One of the tags is selected based on the `cartId`, which is the `entityContext.entityId`.
 
-The tag is assigned to the `EventSourcedBehavior`:
+The tag is assigned to the `EventSourcedBehavior`. Add the `projectionTag` parameter and `.withTagger` in the `ShoppingCart.apply` method:
 
 [source,scala]
 ----
@@ -133,6 +133,17 @@ include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/Shoppi
 
 For this you have to add the `ItemPopularityRepository` as a constructor parameter to the `ShoppingCartServiceImpl`. The `ItemPopularityRepository` instance is created in `Main.scala` so pass that instance as parameter to `ShoppingCartServer.start` and then to  `ShoppingCartServiceImpl`.
 
+== Create keyspace
+
+ifdef::todo[TODO: This will not be needed when we have added it to docker-compose, issue https://github.com/akka/akka-platform-guide/issues/18]
+
+Add the following in `Main` to create Cassandra keyspace and tables for the query database and Projection offset storage:
+
+[source,scala]
+----
+include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/Main.scala[tag=createTables]
+----
+
 == Run
 
 Start Cassandra, unless it's already running:
@@ -159,6 +170,18 @@ Check the popularity of the item:
 grpcurl -d '{"itemId":"hoodie"}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.GetItemPopularity
 ----
 
+Add 2 hoodies to another cart:
+
+----
+grpcurl -d '{"cartId":"cart3", "itemId":"hoodie", "quantity":2}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.AddItem
+----
+
+Popularity count should now have increased to 7:
+
+----
+grpcurl -d '{"itemId":"hoodie"}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.GetItemPopularity
+----
+
 == Deploy
 
-TODO deploy the updated version to the cloud and try it
+ifdef::todo[TODO: deploy the updated version to the cloud and try it]

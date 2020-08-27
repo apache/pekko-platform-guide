@@ -17,7 +17,7 @@ Event Sourcing documentation in the link:{akka}/typed/persistence.html#introduct
 A difference to persistence based on Create-Read-Update-Delete (CRUD) data-stores is that we don't need to map our imagined entities to a database model up-front. Instead, we model the entities and the events that affect their state.
 
 
-ifdef::todo:[include something like https://www.lagomframework.com/documentation/1.6.x/scala/ES_CQRS.html and https://www.lagomframework.com/documentation/1.6.x/scala/ESAdvantage.html]
+ifdef::todo[TODO:include something like https://www.lagomframework.com/documentation/1.6.x/scala/ES_CQRS.html and https://www.lagomframework.com/documentation/1.6.x/scala/ESAdvantage.html]
 
 
 == Updating entities
