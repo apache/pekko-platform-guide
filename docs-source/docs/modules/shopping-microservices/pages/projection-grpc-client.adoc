@@ -99,7 +99,7 @@ Place the initialization code of the Projection in an `SendOrderProjection` obje
 include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/SendOrderProjection.scala[]
 ----
 
-In the `Guardian` in `Main.scala` you can invoke the `SendOrderProjection.init` and create the gRPC client for the `ShoppingOrderService` like this:
+In the `Main` you can invoke the `SendOrderProjection.init` and create the gRPC client for the `ShoppingOrderService` like this:
 
 [source,scala]
 ----

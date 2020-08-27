@@ -16,16 +16,20 @@ import akka.stream.alpakka.cassandra.scaladsl.CassandraSessionRegistry
 
 // end::ItemPopularityProjection[]
 
-// tag::start-grpc[]
 object Main {
 
   // tag::createTables[]
   def main(args: Array[String]): Unit = {
-    val system = ActorSystem[Nothing](Guardian(), "Cart")
-    // end::start-grpc[]
+    val system = ActorSystem[Nothing](Main(), "Cart")
     createTables(system)
   }
+  // end::createTables[]
 
+  def apply(): Behavior[Nothing] = {
+    Behaviors.setup[Nothing](context => new Main(context))
+  }
+
+  // tag::createTables[]
   def createTables(system: ActorSystem[_]): Unit = {
     import org.slf4j.LoggerFactory
     import akka.projection.cassandra.scaladsl.CassandraProjection
@@ -47,17 +51,8 @@ object Main {
 
 }
 
-// tag::start-grpc[]
-
-object Guardian {
-  def apply(): Behavior[Nothing] = {
-    Behaviors.setup[Nothing](context => new Guardian(context))
-  }
-}
-
-class Guardian(context: ActorContext[Nothing]) extends AbstractBehavior[Nothing](context) {
+class Main(context: ActorContext[Nothing]) extends AbstractBehavior[Nothing](context) {
   val system = context.system
-  // end::start-grpc[]
 
   startAkkaManagement()
 

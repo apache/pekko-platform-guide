@@ -21,7 +21,6 @@ object ShoppingCartServer {
       system: ActorSystem[_],
       itemPopularityRepository: ItemPopularityRepository): Unit = {
     implicit val sys: ActorSystem[_] = system
-    // tag::start-grpc[]
     implicit val ec: ExecutionContext = system.executionContext
 
     val service: HttpRequest => Future[HttpResponse] =
@@ -40,7 +39,6 @@ object ShoppingCartServer {
       case Failure(ex) =>
         system.log.error("Failed to bind gRPC endpoint, terminating system", ex)
         system.terminate()
-      // end::start-grpc[]
     }
   }
 

@@ -11,24 +11,23 @@ import akka.management.scaladsl.AkkaManagement
 object Main {
 
   def main(args: Array[String]): Unit = {
-    ActorSystem[Nothing](Guardian(), "ShoppingOrder")
+    ActorSystem[Nothing](Main(), "ShoppingOrder")
   }
 
-}
-
-object Guardian {
   def apply(): Behavior[Nothing] = {
-    Behaviors.setup[Nothing](context => new Guardian(context))
+    Behaviors.setup[Nothing](context => new Main(context))
   }
 }
 
-class Guardian(context: ActorContext[Nothing]) extends AbstractBehavior[Nothing](context) {
+class Main(context: ActorContext[Nothing]) extends AbstractBehavior[Nothing](context) {
   val system = context.system
 
   startAkkaManagement()
 
-  val grpcInterface = context.system.settings.config.getString("shopping-order.grpc.interface")
-  val grpcPort = context.system.settings.config.getInt("shopping-order.grpc.port")
+  val grpcInterface =
+    context.system.settings.config.getString("shopping-order.grpc.interface")
+  val grpcPort =
+    context.system.settings.config.getInt("shopping-order.grpc.port")
   ShoppingOrderServer.start(grpcInterface, grpcPort, system)
 
   // can be overridden in tests
