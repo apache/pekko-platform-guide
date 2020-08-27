@@ -17,22 +17,23 @@ before_install:
 script:
   - cd "$DIR"
   - java -version
+  - if [ -f docker-compose.yml ]; then docker-compose up -d; fi
   - sbt -jvm-opts .jvmopts-travis "$CMD"
 
 jobs:
   include:
-    - stage: compile
+    - stage: test
       env:
         DIR="docs-source/docs/modules/shopping-microservices/examples/shopping-analytics-service-scala"
-        CMD="Test/compile; scalafmtCheckAll"
+        CMD="test; scalafmtCheckAll"
       name: "Shopping analytics service"
     - env:
         DIR="docs-source/docs/modules/shopping-microservices/examples/shopping-cart-service-scala"
-        CMD="Test/compile; scalafmtCheckAll"
+        CMD="test; scalafmtCheckAll"
       name: "Shopping cart service"
     - env:
         DIR="docs-source/docs/modules/shopping-microservices/examples/shopping-order-service-scala"
-        CMD="Test/compile; scalafmtCheckAll"
+        CMD="test; scalafmtCheckAll"
       name: "Shopping order service"
 
     - stage: site
@@ -41,7 +42,7 @@ jobs:
       name: "Run Antora to create site"
 
 stages:
-  - name: compile
+  - name: test
     if: NOT tag =~ ^v
 
   - name: site

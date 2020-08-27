@@ -2,8 +2,7 @@ package shopping.cart
 
 import java.util.UUID
 
-import scala.concurrent.Await
-import scala.concurrent.Future
+import scala.concurrent.{ Await, ExecutionContext, Future }
 import scala.concurrent.duration._
 import akka.actor.testkit.typed.scaladsl.ActorTestKit
 import akka.actor.typed.ActorSystem
@@ -24,13 +23,13 @@ import com.typesafe.config.ConfigFactory
 import org.apache.kafka.common.serialization.ByteArrayDeserializer
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.scalatest.BeforeAndAfterAll
-import org.scalatest.TestSuite
 import org.scalatest.concurrent.Eventually
 import org.scalatest.concurrent.PatienceConfiguration
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.time.Span
-import org.scalatest.wordspec.AnyWordSpecLike
+import org.scalatest.wordspec.AnyWordSpec
+import org.slf4j.LoggerFactory
 import shopping.order.proto.OrderRequest
 import shopping.order.proto.OrderResponse
 import shopping.order.proto.ShoppingOrderService
@@ -55,11 +54,9 @@ object IntegrationSpec {
         events-by-tag {
           eventual-consistency-delay = 200ms
         }
-      
         query {
           refresh-interval = 500 ms
         }
-
         journal.keyspace = $keyspace
         journal.keyspace-autocreate = on
         journal.tables-autocreate = on
@@ -70,6 +67,8 @@ object IntegrationSpec {
       datastax-java-driver {
         basic.contact-points = ["127.0.0.1:9042"]
         basic.load-balancing-policy.local-datacenter = "datacenter1"
+        # lots of ActorSystems in the same JVM
+        advanced.session-leak.threshold = 10
       }
       
       akka.projection.cassandra.offset-store.keyspace = $keyspace
@@ -81,9 +80,7 @@ object IntegrationSpec {
       }
       
       akka.discovery.method = config
-
       akka.discovery.config.services = {
-        // The Kafka broker's bootstrap servers
         "shopping-kafka-broker" = {
           endpoints = [
             { host = "localhost", port = 9092 }
@@ -91,10 +88,10 @@ object IntegrationSpec {
         }
       }
       
-      akka.actor.testkit.typed.single-expect-default = 5s
-      # For LoggingTestKit
-      akka.actor.testkit.typed.filter-leeway = 5s
-      akka.actor.testkit.typed.throw-on-shutdown-timeout = off
+      akka.actor.testkit.typed {
+        single-expect-default = 5s
+        filter-leeway = 5s
+      }
     """)
     .withFallback(ConfigFactory.load())
 
@@ -120,19 +117,15 @@ object IntegrationSpec {
   }
 }
 
-class IntegrationSpec
-    extends TestSuite
-    with Matchers
-    with BeforeAndAfterAll
-    with AnyWordSpecLike
-    with ScalaFutures
-    with Eventually {
+class IntegrationSpec extends AnyWordSpec with Matchers with BeforeAndAfterAll with ScalaFutures with Eventually {
   import IntegrationSpec.TestNodeFixture
 
-  implicit private val patience: PatienceConfig =
-    PatienceConfig(5.seconds, Span(100, org.scalatest.time.Millis))
+  private val logger = LoggerFactory.getLogger(classOf[IntegrationSpec])
 
-  private val grpcPorts = SocketUtil.temporaryServerAddresses(4, "127.0.0.1").map(_.getPort)
+  implicit private val patience: PatienceConfig =
+    PatienceConfig(10.seconds, Span(100, org.scalatest.time.Millis))
+
+  private val grpcPorts = SocketUtil.temporaryServerAddresses(3, "127.0.0.1").map(_.getPort)
 
   // one TestKit (ActorSystem) per cluster node
   private val testNode1 = new TestNodeFixture(grpcPorts(0))
@@ -164,18 +157,17 @@ class IntegrationSpec
   }
 
   override protected def beforeAll(): Unit = {
+    super.beforeAll()
     // avoid concurrent creation of keyspace and tables
     val timeout = 10.seconds
     Await.result(PersistenceInit.initializeDefaultPlugins(testNode1.system, timeout), timeout)
     Main.createTables(testNode1.system)
-
     initializeKafkaTopicProbe()
-
-    super.beforeAll()
   }
 
   private def initializeKafkaTopicProbe(): Unit = {
     implicit val sys: ActorSystem[_] = testNode1.system
+    implicit val ec: ExecutionContext = sys.executionContext
     val topic = sys.settings.config.getString("shopping-cart.kafka-topic")
     val config = sys.settings.config.getConfig("shopping-cart.test.kafka.consumer")
     val groupId = UUID.randomUUID().toString
@@ -191,7 +183,7 @@ class IntegrationSpec
         val x = ScalaPBAny.parseFrom(bytes)
         val typeUrl = x.typeUrl
         val inputBytes = x.value.newCodedInput()
-        val event: Any =
+        val event: AnyRef =
           typeUrl match {
             case "shopping-cart-service/shoppingcart.ItemAdded" =>
               proto.ItemAdded.parseFrom(inputBytes)
@@ -207,11 +199,15 @@ class IntegrationSpec
         event
       }
       .runForeach(kafkaTopicProbe.ref.tell)
+      .failed
+      .foreach {
+        case e: Exception =>
+          logger.error(s"Test consumer of $topic failed", e)
+      }
   }
 
   override protected def afterAll(): Unit = {
     super.afterAll()
-
     testNode3.testKit.shutdownTestKit()
     testNode2.testKit.shutdownTestKit()
     testNode1.testKit.shutdownTestKit()
