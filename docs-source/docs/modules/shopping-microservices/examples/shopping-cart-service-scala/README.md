@@ -22,7 +22,6 @@
 
     ```
     sbt -Dconfig.resource=local3.conf run
-    sbt -Dconfig.resource=local4.conf run
     ```
 
 5. Check for service readiness
