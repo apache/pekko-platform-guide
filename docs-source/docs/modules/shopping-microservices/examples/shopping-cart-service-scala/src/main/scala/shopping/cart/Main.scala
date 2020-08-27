@@ -55,6 +55,7 @@ class Main(context: ActorContext[Nothing]) extends AbstractBehavior[Nothing](con
   val system = context.system
   AkkaManagement(system).start()
   ClusterBootstrap(system).start()
+
   ShoppingCart.init(system)
 
   // tag::ItemPopularityProjection[]

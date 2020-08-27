@@ -22,19 +22,14 @@ object Main {
 class Main(context: ActorContext[Nothing]) extends AbstractBehavior[Nothing](context) {
   val system = context.system
 
-  startAkkaManagement()
+  AkkaManagement(system).start()
+  ClusterBootstrap(system).start()
 
   val grpcInterface =
     context.system.settings.config.getString("shopping-order.grpc.interface")
   val grpcPort =
     context.system.settings.config.getInt("shopping-order.grpc.port")
   ShoppingOrderServer.start(grpcInterface, grpcPort, system)
-
-  // can be overridden in tests
-  protected def startAkkaManagement(): Unit = {
-    AkkaManagement(system).start()
-    ClusterBootstrap(system).start()
-  }
 
   override def onMessage(msg: Nothing): Behavior[Nothing] =
     this
