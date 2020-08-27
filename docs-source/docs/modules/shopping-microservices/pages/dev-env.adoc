@@ -108,10 +108,6 @@ The example projects are using the following ports.
 |9103
 |8103
 
-|local4.conf
-|2554
-|9104
-|8104
 |===
 
 .shopping-analytics-service ports
@@ -133,10 +129,6 @@ The example projects are using the following ports.
 |9203
 |-
 
-|local4.conf
-|3554
-|9204
-|-
 |===
 
 .shopping-order-service ports
@@ -158,8 +150,4 @@ The example projects are using the following ports.
 |9303
 |8303
 
-|local4.conf
-|4554
-|9304
-|8304
 |===
