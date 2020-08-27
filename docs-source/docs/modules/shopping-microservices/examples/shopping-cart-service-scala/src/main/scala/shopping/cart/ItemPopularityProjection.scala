@@ -36,7 +36,7 @@ object ItemPopularityProjection {
         tag = tag)
 
     CassandraProjection.atLeastOnce( // <5>
-      projectionId = ProjectionId("item-popularity", tag),
+      projectionId = ProjectionId("ItemPopularityProjection", tag),
       sourceProvider,
       handler = () => new ItemPopularityProjectionHandler(tag, system, repository)
     ) // <6>
