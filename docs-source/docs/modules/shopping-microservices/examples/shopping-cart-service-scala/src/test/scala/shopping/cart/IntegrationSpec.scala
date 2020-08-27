@@ -2,14 +2,17 @@ package shopping.cart
 
 import java.util.UUID
 
-import scala.concurrent.{ Await, ExecutionContext, Future }
+import scala.concurrent.Await
+import scala.concurrent.ExecutionContext
+import scala.concurrent.Future
 import scala.concurrent.duration._
+
 import akka.actor.testkit.typed.scaladsl.ActorTestKit
 import akka.actor.typed.ActorSystem
 import akka.actor.typed.Behavior
 import akka.actor.typed.scaladsl.Behaviors
 import akka.cluster.MemberStatus
-import akka.cluster.typed.{ Cluster, Join }
+import akka.cluster.typed.Cluster
 import akka.grpc.GrpcClientSettings
 import akka.kafka.ConsumerSettings
 import akka.kafka.Subscriptions
@@ -226,7 +229,7 @@ class IntegrationSpec extends AnyWordSpec with Matchers with BeforeAndAfterAll w
     testNode1.testKit.shutdownTestKit()
   }
 
-  "Shopping Cart application" should {
+  "Shopping Cart service" should {
     "init and join Cluster" in {
       testNode1.testKit.spawn[Nothing](mainBehavior(), "guardian")
       testNode2.testKit.spawn[Nothing](mainBehavior(), "guardian")
