@@ -21,7 +21,7 @@ class SendOrderProjectionHandler(system: ActorSystem[_], orderService: ShoppingO
 
   private val sharding = ClusterSharding(system)
   implicit private val timeout: Timeout =
-    Timeout.create(system.settings.config.getDuration("shopping-cart.askTimeout"))
+    Timeout.create(system.settings.config.getDuration("shopping-cart-service.ask-timeout"))
 
   override def process(envelope: EventEnvelope[ShoppingCart.Event]): Future[Done] = {
     envelope.event match {

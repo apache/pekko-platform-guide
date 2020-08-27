@@ -11,7 +11,7 @@ import akka.management.scaladsl.AkkaManagement
 object Main {
 
   def main(args: Array[String]): Unit = {
-    ActorSystem[Nothing](Main(), "ShoppingAnalytics")
+    ActorSystem[Nothing](Main(), "ShoppingAnalyticsService")
   }
 
   def apply(): Behavior[Nothing] = {

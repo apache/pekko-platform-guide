@@ -20,7 +20,7 @@ object Main {
 
   // tag::createTables[]
   def main(args: Array[String]): Unit = {
-    val system = ActorSystem[Nothing](Main(), "Cart")
+    val system = ActorSystem[Nothing](Main(), "ShoppingCartService")
     createTables(system)
   }
   // end::createTables[]
@@ -69,8 +69,8 @@ class Main(context: ActorContext[Nothing]) extends AbstractBehavior[Nothing](con
   // end::ItemPopularityProjection[]
 
   val grpcInterface =
-    system.settings.config.getString("shopping-cart.grpc.interface")
-  val grpcPort = system.settings.config.getInt("shopping-cart.grpc.port")
+    system.settings.config.getString("shopping-cart-service.grpc.interface")
+  val grpcPort = system.settings.config.getInt("shopping-cart-service.grpc.port")
   ShoppingCartServer.start(grpcInterface, grpcPort, system, itemPopularityRepository)
 
   // tag::PublishEventsProjection[]

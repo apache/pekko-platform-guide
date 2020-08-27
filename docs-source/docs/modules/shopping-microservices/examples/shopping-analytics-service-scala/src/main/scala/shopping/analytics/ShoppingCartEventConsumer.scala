@@ -27,8 +27,8 @@ object ShoppingCartEventConsumer {
     implicit val sys: ActorSystem[_] = system
     implicit val ec: ExecutionContext = system.executionContext
 
-    val topic = system.settings.config.getString("shopping-analytics.shopping-cart-kafka-topic")
-    val config = system.settings.config.getConfig("shopping-analytics.kafka.consumer")
+    val topic = system.settings.config.getString("shopping-analytics-service.shopping-cart-kafka-topic")
+    val config = system.settings.config.getConfig("shopping-analytics-service.kafka.consumer")
     val consumerSettings =
       ConsumerSettings(config, new StringDeserializer, new ByteArrayDeserializer)
         .withEnrichAsync(DiscoverySupport.consumerBootstrapServers(config)(system.toClassic))
