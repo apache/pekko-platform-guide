@@ -56,7 +56,7 @@ object PublishEventsProjection {
         tag = tag)
 
     CassandraProjection.atLeastOnce(
-      projectionId = ProjectionId("cart-events", tag),
+      projectionId = ProjectionId("PublishEventsProjection", tag),
       sourceProvider,
       handler = () => new PublishEventsProjectionHandler(system, topic, sendProducer))
   }

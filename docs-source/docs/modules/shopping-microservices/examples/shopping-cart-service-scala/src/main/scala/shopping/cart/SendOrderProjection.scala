@@ -37,7 +37,7 @@ object SendOrderProjection {
         tag = tag)
 
     CassandraProjection.atLeastOnce(
-      projectionId = ProjectionId("orders", tag),
+      projectionId = ProjectionId("SendOrderProjection", tag),
       sourceProvider,
       handler = () => new SendOrderProjectionHandler(system, orderService))
   }
