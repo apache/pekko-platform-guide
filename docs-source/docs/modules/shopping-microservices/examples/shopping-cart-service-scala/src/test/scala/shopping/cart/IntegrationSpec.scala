@@ -77,6 +77,9 @@ object IntegrationSpec {
 
       shopping-cart.test.kafka.consumer: $${akka.kafka.consumer} {
         service-name = "shopping-kafka-broker"
+        kafka-clients {
+          auto.offset.reset = "earliest"
+        }
       }
       
       akka.discovery.method = config
@@ -91,6 +94,7 @@ object IntegrationSpec {
       akka.actor.testkit.typed {
         single-expect-default = 5s
         filter-leeway = 5s
+        system-shutdown-default = 30s
       }
     """)
     .withFallback(ConfigFactory.load())
@@ -162,7 +166,6 @@ class IntegrationSpec extends AnyWordSpec with Matchers with BeforeAndAfterAll w
     val timeout = 10.seconds
     Await.result(PersistenceInit.initializeDefaultPlugins(testNode1.system, timeout), timeout)
     Main.createTables(testNode1.system)
-    initializeKafkaTopicProbe()
   }
 
   private def initializeKafkaTopicProbe(): Unit = {
@@ -224,11 +227,14 @@ class IntegrationSpec extends AnyWordSpec with Matchers with BeforeAndAfterAll w
       }
 
       // let the nodes join and become Up
-      eventually(PatienceConfiguration.Timeout(10.seconds)) {
+      eventually(PatienceConfiguration.Timeout(15.seconds)) {
         systems3.foreach { sys =>
           Cluster(sys).selfMember.status should ===(MemberStatus.Up)
+          Cluster(sys).state.members.unsorted.map(_.status) should ===(Set(MemberStatus.Up))
         }
       }
+
+      initializeKafkaTopicProbe()
     }
 
     "update and project from different nodes via gRPC" in {
@@ -238,7 +244,8 @@ class IntegrationSpec extends AnyWordSpec with Matchers with BeforeAndAfterAll w
       updatedCart1.items.head.itemId should ===("foo")
       updatedCart1.items.head.quantity should ===(42)
 
-      val published1 = kafkaTopicProbe.expectMessageType[proto.ItemAdded]
+      // first may take longer time
+      val published1 = kafkaTopicProbe.expectMessageType[proto.ItemAdded](20.seconds)
       published1.cartId should ===("cart-1")
       published1.itemId should ===("foo")
       published1.quantity should ===(42)
