@@ -19,7 +19,7 @@ object PublishEventsProjection {
 
   def init(system: ActorSystem[_]): Unit = {
     val sendProducer = createProducer(system)
-    val topic = system.settings.config.getString("shopping-cart.kafka-topic")
+    val topic = system.settings.config.getString("shopping-cart-service.kafka.topic")
 
     ShardedDaemonProcess(system).init(
       name = "PublishEventsProjection",
@@ -30,7 +30,7 @@ object PublishEventsProjection {
   }
 
   private def createProducer(system: ActorSystem[_]): SendProducer[String, Array[Byte]] = {
-    val config = system.settings.config.getConfig("shopping-cart.kafka.producer")
+    val config = system.settings.config.getConfig("shopping-cart-service.kafka.producer")
     import akka.actor.typed.scaladsl.adapter._ // TODO might not be needed in later Alpakka Kafka version?
     val producerSettings =
       ProducerSettings(config, new StringSerializer, new ByteArraySerializer)

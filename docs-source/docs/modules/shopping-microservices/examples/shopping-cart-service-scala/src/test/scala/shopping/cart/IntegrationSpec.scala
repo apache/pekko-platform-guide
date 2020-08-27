@@ -73,9 +73,9 @@ object IntegrationSpec {
       
       akka.projection.cassandra.offset-store.keyspace = $keyspace
       
-      shopping-cart.kafka-topic = "shopping_cart_events_$uniqueQualifier"
+      shopping-cart-service.kafka.topic = "shopping_cart_events_$uniqueQualifier"
 
-      shopping-cart.test.kafka.consumer: $${akka.kafka.consumer} {
+      shopping-cart-service.test.kafka.consumer: $${akka.kafka.consumer} {
         service-name = "shopping-kafka-broker"
       }
       
@@ -97,7 +97,7 @@ object IntegrationSpec {
 
   private def nodeConfig(grpcPort: Int): Config =
     ConfigFactory.parseString(s"""
-      shopping-cart.grpc {
+      shopping-cart-service.grpc {
         interface = "localhost"
         port = $grpcPort
       }
@@ -168,8 +168,8 @@ class IntegrationSpec extends AnyWordSpec with Matchers with BeforeAndAfterAll w
   private def initializeKafkaTopicProbe(): Unit = {
     implicit val sys: ActorSystem[_] = testNode1.system
     implicit val ec: ExecutionContext = sys.executionContext
-    val topic = sys.settings.config.getString("shopping-cart.kafka-topic")
-    val config = sys.settings.config.getConfig("shopping-cart.test.kafka.consumer")
+    val topic = sys.settings.config.getString("shopping-cart-service.kafka.topic")
+    val config = sys.settings.config.getConfig("shopping-cart-service.test.kafka.consumer")
     val groupId = UUID.randomUUID().toString
     import akka.actor.typed.scaladsl.adapter._ // FIXME might not be needed in later Alpakka Kafka version?
     val consumerSettings =
