@@ -11,18 +11,15 @@ import akka.management.scaladsl.AkkaManagement
 object Main {
 
   def main(args: Array[String]): Unit = {
-    ActorSystem[Nothing](Guardian(), "Cart")
+    ActorSystem[Nothing](Main(), "Cart")
   }
 
-}
-
-object Guardian {
   def apply(): Behavior[Nothing] = {
-    Behaviors.setup[Nothing](context => new Guardian(context))
+    Behaviors.setup[Nothing](context => new Main(context))
   }
 }
 
-class Guardian(context: ActorContext[Nothing]) extends AbstractBehavior[Nothing](context) {
+class Main(context: ActorContext[Nothing]) extends AbstractBehavior[Nothing](context) {
   val system = context.system
 
   startAkkaManagement()

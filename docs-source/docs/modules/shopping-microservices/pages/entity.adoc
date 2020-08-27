@@ -102,7 +102,7 @@ include::example$02-shopping-cart-service-scala/src/main/scala/shopping/cart/Sho
 
 <4> Restarting with backoff in case of failures.
 
-Then you need to call the `ShoppingCart.init` from the `Guardian` in `Main.scala`:
+Then you need to call the `ShoppingCart.init` from `Main.scala`:
 
 [source,scala]
 ----

@@ -145,9 +145,9 @@ class IntegrationSpec extends AnyWordSpec with Matchers with BeforeAndAfterAll w
     }
   }
 
-  def guardian(): Behavior[Nothing] = {
+  def mainBehavior(): Behavior[Nothing] = {
     Behaviors.setup[Nothing] { context =>
-      new Guardian(context) {
+      new Main(context) {
         override protected def orderServiceClient(system: ActorSystem[_]): ShoppingOrderService = {
           testOrderService
         }
@@ -215,9 +215,9 @@ class IntegrationSpec extends AnyWordSpec with Matchers with BeforeAndAfterAll w
 
   "Shopping Cart application" should {
     "init and join Cluster" in {
-      testNode1.testKit.spawn[Nothing](guardian(), "guardian")
-      testNode2.testKit.spawn[Nothing](guardian(), "guardian")
-      testNode3.testKit.spawn[Nothing](guardian(), "guardian")
+      testNode1.testKit.spawn[Nothing](mainBehavior(), "guardian")
+      testNode2.testKit.spawn[Nothing](mainBehavior(), "guardian")
+      testNode3.testKit.spawn[Nothing](mainBehavior(), "guardian")
 
       systems3.foreach { sys =>
         Cluster(sys).manager ! Join(Cluster(testNode1.system).selfMember.address)
