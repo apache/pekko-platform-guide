@@ -1,12 +1,25 @@
 Akka Microservices
 ==================
 
-Learn more at [akka.io](https://akka.io/).
+Review and feedback
+-----------------------
+
+This Akka Platform Guide is under development, and we would love to hear your feedback.
+
+Try it with:
+
+1. git clone https://github.com/akka/akka-platform-guide
+2. cd akka-platform-guide
+3. make html-author-mode
+4. open target/staging/snapshot/index.html
+5. read and follow the instructions in the tutorial
+
+Feel free to give your feedback in the form of issues/PRs, or chat in https://gitter.im/akka/dev.
 
 Reference Documentation
 -----------------------
 
-The reference documentation is available at [doc.akka.io](https://doc.akka.io).
+The reference documentation is available at [akka.io](https://doc.akka.io).
 
 Example code
 ------------
