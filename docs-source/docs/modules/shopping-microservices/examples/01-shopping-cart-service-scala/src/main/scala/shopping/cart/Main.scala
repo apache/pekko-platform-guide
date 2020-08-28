@@ -25,8 +25,8 @@ class Main(context: ActorContext[Nothing]) extends AbstractBehavior[Nothing](con
   AkkaManagement(system).start()
   ClusterBootstrap(system).start()
 
-  val grpcInterface = system.settings.config.getString("shopping-cart.grpc.interface")
-  val grpcPort = system.settings.config.getInt("shopping-cart.grpc.port")
+  val grpcInterface = system.settings.config.getString("shopping-cart-service.grpc.interface")
+  val grpcPort = system.settings.config.getInt("shopping-cart-service.grpc.port")
   ShoppingCartServer.start(grpcInterface, grpcPort, system)
 
   override def onMessage(msg: Nothing): Behavior[Nothing] =

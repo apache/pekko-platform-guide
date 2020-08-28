@@ -17,7 +17,7 @@ class ShoppingCartServiceImpl(system: ActorSystem[_]) extends proto.ShoppingCart
   private val logger = LoggerFactory.getLogger(getClass)
 
   implicit private val timeout: Timeout =
-    Timeout.create(system.settings.config.getDuration("shopping-cart.askTimeout"))
+    Timeout.create(system.settings.config.getDuration("shopping-cart-service.ask-timeout"))
 
   private val sharding = ClusterSharding(system)
 
