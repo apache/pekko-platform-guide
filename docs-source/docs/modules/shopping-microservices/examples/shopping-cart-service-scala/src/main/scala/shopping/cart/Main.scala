@@ -53,8 +53,8 @@ object Main {
 
 class Main(context: ActorContext[Nothing]) extends AbstractBehavior[Nothing](context) {
   val system = context.system
-
-  startAkkaManagement()
+  AkkaManagement(system).start()
+  ClusterBootstrap(system).start()
 
   ShoppingCart.init(system)
 
@@ -90,12 +90,6 @@ class Main(context: ActorContext[Nothing]) extends AbstractBehavior[Nothing](con
     orderServiceClient
   }
   // end::SendOrderProjection[]
-
-  // can be overridden in tests
-  protected def startAkkaManagement(): Unit = {
-    AkkaManagement(system).start()
-    ClusterBootstrap(system).start()
-  }
 
   override def onMessage(msg: Nothing): Behavior[Nothing] = {
     this
