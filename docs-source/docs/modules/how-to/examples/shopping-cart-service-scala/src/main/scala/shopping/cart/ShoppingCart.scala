@@ -26,9 +26,7 @@ object ShoppingCart {
       val selectedTag = tags(i)
       ShoppingCart(entityContext.entityId, selectedTag)
     }
-    val entity: Entity[Command, ShardingEnvelope[Command]] =
-      Entity(EntityKey)(behaviorFactory).withRole("eventsourcing")
-    ClusterSharding(system).init(entity)
+    ClusterSharding(system).init(Entity(EntityKey)(behaviorFactory).withRole("eventsourcing"))
   }
   // end::write-side-with-role[]
 

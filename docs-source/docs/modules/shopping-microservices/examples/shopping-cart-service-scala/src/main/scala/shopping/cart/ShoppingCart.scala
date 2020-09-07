@@ -142,8 +142,7 @@ object ShoppingCart {
       val selectedTag = tags(i)
       ShoppingCart(entityContext.entityId, selectedTag)
     }
-    val entity: Entity[Command, ShardingEnvelope[Command]] = Entity(EntityKey)(behaviorFactory)
-    ClusterSharding(system).init(entity)
+    ClusterSharding(system).init(Entity(EntityKey)(behaviorFactory))
   }
   // end::howto-write-side-without-role[]
   // end::tagging[]

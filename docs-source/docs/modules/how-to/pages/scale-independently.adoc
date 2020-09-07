@@ -128,7 +128,7 @@ and use that from the command line:
 
 [source]
 ----
-... -Dconfig.resource=application-projections.conf
+... -Dconfig.resource=application-projections.conf ...
 ----
 
 Or
