@@ -30,10 +30,9 @@ object PublishEventsProjection {
   }
 
   private def createProducer(system: ActorSystem[_]): SendProducer[String, Array[Byte]] = {
-    val config = system.settings.config.getConfig("shopping-cart-service.kafka.producer")
     import akka.actor.typed.scaladsl.adapter._ // TODO might not be needed in later Alpakka Kafka version?
     val producerSettings =
-      ProducerSettings(config, new StringSerializer, new ByteArraySerializer)
+      ProducerSettings(system, new StringSerializer, new ByteArraySerializer)
         .withBootstrapServers(system.settings.config.getString("shopping-cart-service.kafka.bootstrap-servers"))
     val sendProducer = SendProducer(producerSettings)(system.toClassic)
     CoordinatedShutdown(system).addTask(CoordinatedShutdown.PhaseBeforeActorSystemTerminate, "close-sendProducer") {
