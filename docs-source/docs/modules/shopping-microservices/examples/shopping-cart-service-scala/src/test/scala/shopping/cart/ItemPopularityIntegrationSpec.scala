@@ -9,7 +9,6 @@ import akka.cluster.MemberStatus
 import akka.cluster.sharding.typed.scaladsl.ClusterSharding
 import akka.cluster.typed.Cluster
 import akka.cluster.typed.Join
-import akka.pattern.StatusReply
 import akka.persistence.testkit.scaladsl.PersistenceInit
 import akka.stream.alpakka.cassandra.scaladsl.CassandraSessionRegistry
 import com.typesafe.config.Config

@@ -17,7 +17,6 @@ import akka.grpc.GrpcClientSettings
 import akka.kafka.ConsumerSettings
 import akka.kafka.Subscriptions
 import akka.kafka.scaladsl.Consumer
-import akka.kafka.scaladsl.DiscoverySupport
 import akka.persistence.testkit.scaladsl.PersistenceInit
 import akka.testkit.SocketUtil
 import com.google.protobuf.any.{ Any => ScalaPBAny }
@@ -75,19 +74,9 @@ object IntegrationSpec {
       
       shopping-cart-service.kafka.topic = "shopping_cart_events_$uniqueQualifier"
 
-      shopping-cart-service.test.kafka.consumer: $${akka.kafka.consumer} {
-        service-name = "shopping-kafka-broker"
+      akka.kafka.consumer {
         kafka-clients {
           auto.offset.reset = "earliest"
-        }
-      }
-      
-      akka.discovery.method = config
-      akka.discovery.config.services = {
-        "shopping-kafka-broker" = {
-          endpoints = [
-            { host = "localhost", port = 9092 }
-          ]
         }
       }
       
@@ -185,12 +174,10 @@ class IntegrationSpec extends AnyWordSpec with Matchers with BeforeAndAfterAll w
     implicit val sys: ActorSystem[_] = testNode1.system
     implicit val ec: ExecutionContext = sys.executionContext
     val topic = sys.settings.config.getString("shopping-cart-service.kafka.topic")
-    val config = sys.settings.config.getConfig("shopping-cart-service.test.kafka.consumer")
     val groupId = UUID.randomUUID().toString
-    import akka.actor.typed.scaladsl.adapter._ // FIXME might not be needed in later Alpakka Kafka version?
     val consumerSettings =
-      ConsumerSettings(config, new StringDeserializer, new ByteArrayDeserializer)
-        .withEnrichAsync(DiscoverySupport.consumerBootstrapServers(config)(sys.toClassic))
+      ConsumerSettings(sys, new StringDeserializer, new ByteArrayDeserializer)
+        .withBootstrapServers("localhost:9092") // provided by Docker compose
         .withGroupId(groupId)
     Consumer
       .plainSource(consumerSettings, Subscriptions.topics(topic))
