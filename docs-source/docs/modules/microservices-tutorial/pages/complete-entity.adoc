@@ -80,7 +80,7 @@ Generate code by compiling the project:
 sbt compile
 ----
 
-You will see a compilation error in `ShoppingCartServiceImpl.scala`, but that is expected with the changed Protobuf definition. We will fix that that now. You have to include the new `checkedOut` flag when converting from `ShoppingCart.Summary` to `proto.Cart`.
+You will see a compilation error in `ShoppingCartServiceImpl.scala`, but that is expected with the changed Protobuf definition. We will fix that now. You have to include the new `checkedOut` flag when converting from `ShoppingCart.Summary` to `proto.Cart`.
 
 [source,scala]
 ----

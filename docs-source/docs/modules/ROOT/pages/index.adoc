@@ -26,7 +26,7 @@ ifdef::todo[TODO:
 
 == Akka Microservices tutorial
 
-The xref:microservices-tutorial:index.adoc[Implementing Microservices with Akka tutorial] illustrates how to implement Event Sourcing with Akka Persistence and CQRS using Akka Projections.
+The xref:microservices-tutorial:index.adoc[Implementing Microservices with Akka tutorial] illustrates how to implement an Event Sourced CQRS application with Akka Persistence and Akka Projections.
 
 include::microservices-tutorial:partial$listing.adoc[]
 
