@@ -1,3 +1,6 @@
+CREATE KEYSPACE IF NOT EXISTS shoppingcart
+WITH REPLICATION = { 'class' : 'SimpleStrategy','replication_factor':1 };
+
 USE shoppingcart;
 
 CREATE TABLE IF NOT EXISTS messages (
