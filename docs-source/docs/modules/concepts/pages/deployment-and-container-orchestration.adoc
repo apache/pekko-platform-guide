@@ -14,6 +14,7 @@ Docker is a popular containerization technology. If you are unfamiliar to contai
 {docker-docs}/get-started/[Get Started with Docker] {docker-docs}/get-started/[{tab-icon}, window="tab"] documentation.
 
 == Kubernetes
+[#kubernetes]
 
 [quote, ,'https://en.wikipedia.org/wiki/Kubernetes[Wikipedia]']
 ____
