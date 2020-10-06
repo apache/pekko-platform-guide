@@ -1,27 +1,3 @@
-// FIXME once akka 2.6.9 is released
-val AkkaVersion = "2.6.8+71-57fb9e90"
-// tag::remove-akka-persistence-cassandra-version[]
-val AkkaPersistenceCassandraVersion = "1.0.1"
-// end::remove-akka-persistence-cassandra-version[]
-
-// tag::add-akka-persistence-jdbc-version[]
-val AkkaPersistenceJdbcVersion = "4.0.0"
-// end::add-akka-persistence-jdbc-version[]
-
-// tag::remove-alpakka-kafka-version[]
-val AlpakkaKafkaVersion = "2.0.4"
-// end::remove-alpakka-kafka-version[]
-val AkkaHttpVersion = "10.2.0"
-// FIXME once akka management 1.0.9 is released
-val AkkaManagementVersion = "1.0.8+35-9feaa689+20200825-1429"
-// tag::remove-akka-projection-version[]
-val AkkaProjectionVersion = "1.0.0-RC1"
-// end::remove-akka-projection-version[]
-
-// tag::remove-grpc-plugin[]
-enablePlugins(AkkaGrpcPlugin)
-// end::remove-grpc-plugin[]
-
 name := "cleanup-dependencies-project"
 version := "1.0"
 
@@ -29,10 +5,8 @@ organization := "com.lightbend.akka.samples"
 organizationHomepage := Some(url("https://akka.io"))
 licenses := Seq(("CC0", url("https://creativecommons.org/publicdomain/zero/1.0")))
 
-// For akka management snapshot
-resolvers += Resolver.bintrayRepo("akka", "snapshots")
-// For akka nightlies
-resolvers += "Akka Snapshots" at "https://repo.akka.io/snapshots/"
+scalaVersion := "2.13.3"
+
 
 Compile / scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked", "-Xlog-reflective-calls", "-Xlint")
 Compile / javacOptions ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")
@@ -41,7 +15,35 @@ Test / parallelExecution := false
 Test / testOptions += Tests.Argument("-oDF")
 Test / logBuffered := false
 
-scalaVersion := "2.13.3"
+run / fork := false
+Global / cancelable := false // ctrl-c
+
+// For akka management snapshot
+resolvers += Resolver.bintrayRepo("akka", "snapshots")
+
+val AkkaVersion = "2.6.9"
+val AkkaHttpVersion = "10.2.0"
+// FIXME once akka management 1.0.9 is released
+val AkkaManagementVersion = "1.0.8+35-9feaa689+20200825-1429"
+
+// tag::remove-akka-persistence-cassandra-version[]
+val AkkaPersistenceCassandraVersion = "1.0.2"
+// end::remove-akka-persistence-cassandra-version[]
+// tag::add-akka-persistence-jdbc-version[]
+val AkkaPersistenceJdbcVersion = "4.0.0"
+// end::add-akka-persistence-jdbc-version[]
+// tag::remove-alpakka-kafka-version[]
+val AlpakkaKafkaVersion = "2.0.5"
+// end::remove-alpakka-kafka-version[]
+// tag::remove-akka-projection-version[]
+val AkkaProjectionVersion = "1.0.0"
+// end::remove-akka-projection-version[]
+
+// tag::remove-grpc-plugin[]
+enablePlugins(AkkaGrpcPlugin)
+// end::remove-grpc-plugin[]
+
+
 
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-cluster-sharding-typed" % AkkaVersion,
@@ -92,5 +94,3 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-stream-testkit" % AkkaVersion % Test,
   "org.scalatest" %% "scalatest" % "3.1.2" % Test)
 
-run / fork := false
-Global / cancelable := false // ctrl-c
