@@ -28,7 +28,6 @@
 ** xref:ddd.adoc[Brief Summary of DDD concepts]
 ** xref:internal-and-external-communication.adoc[]
 ** xref:services.adoc[]
-** xref:service-discovery.adoc[]
 ** xref:service-clients.adoc[]
 ** xref:grpc-services.adoc[]
 ** xref:deployment-and-container-orchestration.adoc[]

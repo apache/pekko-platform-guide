@@ -17,7 +17,7 @@ Follow the {akka-http}/server-side/server-https-support.html[Akka HTTP documenta
 
 Note that since gRPC requires HTTP/2, when you enable TLS for gRPC you also need to support https://en.wikipedia.org/wiki/Application-Layer_Protocol_Negotiation[Application-Layer Protocol Negotiation (ALPN)] to negotiate whether both client and server support HTTP/2. The JVM provides ALPN support starting from JDK 8u252. Make sure you run a JVM greater than that.
 
-NOTE: See also the documentation on {akka-http}/current/server-side/http2.html#use-newserverat-bind-and-https[using the `newServerAt(...).bind()` API when serving HTTPS].
+NOTE: See also the documentation on {akka-http}/server-side/http2.html#use-newserverat-bind-and-https[using the `newServerAt(...).bind()` API when serving HTTPS] {akka-http}/server-side/http2.html#use-newserverat-bind-and-https[{tab-icon}, window="tab"]
 
 == Consume gRPC services over TLS
 
