@@ -5,4 +5,17 @@
 
 include::partial$include.adoc[]
 
-ifdef::todo[TODO: this page is WIP]
+
+
+In Akka Projections you process a stream of events or records from a source to a projected model or external system. Each event is associated with an offset representing the position in the stream. This offset is used for resuming the stream from that position when the projection is restarted.
+
+Akka Projections tackles the following challenges:
+
+* Implement the read-side of a xref:cqrs.adoc[CQRS system].
+* Ensure reliable delivery of events to external consumers in face of network errors and system crashes.
+
+NOTE: The xref:microservices-tutorial:index.adoc[Implementing Microservices with Akka tutorial] illustrates how to implement an Event Sourced CQRS application with Akka Projections and Akka Persistence. See for example the xref:microservices-tutorial:projection-query.adoc[] and the xref:microservices-tutorial:projection-kafka.adoc[] steps.
+
+== Learn more
+
+To know more, check the {akka-projection}[Akka docs (projections module)] {akka-projection}[{tab-icon}, window="tab"].
