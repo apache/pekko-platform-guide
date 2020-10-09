@@ -26,15 +26,22 @@ jobs:
       env:
         DIR="docs-source/docs/modules/microservices-tutorial/examples/shopping-analytics-service-scala"
         CMD="test; scalafmtCheckAll"
-      name: "Shopping analytics service"
+      name: "Shopping analytics service Scala"
     - env:
         DIR="docs-source/docs/modules/microservices-tutorial/examples/shopping-cart-service-scala"
         CMD="test; scalafmtCheckAll"
-      name: "Shopping cart service"
+      name: "Shopping cart service Scala"
+    - env:
+        DIR="docs-source/docs/modules/microservices-tutorial/examples/shopping-cart-service-java"
+      script:
+        - cd docs-source/docs/modules/microservices-tutorial/examples/shopping-cart-service-java
+        - docker-compose up -d
+        - mvn test
+      name: "Shopping cart service Java"
     - env:
         DIR="docs-source/docs/modules/microservices-tutorial/examples/shopping-order-service-scala"
         CMD="test; scalafmtCheckAll"
-      name: "Shopping order service"
+      name: "Shopping order service Scala"
 
     - env:
         DIR="docs-source/docs/modules/microservices-tutorial/examples/01-shopping-cart-service-scala"
