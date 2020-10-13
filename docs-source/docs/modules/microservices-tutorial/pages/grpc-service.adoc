@@ -1,8 +1,5 @@
 = III: Create the gRPC Cart service
-:toc:
-:toc-title: ON THIS PAGE
-:toclevels: 2
-:page-supergroup-scala-java: Language
+:page-supergroup-java-scala: Language
 
 include::ROOT:partial$include.adoc[]
 
