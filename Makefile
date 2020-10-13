@@ -4,30 +4,27 @@ ROOT_DIR := ${SHELL_DIR}
 antora_docker_image     := local/antora-doc
 antora_docker_image_tag := latest
 
-work_dir := ${ROOT_DIR}/target
-
-staging_dir := ${work_dir}/staging
+target_dir := ${ROOT_DIR}/target
 
 all: build
 
 local-preview: html-author-mode
 	@echo "Access the documentation on http://localhost:8000"
-	(cd target/staging/; python3 -m http.server)
+	(cd ${target_dir}/; python3 -m http.server)
 
 show:
-	echo work dir: ${work_dir}
-	echo ROOT_DIR: ${ROOT_DIR}
+	@echo ROOT_DIR: ${ROOT_DIR}
+	@echo target_dir: ${target_dir}
 
 clean:
-	rm -rf ${work_dir}
+	rm -rf ${target_dir}
 
 docker-image:
 	(cd ${ROOT_DIR}/antora-docker;  docker build -t ${antora_docker_image}:${antora_docker_image_tag} .)
 
-# build: clean html javascaladoc_staged print-site
-build: clean html print-site
+build: clean html
 
-html: clean  docker-image
+html: clean docker-image
 	docker run \
 		-u $(shell id -u):$(shell id -g) \
 		-v ${ROOT_DIR}:/antora \
@@ -35,7 +32,7 @@ html: clean  docker-image
 		-t ${antora_docker_image}:${antora_docker_image_tag} \
 		--cache-dir=./.cache/antora \
 		docs-source/site.yml
-	@echo "Done"
+	@echo "Done file://${target_dir}/snapshot/index.html"
 
 html-author-mode: clean docker-image
 	docker run \
@@ -45,7 +42,7 @@ html-author-mode: clean docker-image
 		-t ${antora_docker_image}:${antora_docker_image_tag} \
 		--cache-dir=./.cache/antora \
 		docs-source/author-mode-site.yml
-	@echo "Done"
+	@echo "Done file://${target_dir}/snapshot/index.html"
 
 check-links: docker-image
 	docker run \
@@ -60,17 +57,7 @@ list-todos: html docker-image
 	docker run \
 		-v ${ROOT_DIR}:/antora \
 		--rm \
+		--entrypoint /bin/sh \
 		-t ${antora_docker_image}:${antora_docker_image_tag} \
 		--cache-dir=./.cache/antora \
-		--entrypoint /bin/sh \
-		-c 'find /antora/docs-source/build/site/cloudflow/${version} -name "*.html" -print0 | xargs -0 grep -iE "TODO|FIXME|REVIEWERS|adoc"'
-
-${work_dir}:
-	mkdir -p ${work_dir}
-
-${staging_dir}:
-	mkdir -p ${staging_dir}
-
-print-site:
-	# The result directory with the contents of this build:
-	@echo "${staging_dir}"
+		-c 'find /antora/target/snapshot/ -name "*.html" -print0 | xargs -0 grep -iE "TODO|FIXME|REVIEWERS|adoc"'

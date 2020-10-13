@@ -1,6 +1,6 @@
 site:
   title: "Akka Platform Guide"
-  url: https://akka.io/akka-platform-guide
+  url: https://developer.lightbend.com/docs/akka-platform-guide
   
 content:
   sources:
@@ -24,9 +24,9 @@ asciidoc:
     # review: ''
     # todo: ''
     doc-title: 'Akka Platform Guide'
-      # the following turns on next and previous links in the new template
-      page-pagination: ""
+    # the following turns on next and previous links in the new template
+    page-pagination: ""
 
 output:
-  dir: ./../target/staging
+  dir: ./../target
   clean: true
