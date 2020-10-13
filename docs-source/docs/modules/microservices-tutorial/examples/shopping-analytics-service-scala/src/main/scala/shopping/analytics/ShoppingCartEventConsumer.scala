@@ -109,7 +109,7 @@ object ShoppingCartEventConsumer {
             cartId)
         case proto.ItemRemoved(cartId, itemId, _) =>
           log.info(
-            "ItemQuantityAdjusted: {} removed from cart {}",
+            "ItemRemoved: {} removed from cart {}",
             itemId,
             cartId)
         case proto.CheckedOut(cartId, _) =>

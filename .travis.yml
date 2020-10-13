@@ -21,6 +21,10 @@ jobs:
         sbt -jvm-opts .jvmopts-travis "test; scalafmtCheckAll"
       name: "Shopping analytics service Scala"
     - script:
+        - cd docs-source/docs/modules/microservices-tutorial/examples/shopping-analytics-service-java
+        - mvn test
+        name: "Shopping analytics service Java"
+    - script:
         - cd docs-source/docs/modules/microservices-tutorial/examples/shopping-cart-service-scala
         - docker-compose up -d
         - sbt -jvm-opts .jvmopts-travis "test; scalafmtCheckAll"
@@ -34,6 +38,10 @@ jobs:
         - cd docs-source/docs/modules/microservices-tutorial/examples/shopping-order-service-scala
         - sbt -jvm-opts .jvmopts-travis "test; scalafmtCheckAll"
       name: "Shopping order service Scala"
+    - script:
+        - cd docs-source/docs/modules/microservices-tutorial/examples/shopping-order-service-java
+        - mvn test
+      name: "Shopping order service Java"
 
     - script:
         - cd docs-source/docs/modules/microservices-tutorial/examples/01-shopping-cart-service-scala
