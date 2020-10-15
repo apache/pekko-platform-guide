@@ -9,13 +9,19 @@ The gRPC `ShoppingCartService` corresponds to the *Cart Service* shown in the ar
 
 image::example-grpc-server.png[Example gRPC service]
 
-In this section, you will learn how to:
+On this page you will learn how to:
 
 * define the interface of the gRPC service
 * implement the service interface
 * initialize and run an HTTP server
 * interact with the service from the command line
 * deploy for the first time to the cloud
+
+.Available .zip downloads:
+****
+* link:_attachments/0-shopping-cart-start-scala.zip[Source] with initial project template. Alternatively, use `sbt` to start a new project as explained in xref:template.adoc[Run the template].
+* link:_attachments/1-shopping-cart-grpc-scala.zip[Source] with the steps on this page completed.
+****
 
 ifdef::review[REVIEWERS: I didn't notice where a server component was introduced in the overview. Can we add something about it there?]
 
