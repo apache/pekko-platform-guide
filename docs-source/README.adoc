@@ -111,7 +111,7 @@ Follow these steps to install Virtualbox on Ubuntu 16.04+:
 --
 ----
 
-== Inline text exammples that respect Supergroups
+== Inline text examples that respect Supergroups
 Inline text will respect a supergroup preference such as Java/Scala when using the following syntax:
 
 === Plain Text

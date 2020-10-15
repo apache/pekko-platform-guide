@@ -1,16 +1,17 @@
 = I: Set up your development environment
+:page-supergroup-java-scala: Language
 
 include::ROOT:partial$include.adoc[]
 
 
-To follow tutorial steps you will need a code editor, a build tool, and `grpcurl` (a CLI for sending gRPC calls). You can use your preferred code editor. We provide the steps for using https://www.jetbrains.com/idea/[IntelliJ IDEA {tab-icon}, window="tab"] from JetBrains. For the Scala version of the example, we use `sbt` as the build tool. 
+To follow tutorial steps you will need a code editor, a build tool, and `grpcurl` (a CLI for sending gRPC calls). You can use your preferred code editor. We provide the steps for using https://www.jetbrains.com/idea/[IntelliJ IDEA {tab-icon}, window="tab"] from JetBrains. For the [.group-scala]#Scala# [.group-java]#Java# version of the example, we use [.group-scala]#`sbt`# [.group-java]#`Apache Maven`# as the build tool.
 
 This tutorial uses Cassandra and Kafka. You may run local installations during development, but we recommend running both services using https://docs.docker.com[Docker {tab-icon}, window="tab"]. The template project's root directory includes a https://docs.docker.com/compose/[Docker Compose] https://docs.docker.com/compose/[{tab-icon}, window="tab"] file that you can use to run Cassandra and Kafka. The provided Docker Compose file also runs Zookeeper which is required to run a Kafka broker.
 
 The following sections provide links for downloading and installing:
 
 * <<IntelliJ IDEA>>
-* <<The sbt tool>>
+* <<Build tool>>
 * <<The grpcurl tool>>
 * <<Docker and Docker Compose>>
 
@@ -23,16 +24,23 @@ We also provide downloadable versions of the example at different phases of comp
 :!sectnums:
 == IntelliJ IDEA
 
+[.group-java]
+Download and install https://www.jetbrains.com/idea/download/[IntelliJ {tab-icon}, window="tab"].
+
+[.group-scala]
 To install IntelliJ and prepare to develop the Scala example, follow these steps:
- 
+
+[.group-scala]
 . Download and install https://www.jetbrains.com/idea/download/[IntelliJ {tab-icon}, window="tab"].
 . From the *Preferences* menu, add the *Scala* plugin.
 
-== The sbt tool
 
+== Build tool
+
+[.group-scala]
 For the Scala Shopping Cart example, we use `sbt` as the build tool. https://www.scala-sbt.org/download.html[Install sbt] if you haven't already.
 
-[TIP]
+[TIP.group-scala]
 ====
 `sbt` is an interactive shell. If you start it with the `sbt` command, you can repeatedly run tasks like `compile` and `test` in the sbt shell. In the tutorial we use the full command for clarity, such as `sbt compile`. You can run tasks independently in this way, but it's faster to leave the `sbt` shell running and only enter the tasks. For example:
 
@@ -45,6 +53,9 @@ sbt:shopping-cart-service> test
 ...
 ----
 ====
+
+[.group--java]
+For the Java Shopping Cart example, we use `Maven` as the build tool. http://maven.apache.org/install.html[Install Maven] if you haven't already.
 
 == The grpcurl tool
 
@@ -65,10 +76,16 @@ ifdef::review[REVIEWERS: in the new UI template that we will have soon, each pag
 
 == Configuring for local development
 
-ifdef::review[REVIEWERS: I was not sure whether this section belongs here or where they actually will need to use it. I found the following confusing, it says that the template includes the config for running locally, but then in sentence #3, it says when running locally, some config properties must be overridden? Then it says those properties "are placed" in the file, by whom? Are they there or do I need to put them there? I'll find out when I try, but just wanted to point out that this is confusing.]
+By default, when using [.group-scala]#`sbt run`# [.group-java]#`mvn exec:exec`# the `Main` class will start an `ActorSystem` with the default `application.conf` which is the configuration intended to be used in production. When running it locally you must override the configuration by using one the provided local configurations files. You can override the configuration by passing one of the local file configurations to the build tool using a `-D` option.
 
-The template project comes with configuration for running the application locally. By default, when using `sbt run` the `Main` class will start an `ActorSystem` with the default `application.conf`. When running locally some configuration properties must be overridden. Those local configuration properties are placed in the `local1.conf` file and you can run the application with this configuration with:
+[.group-java]
+[source,shell script]
+----
+# make sure to compile before running exec:exec
+mvn compile exec:exec -DAPP_CONFIG=local1.conf
+----
 
+[.group-scala]
 [source,shell script]
 ----
 sbt -Dconfig.resource=local1.conf run
@@ -76,6 +93,14 @@ sbt -Dconfig.resource=local1.conf run
 
 The `local1.conf` includes the `application.conf`. There are also `local2.conf`, `local3.conf`, and so on. Those define settings for additional Akka Cluster nodes. For example, a second node can be started with:
 
+[.group-java]
+[source,shell script]
+----
+# make sure to compile before running exec:exec
+mvn compile exec:exec -DAPP_CONFIG=local2.conf
+----
+
+[.group-scala]
 [source,shell script]
 ----
 sbt -Dconfig.resource=local2.conf run
