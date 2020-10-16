@@ -59,14 +59,14 @@ ifdef::review[REVIEWERS: it appears as though the impl class is in a separate fi
 [.tabset]
 Java::
 +
-[source,java]
+[source,java,indent=0]
 ----
 TODO
 ----
 
 Scala::
 +
-[source,scala]
+[source,scala,indent=0]
 ----
 include::example$01-shopping-cart-service-scala/src/main/scala/shopping/cart/ShoppingCartServiceImpl.scala[]
 ----
@@ -83,14 +83,14 @@ ifdef::review[REVIEWERS: same question as before, do we need to tell them where 
 [.tabset]
 Java::
 +
-[source,java]
+[source,java,indent=0]
 ----
 TODO
 ----
 
 Scala::
 +
-[source,scala]
+[source,scala,indent=0]
 ----
 include::example$01-shopping-cart-service-scala/src/main/scala/shopping/cart/ShoppingCartServer.scala[]
 ----
@@ -106,14 +106,14 @@ To run the service we need a class with a `main` method. Edit the `Main` class t
 [.tabset]
 Java::
 +
-[source,java]
+[source,java,indent=0]
 ----
 TODO
 ----
 
 Scala::
 +
-[source,scala]
+[source,scala,indent=0]
 ----
 include::example$01-shopping-cart-service-scala/src/main/scala/shopping/cart/Main.scala[]
 ----

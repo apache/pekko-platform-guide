@@ -56,14 +56,14 @@ Add a `PublishEventsProjectionHandler` class that is the Projection `Handler` fo
 [.tabset]
 Java::
 +
-[source,java]
+[source,java,indent=0]
 ----
 include::example$05-shopping-cart-service-java/src/main/java/shopping/cart/PublishEventsProjectionHandler.java[]
 ----
 
 Scala::
 +
-[source,scala]
+[source,scala,indent=0]
 ----
 include::example$05-shopping-cart-service-scala/src/main/scala/shopping/cart/PublishEventsProjectionHandler.scala[]
 ----
@@ -83,14 +83,14 @@ Place the initialization code of the Projection in an `PublishEventsProjection` 
 [.tabset]
 Java::
 +
-[source,java]
+[source,java,indent=0]
 ----
 include::example$05-shopping-cart-service-java/src/main/java/shopping/cart/PublishEventsProjection.java[]
 ----
 
 Scala::
 +
-[source,scala]
+[source,scala,indent=0]
 ----
 include::example$05-shopping-cart-service-scala/src/main/scala/shopping/cart/PublishEventsProjection.scala[]
 ----
@@ -118,14 +118,14 @@ Then you need to call the `PublishEventsProjection.init` from `Main`:
 [.tabset]
 Java::
 +
-[source,java]
+[source,java,indent=0]
 ----
 include::example$05-shopping-cart-service-java/src/main/java/shopping/cart/Main.java[tag=PublishEventsProjection]
 ----
 
 Scala::
 +
-[source,scala]
+[source,scala,indent=0]
 ----
 include::example$05-shopping-cart-service-scala/src/main/scala/shopping/cart/Main.scala[tag=PublishEventsProjection]
 ----
@@ -165,14 +165,14 @@ Create a `ShoppingCartEventConsumer` object that runs an Akka Stream with a Kafk
 [.tabset]
 Java::
 +
-[source,java]
+[source,java,indent=0]
 ----
 include::example$shopping-analytics-service-java/src/main/java/shopping/analytics/ShoppingCartEventConsumer.java[]
 ----
 
 Scala::
 +
-[source,scala]
+[source,scala,indent=0]
 ----
 include::example$shopping-analytics-service-scala/src/main/scala/shopping/analytics/ShoppingCartEventConsumer.scala[]
 ----
@@ -214,14 +214,14 @@ Edit the `Main` class that is included from the template project. It should init
 [.tabset]
 Java::
 +
-[source,java]
+[source,java,indent=0]
 ----
 include::example$shopping-analytics-service-java/src/main/java/shopping/analytics/Main.java[]
 ----
 
 Scala::
 +
-[source,scala]
+[source,scala,indent=0]
 ----
 include::example$shopping-analytics-service-scala/src/main/scala/shopping/analytics/Main.scala[]
 ----

@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-// tag::ItemPopularityProjection[]
 public class Main extends AbstractBehavior<Void> {
 
     public static void main(String[] args) throws Exception {

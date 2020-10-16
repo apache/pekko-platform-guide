@@ -21,7 +21,7 @@ The {akka-management}/[Akka Management] library includes support for exposing re
 The depedencies for Akka Management include the core module and the cluster HTTP module for cluster inspection. As Akka Management uses Spray JSON internally, make sure to add that dependency of the exact same version as other Akka HTTP libraries.
 
 .build.sbt
-[source,scala]
+[source,scala,indent=0]
 ----
 include::example$shopping-cart-service-scala/build.sbt[tag=dependencies-for-healthchecks]
 ----
@@ -41,7 +41,7 @@ akka.management {
 
 The management endpoint starts on the configured interface and port.
 
-[source,scala]
+[source,scala,indent=0]
 ----
 include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/Main.scala[tag=start-akka-management]
 ----

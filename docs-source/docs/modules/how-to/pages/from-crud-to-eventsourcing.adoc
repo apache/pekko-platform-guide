@@ -57,7 +57,7 @@ In Event Sourcing, on the other hand, there is a single table (referred to as _J
 
 A (very) simplified version of a `ShoppingCart` can be modelled using two commands, and two events:
 
-[source,scala]
+[source,scala,indent=0]
 ----
 include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/ShoppingCart.scala[tag=howto-crud-to-es-initial]
 ----
