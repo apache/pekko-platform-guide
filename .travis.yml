@@ -17,8 +17,8 @@ jobs:
   include:
     - stage: test
       script:
-        cd docs-source/docs/modules/microservices-tutorial/examples/shopping-analytics-service-scala
-        sbt -jvm-opts .jvmopts-travis "test; scalafmtCheckAll"
+        - cd docs-source/docs/modules/microservices-tutorial/examples/shopping-analytics-service-scala
+        - sbt -jvm-opts .jvmopts-travis "test; scalafmtCheckAll"
       name: "Shopping analytics service Scala"
     - script:
         - cd docs-source/docs/modules/microservices-tutorial/examples/shopping-analytics-service-java
