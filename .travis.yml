@@ -109,7 +109,7 @@ jobs:
     - script:
         - cd docs-source/docs/modules/microservices-tutorial/examples/05-shopping-cart-service-java
         - docker-compose up -d
-        - mvn java
+        - mvn test
       name: "05 Shopping cart service (Java)"
 
     - script:
