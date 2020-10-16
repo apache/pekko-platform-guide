@@ -15,6 +15,16 @@ before_install:
 
 jobs:
   include:
+    - stage: drop-travis-caches
+      script:
+        - rm -rf $HOME/.m2
+        - rm -rf $HOME/.ivy2/cache
+        - rm -rf $HOME/.sbt/boot
+        - rm -rf $HOME/.sbt/launchers
+        - rm -rf $HOME/.cache/coursier
+        - rm -rf $HOME/.jabba
+      name: "drop-travis-caches"
+
     - stage: check-files
       script:
         - scripts/copy-identical-files.sh
@@ -131,6 +141,8 @@ jobs:
       name: "Publish snapshot site"
 
 stages:
+  - name: drop-travis-caches
+
   - name: check-files
     if: (NOT tag =~ ^v) AND (type != cron)
 
