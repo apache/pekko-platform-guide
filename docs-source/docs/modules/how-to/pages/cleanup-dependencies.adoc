@@ -17,7 +17,7 @@ The project created with the command above uses sbt as a build tool. The build i
 . `build.sbt`
 . `project/plugins.sbt`
 
-Because the template adds all the dependencies, plugins, and settings required to build the full application used in the xref:shopping-microservices:index.adoc[microservices tutorial] it is likely you can remove some bits.
+Because the template adds all the dependencies, plugins, and settings required to build the full application used in the xref:shopping-microservices:index.adoc[Microservices tutorial] it is likely you can remove some bits.
 
 == Remove support for gRPC and protobuf
 

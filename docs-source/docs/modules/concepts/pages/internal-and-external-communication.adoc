@@ -7,7 +7,7 @@ Microservices should be xref:isolation.adoc[isolated] and xref:autonomy.adoc[aut
 
 Mulitple services communicate with each other (*inter-service*) by sending messages over a network. To achieve performance and resilience, you will often run multiple instances of the same service, typically on different nodes, and such *intra-service* communication also goes over the network. In addition, third-party and/or legacy systems might also consume or provide information for your microservice system.
 
-== Communication within a microservices system
+== Communication within a Microservices system
 
 Inter-service communication must use loosely-coupled protocols and message formats to maintain isolation and autonomy. Coordinating change between different services can be difficult and costly. You can achieve this in your system by taking advantage of the following:
 
@@ -19,7 +19,7 @@ Nodes of a single service (collectively called a cluster) require less decouplin
 
 * {akka}/typed/index-cluster.html[Akka Cluster] provides multiple features (pub-sub, distribute-data, sharding, distributed streams,...) for intra-service communication.
 
-* Databases and other persistent storage can be seen as another way that nodes of a service communicate. For microservices that use persistent entities, we encourage xref:event-sourcing.adoc[Event Sourcing] , which also takes advantage of asynchronous communication and provides guarantees via an event log.
+* Databases and other persistent storage can be seen as another way that nodes of a service communicate. For Microservices that use persistent entities, we encourage xref:event-sourcing.adoc[Event Sourcing] , which also takes advantage of asynchronous communication and provides guarantees via an event log.
 
 This diagram illustrates each of these types of inter- and intra-service communication in a Lagom system distributed across three servers. In the example, the Order service publishes to one or more Kafka topics, while the User service subscribes to consume the information. The User service communicates with other User service instances (cluster members) using Akka remoting. The Shipping service and User service exchange information by streaming it in service calls.
 
@@ -29,9 +29,9 @@ This diagram illustrates each of these types of inter- and intra-service communi
 [caption=""]
 image::concepts/internal-and-external-communication.png[Internal and External Communication]
 
-== Communication with parties outside of a microservices system
+== Communication with parties outside of a Microservices system
 
 Akka promotes use of asynchronous communication without preventing use of synchronous communication where necessary. Third parties can obtain data asynchronously from Akka services that publish to the Broker API. Akka services can also expose an API for third parties to exchange data synchronously. This is usually mapped to HTTP.
 
-Interaction with the outside world could mean clients that use the services over the internet, such as browsers, mobile apps or IoT devices. While using standard HTTP or WebSockets, typically such clients do not communicate directly with individual services. Usually, a network boundary acts as a perimeter, and a well-controlled communication point acts as the intermediary between the outside world and the inside world. This communication point is a service gateway. Envision your microservices system as a Medieval town with a wall around it and one gate offers the only way in or out. Communication inside the walls is free and direct, but communication to or from the outside world must come through the service gateway.
+Interaction with the outside world could mean clients that use the services over the internet, such as browsers, mobile apps or IoT devices. While using standard HTTP or WebSockets, typically such clients do not communicate directly with individual services. Usually, a network boundary acts as a perimeter, and a well-controlled communication point acts as the intermediary between the outside world and the inside world. This communication point is a service gateway. Envision your Microservices system as a Medieval town with a wall around it and one gate offers the only way in or out. Communication inside the walls is free and direct, but communication to or from the outside world must come through the service gateway.
 

@@ -5,4 +5,4 @@ include::partial$include.adoc[]
 
 ifdef::todo[TODO: this page is WIP]
 
-{reactive-microservices-ebook}[slicing the monolyth into microservices] {reactive-microservices-ebook}[{tab-icon}, window="tab"]
+{reactive-microservices-ebook}[slicing the monolith into Microservices] {reactive-microservices-ebook}[{tab-icon}, window="tab"]

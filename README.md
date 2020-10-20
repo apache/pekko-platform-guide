@@ -19,7 +19,7 @@ Feel free to give your feedback in the form of issues/PRs, or chat in https://gi
 Example code
 ------------
 
-The example application used in the documentation is composed of 3 three microservices. The projects for these services are located at:
+The example application used in the documentation is composed of 3 three Microservices. The projects for these services are located at:
 
 * [Shopping cart service in Scala](docs-source/docs/modules/microservices-tutorial/examples/shopping-cart-service-scala)
 * [Shopping cart analytics service in Scala](docs-source/docs/modules/microservices-tutorial/examples/shopping-analytics-service-scala)
