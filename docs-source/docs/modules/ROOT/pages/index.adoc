@@ -16,18 +16,17 @@ The tutorials in this guide show end-to-end use-cases implemented in Akka with t
 
 For a code-first experience, have a look at the xref:microservices-tutorial:index.adoc[Implementing Microservices with Akka tutorial] which walks you through an example project and explains how features from the Akka ecosystem fit together to build Reactive Systems. The tutorial will point you to the relevant xref:concepts:index.adoc[concepts] where applicable.
 
-If this is your first experience with Reactive frameworks or with Akka, we present some background and ideas behind _Reactive_ in the xref:concepts:index.adoc[Concepts section]. You can read those when they are introduced in the tutorial, or read them first if you prefer a more theoretical overview before diving into the code. There you will learn:
+If this is your first experience with Reactive frameworks or with Akka, we present some background and ideas behind _Reactive_ in the xref:concepts:index.adoc[Concepts section]. You can read those when they are introduced in the tutorial, or read them first if you prefer a more theoretical overview before diving into the code. There you will learn for example:
 
-ifdef::todo[TODO:
 * The challenges that Reactive Architecture can help you overcome
 * A summary of Reactive Principles
 * The benefits of using Akka
-* ...
-]
 
 == Akka Microservices tutorial
 
 The xref:microservices-tutorial:index.adoc[Implementing Microservices with Akka tutorial] illustrates how to implement an Event Sourced CQRS application with Akka Persistence and Akka Projections.
+
+The tutorial shows how to build the services piece by piece:
 
 include::microservices-tutorial:partial$listing.adoc[]
 

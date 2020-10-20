@@ -2,32 +2,17 @@
 
 include::ROOT:partial$include.adoc[]
 
-ifdef::review[REVIEWERS: I edited this page to remove repetitive words/concepts/sentences/sections. I don't think I removed anything important, but please check.]
-
-
-This tutorial illustrates how microservices can interact to implement a shopping cart system. It demonstrates use of the following Akka Platform features:
-
-* Akka Cluster Sharding: to distribute processing
-* Akka Persistence Cassandra: to use Event Sourcing
-* Akka Projections: to enable CQRS
-* Akka gRPC: to implement a gRPC service API
-* Akka Management: for health checks
-
-
-
-The topics listed below show how to build the services piece by piece, from scratch. After testing locally what you build in each main step, you can also deploy to the cloud.
-
-ifdef::review[REVIEWERS: Not sure why the page listing is in a partial, there isn't a use case for sharing it (including in multiple places), is there?]
+This tutorial illustrates how microservices can interact to implement a shopping cart system. The topics listed below show how to build the services piece by piece, from scratch.
 
 include::partial$listing.adoc[]
 
 == Learn more
 
-The following links provide more information about the Akka Platform features mentioned above:
+The following links provide more information about some of the Akka Platform features used in the tutorial.
 
-* {akka}/typed/cluster-sharding.html[Akka Cluster Sharding {tab-icon}, window="tab"]
-* {akka-persistence-cassandra}/[Akka Persistence Cassandra {tab-icon}, window="tab"]
-* {akka-projection}/[Akka Projections {tab-icon}, window="tab"]
-* {akka-grpc}/[Akka gRPC {tab-icon}, window="tab"]
-* {akka-management}/[Akka Management {tab-icon}, window="tab"]
+* {akka}/typed/cluster-sharding.html[Akka Cluster Sharding {tab-icon}, window="tab"] to distribute Event Sourced cart entities and Projections
+* {akka}/typed/persistence.html[Akka Event Sourcing] {akka}/typed/persistence.html[{tab-icon}, window="tab"] to store the state of the shopping carts
+* {akka-projection}/[Akka Projections {tab-icon}, window="tab"] to enable CQRS and event based communication with other services
+* {akka-grpc}/[Akka gRPC {tab-icon}, window="tab"] to implement a gRPC service API and communication with other services
+* {akka-management}/[Akka Management {tab-icon}, window="tab"] for Akka Cluster formation and health checks
 

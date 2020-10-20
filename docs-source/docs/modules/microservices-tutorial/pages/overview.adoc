@@ -6,29 +6,8 @@ This tutorial shows how to build the functionality for a Shopping Cart system. W
 
 image::example-overview.png[Example overview]
 
-Each user's cart is represented by an Cart Entity. Cart state is persisted using xref:concepts:event-sourcing.adoc[Event Sourcing]: When a user updates their cart, the Entity persists commands to a Cassandra database in an _Event Journal_. Using xref:concepts:cqrs.adoc[Command Query Responsibility Segregation] (CQRS), which separates read and write responsibility, {akka-projection}/[Akka Projections] {akka-projection}/[{tab-icon}, window="tab"] provide the data necessary for the Order and Analytics services.
+Each user's cart is represented by a Cart Entity. Cart state is persisted using xref:concepts:event-sourcing.adoc[Event Sourcing]: When a user updates their cart, the Entity persists commands to a Cassandra database in an _Event Journal_. Using xref:concepts:cqrs.adoc[Command Query Responsibility Segregation] (CQRS), which separates read and write responsibility, {akka-projection}/[Akka Projections] {akka-projection}/[{tab-icon}, window="tab"] provide the data necessary for the Order and Analytics services.
 
-The `PopularityProjection` is derived from the contents of all shopping carts.
+The `PopularityProjection` uses the events from all shopping carts to store a representation in the database to answer queries of how popular the items are.
 
-ifdef::review[REVIEWERS: there are still some missing pieces here: an explanation of the queryDB; why an arrow from PopularityProjection goes up to queryDB and comes down from Entity, when this is what the Analytics service needs to use, right?;  Why is PublishEvents projection written to Kafka and subscribed to by Analytics instead of PopularityProjection?]
-
-
-Follow these main steps to build functionality a bit at a time and deploy to the cloud as you go:
-
-ifdef::review[REVIEWERS: with the next and prev buttons in the new template, not sure that we need the full list of reproduced here again?]
-
-xref:dev-env.adoc[]
-
-xref:template.adoc[]
-
-xref:grpc-service.adoc[]
-
-xref:entity.adoc[]
-
-xref:complete-entity.adoc[]
-
-xref:projection-query.adoc[]
-
-xref:projection-kafka.adoc[]
-
-xref:projection-grpc-client.adoc[]
+Follow the steps in the tutorial to build functionality a bit at a time and try running it as you go.
