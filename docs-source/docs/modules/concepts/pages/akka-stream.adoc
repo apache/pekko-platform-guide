@@ -10,6 +10,8 @@ The Akka Streams API is completely decoupled from the xref:reactive-streams.adoc
 
 The relationship between Akka Streams and Reactive Streams is that the Akka Streams API is geared towards end-users while the Akka Streams implementation uses the Reactive Streams interfaces internally to pass data between the different operators. What this means is that you can implement an application where Akka Streams interconnect with other Reactive Streams implementations ina fully compatible way.
 
+== Learn more
+
 To learn more, have a look at the {akka}/stream/stream-introduction.html[Akka Streams documentation] dedicated setions: 
 
 * Read the {akka}/stream/stream-quickstart.html[Quick Start Guide] to get a feel for how streams look like and what they can do.

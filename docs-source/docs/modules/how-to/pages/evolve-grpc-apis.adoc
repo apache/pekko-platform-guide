@@ -1,6 +1,0 @@
-= How to evolve gRPC APIs with Akka gRPC
-
-
-include::partial$include.adoc[]
-
-ifdef::todo[TODO: this page is WIP] 

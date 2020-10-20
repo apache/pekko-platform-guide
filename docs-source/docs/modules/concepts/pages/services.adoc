@@ -1,22 +1,16 @@
 = What makes up a service?
 
-
 include::partial$include.adoc[]
-
-ifdef::todo[TODO: this page is WIP]
-
-
-ifdef::todo[(Lagom Service Descriptors https://www.lagomframework.com/documentation/1.6.x/java/ServiceDescriptors.html)]
 
 A service is made up by its API (request and response types, strict vs stream, synchronous vs asynchronous), and discovery information (URL, topic name).
 
-To communicate the API consistently, we recommend using schema-first approaches. The schemas are to be shared by the service implementation and its clients. From the schema the implementing code is generated and used to implement the service and the client code. With this approach the service, and the clients don't share any code or dependencies.
+To communicate with the API consistently, we recommend using schema-first approaches. The schemas are to be shared by the service implementation and its clients. From the schema the implementing code is generated and used to implement the service and the client code. With this approach the service, and the clients don't share any code or dependencies.
 
 == Synchronous Services
 
 This guide illustrates building service APIs for synchronous communication for use cases which require an instant reply. Most often synchronous communication issues a single request and expects a single reply. Other cases open communication channels for continued communication with possibly ongoing replies.
 
-Synchronous communication gives results and errors immediately so the client can react before continuing its processing, but that often means the client doesn't progress until it received the response.
+NOTE: When using Akka APIs, such as Akka gRPC or Akka HTTP, synchronous communication is still not blocking the caller's thread. The call returns a handle to a future reply (a Java `CompletionStage`, Scala `Future`, or Akka Stream).
 
 === gRPC
 
@@ -25,7 +19,9 @@ Protobuf can also be used as a serialization format for messages on Kafka topics
 
 Akka gRPC adds plug-ins to the build system of the application to generate Java or Scala classes corresponding to the Protobuf schema.
 
-xref:grpc-services.adoc[gRPC services] explains how to use gRPC for service APIs.
+xref:akka-grpc.adoc[Akka gRPC] explains how to use gRPC for service APIs.
+
+NOTE: The xref:microservices-tutorial:grpc-service.adoc[] and xref:microservices-tutorial:projection-grpc-client.adoc[] in the tutorial illustrates how to implement a gRPC server and client.
 
 === HTTP with JSON / RESTful
 
@@ -38,12 +34,7 @@ NOTE: This guide doesn't cover how REST services can be implemented with Akka HT
 Asynchronous service communication decouples services at a higher degree. Sending and receiving is decoupled in time and both parts do not necessarily act at the same time.
 To ensure delivery of messages asynchronous communication may require extra measures like sending acknowledgements.
 
-ifdef::todo[TODO:
-* Kafka
-* Show protobuf (implemented in Cloudflow, examples in Alpakka Kafka)
-* Confluent Cloud Protobuf https://www.confluent.io/blog/using-protobuf-in-confluent-cloud/
-* Broker discovery https://doc.akka.io/docs/alpakka-kafka/current/discovery.html
-]
+NOTE: The xref:microservices-tutorial:projection-kafka.adoc[] in the tutorial illustrates how to use Kafka for asynchronous communication between to Microservices.
 
 == Service Discovery
 [#service-discovery]
@@ -57,10 +48,6 @@ Service Discovery look-ups hit a Service Registry that keeps an up-to-date list 
 The above describes a scenario of client-side Service Discovery where the service publishes a detailed registry of all the instances serving it.
 
 With server-side Service Discovery, on the other hand, the service implementor provides a single, stable entry point and handles the discovery, but also the load-balancing, internally.
-
-ifdef::todo[TODO: Transport information coordinates (URL, HTTP method, broker & topic), serialization]
-
-ifdef::todo[TODO: Service descriptor agnostic to transport?]
 
 == Protecting our Service
 

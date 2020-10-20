@@ -25,6 +25,7 @@ Challenges that Sharding solves include the following:
 * How to ensure migrating entities from a crashed system without losing the state.
 * How to ensure that an entity does not exist on multiple systems at the same time and hence keeps consistent.
 
+NOTE: The xref:microservices-tutorial:entity.adoc[Event Sourced Cart entity in the Microservices tutorial] illustrates how to use Akka Cluster Sharding to manage the entities. It is also using Sharding for xref:microservices-tutorial:projection-query.adoc[distributing the Projections].
 
 == Split Brain Resolver
 
@@ -32,4 +33,6 @@ When operating an Akka cluster you must consider how to handle network partition
 
 The {akka-blog}/news/2020/06/08/akka-split-brain-resolver-video[Split Brain Resolver video] {akka-blog}/news/2020/06/08/akka-split-brain-resolver-video[{tab-icon}, window="tab"] is a good starting point for learning why it is important to use a correct downing provider and how the Split Brain Resolver works.
 
-Learn more about Akka Cluster at the {akka}/typed/index-cluster.html[Akka docs (Cluster module)] {akka}/typed/index-cluster.html[{tab-icon}, window="tab"].
+== Learn more
+
+Learn more about Akka Cluster in the {akka}/typed/index-cluster.html[Akka Cluster reference documentation] {akka}/typed/index-cluster.html[{tab-icon}, window="tab"].

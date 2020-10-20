@@ -2,12 +2,12 @@
 
 
 include::partial$include.adoc[]
+include::concepts:partial$include.adoc[]
 
 [NOTE]
 ====
-This howto is not about xref:concepts:slicing-the-monolith.adoc[Slicing the monolith] or the xref:concepts:event-sourcing.adoc#advantages[Advantages of Event Sourcing].
+This howto is not about {reactive-microservices-ebook}[slicing the monolith into Microservices] {reactive-microservices-ebook}[{tab-icon}, window="tab"] or the xref:concepts:event-sourcing.adoc#advantages[Advantages of Event Sourcing].
 ====
-
 
 When developing using a traditional CRUD approach, the entities in memory are a collection of mutable classes. Similarly, the representation of that data on the database is a collection of mutable rows in several tables.
 

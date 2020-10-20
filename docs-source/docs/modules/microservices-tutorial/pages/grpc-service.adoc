@@ -164,5 +164,5 @@ ifdef::todo[TODO: deploy to cloud and try it]
 :!sectnums:
 == Learn more
 
-* xref:concepts:grpc-services.adoc[gRPC concepts]
+* xref:concepts:akka-grpc.adoc[Akka gRPC concepts]
 * {akka-grpc}/server/index.html[Akka gRPC server reference documentation] {akka-grpc}/server/index.html[{tab-icon}, window="tab"].

@@ -1,6 +1,5 @@
 .xref:index.adoc[How to ... with Akka]
 * xref:from-crud-to-eventsourcing.adoc[migrate from CRUD to Event Sourcing]
 * xref:scale-independently.adoc[scale command and query-side]
-* xref:evolve-grpc-apis.adoc[evolve gRPC APIs]
 * xref:enable-TLS.adoc[enable TLS for gRPC]
 * xref:health-checks.adoc[inspect the health]

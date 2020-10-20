@@ -9,7 +9,8 @@
 * Implementation Concepts
 ** xref:akka-actor.adoc[]
 ** xref:akka-stream.adoc[]
-** xref:clustering.adoc[]
+** xref:akka-grpc.adoc[]
+** xref:akka-cluster.adoc[]
 ** xref:akka-persistence.adoc[]
 ** xref:akka-projections.adoc[]
 ** xref:akka-management.adoc[]
@@ -18,7 +19,6 @@
 ** xref:reactive-disambiguation.adoc[]
 ** xref:event-sourcing.adoc[]
 ** xref:cqrs.adoc[]
-** xref:message-driven-event-driven.adoc[Message Driven]
 ** xref:eventual-consistency.adoc[]
 ** xref:commands-and-events.adoc[]
 ** xref:memory-image-pattern.adoc[]
@@ -27,5 +27,4 @@
 ** xref:ddd.adoc[Brief Summary of DDD concepts]
 ** xref:internal-and-external-communication.adoc[]
 ** xref:services.adoc[]
-** xref:grpc-services.adoc[]
 ** xref:deployment-and-container-orchestration.adoc[]

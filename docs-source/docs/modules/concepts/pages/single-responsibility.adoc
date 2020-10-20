@@ -1,6 +1,0 @@
-= Single Responsibility
-
-
-include::partial$include.adoc[]
-
-ifdef::todo[TODO: this page is WIP]

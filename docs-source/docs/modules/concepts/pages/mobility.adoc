@@ -26,4 +26,4 @@ include::partial$reactive-microservices-ebook.adoc[]
 
 == Learn more
 
-* xref:services#service-discovery[Service Discovery].
+* xref:services#service-discovery[Service Discovery]
