@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-// tag::ItemPopularityProjection[]
 public class Main extends AbstractBehavior<Void> {
 
     public static void main(String[] args) throws Exception {
@@ -40,7 +39,9 @@ public class Main extends AbstractBehavior<Void> {
         ShoppingCart.init(system);
 
         // tag::ItemPopularityProjection[]
-        CassandraSession session = CassandraSessionRegistry.get(system).sessionFor("akka.persistence.cassandra"); // <1>
+        CassandraSession session =
+                CassandraSessionRegistry.get(system)
+                        .sessionFor("akka.persistence.cassandra"); // <1>
         // use same keyspace for the item_popularity table as the offset store
         String itemPopularityKeyspace = system.settings().config().getString("akka.projection.cassandra.offset-store.keyspace");
         ItemPopularityRepository itemPopularityRepository =

@@ -55,14 +55,14 @@ Implement the `ShoppingOrderService` in a new class `ShoppingOrderServiceImpl`:
 [.tabset]
 Java::
 +
-[source,java]
+[source,java,indent=0]
 ----
 include::example$shopping-order-service-java/src/main/java/shopping/order/ShoppingOrderServiceImpl.java[]
 ----
 
 Scala::
 +
-[source,scala]
+[source,scala,indent=0]
 ----
 include::example$shopping-order-service-scala/src/main/scala/shopping/order/ShoppingOrderServiceImpl.scala[]
 ----
@@ -72,14 +72,14 @@ Similar to the xref:grpc-server.adoc[gRPC server for the ShoppingCartService] we
 [.tabset]
 Java::
 +
-[source,java]
+[source,java,indent=0]
 ----
 include::example$shopping-order-service-java/src/main/java/shopping/order/ShoppingOrderServer.java[]
 ----
 
 Scala::
 +
-[source,scala]
+[source,scala,indent=0]
 ----
 include::example$shopping-order-service-scala/src/main/scala/shopping/order/ShoppingOrderServer.scala[]
 ----
@@ -89,14 +89,14 @@ and call the `ShoppingOrderServer.init` from `Main`:
 [.tabset]
 Java::
 +
-[source,java]
+[source,java,indent=0]
 ----
 include::example$shopping-order-service-java/src/main/java/shopping/order/Main.java[]
 ----
 
 Scala::
 +
-[source,scala]
+[source,scala,indent=0]
 ----
 include::example$shopping-order-service-scala/src/main/scala/shopping/order/Main.scala[]
 ----
@@ -123,14 +123,14 @@ Add a `SendOrderProjectionHandler` class that is the Projection `Handler` for pr
 [.tabset]
 Java::
 +
-[source,java]
+[source,java,indent=0]
 ----
 include::example$shopping-cart-service-java/src/main/java/shopping/cart/SendOrderProjectionHandler.java[]
 ----
 
 Scala::
 +
-[source,scala]
+[source,scala,indent=0]
 ----
 include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/SendOrderProjectionHandler.scala[]
 ----
@@ -154,14 +154,14 @@ Place the initialization code of the Projection in an `SendOrderProjection` obje
 [.tabset]
 Java::
 +
-[source,java]
+[source,java,indent=0]
 ----
 include::example$shopping-cart-service-java/src/main/java/shopping/cart/SendOrderProjection.java[]
 ----
 
 Scala::
 +
-[source,scala]
+[source,scala,indent=0]
 ----
 include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/SendOrderProjection.scala[]
 ----
@@ -171,14 +171,14 @@ In the `Main` you can invoke the `SendOrderProjection.init` and create the gRPC 
 [.tabset]
 Java::
 +
-[source,java]
+[source,java,indent=0]
 ----
 include::example$shopping-cart-service-java/src/main/java/shopping/cart/Main.java[tag=SendOrderProjection]
 ----
 
 Scala::
 +
-[source,scala]
+[source,scala,indent=0]
 ----
 include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/Main.scala[tag=SendOrderProjection]
 ----

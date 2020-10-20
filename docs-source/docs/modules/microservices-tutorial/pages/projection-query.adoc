@@ -19,8 +19,8 @@ Read the xref:concepts:cqrs.adoc[CQRS] section as a background to why it is good
 
 .Available .zip downloads:
 ****
-* link:_attachments/3-shopping-cart-event-sourced-complete-scala.zip[Source] that includes all previous tutorial steps and allows you to start with the steps on this page.
-* link:_attachments/4-shopping-cart-projection-scala.zip[Source] with the steps on this page completed.
+* [.group-scala]#link:_attachments/3-shopping-cart-event-sourced-complete-scala.zip[Source]# [.group-java]#link:_attachments/3-shopping-cart-event-sourced-complete-java.zip[Source]# that includes all previous tutorial steps and allows you to start with the steps on this page.
+* [.group-scala]#link:_attachments/4-shopping-cart-projection-scala.zip[Source]# [.group-java]#link:_attachments/4-shopping-cart-projection-java.zip[Source]# with the steps on this page completed.
 ****
 
 == Processing events in a Projection
@@ -30,19 +30,19 @@ You implement the event processing of the Projection in a `Handler`. Add a class
 [.tabset]
 Java::
 +
-[source,java]
+[source,java,indent=0]
 ----
-TODO
+include::example$04-shopping-cart-service-java/src/main/java/shopping/cart/ItemPopularityProjectionHandler.java[]
 ----
 
 Scala::
 +
-[source,scala]
+[source,scala,indent=0]
 ----
 include::example$04-shopping-cart-service-scala/src/main/scala/shopping/cart/ItemPopularityProjectionHandler.scala[]
 ----
 
-<1> extends `akka.projection.scaladsl.Handler`
+<1> extends [.group-scala]#`akka.projection.scaladsl.Handler`# [.group-java]#`akka.projection.javadsl.Handler`#
 <2> `process` is the method to implement
 <3> match on the events and increment or decrement the count via the `ItemPopularityRepository`
 
@@ -51,14 +51,15 @@ The `ItemPopularityRepository` encapsulates the database access and can have a s
 [.tabset]
 Java::
 +
-[source,java]
+[source,java,indent=0]
 ----
-TODO
+include::example$04-shopping-cart-service-java/src/main/java/shopping/cart/ItemPopularityRepository.java[]
+include::example$04-shopping-cart-service-java/src/main/java/shopping/cart/ItemPopularityRepositoryImpl.java[]
 ----
 
 Scala::
 +
-[source,scala]
+[source,scala,indent=0]
 ----
 include::example$04-shopping-cart-service-scala/src/main/scala/shopping/cart/ItemPopularityRepository.scala[]
 ----
@@ -80,38 +81,38 @@ Edit the `ShoppingCart.scala` to include the following:
 [.tabset]
 Java::
 +
-[source,java]
+[source,java,indent=0]
 ----
-TODO
+include::example$04-shopping-cart-service-java/src/main/java/shopping/cart/ShoppingCart.java[tag=tagging]
 ----
 
 Scala::
 +
-[source,scala]
+[source,scala,indent=0]
 ----
 include::example$04-shopping-cart-service-scala/src/main/scala/shopping/cart/ShoppingCart.scala[tag=tagging]
 ----
 
 One of the tags is selected based on the `cartId`, which is the `entityContext.entityId`.
 
-The tag is assigned to the `EventSourcedBehavior`. Add the `projectionTag` parameter and `.withTagger` in the `ShoppingCart.apply` method:
+The tag is assigned to the `EventSourcedBehavior`. [.group-scala]#In the `ShoppingCart.apply` method, add the `projectionTag` parameter and pass it to `.withTagger`:# [.group-java]#In the `ShoppingCart` constructor, add the `projectionTag` parameter and use it to override the `tagsFor` method:#
 
 [.tabset]
 Java::
 +
-[source,java]
+[source,java,indent=0]
 ----
-TODO
+include::example$04-shopping-cart-service-java/src/main/java/shopping/cart/ShoppingCart.java[tag=withTagger]
 ----
 
 Scala::
 +
-[source,scala]
+[source,scala,indent=0]
 ----
 include::example$04-shopping-cart-service-scala/src/main/scala/shopping/cart/ShoppingCart.scala[tag=withTagger]
 ----
 
-<1> `withTagger` to assign the projectionTag
+<1> [.group-scala]#`withTagger` to assign the projectionTag# [.group-java]#`tagsFor` to assign the projectionTag#
 
 Here we use five different tags. The tagging is not easy to change later without system downtime. Before going live in production you should consider how many tags to use, see {akka-projection}/running.html[Akka Projections reference documentation] {akka-projection}/running.html[{tab-icon}, window="tab"] for more information.
 
@@ -122,19 +123,19 @@ Place the initialization code of the Projection in an `ItemPopularityProjection`
 [.tabset]
 Java::
 +
-[source,java]
+[source,java,indent=0]
 ----
-TODO
+include::example$04-shopping-cart-service-java/src/main/java/shopping/cart/ItemPopularityProjection.java[]
 ----
 
 Scala::
 +
-[source,scala]
+[source,scala,indent=0]
 ----
 include::example$04-shopping-cart-service-scala/src/main/scala/shopping/cart/ItemPopularityProjection.scala[]
 ----
 
-<1> `ShardedDaemonProcess` will manage the Projection instances. It makes sure that they are always running and distributes them over the nodes in the Akka Cluster.
+<1> `ShardedDaemonProcess` will manage the Projection instances. It ensures the Projection instances are always running and distributes them over the nodes in the Akka Cluster.
 
 <2> The `tag` is selected based on the Projection instance's index, corresponding to *carts-0* to *carts-3* as explained in the tagging in the `ShoppingCart`.
 
@@ -151,14 +152,14 @@ Then you need to call the `ItemPopularityProjection.init` from `Main`:
 [.tabset]
 Java::
 +
-[source,java]
+[source,java,indent=0]
 ----
-TODO
+include::example$04-shopping-cart-service-java/src/main/java/shopping/cart/Main.java[tag=ItemPopularityProjection]
 ----
 
 Scala::
 +
-[source,scala]
+[source,scala,indent=0]
 ----
 include::example$04-shopping-cart-service-scala/src/main/scala/shopping/cart/Main.scala[tag=ItemPopularityProjection]
 ----
@@ -175,16 +176,23 @@ To expose the item popularity to the outside of the service we can add an operat
 
 Add a new `GetItemPopularity` operation to the `ShoppingCartService.proto`:
 
-[source,protobuf]
+[source,protobuf,indent=0]
 ----
 include::example$04-shopping-cart-service-scala/src/main/protobuf/ShoppingCartService.proto[tag=GetItemPopularity]
 ----
 
 Generate code from the new Protobuf specification by compiling the project:
 
+[.group-scala]
 [source,shell script]
 ----
 sbt compile
+----
+
+[.group-java]
+[source,shell script]
+----
+mvn compile
 ----
 
 Add the `getItemPopularity` method to the `ShoppingCartServiceImpl`:
@@ -192,19 +200,19 @@ Add the `getItemPopularity` method to the `ShoppingCartServiceImpl`:
 [.tabset]
 Java::
 +
-[source,java]
+[source,java,indent=0]
 ----
-TODO
+include::example$04-shopping-cart-service-java/src/main/java/shopping/cart/ShoppingCartServiceImpl.java[tag=getItemPopularity]
 ----
 
 Scala::
 +
-[source,scala]
+[source,scala,indent=0]
 ----
 include::example$04-shopping-cart-service-scala/src/main/scala/shopping/cart/ShoppingCartServiceImpl.scala[tag=getItemPopularity]
 ----
 
-For this you have to add the `ItemPopularityRepository` as a constructor parameter to the `ShoppingCartServiceImpl`. The `ItemPopularityRepository` instance is created in `Main.scala` so pass that instance as parameter to `ShoppingCartServer.start` and then to  `ShoppingCartServiceImpl`.
+For this you have to add the `ItemPopularityRepository` as a constructor parameter to the `ShoppingCartServiceImpl`. The `ItemPopularityRepository` instance is created in [.group-scala]#`Main.scala`# [.group-java]#`Main.java`# so pass that instance as parameter to `ShoppingCartServer.start` and then to  `ShoppingCartServiceImpl`.
 
 == Run
 
@@ -219,7 +227,7 @@ Create the item popularity table:
 
 Create a file in `ddl-scripts/create_user_tables.cql` and add the CQL statement below. 
 
-[source,cql]
+[source,cql,indent=0]
 ----
 include::example$04-shopping-cart-service-scala/ddl-scripts/create_user_tables.cql[]
 ----
@@ -231,11 +239,18 @@ Load the file into Cassandra:
 docker exec -i shopping-cart-service_cassandra_1 cqlsh -t < ddl-scripts/create_user_tables.cql
 ----
 
-
 include::template.adoc[tag=dockerImportant]
 
 Run the service with:
 
+[.group-java]
+[source,shell script]
+----
+# make sure to compile before running exec:exec
+mvn compile exec:exec -DAPP_CONFIG=local1.conf
+----
+
+[.group-scala]
 [source,shell script]
 ----
 sbt -Dconfig.resource=local1.conf run

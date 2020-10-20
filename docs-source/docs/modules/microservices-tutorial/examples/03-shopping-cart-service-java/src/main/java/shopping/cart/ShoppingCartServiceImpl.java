@@ -19,12 +19,10 @@ public final class ShoppingCartServiceImpl implements ShoppingCartService {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private final ItemPopularityRepository itemPopularityRepository;
     private final Duration timeout;
     private final ClusterSharding sharding;
 
-    public ShoppingCartServiceImpl(ActorSystem<?> system, ItemPopularityRepository itemPopularityRepository) {
-        this.itemPopularityRepository = itemPopularityRepository;
+    public ShoppingCartServiceImpl(ActorSystem<?> system) {
         timeout = system.settings().config().getDuration("shopping-cart-service.ask-timeout");
         sharding = ClusterSharding.get(system);
     }
@@ -78,16 +76,6 @@ public final class ShoppingCartServiceImpl implements ShoppingCartService {
         return convertError(protoCart);
     }
     // end::checkoutAndGet[]
-
-    // tag::getItemPopularity[]
-    @Override
-    public CompletionStage<GetItemPopularityResponse> getItemPopularity(GetItemPopularityRequest in) {
-        return itemPopularityRepository.getItem(in.getItemId()).thenApply(maybePopularity -> {
-            long popularity = maybePopularity.orElse(0L);
-            return GetItemPopularityResponse.newBuilder().setPopularityCount(popularity).build();
-        });
-    }
-    // end::getItemPopularity[]
 
     // tag::toProtoCart[]
     private static Cart toProtoCart(ShoppingCart.Summary cart) {

@@ -10,7 +10,8 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
-public final class ItemPopularityProjectionHandler extends Handler<EventEnvelope<ShoppingCart.Event>> { // <1>
+public final class ItemPopularityProjectionHandler 
+    extends Handler<EventEnvelope<ShoppingCart.Event>> { // <1>
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private final String tag;
     private final ItemPopularityRepository repo;
@@ -21,11 +22,12 @@ public final class ItemPopularityProjectionHandler extends Handler<EventEnvelope
     }
 
     @Override
-    public CompletionStage<Done> process(EventEnvelope<ShoppingCart.Event> envelope) throws Exception, Exception { // <2>
+    public CompletionStage<Done> process(EventEnvelope<ShoppingCart.Event> envelope) // <2>
+        throws Exception, Exception { 
         ShoppingCart.Event event = envelope.event();
 
         CompletionStage<Done> dbEffect = null;
-        if (event instanceof ShoppingCart.ItemAdded) {
+        if (event instanceof ShoppingCart.ItemAdded) { // <3>
             ShoppingCart.ItemAdded added = (ShoppingCart.ItemAdded) event;
             dbEffect = this.repo.update(added.itemId, added.quantity);
         } else if (event instanceof ShoppingCart.ItemQuantityAdjusted) {
@@ -63,4 +65,3 @@ public final class ItemPopularityProjectionHandler extends Handler<EventEnvelope
         }
     }
 }
-

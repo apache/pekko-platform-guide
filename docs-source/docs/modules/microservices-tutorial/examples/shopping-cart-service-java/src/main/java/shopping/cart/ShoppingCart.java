@@ -315,7 +315,7 @@ public final class ShoppingCart extends EventSourcedBehaviorWithEnforcedReplies<
     }
 
     @Override
-    public Set<String> tagsFor(Event event) {
+    public Set<String> tagsFor(Event event) {  // <1>
         return Collections.singleton(projectionTag);
     }
     // end::withTagger[]
