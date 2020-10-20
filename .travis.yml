@@ -137,6 +137,7 @@ jobs:
     - script:
         - make check-links
       name: "Run the link checker"
+      if: type == cron
 
     - stage: publish
       script:
