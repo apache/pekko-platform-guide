@@ -14,14 +14,12 @@ Persistence tackles the following challenges:
 * How to leverage xref:event-sourcing.adoc[] in your application to support long-running processes while the project continues to evolve.
 * How to implement a xref:cqrs.adoc[CQRS] system.
 
-
+NOTE: The xref:microservices-tutorial:entity.adoc[Event Sourced Cart entity in the Microservices tutorial] illustrates how to implement an Event Sourced CQRS application with Akka Persistence.
 
 == Persistence Plugins
 
 Storage backends for journals and snapshot stores are pluggable in the Akka persistence extension. Plugins maintained within the Akka organization include plugins for Cassandra and JDBC databases.
 
-NOTE: The xref:microservices-tutorial:index.adoc[Implementing Microservices with Akka tutorial] illustrates how to implement an Event Sourced CQRS application with Akka Persistence and the Akka Persistence Cassandra plugin.
-
 == Learn more
 
-Learn more about Akka Persistence on the {akka}/typed/index-persistence.html[Akka docs (Persistence module)] {akka}/typed/index-persistence.html[{tab-icon}, window="tab"].
+Learn more about Akka Persistence in the {akka}/typed/index-persistence.html[Akka Persistence reference documentation] {akka}/typed/index-persistence.html[{tab-icon}, window="tab"].

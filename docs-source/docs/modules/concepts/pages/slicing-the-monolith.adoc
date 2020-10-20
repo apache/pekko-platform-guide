@@ -1,8 +1,0 @@
-= Slicing the Monolith
-
-
-include::partial$include.adoc[]
-
-ifdef::todo[TODO: this page is WIP]
-
-{reactive-microservices-ebook}[slicing the monolith into Microservices] {reactive-microservices-ebook}[{tab-icon}, window="tab"]

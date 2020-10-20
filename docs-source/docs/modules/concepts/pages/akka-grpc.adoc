@@ -16,7 +16,13 @@ https://doc.akka.io/docs/akka-grpc/current/proto.html
 
 Share data format through Protobuf files
 
+== gRPC servers
+
+NOTE: The xref:microservices-tutorial:grpc-service.adoc[] in the tutorial illustrates how to implement a gRPC server.
+
 == gRPC clients
+
+NOTE: The xref:microservices-tutorial:projection-grpc-client.adoc[] in the tutorial illustrates how to implement a gRPC client.
 
 === Using grpccurl
 
