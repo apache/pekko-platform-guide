@@ -39,7 +39,6 @@ public final class ShoppingCartServiceImpl implements ShoppingCartService {
     return convertError(cart);
   }
 
-  // tag::toProtoCart[]
   private static Cart toProtoCart(ShoppingCart.Summary cart) {
     List<Item> protoItems =
         cart.items.entrySet().stream()
@@ -53,7 +52,6 @@ public final class ShoppingCartServiceImpl implements ShoppingCartService {
 
     return Cart.newBuilder().addAllItems(protoItems).build();
   }
-  // end::toProtoCart[]
 
   private static <T> CompletionStage<T> convertError(CompletionStage<T> response) {
     return response.exceptionally(

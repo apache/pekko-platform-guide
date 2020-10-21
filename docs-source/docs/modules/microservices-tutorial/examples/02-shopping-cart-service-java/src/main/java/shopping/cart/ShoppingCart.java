@@ -101,18 +101,18 @@ public final class ShoppingCart
       this.replyTo = replyTo;
     }
   }
-  // end::commands[]
-
+  
   /** Summary of the shopping cart state, used in reply messages. */
   public static final class Summary implements CborSerializable {
     final Map<String, Integer> items;
-
+    
     @JsonCreator
     public Summary(Map<String, Integer> items) {
       // defensive copy since items is a mutable object
       this.items = new HashMap<>(items);
     }
   }
+  // end::commands[]
 
   // tag::events[]
   // ...

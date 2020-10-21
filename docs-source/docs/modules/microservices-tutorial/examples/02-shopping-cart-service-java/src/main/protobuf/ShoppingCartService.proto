@@ -19,7 +19,6 @@ message AddItemRequest {
 
 message Cart {
     repeated Item items = 1;
-    bool checkedOut = 2;
 }
 
 message Item {
