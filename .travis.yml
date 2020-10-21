@@ -15,7 +15,8 @@ before_install:
 
 env:
   global:
-    - RUN_DROP_TRAVIS_CACHES_STAGE=false
+    # TODO change to false when Travis works again
+    - RUN_DROP_TRAVIS_CACHES_STAGE=true
 
 jobs:
   include:
