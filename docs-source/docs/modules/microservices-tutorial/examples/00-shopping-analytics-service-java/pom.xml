@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>shopping-order-service</artifactId>
+    <artifactId>shopping-analytics-service</artifactId>
     <groupId>com.lightbend.akka.samples</groupId>
     <version>1.0</version>
 
@@ -18,10 +18,10 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <akka.version>2.6.10</akka.version>
-        <akka-http.version>10.2.0</akka-http.version>
+        <akka-http.version>10.2.1</akka-http.version>
         <!-- FIXME once akka management 1.0.9 is released -->
         <akka-management.version>1.0.8+35-9feaa689+20200825-1429</akka-management.version>
-        <akka-persistence-cassandra.version>1.0.3</akka-persistence-cassandra.version>
+        <akka-persistence-cassandra.version>1.0.2</akka-persistence-cassandra.version>
         <alpakka-kafka.version>2.0.5</alpakka-kafka.version>
         <akka-projection.version>1.0.0</akka-projection.version>
         <akka-grpc.version>1.0.1</akka-grpc.version>
@@ -199,7 +199,7 @@
                         <argument>-Dconfig.resource=${APP_CONFIG}</argument>
                         <argument>-classpath</argument>
                         <classpath />
-                        <argument>shopping.cart.Main</argument>
+                        <argument>shopping.analytics.Main</argument>
                     </arguments>
                 </configuration>
             </plugin>

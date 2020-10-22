@@ -21,10 +21,10 @@ import org.apache.kafka.common.serialization.ByteArrayDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sample.shoppingcart.proto.CheckedOut;
-import sample.shoppingcart.proto.ItemAdded;
-import sample.shoppingcart.proto.ItemQuantityAdjusted;
-import sample.shoppingcart.proto.ItemRemoved;
+import shopping.cart.proto.CheckedOut;
+import shopping.cart.proto.ItemAdded;
+import shopping.cart.proto.ItemQuantityAdjusted;
+import shopping.cart.proto.ItemRemoved;
 
 class ShoppingCartEventConsumer {
   private static final Logger log = LoggerFactory.getLogger(ShoppingCartEventConsumer.class);

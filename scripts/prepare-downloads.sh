@@ -112,32 +112,43 @@ zipAndAttach 6-shopping-cart-complete-scala.zip
 ## empty seed template
 prepareTemporalFolder
 fetchProject 00-shopping-cart-service-java shopping-cart-service
+fetchProject 00-shopping-analytics-service-java shopping-analytics-service
+fetchProject 00-shopping-order-service-java shopping-order-service
 zipAndAttach 0-shopping-cart-start-java.zip
 
 ## gRPC service
 prepareTemporalFolder
 fetchProject 01-shopping-cart-service-java shopping-cart-service
+fetchProject 00-shopping-analytics-service-java shopping-analytics-service
+fetchProject 00-shopping-order-service-java shopping-order-service
 zipAndAttach 1-shopping-cart-grpc-java.zip
 
 ## basic entity
 prepareTemporalFolder
 fetchProject 02-shopping-cart-service-java shopping-cart-service
+fetchProject 00-shopping-analytics-service-java shopping-analytics-service
+fetchProject 00-shopping-order-service-java shopping-order-service
 zipAndAttach 2-shopping-cart-event-sourced-java.zip
 
 ## complete entity
 prepareTemporalFolder
 fetchProject 03-shopping-cart-service-java shopping-cart-service
+fetchProject 00-shopping-analytics-service-java shopping-analytics-service
+fetchProject 00-shopping-order-service-java shopping-order-service
 zipAndAttach 3-shopping-cart-event-sourced-complete-java.zip
 
 ## projection query
 prepareTemporalFolder
 fetchProject 04-shopping-cart-service-java shopping-cart-service
+fetchProject 00-shopping-analytics-service-java shopping-analytics-service
+fetchProject 00-shopping-order-service-java shopping-order-service
 zipAndAttach 4-shopping-cart-projection-java.zip
 
 ## projection kafka
 prepareTemporalFolder
 fetchProject 05-shopping-cart-service-java shopping-cart-service
 fetchProject shopping-analytics-service-java shopping-analytics-service
+fetchProject 00-shopping-order-service-java shopping-order-service
 zipAndAttach 5-shopping-cart-projection-kafka-java.zip
 
 ## complete

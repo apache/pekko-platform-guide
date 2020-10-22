@@ -67,6 +67,11 @@ cp ${SRC} ${tutorial_root}/04-shopping-cart-service-java/
 cp ${SRC} ${tutorial_root}/05-shopping-cart-service-java/
 cp ${SRC} ${tutorial_root}/shopping-cart-service-java/
 
+declare SRC="${tutorial_root}/00-shopping-analytics-service-java/pom.xml"
+cp ${SRC} ${tutorial_root}/shopping-analytics-service-java/
+
+declare SRC="${tutorial_root}/00-shopping-order-service-java/pom.xml"
+cp ${SRC} ${tutorial_root}/shopping-order-service-java/
 
 # scala and java project files
 # Each time we copy the file from the scala variant. They are language agnostic.
@@ -153,6 +158,10 @@ cp ${SRC} ${tutorial_root}/03-shopping-cart-service-java/src/main/resources/
 cp ${SRC} ${tutorial_root}/04-shopping-cart-service-java/src/main/resources/
 cp ${SRC} ${tutorial_root}/05-shopping-cart-service-java/src/main/resources/
 cp ${SRC} ${tutorial_root}/shopping-cart-service-java/src/main/resources/
+cp ${SRC} ${tutorial_root}/00-shopping-analytics-service-java/src/main/resources/
+cp ${SRC} ${tutorial_root}/shopping-analytics-service-java/src/main/resources/
+cp ${SRC} ${tutorial_root}/00-shopping-order-service-java/src/main/resources/
+cp ${SRC} ${tutorial_root}/shopping-order-service-java/src/main/resources/
 
 declare SRC="${tutorial_root}/00-shopping-cart-service-scala/src/main/resources/persistence.conf"
 cp ${SRC} ${tutorial_root}/01-shopping-cart-service-scala/src/main/resources/
@@ -256,7 +265,9 @@ cp ${SRC} ${tutorial_root}/03-shopping-cart-service-java/src/main/resources/
 cp ${SRC} ${tutorial_root}/04-shopping-cart-service-java/src/main/resources/
 cp ${SRC} ${tutorial_root}/05-shopping-cart-service-java/src/main/resources/
 cp ${SRC} ${tutorial_root}/shopping-cart-service-java/src/main/resources/
+cp ${SRC} ${tutorial_root}/00-shopping-analytics-service-java/src/main/resources/
 cp ${SRC} ${tutorial_root}/shopping-analytics-service-java/src/main/resources/
+cp ${SRC} ${tutorial_root}/00-shopping-order-service-java/src/main/resources/
 cp ${SRC} ${tutorial_root}/shopping-order-service-java/src/main/resources/
 
 declare SRC="${tutorial_root}/00-shopping-cart-service-scala/src/main/resources/serialization.conf"
@@ -295,6 +306,8 @@ cp ${SRC} ${tutorial_root}/04-shopping-cart-service-java/src/test/resources/
 cp ${SRC} ${tutorial_root}/05-shopping-cart-service-java/src/test/resources/
 cp ${SRC} ${tutorial_root}/shopping-cart-service-java/src/test/resources/
 cp ${SRC} ${tutorial_root}/shopping-analytics-service-java/src/test/resources/
+cp ${SRC} ${tutorial_root}/shopping-analytics-service-java/src/test/resources/
+cp ${SRC} ${tutorial_root}/00-shopping-order-service-java/src/test/resources/
 cp ${SRC} ${tutorial_root}/shopping-order-service-java/src/test/resources/
 
 

@@ -11,7 +11,7 @@ We provide a template so that you don't need to create the shopping cart project
 == Download the empty template
 [#seed-template]
 
-The starting template is available as downloadable link:_attachments/0-shopping-cart-start-scala.zip[zip file].
+The starting template is available as downloadable [.group-scala]#link:_attachments/0-shopping-cart-start-scala.zip[zip file]# [.group-java]#link:_attachments/0-shopping-cart-start-java.zip[zip file]#.
 
 Unzip the file and you should have 3 directories:
 

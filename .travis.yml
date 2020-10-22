@@ -71,18 +71,33 @@ jobs:
         - docker-compose up -d
         - sbt -jvm-opts .jvmopts-travis "test; scalafmtCheckAll"
       name: "00 Shopping analytics service (Scala)"
+    - script:
+        - cd docs-source/docs/modules/microservices-tutorial/examples/00-shopping-analytics-service-java
+        - docker-compose up -d
+        - mvn spotless:check test
+      name: "00 Shopping analytics service (Java)"
 
     - script:
         - cd docs-source/docs/modules/microservices-tutorial/examples/00-shopping-cart-service-scala
         - docker-compose up -d
         - sbt -jvm-opts .jvmopts-travis "test; scalafmtCheckAll"
       name: "00 Shopping cart service (Scala)"
+    - script:
+        - cd docs-source/docs/modules/microservices-tutorial/examples/00-shopping-cart-service-java
+        - docker-compose up -d
+        - mvn spotless:check test
+      name: "00 Shopping cart service (Java)"
 
     - script:
         - cd docs-source/docs/modules/microservices-tutorial/examples/00-shopping-order-service-scala
         - docker-compose up -d
         - sbt -jvm-opts .jvmopts-travis "test; scalafmtCheckAll"
       name: "00 Shopping order service (Scala)"
+    - script:
+        - cd docs-source/docs/modules/microservices-tutorial/examples/00-shopping-order-service-java
+        - docker-compose up -d
+        - mvn spotless:check test
+      name: "00 Shopping order service (Java)"
 
     - script:
         - cd docs-source/docs/modules/microservices-tutorial/examples/01-shopping-cart-service-scala

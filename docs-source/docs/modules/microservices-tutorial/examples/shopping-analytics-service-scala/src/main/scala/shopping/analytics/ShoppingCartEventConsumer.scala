@@ -17,7 +17,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.common.serialization.ByteArrayDeserializer
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.slf4j.LoggerFactory
-import sample.shoppingcart.proto
+import shopping.cart.proto
 
 object ShoppingCartEventConsumer {
 
