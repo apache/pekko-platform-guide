@@ -68,6 +68,8 @@ The `CassandraSession` comes from the Cassandra connector in Alpakka and provide
 
 You can learn more about the `CassandraSession` in the {alpakka}/cassandra.html[Alpakka reference documentation {tab-icon}, window="tab"].
 
+NOTE: The example will persist the item popularity count with a https://docs.datastax.com/en/cql-oss/3.x/cql/cql_reference/counter_type.html[Cassandra counter {tab-icon}, window="tab"] data type. It's not possible to guarantee that item count updates occur idempotently because we are using at-least-once semantics. However, since the count is only a rough metric to judge how popular an item is it's not critical to have a totally accurate figure.
+
 == Initialize the Projection
 
 We want to connect the events from the `ShoppingCart` with the Projection. Several instances of the Projection may run on different nodes of the Akka Cluster. Each Projection instance will consume a slice of the events to distribute the load. All events from a specific entity (cart id) will always be processed by the same Projection instance so that it can build a stateful model from the events if needed.
@@ -169,6 +171,8 @@ include::example$04-shopping-cart-service-scala/src/main/scala/shopping/cart/Mai
 <2> Instantiate the repository for Cassandra
 
 <3> Call the initialization of the Projection
+
+NOTE: With the `CassandraProjection` it is at-least-once processing semantics. The offset is stored after the event has been processed and if the projection is restarted from a previously stored offset some events may be processed more than once. For a {akka-projection}/jdbc.html[JDBC Projection {tab-icon}, window="tab"] it's possible to have exactly-once semantics because the offset can be stored in the same atomic transaction as the database operation in the event handler.
 
 == Query
 
