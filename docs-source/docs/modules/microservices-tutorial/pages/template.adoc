@@ -23,12 +23,15 @@ In the first part of the tutorial we will work with the `shopping-cart-service` 
 
 Change to the new `shopping-cart-service` project directory and try to build it with:
 
-[.group-java]
+[.tabset]
+Java::
++
 ----
 mvn compile
 ----
 
-[.group-scala]
+Scala::
++
 ----
 sbt compile
 ----

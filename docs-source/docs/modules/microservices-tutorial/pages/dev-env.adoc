@@ -3,6 +3,7 @@
 
 include::ROOT:partial$include.adoc[]
 
+Select your preferred language (Java/Scala) above.
 
 To follow tutorial steps you will need a code editor, a build tool, and `grpcurl` (a CLI for sending gRPC calls). You can use your preferred code editor. We provide the steps for using https://www.jetbrains.com/idea/[IntelliJ IDEA {tab-icon}, window="tab"] from JetBrains. For the [.group-scala]#Scala# [.group-java]#Java# version of the example, we use [.group-scala]#`sbt`# [.group-java]#`Apache Maven`# as the build tool.
 
@@ -20,23 +21,31 @@ We also provide <<Downloadable example source>> of the different phases of compl
 :!sectnums:
 == IntelliJ IDEA
 
-[.group-java]
+[.tabset]
+Java::
++
 Download and install https://www.jetbrains.com/idea/download/[IntelliJ {tab-icon}, window="tab"].
 
-[.group-scala]
+Scala::
++
 To install IntelliJ and prepare to develop the Scala example, follow these steps:
 
-[.group-scala]
 . Download and install https://www.jetbrains.com/idea/download/[IntelliJ {tab-icon}, window="tab"].
 . From the *Preferences* menu, add the *Scala* plugin.
 
 
 == Build tool
 
-[.group-scala]
+[.tabset]
+Java::
++
+For the Java Shopping Cart example, we use `Maven` as the build tool. http://maven.apache.org/install.html[Install Maven] if you haven't already.
+
+Scala::
++
 For the Scala Shopping Cart example, we use `sbt` as the build tool. https://www.scala-sbt.org/download.html[Install sbt] if you haven't already.
 
-[TIP.group-scala]
+[TIP.Scala]
 ====
 `sbt` is an interactive shell. If you start it with the `sbt` command, you can repeatedly run tasks like `compile` and `test` in the sbt shell. In the tutorial we use the full command for clarity, such as `sbt compile`. You can run tasks independently in this way, but it's faster to leave the `sbt` shell running and only enter the tasks. For example:
 
@@ -49,9 +58,6 @@ sbt:shopping-cart-service> test
 ...
 ----
 ====
-
-[.group--java]
-For the Java Shopping Cart example, we use `Maven` as the build tool. http://maven.apache.org/install.html[Install Maven] if you haven't already.
 
 == The grpcurl tool
 
