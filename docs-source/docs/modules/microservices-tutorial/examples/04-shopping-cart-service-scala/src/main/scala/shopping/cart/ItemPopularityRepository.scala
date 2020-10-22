@@ -1,16 +1,23 @@
+// tag::trait[]
+// tag::impl[]
 package shopping.cart
 
-import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
-
 import akka.Done
+// end::trait[]
+import scala.concurrent.ExecutionContext
 import akka.stream.alpakka.cassandra.scaladsl.CassandraSession
+// end::impl[]
+
+// tag::trait[]
 
 trait ItemPopularityRepository {
-
   def update(itemId: String, delta: Int): Future[Done]
   def getItem(itemId: String): Future[Option[Long]]
 }
+// end::trait[]
+
+// tag::impl[]
 
 object ItemPopularityRepositoryImpl {
   val popularityTable = "item_popularity"
@@ -41,3 +48,4 @@ class ItemPopularityRepositoryImpl(
         opt.map(row => row.getLong("count").longValue()))
   }
 }
+// end::impl[]

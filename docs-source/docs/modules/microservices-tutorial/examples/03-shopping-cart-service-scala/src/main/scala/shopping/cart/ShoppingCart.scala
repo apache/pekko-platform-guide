@@ -66,12 +66,10 @@ object ShoppingCart {
         case _ => copy(items = items + (itemId -> quantity))
       }
     }
-
     // end::state-with-checkout[]
     def removeItem(itemId: String): State =
       copy(items = items - itemId)
     // tag::state-with-checkout[]
-
   }
   object State {
     val empty =

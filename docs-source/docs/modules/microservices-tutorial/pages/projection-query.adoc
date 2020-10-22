@@ -54,6 +54,20 @@ Java::
 [source,java,indent=0]
 ----
 include::example$04-shopping-cart-service-java/src/main/java/shopping/cart/ItemPopularityRepository.java[]
+----
+
+Scala::
++
+[source,scala,indent=0]
+----
+include::example$04-shopping-cart-service-scala/src/main/scala/shopping/cart/ItemPopularityRepository.scala[tag=trait]
+----
+
+[.tabset]
+Java::
++
+[source,java,indent=0]
+----
 include::example$04-shopping-cart-service-java/src/main/java/shopping/cart/ItemPopularityRepositoryImpl.java[]
 ----
 
@@ -61,7 +75,7 @@ Scala::
 +
 [source,scala,indent=0]
 ----
-include::example$04-shopping-cart-service-scala/src/main/scala/shopping/cart/ItemPopularityRepository.scala[]
+include::example$04-shopping-cart-service-scala/src/main/scala/shopping/cart/ItemPopularityRepository.scala[tag=impl]
 ----
 
 The `CassandraSession` comes from the Cassandra connector in Alpakka and provides an asynchronous API for executing __CQL__ statements to Cassandra. In the initialization code, introduced later, we will see how to get access to a `CassandraSession`.
@@ -243,7 +257,7 @@ Load the file into Cassandra:
 docker exec -i shopping-cart-service_cassandra_1 cqlsh -t < ddl-scripts/create_user_tables.cql
 ----
 
-include::template.adoc[tag=dockerImportant]
+include::docker-important.adoc[]
 
 Run the service with:
 
