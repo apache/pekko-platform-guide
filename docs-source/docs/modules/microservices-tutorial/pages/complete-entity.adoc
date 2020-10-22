@@ -9,11 +9,23 @@ On this page you will learn how to:
 
 * implement an Event Sourced entity by expanding the xref:entity.adoc[previous step]
 
+[.tabset]
+Java::
++
 .Source downloads:
 ****
-* [.group-scala]#link:_attachments/2-shopping-cart-event-sourced-scala.zip[Source]# [.group-java]#link:_attachments/2-shopping-cart-event-sourced-java.zip[Source]# that includes all previous tutorial steps and allows you to start with the steps on this page.
-* [.group-scala]#link:_attachments/3-shopping-cart-event-sourced-complete-scala.zip[Source]# [.group-java]#link:_attachments/3-shopping-cart-event-sourced-complete-java.zip[Source]# with the steps on this page completed.
+* link:_attachments/2-shopping-cart-event-sourced-java.zip[Source] that includes all previous tutorial steps and allows you to start with the steps on this page.
+* link:_attachments/3-shopping-cart-event-sourced-complete-java.zip[Source] with the steps on this page completed.
 ****
+
+Scala::
++
+.Source downloads:
+****
+* link:_attachments/2-shopping-cart-event-sourced-scala.zip[Source] that includes all previous tutorial steps and allows you to start with the steps on this page.
+* link:_attachments/3-shopping-cart-event-sourced-complete-scala.zip[Source] with the steps on this page completed.
+****
+
 
 == More commands and events
 
@@ -308,7 +320,7 @@ Scala::
 include::example$03-shopping-cart-service-scala/src/main/scala/shopping/cart/ShoppingCartServiceImpl.scala[tag=checkoutAndGet]
 ----
 
-As mentioned at the beginning of this page, `RemoveItem` and `AdjustItemQuantity` commands are not mandatory for the subsequent steps of the tutorial. A zip file with the completed for this page implementing the optional commands is available for [.group-scala]#link:_attachments/3-shopping-cart-event-sourced-complete-scala.zip[download]# [.group-java]#link:_attachments/3-shopping-cart-event-sourced-complete-java.zip[download]#.
+As mentioned at the beginning of this page, `RemoveItem` and `AdjustItemQuantity` commands are not mandatory for the subsequent steps of the tutorial. A zip file with the completed steps on this page and implementing the optional commands is available for download (link:_attachments/3-shopping-cart-event-sourced-complete-java.zip[java sources]/link:_attachments/3-shopping-cart-event-sourced-complete-scala.zip[scala sources]).
 
 == Run locally
 
