@@ -1,1 +1,1 @@
-# this file is just a placeholder to allow us to commit src/main/protobuf folder
+# Protobuf files in this folder
