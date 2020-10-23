@@ -191,8 +191,6 @@ Note the logging from the `ShoppingCartServiceImpl` in the console.
 
 You can stop the service with `ctrl-c`.
 
-ifdef::todo[TODO: deploy to cloud and try it]
-
 :!sectnums:
 == Learn more
 
