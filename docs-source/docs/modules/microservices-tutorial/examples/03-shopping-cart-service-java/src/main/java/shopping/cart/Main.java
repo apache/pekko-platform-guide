@@ -8,6 +8,7 @@ import akka.actor.typed.javadsl.Behaviors;
 import akka.actor.typed.javadsl.Receive;
 import akka.management.cluster.bootstrap.ClusterBootstrap;
 import akka.management.javadsl.AkkaManagement;
+import shopping.cart.proto.ShoppingCartService;
 
 public class Main extends AbstractBehavior<Void> {
 
@@ -32,7 +33,7 @@ public class Main extends AbstractBehavior<Void> {
     String grpcInterface =
         system.settings().config().getString("shopping-cart-service.grpc.interface");
     int grpcPort = system.settings().config().getInt("shopping-cart-service.grpc.port");
-    ShoppingCartServiceImpl grpcService = new ShoppingCartServiceImpl(system);
+    ShoppingCartService grpcService = new ShoppingCartServiceImpl(system);
     ShoppingCartServer.start(grpcInterface, grpcPort, system, grpcService);
   }
 

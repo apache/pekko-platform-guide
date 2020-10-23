@@ -21,8 +21,7 @@ class ItemPopularityProjectionHandler(
     system.executionContext
 
   override def process(
-      envelope: EventEnvelope[ShoppingCart.Event])
-      : Future[Done] = { // <2>
+      envelope: EventEnvelope[ShoppingCart.Event]): Future[Done] = { // <2>
     envelope.event match { // <3>
       case ShoppingCart.ItemAdded(_, itemId, quantity) =>
         val result = repo.update(itemId, quantity)
@@ -40,10 +39,7 @@ class ItemPopularityProjectionHandler(
         result.foreach(_ => logItemCount(itemId))
         result
 
-      case ShoppingCart.ItemRemoved(
-            _,
-            itemId,
-            oldQuantity) =>
+      case ShoppingCart.ItemRemoved(_, itemId, oldQuantity) =>
         val result = repo.update(itemId, 0 - oldQuantity)
         result.foreach(_ => logItemCount(itemId))
         result

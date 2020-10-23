@@ -99,8 +99,7 @@ object IntegrationSpec {
         interface = "localhost"
         port = $grpcPort
       }
-      akka.management.http.port = ${managementPorts(
-      managementPortIndex)}
+      akka.management.http.port = ${managementPorts(managementPortIndex)}
       akka.discovery.config.services {
         "shoppingcartservice" {
           endpoints = [
@@ -118,10 +117,7 @@ object IntegrationSpec {
     val testKit =
       ActorTestKit(
         "IntegrationSpec",
-        nodeConfig(
-          grpcPort,
-          managementPorts,
-          managementPortIndex)
+        nodeConfig(grpcPort, managementPorts, managementPortIndex)
           .withFallback(IntegrationSpec.config)
           .resolve())
 
@@ -129,12 +125,10 @@ object IntegrationSpec {
 
     private val clientSettings =
       GrpcClientSettings
-        .connectToServiceAt("127.0.0.1", grpcPort)(
-          testKit.system)
+        .connectToServiceAt("127.0.0.1", grpcPort)(testKit.system)
         .withTls(false)
     lazy val client: proto.ShoppingCartService =
-      proto.ShoppingCartServiceClient(clientSettings)(
-        testKit.system)
+      proto.ShoppingCartServiceClient(clientSettings)(testKit.system)
 
   }
 }
@@ -151,9 +145,7 @@ class IntegrationSpec
     LoggerFactory.getLogger(classOf[IntegrationSpec])
 
   implicit private val patience: PatienceConfig =
-    PatienceConfig(
-      10.seconds,
-      Span(100, org.scalatest.time.Millis))
+    PatienceConfig(10.seconds, Span(100, org.scalatest.time.Millis))
 
   private val (grpcPorts, managementPorts) =
     SocketUtil
@@ -170,8 +162,7 @@ class IntegrationSpec
     new TestNodeFixture(grpcPorts(2), managementPorts, 2)
 
   private val systems3 =
-    List(testNode1, testNode2, testNode3).map(
-      _.testKit.system)
+    List(testNode1, testNode2, testNode3).map(_.testKit.system)
 
   private val kafkaTopicProbe =
     testNode1.testKit.createTestProbe[Any]()
@@ -181,8 +172,7 @@ class IntegrationSpec
     testNode1.testKit.createTestProbe[OrderRequest]()
   private val testOrderService: ShoppingOrderService =
     new ShoppingOrderService {
-      override def order(
-          in: OrderRequest): Future[OrderResponse] = {
+      override def order(in: OrderRequest): Future[OrderResponse] = {
         orderServiceProbe.ref ! in
         Future.successful(OrderResponse(ok = true))
       }
@@ -192,8 +182,7 @@ class IntegrationSpec
     Behaviors.setup[Nothing] { context =>
       new Main(context) {
         override protected def orderServiceClient(
-            system: ActorSystem[_])
-            : ShoppingOrderService = {
+            system: ActorSystem[_]): ShoppingOrderService = {
           testOrderService
         }
       }
@@ -205,9 +194,7 @@ class IntegrationSpec
     // avoid concurrent creation of keyspace and tables
     val timeout = 10.seconds
     Await.result(
-      PersistenceInit.initializeDefaultPlugins(
-        testNode1.system,
-        timeout),
+      PersistenceInit.initializeDefaultPlugins(testNode1.system, timeout),
       timeout)
     CreateTableTestUtils.createTables(testNode1.system)
   }
@@ -216,22 +203,14 @@ class IntegrationSpec
     implicit val sys: ActorSystem[_] = testNode1.system
     implicit val ec: ExecutionContext = sys.executionContext
     val topic =
-      sys.settings.config
-        .getString("shopping-cart-service.kafka.topic")
+      sys.settings.config.getString("shopping-cart-service.kafka.topic")
     val groupId = UUID.randomUUID().toString
     val consumerSettings =
-      ConsumerSettings(
-        sys,
-        new StringDeserializer,
-        new ByteArrayDeserializer)
-        .withBootstrapServers(
-          "localhost:9092"
-        ) // provided by Docker compose
+      ConsumerSettings(sys, new StringDeserializer, new ByteArrayDeserializer)
+        .withBootstrapServers("localhost:9092") // provided by Docker compose
         .withGroupId(groupId)
     Consumer
-      .plainSource(
-        consumerSettings,
-        Subscriptions.topics(topic))
+      .plainSource(consumerSettings, Subscriptions.topics(topic))
       .map { record =>
         val bytes = record.value()
         val x = ScalaPBAny.parseFrom(bytes)
@@ -242,8 +221,7 @@ class IntegrationSpec
             case "shopping-cart-service/shoppingcart.ItemAdded" =>
               proto.ItemAdded.parseFrom(inputBytes)
             case "shopping-cart-service/shoppingcart.ItemQuantityAdjusted" =>
-              proto.ItemQuantityAdjusted.parseFrom(
-                inputBytes)
+              proto.ItemQuantityAdjusted.parseFrom(inputBytes)
             case "shopping-cart-service/shoppingcart.ItemRemoved" =>
               proto.ItemRemoved.parseFrom(inputBytes)
             case "shopping-cart-service/shoppingcart.CheckedOut" =>
@@ -270,21 +248,16 @@ class IntegrationSpec
 
   "Shopping Cart service" should {
     "init and join Cluster" in {
-      testNode1.testKit
-        .spawn[Nothing](mainBehavior(), "guardian")
-      testNode2.testKit
-        .spawn[Nothing](mainBehavior(), "guardian")
-      testNode3.testKit
-        .spawn[Nothing](mainBehavior(), "guardian")
+      testNode1.testKit.spawn[Nothing](mainBehavior(), "guardian")
+      testNode2.testKit.spawn[Nothing](mainBehavior(), "guardian")
+      testNode3.testKit.spawn[Nothing](mainBehavior(), "guardian")
 
       // let the nodes join and become Up
-      eventually(
-        PatienceConfiguration.Timeout(15.seconds)) {
+      eventually(PatienceConfiguration.Timeout(15.seconds)) {
         systems3.foreach { sys =>
-          Cluster(sys).selfMember.status should ===(
-            MemberStatus.Up)
-          Cluster(sys).state.members.unsorted
-            .map(_.status) should ===(Set(MemberStatus.Up))
+          Cluster(sys).selfMember.status should ===(MemberStatus.Up)
+          Cluster(sys).state.members.unsorted.map(_.status) should ===(
+            Set(MemberStatus.Up))
         }
       }
 
@@ -294,39 +267,29 @@ class IntegrationSpec
     "update and project from different nodes via gRPC" in {
       // add from client1
       val response1 = testNode1.client.addItem(
-        proto.AddItemRequest(
-          cartId = "cart-1",
-          itemId = "foo",
-          quantity = 42))
+        proto.AddItemRequest(cartId = "cart-1", itemId = "foo", quantity = 42))
       val updatedCart1 = response1.futureValue
       updatedCart1.items.head.itemId should ===("foo")
       updatedCart1.items.head.quantity should ===(42)
 
       // first may take longer time
       val published1 =
-        kafkaTopicProbe.expectMessageType[proto.ItemAdded](
-          20.seconds)
+        kafkaTopicProbe.expectMessageType[proto.ItemAdded](20.seconds)
       published1.cartId should ===("cart-1")
       published1.itemId should ===("foo")
       published1.quantity should ===(42)
 
       // add from client2
       val response2 = testNode2.client.addItem(
-        proto.AddItemRequest(
-          cartId = "cart-2",
-          itemId = "bar",
-          quantity = 17))
+        proto.AddItemRequest(cartId = "cart-2", itemId = "bar", quantity = 17))
       val updatedCart2 = response2.futureValue
       updatedCart2.items.head.itemId should ===("bar")
       updatedCart2.items.head.quantity should ===(17)
 
       // update from client2
       val response3 =
-        testNode2.client.updateItem(
-          proto.UpdateItemRequest(
-            cartId = "cart-2",
-            itemId = "bar",
-            quantity = 18))
+        testNode2.client.updateItem(proto
+          .UpdateItemRequest(cartId = "cart-2", itemId = "bar", quantity = 18))
       val updatedCart3 = response3.futureValue
       updatedCart3.items.head.itemId should ===("bar")
       updatedCart3.items.head.quantity should ===(18)
@@ -334,14 +297,12 @@ class IntegrationSpec
       // ItemPopularityProjection has consumed the events and updated db
       eventually {
         testNode1.client
-          .getItemPopularity(
-            proto.GetItemPopularityRequest(itemId = "foo"))
+          .getItemPopularity(proto.GetItemPopularityRequest(itemId = "foo"))
           .futureValue
           .popularityCount should ===(42)
 
         testNode1.client
-          .getItemPopularity(
-            proto.GetItemPopularityRequest(itemId = "bar"))
+          .getItemPopularity(proto.GetItemPopularityRequest(itemId = "bar"))
           .futureValue
           .popularityCount should ===(18)
       }
@@ -353,15 +314,13 @@ class IntegrationSpec
       published2.quantity should ===(17)
 
       val published3 =
-        kafkaTopicProbe
-          .expectMessageType[proto.ItemQuantityAdjusted]
+        kafkaTopicProbe.expectMessageType[proto.ItemQuantityAdjusted]
       published3.cartId should ===("cart-2")
       published3.itemId should ===("bar")
       published3.quantity should ===(18)
 
       val response4 =
-        testNode2.client.checkout(
-          proto.CheckoutRequest(cartId = "cart-2"))
+        testNode2.client.checkout(proto.CheckoutRequest(cartId = "cart-2"))
       response4.futureValue.checkedOut should ===(true)
 
       val orderRequest =

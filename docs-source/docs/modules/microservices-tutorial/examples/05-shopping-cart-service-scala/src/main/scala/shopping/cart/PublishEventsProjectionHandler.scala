@@ -23,44 +23,30 @@ class PublishEventsProjectionHandler(
     system.executionContext
 
   override def process(
-      envelope: EventEnvelope[ShoppingCart.Event])
-      : Future[Done] = {
+      envelope: EventEnvelope[ShoppingCart.Event]): Future[Done] = {
     val event = envelope.event
 
     // using the cartId as the key and `DefaultPartitioner` will select partition based on the key
     // so that events for same cart always ends up in same partition
     val key = event.cartId
-    val producerRecord = new ProducerRecord(
-      topic,
-      key,
-      serialize(event)
-    ) // <2>
-    val result = sendProducer.send(producerRecord).map {
-      recordMetadata =>
-        log.info(
-          "Published event [{}] to topic/partition {}/{}",
-          event,
-          topic,
-          recordMetadata.partition)
-        Done
+    val producerRecord = new ProducerRecord(topic, key, serialize(event)) // <2>
+    val result = sendProducer.send(producerRecord).map { recordMetadata =>
+      log.info(
+        "Published event [{}] to topic/partition {}/{}",
+        event,
+        topic,
+        recordMetadata.partition)
+      Done
     }
     result
   }
 
-  private def serialize(
-      event: ShoppingCart.Event): Array[Byte] = {
+  private def serialize(event: ShoppingCart.Event): Array[Byte] = {
     val protoMessage = event match {
-      case ShoppingCart.ItemAdded(
-            cartId,
-            itemId,
-            quantity) =>
+      case ShoppingCart.ItemAdded(cartId, itemId, quantity) =>
         proto.ItemAdded(cartId, itemId, quantity)
       // end::handler[]
-      case ShoppingCart.ItemQuantityAdjusted(
-            cartId,
-            itemId,
-            quantity,
-            _) =>
+      case ShoppingCart.ItemQuantityAdjusted(cartId, itemId, quantity, _) =>
         proto.ItemQuantityAdjusted(cartId, itemId, quantity)
       case ShoppingCart.ItemRemoved(cartId, itemId, _) =>
         proto.ItemRemoved(cartId, itemId)
@@ -69,9 +55,7 @@ class PublishEventsProjectionHandler(
         proto.CheckedOut(cartId)
     }
     // pack in Any so that type information is included for deserialization
-    ScalaPBAny
-      .pack(protoMessage, "shopping-cart-service")
-      .toByteArray // <3>
+    ScalaPBAny.pack(protoMessage, "shopping-cart-service").toByteArray // <3>
   }
 }
 // end::handler[]

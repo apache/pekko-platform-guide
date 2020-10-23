@@ -38,8 +38,7 @@ object ShoppingCart {
    * The current state held by the `EventSourcedBehavior`.
    */
   // tag::state[]
-  final case class State(items: Map[String, Int])
-      extends CborSerializable {
+  final case class State(items: Map[String, Int]) extends CborSerializable {
 
     def hasItem(itemId: String): Boolean =
       items.contains(itemId)
@@ -80,8 +79,7 @@ object ShoppingCart {
   /**
    * Summary of the shopping cart state, used in reply messages.
    */
-  final case class Summary(items: Map[String, Int])
-      extends CborSerializable
+  final case class Summary(items: Map[String, Int]) extends CborSerializable
   // end::commands[]
 
   // tag::events[]
@@ -92,10 +90,7 @@ object ShoppingCart {
     def cartId: String
   }
 
-  final case class ItemAdded(
-      cartId: String,
-      itemId: String,
-      quantity: Int)
+  final case class ItemAdded(cartId: String, itemId: String, quantity: Int)
       extends Event
   // end::events[]
 
@@ -104,34 +99,23 @@ object ShoppingCart {
     EntityTypeKey[Command]("ShoppingCart")
 
   def init(system: ActorSystem[_]): Unit = {
-    ClusterSharding(system).init(Entity(EntityKey) {
-      entityContext => // <1>
-        ShoppingCart(entityContext.entityId)
+    ClusterSharding(system).init(Entity(EntityKey) { entityContext => // <1>
+      ShoppingCart(entityContext.entityId)
     })
   }
 
   def apply(cartId: String): Behavior[Command] = {
     EventSourcedBehavior // <2>
       .withEnforcedReplies[Command, Event, State](
-        persistenceId =
-          PersistenceId(EntityKey.name, cartId),
+        persistenceId = PersistenceId(EntityKey.name, cartId),
         emptyState = State.empty,
-        commandHandler = (state, command) =>
-          handleCommand(cartId, state, command),
-        eventHandler =
-          (state, event) => handleEvent(state, event))
-      .withRetention(
-        RetentionCriteria.snapshotEvery(
-          numberOfEvents = 100,
-          keepNSnapshots = 3
-        )
-      ) // <3>
+        commandHandler =
+          (state, command) => handleCommand(cartId, state, command),
+        eventHandler = (state, event) => handleEvent(state, event))
+      .withRetention(RetentionCriteria
+        .snapshotEvery(numberOfEvents = 100, keepNSnapshots = 3)) // <3>
       .onPersistFailure(
-        SupervisorStrategy.restartWithBackoff(
-          200.millis,
-          5.seconds,
-          0.1
-        ) // <4>
+        SupervisorStrategy.restartWithBackoff(200.millis, 5.seconds, 0.1) // <4>
       )
   }
   // end::init[]
@@ -144,20 +128,17 @@ object ShoppingCart {
     command match {
       case AddItem(itemId, quantity, replyTo) => // <1>
         if (state.hasItem(itemId))
-          Effect.reply(replyTo)(StatusReply.Error(
-            s"Item '$itemId' was already added to this shopping cart"))
-        else if (quantity <= 0)
           Effect.reply(replyTo)(
             StatusReply.Error(
-              "Quantity must be greater than zero"))
+              s"Item '$itemId' was already added to this shopping cart"))
+        else if (quantity <= 0)
+          Effect.reply(replyTo)(
+            StatusReply.Error("Quantity must be greater than zero"))
         else
           Effect
-            .persist(
-              ItemAdded(cartId, itemId, quantity)
-            ) // <2>
+            .persist(ItemAdded(cartId, itemId, quantity)) // <2>
             .thenReply(replyTo) { updatedCart =>
-              StatusReply.Success(
-                Summary(updatedCart.items))
+              StatusReply.Success(Summary(updatedCart.items))
             }
     }
   }

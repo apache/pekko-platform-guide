@@ -17,10 +17,8 @@ object ItemPopularityProjection {
       name = "ItemPopularityProjection",
       ShoppingCart.tags.size,
       index =>
-        ProjectionBehavior(
-          createProjectionFor(system, repository, index)),
-      ShardedDaemonProcessSettings(system).withRole(
-        "projections"),
+        ProjectionBehavior(createProjectionFor(system, repository, index)),
+      ShardedDaemonProcessSettings(system).withRole("projections"),
       Some(ProjectionBehavior.Stop))
   }
   // end::read-side-with-role[]
@@ -28,9 +26,8 @@ object ItemPopularityProjection {
   private def createProjectionFor(
       system: ActorSystem[_],
       repository: ItemPopularityRepository,
-      index: Int): AtLeastOnceProjection[
-    Offset,
-    EventEnvelope[ShoppingCart.Event]] = ???
+      index: Int)
+      : AtLeastOnceProjection[Offset, EventEnvelope[ShoppingCart.Event]] = ???
 }
 
 object ItemPopularityProjectionDedicatedRole {
@@ -42,10 +39,8 @@ object ItemPopularityProjectionDedicatedRole {
       name = "ItemPopularityProjection",
       ShoppingCart.tags.size,
       index =>
-        ProjectionBehavior(
-          createProjectionFor(system, repository, index)),
-      ShardedDaemonProcessSettings(system).withRole(
-        "projections-popularity"),
+        ProjectionBehavior(createProjectionFor(system, repository, index)),
+      ShardedDaemonProcessSettings(system).withRole("projections-popularity"),
       Some(ProjectionBehavior.Stop))
   }
   // end::read-side-with-dedicated-role[]
@@ -53,7 +48,6 @@ object ItemPopularityProjectionDedicatedRole {
   private def createProjectionFor(
       system: ActorSystem[_],
       repository: ItemPopularityRepository,
-      index: Int): AtLeastOnceProjection[
-    Offset,
-    EventEnvelope[ShoppingCart.Event]] = ???
+      index: Int)
+      : AtLeastOnceProjection[Offset, EventEnvelope[ShoppingCart.Event]] = ???
 }
