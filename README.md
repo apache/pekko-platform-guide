@@ -6,24 +6,9 @@ Review and feedback
 
 This Akka Platform Guide is under development, and we would love to hear your feedback.
 
-Try it with:
-
-1. git clone https://github.com/akka/akka-platform-guide
-2. cd akka-platform-guide
-3. make html-author-mode
-4. open target/index.html
-5. read and follow the instructions in the tutorial
+A preview is available at https://akka.io/platform-guide/
 
 Feel free to give your feedback in the form of issues/PRs, or chat in https://gitter.im/akka/dev.
-
-Example code
-------------
-
-The example application used in the documentation is composed of 3 three Microservices. The projects for these services are located at:
-
-* [Shopping cart service in Scala](docs-source/docs/modules/microservices-tutorial/examples/shopping-cart-service-scala)
-* [Shopping cart analytics service in Scala](docs-source/docs/modules/microservices-tutorial/examples/shopping-analytics-service-scala)
-* [Order service in Scala](docs-source/docs/modules/microservices-tutorial/examples/shopping-order-service-scala)
 
 Contributing
 ------------
