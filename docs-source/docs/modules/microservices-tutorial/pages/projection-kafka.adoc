@@ -9,7 +9,7 @@ In this part, we will add another Projection from the events of the `ShoppingCar
 [caption=""]
 image::example-projection-kafka.png[Example Kafka]
 
-As described in xref:concepts:internal-and-external-communication.adoc[Internal and External Communication concepts] we can publishing messages to a broker, such as Apache Kafka, to decouple communication between different Microservices.
+As described in xref:concepts:internal-and-external-communication.adoc[Internal and External Communication concepts] we can publish messages to a broker, such as Apache Kafka, to decouple communication between different Microservices.
 
 On this page you will learn how to:
 
@@ -66,16 +66,16 @@ Add a `PublishEventsProjectionHandler` class that is the Projection `Handler` fo
 
 [.tabset]
 Java::
-src/main/java/shopping/cart/PublishEventsProjectionHandler.java:
 +
+.src/main/java/shopping/cart/PublishEventsProjectionHandler.java:
 [source,java,indent=0]
 ----
 include::example$05-shopping-cart-service-java/src/main/java/shopping/cart/PublishEventsProjectionHandler.java[tag=handler]
 ----
 
 Scala::
-src/main/scala/shopping/cart/PublishEventsProjectionHandler.scala:
 +
+.src/main/scala/shopping/cart/PublishEventsProjectionHandler.scala:
 [source,scala,indent=0]
 ----
 include::example$05-shopping-cart-service-scala/src/main/scala/shopping/cart/PublishEventsProjectionHandler.scala[tag=handler]
@@ -95,16 +95,16 @@ Place the initialization code of the Projection in an `PublishEventsProjection` 
 
 [.tabset]
 Java::
-src/main/java/shopping/cart/PublishEventsProjection.java:
 +
+.src/main/java/shopping/cart/PublishEventsProjection.java:
 [source,java,indent=0]
 ----
 include::example$05-shopping-cart-service-java/src/main/java/shopping/cart/PublishEventsProjection.java[]
 ----
 
 Scala::
-src/main/scala/shopping/cart/PublishEventsProjection.scala:
 +
+.src/main/scala/shopping/cart/PublishEventsProjection.scala:
 [source,scala,indent=0]
 ----
 include::example$05-shopping-cart-service-scala/src/main/scala/shopping/cart/PublishEventsProjection.scala[]
@@ -177,16 +177,16 @@ Create a `ShoppingCartEventConsumer` [.group-scala]#object# [.group-java]#class#
 
 [.tabset]
 Java::
-src/main/java/shopping/analytics/ShoppingCartEventConsumer.java:
 +
+.src/main/java/shopping/analytics/ShoppingCartEventConsumer.java:
 [source,java,indent=0]
 ----
 include::example$shopping-analytics-service-java/src/main/java/shopping/analytics/ShoppingCartEventConsumer.java[tag=consumer]
 ----
 
 Scala::
-src/main/scala/shopping/analytics/ShoppingCartEventConsumer.scala:
 +
+.src/main/scala/shopping/analytics/ShoppingCartEventConsumer.scala:
 [source,scala,indent=0]
 ----
 include::example$shopping-analytics-service-scala/src/main/scala/shopping/analytics/ShoppingCartEventConsumer.scala[tag=consumer]
@@ -299,7 +299,7 @@ ItemAdded: 1 pencil to cart cart1
 
 === Stop the service
 
-When finished, stop the `shopping-cart-service` and `shopping-analytics-service` with `ctrl-c`. Leave Cassandra and Kafka running for the next set of steps, or stop it with:
+When finished, stop the `shopping-cart-service` and `shopping-analytics-service` with `ctrl-c`. Leave Cassandra and Kafka running for the next set of steps, or stop them with:
 
 [source,shell script]
 ----

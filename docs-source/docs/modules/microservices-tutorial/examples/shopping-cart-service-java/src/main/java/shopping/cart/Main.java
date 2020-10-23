@@ -16,6 +16,7 @@ import akka.stream.alpakka.cassandra.javadsl.CassandraSessionRegistry;
 // tag::SendOrderProjection[]
 import shopping.order.proto.ShoppingOrderService;
 import shopping.order.proto.ShoppingOrderServiceClient;
+
 // end::SendOrderProjection[]
 
 // tag::ItemPopularityProjection[]
@@ -64,11 +65,13 @@ public class Main extends AbstractBehavior<Void> {
     // tag::SendOrderProjection[]
     ShoppingOrderService orderService = orderServiceClient(system);
     SendOrderProjection.init(system, orderService);
+
     // end::SendOrderProjection[]
   }
 
   // can be overridden in tests
   // tag::SendOrderProjection[]
+  // can be overridden in tests
   protected ShoppingOrderService orderServiceClient(ActorSystem<?> system) {
     GrpcClientSettings orderServiceClientSettings =
         GrpcClientSettings.connectToServiceAt(

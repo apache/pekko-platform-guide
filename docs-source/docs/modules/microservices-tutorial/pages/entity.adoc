@@ -47,16 +47,16 @@ To add a command and an event, follow these steps:
 +
 [.tabset]
 Java::
-src/main/java/shopping/cart/ShoppingCart.java:
 +
+.src/main/java/shopping/cart/ShoppingCart.java:
 [source,java,indent=0]
 ----
 include::example$02-shopping-cart-service-java/src/main/java/shopping/cart/ShoppingCart.java[tags=imports;shoppingCart;commands]
 ----
 
 Scala::
-src/main/scala/shopping/cart/ShoppingCart.scala:
 +
+.src/main/scala/shopping/cart/ShoppingCart.scala:
 [source,scala,indent=0]
 ----
 include::example$02-shopping-cart-service-scala/src/main/scala/shopping/cart/ShoppingCart.scala[tags=obj;commands]
@@ -185,16 +185,16 @@ Then we need to call `ShoppingCart.init` from `Main`. Add the following before t
 
 [.tabset]
 Java::
-src/main/java/shopping/cart/Main.java:
 +
+.src/main/java/shopping/cart/Main.java:
 [source,java,indent=0]
 ----
 include::example$02-shopping-cart-service-java/src/main/java/shopping/cart/Main.java[tag=ShoppingCart]
 ----
 
 Scala::
-src/main/scala/shopping/cart/Main.scala:
 +
+.src/main/scala/shopping/cart/Main.scala:
 [source,scala,indent=0]
 ----
 include::example$02-shopping-cart-service-scala/src/main/scala/shopping/cart/Main.scala[tag=ShoppingCart]
@@ -222,16 +222,16 @@ The state, commands and events are marked as `CborSerializable` which is configu
 
 [.tabset]
 Java::
-src/main/java/shopping/cart/CborSerializable.java:
 +
+.src/main/java/shopping/cart/CborSerializable.java:
 [source,java,indent=0]
 ----
 include::example$02-shopping-cart-service-java/src/main/java/shopping/cart/CborSerializable.java[]
 ----
 
 Scala::
-src/main/scala/shopping/cart/CborSerializable.scala:
 +
+.src/main/scala/shopping/cart/CborSerializable.scala:
 [source,scala,indent=0]
 ----
 include::example$02-shopping-cart-service-scala/src/main/scala/shopping/cart/CborSerializable.scala[]
@@ -252,16 +252,16 @@ A test for the `AddItem` command looks like this in [.group-scala]#`src/test/sca
 
 [.tabset]
 Java::
-src/test/java/shopping/cart/ShoppingCartTest.java:
 +
+.src/test/java/shopping/cart/ShoppingCartTest.java:
 [source,java,indent=0]
 ----
 include::example$02-shopping-cart-service-java/src/test/java/shopping/cart/ShoppingCartTest.java[]
 ----
 
 Scala::
-src/test/scala/shopping/cart/ShoppingCartSpec.scala
 +
+.src/test/scala/shopping/cart/ShoppingCartSpec.scala
 [source,scala,indent=0]
 ----
 include::example$02-shopping-cart-service-scala/src/test/scala/shopping/cart/ShoppingCartSpec.scala[]
@@ -285,20 +285,20 @@ You can learn more about the [.group-scala]#`EventSourcedBehaviorTestKit`# [.gro
 
 == Sending commands to the entities
 
-We want to send commands to the entities from the gRPC service implementation. In the xref:grpc-server.adoc[previous step], we wrote a dummy implementation of `addItem` in the `ShoppingCartServiceImpl`. We can now replace that and send `ShoppingCart.AddItem` commands from `ShoppingCartServiceImpl`:
+We want to send commands to the entities from the gRPC service implementation. In the xref:grpc-service.adoc[previous step], we wrote a dummy implementation of `addItem` in the `ShoppingCartServiceImpl`. We can now replace that and send `ShoppingCart.AddItem` commands from `ShoppingCartServiceImpl`:
 
 [.tabset]
 Java::
-src/main/java/shopping/cart/ShoppingCartServiceImpl.java:
 +
+.src/main/java/shopping/cart/ShoppingCartServiceImpl.java:
 [source,java,indent=0]
 ----
 include::example$02-shopping-cart-service-java/src/main/java/shopping/cart/ShoppingCartServiceImpl.java[]
 ----
 
 Scala::
-src/main/scala/shopping/cart/ShoppingCartServiceImpl.scala:
 +
+.src/main/scala/shopping/cart/ShoppingCartServiceImpl.scala:
 [source,scala,indent=0]
 ----
 include::example$02-shopping-cart-service-scala/src/main/scala/shopping/cart/ShoppingCartServiceImpl.scala[]

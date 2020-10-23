@@ -45,7 +45,7 @@ public final class ItemPopularityProjection {
     return CassandraProjection.atLeastOnce( // <5>
         ProjectionId.of("ItemPopularityProjection", tag),
         sourceProvider,
-        () -> new ItemPopularityProjectionHandler(tag, repository));
+        () -> new ItemPopularityProjectionHandler(tag, repository)); // <6>
   }
 }
 // end::projection[]

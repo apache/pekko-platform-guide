@@ -41,16 +41,16 @@ You implement the event processing of the Projection in a `Handler`. Add a class
 
 [.tabset]
 Java::
-src/main/java/shopping/cart/ItemPopularityProjectionHandler.java:
 +
+.src/main/java/shopping/cart/ItemPopularityProjectionHandler.java:
 [source,java,indent=0]
 ----
 include::example$04-shopping-cart-service-java/src/main/java/shopping/cart/ItemPopularityProjectionHandler.java[tags=handler]
 ----
 
 Scala::
-src/main/scala/shopping/cart/ItemPopularityProjectionHandler.scala:
 +
+.src/main/scala/shopping/cart/ItemPopularityProjectionHandler.scala:
 [source,scala,indent=0]
 ----
 include::example$04-shopping-cart-service-scala/src/main/scala/shopping/cart/ItemPopularityProjectionHandler.scala[tags=handler]
@@ -64,16 +64,16 @@ The `ItemPopularityRepository` encapsulates the database access and can have a s
 
 [.tabset]
 Java::
-src/main/java/shopping/cart/ItemPopularityRepository.java:
 +
+.src/main/java/shopping/cart/ItemPopularityRepository.java:
 [source,java,indent=0]
 ----
 include::example$04-shopping-cart-service-java/src/main/java/shopping/cart/ItemPopularityRepository.java[]
 ----
 
 Scala::
-src/main/scala/shopping/cart/ItemPopularityRepository.scala:
 +
+.src/main/scala/shopping/cart/ItemPopularityRepository.scala:
 [source,scala,indent=0]
 ----
 include::example$04-shopping-cart-service-scala/src/main/scala/shopping/cart/ItemPopularityRepository.scala[tag=trait]
@@ -81,16 +81,16 @@ include::example$04-shopping-cart-service-scala/src/main/scala/shopping/cart/Ite
 
 [.tabset]
 Java::
-src/main/java/shopping/cart/ItemPopularityRepositoryImpl.java:
 +
+.src/main/java/shopping/cart/ItemPopularityRepositoryImpl.java:
 [source,java,indent=0]
 ----
 include::example$04-shopping-cart-service-java/src/main/java/shopping/cart/ItemPopularityRepositoryImpl.java[]
 ----
 
 Scala::
-src/main/scala/shopping/cart/ItemPopularityRepository.scala:
 +
+.src/main/scala/shopping/cart/ItemPopularityRepository.scala:
 [source,scala,indent=0]
 ----
 include::example$04-shopping-cart-service-scala/src/main/scala/shopping/cart/ItemPopularityRepository.scala[tag=impl]
@@ -158,16 +158,16 @@ Place the initialization code of the Projection in an `ItemPopularityProjection`
 
 [.tabset]
 Java::
-src/main/java/shopping/cart/ItemPopularityProjection.java:
 +
+.src/main/java/shopping/cart/ItemPopularityProjection.java:
 [source,java,indent=0]
 ----
 include::example$04-shopping-cart-service-java/src/main/java/shopping/cart/ItemPopularityProjection.java[tag=projection]
 ----
 
 Scala::
-src/main/scala/shopping/cart/ItemPopularityProjection.scala:
 +
+.src/main/scala/shopping/cart/ItemPopularityProjection.scala:
 [source,scala,indent=0]
 ----
 include::example$04-shopping-cart-service-scala/src/main/scala/shopping/cart/ItemPopularityProjection.scala[tag=projection]

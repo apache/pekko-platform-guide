@@ -75,16 +75,16 @@ Let's implement the `ShoppingCartService` [.group-scala]#trait# [.group-java]#in
 
 [.tabset]
 Java::
-src/main/java/shopping/cart/ShoppingCartServiceImpl.java:
 +
+.src/main/java/shopping/cart/ShoppingCartServiceImpl.java:
 [source,java,indent=0]
 ----
 include::example$01-shopping-cart-service-java/src/main/java/shopping/cart/ShoppingCartServiceImpl.java[]
 ----
 
 Scala::
-src/main/scala/shopping/cart/ShoppingCartServiceImpl.scala:
 +
+.src/main/scala/shopping/cart/ShoppingCartServiceImpl.scala:
 [source,scala,indent=0]
 ----
 include::example$01-shopping-cart-service-scala/src/main/scala/shopping/cart/ShoppingCartServiceImpl.scala[]
@@ -99,16 +99,16 @@ We will run the gRPC service implementation in an Akka HTTP server. Add the foll
 
 [.tabset]
 Java::
-src/main/java/shopping/cart/ShoppingCartServer.java:
 +
+.src/main/java/shopping/cart/ShoppingCartServer.java:
 [source,java,indent=0]
 ----
 include::example$01-shopping-cart-service-java/src/main/java/shopping/cart/ShoppingCartServer.java[]
 ----
 
 Scala::
-src/main/scala/shopping/cart/ShoppingCartServer.scala
 +
+.src/main/scala/shopping/cart/ShoppingCartServer.scala
 [source,scala,indent=0]
 ----
 include::example$01-shopping-cart-service-scala/src/main/scala/shopping/cart/ShoppingCartServer.scala[]
