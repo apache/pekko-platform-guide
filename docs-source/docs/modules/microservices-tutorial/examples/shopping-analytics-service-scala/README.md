@@ -6,15 +6,6 @@
     sbt -Dconfig.resource=local1.conf run
     ```
 
-2. (Optional) Start another node with different ports:
+2. Start `shopping-cart-service` and add item to cart
 
-    ```
-    sbt -Dconfig.resource=local2.conf run
-    ```
-
-3. Check the readiness of the nodes
-
-    ```
-    curl http://localhost:9201/ready
-    curl http://localhost:9202/ready
-    ```
+3. Notice the log output in the terminal of the `shopping-analytics-service`

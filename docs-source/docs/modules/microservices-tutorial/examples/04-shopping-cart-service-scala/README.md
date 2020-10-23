@@ -5,8 +5,7 @@
     ```
     docker-compose up -d
     
-    # create keyspace and tables
-    docker exec -i shopping-cart-service_cassandra_1 cqlsh -t < ddl-scripts/create_tables.cql
+    docker exec -i shopping-cart-service_cassandra_1 cqlsh -t < ddl-scripts/create_user_tables.cql
     ```
 
 2. Start a first node:
@@ -19,5 +18,8 @@
 
     ```
     # add item to cart
-    grpcurl -d '{"cartId":"cart1", "itemId":"socks", "quantity":3}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.AddItem
+    grpcurl -d '{"cartId":"cart1", "itemId":"hoodie", "quantity":5}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.AddItem
+   
+    # get popularity
+    grpcurl -d '{"itemId":"hoodie"}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.GetItemPopularity
     ```

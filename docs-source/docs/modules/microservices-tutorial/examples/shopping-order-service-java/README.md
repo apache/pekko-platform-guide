@@ -1,15 +1,9 @@
 ## Running the sample code
 
-1. Make sure you have compiled the project
+1. Start a node:
 
     ```
-    mvn compile 
-    ```
-
-2. Start a node:
-
-    ```
-    mvn exec:exec -DAPP_CONFIG=local1.conf
+    mvn compile exec:exec -DAPP_CONFIG=local1.conf
     ```
 
 3. Check for service readiness
