@@ -13,6 +13,7 @@ import akka.management.cluster.bootstrap.ClusterBootstrap;
 import akka.management.javadsl.AkkaManagement;
 import akka.stream.alpakka.cassandra.javadsl.CassandraSession;
 import akka.stream.alpakka.cassandra.javadsl.CassandraSessionRegistry;
+import shopping.cart.proto.ShoppingCartService;
 // tag::SendOrderProjection[]
 import shopping.order.proto.ShoppingOrderService;
 import shopping.order.proto.ShoppingOrderServiceClient;
@@ -55,8 +56,7 @@ public class Main extends AbstractBehavior<Void> {
     String grpcInterface =
         system.settings().config().getString("shopping-cart-service.grpc.interface");
     int grpcPort = system.settings().config().getInt("shopping-cart-service.grpc.port");
-    ShoppingCartServiceImpl grpcService =
-        new ShoppingCartServiceImpl(system, itemPopularityRepository);
+    ShoppingCartService grpcService = new ShoppingCartServiceImpl(system, itemPopularityRepository);
     ShoppingCartServer.start(grpcInterface, grpcPort, system, grpcService);
 
     // tag::PublishEventsProjection[]
