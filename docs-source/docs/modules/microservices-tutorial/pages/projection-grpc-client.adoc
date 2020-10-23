@@ -63,16 +63,16 @@ Implement the `ShoppingOrderService` in a new class `ShoppingOrderServiceImpl`:
 
 [.tabset]
 Java::
-src/main/java/shopping/order/ShoppingOrderServiceImpl.java:
 +
+.src/main/java/shopping/order/ShoppingOrderServiceImpl.java:
 [source,java,indent=0]
 ----
 include::example$shopping-order-service-java/src/main/java/shopping/order/ShoppingOrderServiceImpl.java[]
 ----
 
 Scala::
-src/main/scala/shopping/order/ShoppingOrderServiceImpl.scala:
 +
+.src/main/scala/shopping/order/ShoppingOrderServiceImpl.scala:
 [source,scala,indent=0]
 ----
 include::example$shopping-order-service-scala/src/main/scala/shopping/order/ShoppingOrderServiceImpl.scala[]
@@ -82,16 +82,16 @@ Similar to the xref:grpc-service.adoc[gRPC server for the ShoppingCartService] w
 
 [.tabset]
 Java::
-src/main/java/shopping/order/ShoppingOrderServer.java:
 +
+.src/main/java/shopping/order/ShoppingOrderServer.java:
 [source,java,indent=0]
 ----
 include::example$shopping-order-service-java/src/main/java/shopping/order/ShoppingOrderServer.java[]
 ----
 
 Scala::
-src/main/scala/shopping/order/ShoppingOrderServer.scala:
 +
+.src/main/scala/shopping/order/ShoppingOrderServer.scala:
 [source,scala,indent=0]
 ----
 include::example$shopping-order-service-scala/src/main/scala/shopping/order/ShoppingOrderServer.scala[]
@@ -138,16 +138,16 @@ Add a `SendOrderProjectionHandler` class in the `shopping-cart-service` project.
 
 [.tabset]
 Java::
-src/main/java/shopping/cart/SendOrderProjectionHandler.java:
 +
+.src/main/java/shopping/cart/SendOrderProjectionHandler.java:
 [source,java,indent=0]
 ----
 include::example$shopping-cart-service-java/src/main/java/shopping/cart/SendOrderProjectionHandler.java[]
 ----
 
 Scala::
-src/main/scala/shopping/cart/SendOrderProjectionHandler.scala:
 +
+.src/main/scala/shopping/cart/SendOrderProjectionHandler.scala:
 [source,scala,indent=0]
 ----
 include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/SendOrderProjectionHandler.scala[]
@@ -171,16 +171,16 @@ Place the initialization code of the Projection in an `SendOrderProjection` [.gr
 
 [.tabset]
 Java::
-src/main/java/shopping/cart/SendOrderProjection.java:
 +
+.src/main/java/shopping/cart/SendOrderProjection.java:
 [source,java,indent=0]
 ----
 include::example$shopping-cart-service-java/src/main/java/shopping/cart/SendOrderProjection.java[]
 ----
 
 Scala::
-src/main/scala/shopping/cart/SendOrderProjection.scala:
 +
+.src/main/scala/shopping/cart/SendOrderProjection.scala:
 [source,scala,indent=0]
 ----
 include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/SendOrderProjection.scala[]
