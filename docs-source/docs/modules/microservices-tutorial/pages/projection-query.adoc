@@ -335,8 +335,6 @@ When finished, stop the service with `ctrl-c`. Leave Cassandra running for the n
 docker-compose down
 ----
 
-ifdef::todo[TODO: deploy the updated version to the cloud and try it]
-
 == Learn more
 
 * xref:concepts:cqrs.adoc[CQRS concepts].

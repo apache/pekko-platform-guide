@@ -282,8 +282,6 @@ When finished, stop the `shopping-cart-service` and `shopping-order-service` wit
 docker-compose down
 ----
 
-ifdef::todo[TODO: deploy the updated shopping-cart-service and the new shopping-order-service to the cloud and try it]
-
 == Learn more
 
 This is the end of the tutorial.

@@ -306,8 +306,6 @@ When finished, stop the `shopping-cart-service` and `shopping-analytics-service`
 docker-compose down
 ----
 
-ifdef::todo[TODO: deploy the updated shopping-cart-service and the new shopping-analytics-service to the cloud and try it]
-
 == Learn more
 
 * xref:concepts:internal-and-external-communication.adoc[Internal and External Communication concepts].
