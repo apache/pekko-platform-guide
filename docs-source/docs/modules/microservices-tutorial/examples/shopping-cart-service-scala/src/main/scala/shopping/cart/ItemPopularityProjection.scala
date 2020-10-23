@@ -57,8 +57,8 @@ object ItemPopularityProjection {
           tag,
           system,
           repository
-        )
-    ) // <6>
+        ) // <6>
+    )
   }
 
 }

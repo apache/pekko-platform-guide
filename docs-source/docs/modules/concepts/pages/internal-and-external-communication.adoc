@@ -31,10 +31,12 @@ image::concepts/internal-and-external-communication.png[Internal and External Co
 
 [NOTE]
 ====
-* The xref:microservices-tutorial:projection-kafka.adoc[] in the tutorial illustrates how to use Kafka for asynchronous communication between Microservices.
-* The xref:microservices-tutorial:projection-grpc-client.adoc[] uses Akka gRPC for synchronous communication between two Microservices.
-* The xref:microservices-tutorial:entity.adoc[] uses Akka Cluster Sharding for communication within a Microservice.
-* The xref:microservices-tutorial:projection-query.adoc[] uses the event journal (database) for communication within a Microservice.
+The xref:microservices-tutorial:index.adoc[] tutorial illustrates some of the concepts presented above:
+
+* In xref:microservices-tutorial:projection-kafka.adoc[] you will learn how to use Kafka for asynchronous communication between Microservices.
+* In xref:microservices-tutorial:projection-grpc-client.adoc[] you will learn how to use Akka gRPC for synchronous communication between two Microservices.
+* In xref:microservices-tutorial:entity.adoc[] you will learn how to use Akka Cluster Sharding for communication within a Microservice.
+* In xref:microservices-tutorial:projection-query.adoc[] you will learn how to use the event journal (database) for communication within a Microservice.
 ====
 
 == Communication with parties outside of a Microservices system

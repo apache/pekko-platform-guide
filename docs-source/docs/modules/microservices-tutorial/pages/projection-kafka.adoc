@@ -9,7 +9,7 @@ In this part, we will add another Projection from the events of the `ShoppingCar
 [caption=""]
 image::example-projection-kafka.png[Example Kafka]
 
-As described in xref:concepts:internal-and-external-communication.adoc[Internal and External Communication concepts] we can publishing messages to a broker, such as Apache Kafka, to decouple communication between different Microservices.
+As described in xref:concepts:internal-and-external-communication.adoc[Internal and External Communication concepts] we can publish messages to a broker, such as Apache Kafka, to decouple communication between different Microservices.
 
 On this page you will learn how to:
 
@@ -299,7 +299,7 @@ ItemAdded: 1 pencil to cart cart1
 
 === Stop the service
 
-When finished, stop the `shopping-cart-service` and `shopping-analytics-service` with `ctrl-c`. Leave Cassandra and Kafka running for the next set of steps, or stop it with:
+When finished, stop the `shopping-cart-service` and `shopping-analytics-service` with `ctrl-c`. Leave Cassandra and Kafka running for the next set of steps, or stop them with:
 
 [source,shell script]
 ----
