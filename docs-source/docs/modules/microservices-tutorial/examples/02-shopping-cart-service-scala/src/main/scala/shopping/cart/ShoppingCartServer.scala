@@ -26,12 +26,9 @@ object ShoppingCartServer {
 
     val service: HttpRequest => Future[HttpResponse] =
       ServiceHandler.concatOrNotFound(
-        proto.ShoppingCartServiceHandler.partial(
-          grpcService),
+        proto.ShoppingCartServiceHandler.partial(grpcService),
         // ServerReflection enabled to support grpcurl without import-path and proto parameters
-        ServerReflection.partial(
-          List(proto.ShoppingCartService)
-        )
+        ServerReflection.partial(List(proto.ShoppingCartService))
       ) // <1>
 
     val bound =
@@ -48,9 +45,7 @@ object ShoppingCartServer {
           address.getHostString,
           address.getPort)
       case Failure(ex) =>
-        system.log.error(
-          "Failed to bind gRPC endpoint, terminating system",
-          ex)
+        system.log.error("Failed to bind gRPC endpoint, terminating system", ex)
         system.terminate()
     }
   }

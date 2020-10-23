@@ -8,11 +8,8 @@ import akka.actor.typed.javadsl.Behaviors;
 import akka.actor.typed.javadsl.Receive;
 import akka.management.cluster.bootstrap.ClusterBootstrap;
 import akka.management.javadsl.AkkaManagement;
-// tag::ItemPopularityProjection[]
 import akka.stream.alpakka.cassandra.javadsl.CassandraSession;
 import akka.stream.alpakka.cassandra.javadsl.CassandraSessionRegistry;
-
-// end::ItemPopularityProjection[]
 import shopping.cart.proto.ShoppingCartService;
 
 public class Main extends AbstractBehavior<Void> {
@@ -50,8 +47,7 @@ public class Main extends AbstractBehavior<Void> {
     String grpcInterface =
         system.settings().config().getString("shopping-cart-service.grpc.interface");
     int grpcPort = system.settings().config().getInt("shopping-cart-service.grpc.port");
-    ShoppingCartService grpcService =
-        new ShoppingCartServiceImpl(system, itemPopularityRepository);
+    ShoppingCartService grpcService = new ShoppingCartServiceImpl(system, itemPopularityRepository);
     ShoppingCartServer.start(grpcInterface, grpcPort, system, grpcService);
   }
 

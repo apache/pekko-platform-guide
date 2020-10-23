@@ -22,26 +22,25 @@ import shopping.cart.proto
 
 object ShoppingCartEventConsumer {
 
-  private val log = LoggerFactory.getLogger(
-    "shopping.analytics.ShoppingCartEventConsumer")
+  private val log =
+    LoggerFactory.getLogger("shopping.analytics.ShoppingCartEventConsumer")
 
   def init(system: ActorSystem[_]): Unit = {
     implicit val sys: ActorSystem[_] = system
     implicit val ec: ExecutionContext =
       system.executionContext
 
-    val topic = system.settings.config.getString(
-      "shopping-analytics-service.shopping-cart-kafka-topic")
-    val config = system.settings.config.getConfig(
-      "shopping-analytics-service.kafka.consumer")
+    val topic = system.settings.config
+      .getString("shopping-analytics-service.shopping-cart-kafka-topic")
+    val config = system.settings.config
+      .getConfig("shopping-analytics-service.kafka.consumer")
     val consumerSettings =
       ConsumerSettings(
         config,
         new StringDeserializer,
         new ByteArrayDeserializer)
-        .withBootstrapServers(
-          system.settings.config.getString(
-            "shopping-analytics-service.kafka.bootstrap-servers"))
+        .withBootstrapServers(system.settings.config.getString(
+          "shopping-analytics-service.kafka.bootstrap-servers"))
         .withGroupId("shopping-cart-analytics")
     val committerSettings = CommitterSettings(system)
 
@@ -57,8 +56,7 @@ object ShoppingCartEventConsumer {
             Subscriptions.topics(topic)
           ) // <2>
           .mapAsync(1) { msg =>
-            handleRecord(msg.record).map(_ =>
-              msg.committableOffset)
+            handleRecord(msg.record).map(_ => msg.committableOffset)
           }
           .via(Committer.flow(committerSettings)) // <3>
       }
@@ -66,8 +64,7 @@ object ShoppingCartEventConsumer {
   }
 
   private def handleRecord(
-      record: ConsumerRecord[String, Array[Byte]])
-      : Future[Done] = {
+      record: ConsumerRecord[String, Array[Byte]]): Future[Done] = {
     val bytes = record.value()
     val x = ScalaPBAny.parseFrom(bytes) // <4>
     val typeUrl = x.typeUrl
@@ -92,41 +89,25 @@ object ShoppingCartEventConsumer {
 
       event match {
         case proto.ItemAdded(cartId, itemId, quantity, _) =>
-          log.info(
-            "ItemAdded: {} {} to cart {}",
-            quantity,
-            itemId,
-            cartId)
+          log.info("ItemAdded: {} {} to cart {}", quantity, itemId, cartId)
         // end::consumer[]
-        case proto.ItemQuantityAdjusted(
-              cartId,
-              itemId,
-              quantity,
-              _) =>
+        case proto.ItemQuantityAdjusted(cartId, itemId, quantity, _) =>
           log.info(
             "ItemQuantityAdjusted: {} {} to cart {}",
             quantity,
             itemId,
             cartId)
         case proto.ItemRemoved(cartId, itemId, _) =>
-          log.info(
-            "ItemRemoved: {} removed from cart {}",
-            itemId,
-            cartId)
+          log.info("ItemRemoved: {} removed from cart {}", itemId, cartId)
         // tag::consumer[]
         case proto.CheckedOut(cartId, _) =>
-          log.info(
-            "CheckedOut: cart {} checked out",
-            cartId)
+          log.info("CheckedOut: cart {} checked out", cartId)
       }
 
       Future.successful(Done)
     } catch {
       case NonFatal(e) =>
-        log.error(
-          "Could not process event of type [{}]",
-          typeUrl,
-          e)
+        log.error("Could not process event of type [{}]", typeUrl, e)
         // continue with next
         Future.successful(Done)
     }

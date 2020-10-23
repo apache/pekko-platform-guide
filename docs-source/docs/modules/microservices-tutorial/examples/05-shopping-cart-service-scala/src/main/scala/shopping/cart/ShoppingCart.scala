@@ -42,9 +42,7 @@ object ShoppingCart {
    * The current state held by the `EventSourcedBehavior`.
    */
   // tag::state[]
-  final case class State(
-      items: Map[String, Int],
-      checkoutDate: Option[Instant])
+  final case class State(items: Map[String, Int], checkoutDate: Option[Instant])
       extends CborSerializable {
 
     def isCheckedOut: Boolean =
@@ -116,8 +114,7 @@ object ShoppingCart {
    * A command to checkout the shopping cart.
    */
   // tag::checkoutCommand[]
-  final case class Checkout(
-      replyTo: ActorRef[StatusReply[Summary]])
+  final case class Checkout(replyTo: ActorRef[StatusReply[Summary]])
       extends Command
   // end::checkoutCommand[]
 
@@ -125,16 +122,13 @@ object ShoppingCart {
    * A command to get the current state of the shopping cart.
    */
   // tag::getCommand[]
-  final case class Get(replyTo: ActorRef[Summary])
-      extends Command
+  final case class Get(replyTo: ActorRef[Summary]) extends Command
   // end::getCommand[]
 
   /**
    * Summary of the shopping cart state, used in reply messages.
    */
-  final case class Summary(
-      items: Map[String, Int],
-      checkedOut: Boolean)
+  final case class Summary(items: Map[String, Int], checkedOut: Boolean)
       extends CborSerializable
 
   /**
@@ -144,16 +138,10 @@ object ShoppingCart {
     def cartId: String
   }
 
-  final case class ItemAdded(
-      cartId: String,
-      itemId: String,
-      quantity: Int)
+  final case class ItemAdded(cartId: String, itemId: String, quantity: Int)
       extends Event
 
-  final case class ItemRemoved(
-      cartId: String,
-      itemId: String,
-      oldQuantity: Int)
+  final case class ItemRemoved(cartId: String, itemId: String, oldQuantity: Int)
       extends Event
 
   final case class ItemQuantityAdjusted(
@@ -164,10 +152,7 @@ object ShoppingCart {
       extends Event
 
   // tag::checkedOutEvent[]
-  final case class CheckedOut(
-      cartId: String,
-      eventTime: Instant)
-      extends Event
+  final case class CheckedOut(cartId: String, eventTime: Instant) extends Event
   // end::checkedOutEvent[]
 
   val EntityKey: EntityTypeKey[Command] =
@@ -178,40 +163,31 @@ object ShoppingCart {
 
   // tag::howto-write-side-without-role[]
   def init(system: ActorSystem[_]): Unit = {
-    val behaviorFactory
-        : EntityContext[Command] => Behavior[Command] = {
+    val behaviorFactory: EntityContext[Command] => Behavior[Command] = {
       entityContext =>
-        val i = math.abs(
-          entityContext.entityId.hashCode % tags.size)
+        val i = math.abs(entityContext.entityId.hashCode % tags.size)
         val selectedTag = tags(i)
         ShoppingCart(entityContext.entityId, selectedTag)
     }
-    ClusterSharding(system).init(
-      Entity(EntityKey)(behaviorFactory))
+    ClusterSharding(system).init(Entity(EntityKey)(behaviorFactory))
   }
   // end::howto-write-side-without-role[]
   // end::tagging[]
 
   // tag::withTagger[]
-  def apply(
-      cartId: String,
-      projectionTag: String): Behavior[Command] = {
+  def apply(cartId: String, projectionTag: String): Behavior[Command] = {
     EventSourcedBehavior
       .withEnforcedReplies[Command, Event, State](
-        persistenceId =
-          PersistenceId(EntityKey.name, cartId),
+        persistenceId = PersistenceId(EntityKey.name, cartId),
         emptyState = State.empty,
-        commandHandler = (state, command) =>
-          handleCommand(cartId, state, command),
-        eventHandler =
-          (state, event) => handleEvent(state, event))
+        commandHandler =
+          (state, command) => handleCommand(cartId, state, command),
+        eventHandler = (state, event) => handleEvent(state, event))
       .withTagger(_ => Set(projectionTag)) // <1>
-      .withRetention(
-        RetentionCriteria.snapshotEvery(
-          numberOfEvents = 100,
-          keepNSnapshots = 3))
-      .onPersistFailure(SupervisorStrategy
-        .restartWithBackoff(200.millis, 5.seconds, 0.1))
+      .withRetention(RetentionCriteria
+        .snapshotEvery(numberOfEvents = 100, keepNSnapshots = 3))
+      .onPersistFailure(
+        SupervisorStrategy.restartWithBackoff(200.millis, 5.seconds, 0.1))
   }
   // end::withTagger[]
 
@@ -235,12 +211,12 @@ object ShoppingCart {
     command match {
       case AddItem(itemId, quantity, replyTo) =>
         if (state.hasItem(itemId))
-          Effect.reply(replyTo)(StatusReply.Error(
-            s"Item '$itemId' was already added to this shopping cart"))
-        else if (quantity <= 0)
           Effect.reply(replyTo)(
             StatusReply.Error(
-              "Quantity must be greater than zero"))
+              s"Item '$itemId' was already added to this shopping cart"))
+        else if (quantity <= 0)
+          Effect.reply(replyTo)(
+            StatusReply.Error("Quantity must be greater than zero"))
         else
           Effect
             .persist(ItemAdded(cartId, itemId, quantity))
@@ -252,11 +228,7 @@ object ShoppingCart {
       case RemoveItem(itemId, replyTo) =>
         if (state.hasItem(itemId))
           Effect
-            .persist(
-              ItemRemoved(
-                cartId,
-                itemId,
-                state.items(itemId)))
+            .persist(ItemRemoved(cartId, itemId, state.items(itemId)))
             .thenReply(replyTo)(updatedCart =>
               StatusReply.Success(updatedCart.toSummary))
         else
@@ -267,8 +239,7 @@ object ShoppingCart {
       case AdjustItemQuantity(itemId, quantity, replyTo) =>
         if (quantity <= 0)
           Effect.reply(replyTo)(
-            StatusReply.Error(
-              "Quantity must be greater than zero"))
+            StatusReply.Error("Quantity must be greater than zero"))
         else if (state.hasItem(itemId))
           Effect
             .persist(
@@ -287,8 +258,7 @@ object ShoppingCart {
       case Checkout(replyTo) =>
         if (state.isEmpty)
           Effect.reply(replyTo)(
-            StatusReply.Error(
-              "Cannot checkout an empty shopping cart"))
+            StatusReply.Error("Cannot checkout an empty shopping cart"))
         else
           Effect
             .persist(CheckedOut(cartId, Instant.now()))
@@ -316,27 +286,28 @@ object ShoppingCart {
         Effect.reply(replyTo)(state.toSummary)
       // tag::checkedOutShoppingCart[]
       case cmd: AddItem =>
-        Effect.reply(cmd.replyTo)(StatusReply.Error(
-          "Can't add an item to an already checked out shopping cart"))
+        Effect.reply(cmd.replyTo)(
+          StatusReply.Error(
+            "Can't add an item to an already checked out shopping cart"))
       // end::checkedOutShoppingCart[]
       case cmd: RemoveItem =>
-        Effect.reply(cmd.replyTo)(StatusReply.Error(
-          "Can't remove an item from an already checked out shopping cart"))
+        Effect.reply(cmd.replyTo)(
+          StatusReply.Error(
+            "Can't remove an item from an already checked out shopping cart"))
       case cmd: AdjustItemQuantity =>
-        Effect.reply(cmd.replyTo)(StatusReply.Error(
-          "Can't adjust item on an already checked out shopping cart"))
+        Effect.reply(cmd.replyTo)(
+          StatusReply.Error(
+            "Can't adjust item on an already checked out shopping cart"))
       // tag::checkedOutShoppingCart[]
       case cmd: Checkout =>
-        Effect.reply(cmd.replyTo)(StatusReply.Error(
-          "Can't checkout already checked out shopping cart"))
+        Effect.reply(cmd.replyTo)(
+          StatusReply.Error("Can't checkout already checked out shopping cart"))
     }
   }
   // end::checkedOutShoppingCart[]
 
   // tag::checkedOutEventHandler[]
-  private def handleEvent(
-      state: State,
-      event: Event): State = {
+  private def handleEvent(state: State, event: Event): State = {
     event match {
       case ItemAdded(_, itemId, quantity) =>
         state.updateItem(itemId, quantity)

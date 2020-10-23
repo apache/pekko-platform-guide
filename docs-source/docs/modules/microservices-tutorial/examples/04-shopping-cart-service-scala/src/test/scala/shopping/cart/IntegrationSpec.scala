@@ -77,8 +77,7 @@ object IntegrationSpec {
         interface = "localhost"
         port = $grpcPort
       }
-      akka.management.http.port = ${managementPorts(
-      managementPortIndex)}
+      akka.management.http.port = ${managementPorts(managementPortIndex)}
       akka.discovery.config.services {
         "shoppingcartservice" {
           endpoints = [
@@ -96,10 +95,7 @@ object IntegrationSpec {
     val testKit =
       ActorTestKit(
         "IntegrationSpec",
-        nodeConfig(
-          grpcPort,
-          managementPorts,
-          managementPortIndex)
+        nodeConfig(grpcPort, managementPorts, managementPortIndex)
           .withFallback(IntegrationSpec.config)
           .resolve())
 
@@ -107,12 +103,10 @@ object IntegrationSpec {
 
     private val clientSettings =
       GrpcClientSettings
-        .connectToServiceAt("127.0.0.1", grpcPort)(
-          testKit.system)
+        .connectToServiceAt("127.0.0.1", grpcPort)(testKit.system)
         .withTls(false)
     lazy val client: proto.ShoppingCartService =
-      proto.ShoppingCartServiceClient(clientSettings)(
-        testKit.system)
+      proto.ShoppingCartServiceClient(clientSettings)(testKit.system)
 
   }
 }
@@ -126,9 +120,7 @@ class IntegrationSpec
   import IntegrationSpec.TestNodeFixture
 
   implicit private val patience: PatienceConfig =
-    PatienceConfig(
-      10.seconds,
-      Span(100, org.scalatest.time.Millis))
+    PatienceConfig(10.seconds, Span(100, org.scalatest.time.Millis))
 
   private val (grpcPorts, managementPorts) =
     SocketUtil
@@ -145,8 +137,7 @@ class IntegrationSpec
     new TestNodeFixture(grpcPorts(2), managementPorts, 2)
 
   private val systems3 =
-    List(testNode1, testNode2, testNode3).map(
-      _.testKit.system)
+    List(testNode1, testNode2, testNode3).map(_.testKit.system)
 
   def mainBehavior(): Behavior[Nothing] = {
     Behaviors.setup[Nothing] { context =>
@@ -159,9 +150,7 @@ class IntegrationSpec
     // avoid concurrent creation of keyspace and tables
     val timeout = 10.seconds
     Await.result(
-      PersistenceInit.initializeDefaultPlugins(
-        testNode1.system,
-        timeout),
+      PersistenceInit.initializeDefaultPlugins(testNode1.system, timeout),
       timeout)
     CreateTableTestUtils.createTables(testNode1.system)
   }
@@ -175,21 +164,16 @@ class IntegrationSpec
 
   "Shopping Cart service" should {
     "init and join Cluster" in {
-      testNode1.testKit
-        .spawn[Nothing](mainBehavior(), "guardian")
-      testNode2.testKit
-        .spawn[Nothing](mainBehavior(), "guardian")
-      testNode3.testKit
-        .spawn[Nothing](mainBehavior(), "guardian")
+      testNode1.testKit.spawn[Nothing](mainBehavior(), "guardian")
+      testNode2.testKit.spawn[Nothing](mainBehavior(), "guardian")
+      testNode3.testKit.spawn[Nothing](mainBehavior(), "guardian")
 
       // let the nodes join and become Up
-      eventually(
-        PatienceConfiguration.Timeout(15.seconds)) {
+      eventually(PatienceConfiguration.Timeout(15.seconds)) {
         systems3.foreach { sys =>
-          Cluster(sys).selfMember.status should ===(
-            MemberStatus.Up)
-          Cluster(sys).state.members.unsorted
-            .map(_.status) should ===(Set(MemberStatus.Up))
+          Cluster(sys).selfMember.status should ===(MemberStatus.Up)
+          Cluster(sys).state.members.unsorted.map(_.status) should ===(
+            Set(MemberStatus.Up))
         }
       }
     }
@@ -197,31 +181,22 @@ class IntegrationSpec
     "update and project from different nodes via gRPC" in {
       // add from client1
       val response1 = testNode1.client.addItem(
-        proto.AddItemRequest(
-          cartId = "cart-1",
-          itemId = "foo",
-          quantity = 42))
+        proto.AddItemRequest(cartId = "cart-1", itemId = "foo", quantity = 42))
       val updatedCart1 = response1.futureValue
       updatedCart1.items.head.itemId should ===("foo")
       updatedCart1.items.head.quantity should ===(42)
 
       // add from client2
       val response2 = testNode2.client.addItem(
-        proto.AddItemRequest(
-          cartId = "cart-2",
-          itemId = "bar",
-          quantity = 17))
+        proto.AddItemRequest(cartId = "cart-2", itemId = "bar", quantity = 17))
       val updatedCart2 = response2.futureValue
       updatedCart2.items.head.itemId should ===("bar")
       updatedCart2.items.head.quantity should ===(17)
 
       // update from client2
       val response3 =
-        testNode2.client.updateItem(
-          proto.UpdateItemRequest(
-            cartId = "cart-2",
-            itemId = "bar",
-            quantity = 18))
+        testNode2.client.updateItem(proto
+          .UpdateItemRequest(cartId = "cart-2", itemId = "bar", quantity = 18))
       val updatedCart3 = response3.futureValue
       updatedCart3.items.head.itemId should ===("bar")
       updatedCart3.items.head.quantity should ===(18)
@@ -229,20 +204,18 @@ class IntegrationSpec
       // ItemPopularityProjection has consumed the events and updated db
       eventually {
         testNode1.client
-          .getItemPopularity(
-            proto.GetItemPopularityRequest(itemId = "foo"))
+          .getItemPopularity(proto.GetItemPopularityRequest(itemId = "foo"))
           .futureValue
           .popularityCount should ===(42)
 
         testNode1.client
-          .getItemPopularity(
-            proto.GetItemPopularityRequest(itemId = "bar"))
+          .getItemPopularity(proto.GetItemPopularityRequest(itemId = "bar"))
           .futureValue
           .popularityCount should ===(18)
       }
 
-      val response4 = testNode2.client.checkout(
-        proto.CheckoutRequest(cartId = "cart-2"))
+      val response4 =
+        testNode2.client.checkout(proto.CheckoutRequest(cartId = "cart-2"))
       response4.futureValue.checkedOut should ===(true)
     }
 

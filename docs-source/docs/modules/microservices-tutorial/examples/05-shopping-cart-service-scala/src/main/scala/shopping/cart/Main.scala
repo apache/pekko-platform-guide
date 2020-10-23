@@ -38,34 +38,23 @@ class Main(context: ActorContext[Nothing])
   ) // <1>
   // use same keyspace for the item_popularity table as the offset store
   val itemPopularityKeyspace =
-    system.settings.config.getString(
-      "akka.projection.cassandra.offset-store.keyspace")
+    system.settings.config
+      .getString("akka.projection.cassandra.offset-store.keyspace")
   val itemPopularityRepository =
-    new ItemPopularityRepositoryImpl(
-      session,
-      itemPopularityKeyspace)(
+    new ItemPopularityRepositoryImpl(session, itemPopularityKeyspace)(
       system.executionContext
     ) // <2>
 
-  ItemPopularityProjection.init(
-    system,
-    itemPopularityRepository
-  ) // <3>
+  ItemPopularityProjection.init(system, itemPopularityRepository) // <3>
   // end::ItemPopularityProjection[]
 
   val grpcInterface =
-    system.settings.config
-      .getString("shopping-cart-service.grpc.interface")
-  val grpcPort = system.settings.config
-    .getInt("shopping-cart-service.grpc.port")
-  val grpcService = new ShoppingCartServiceImpl(
-    system,
-    itemPopularityRepository)
-  ShoppingCartServer.start(
-    grpcInterface,
-    grpcPort,
-    system,
-    grpcService)
+    system.settings.config.getString("shopping-cart-service.grpc.interface")
+  val grpcPort =
+    system.settings.config.getInt("shopping-cart-service.grpc.port")
+  val grpcService =
+    new ShoppingCartServiceImpl(system, itemPopularityRepository)
+  ShoppingCartServer.start(grpcInterface, grpcPort, system, grpcService)
 
   // tag::PublishEventsProjection[]
   PublishEventsProjection.init(system)

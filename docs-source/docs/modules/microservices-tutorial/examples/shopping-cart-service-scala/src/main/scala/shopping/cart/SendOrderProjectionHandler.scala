@@ -25,12 +25,10 @@ class SendOrderProjectionHandler(
   private val sharding = ClusterSharding(system)
   implicit private val timeout: Timeout =
     Timeout.create(
-      system.settings.config
-        .getDuration("shopping-cart-service.ask-timeout"))
+      system.settings.config.getDuration("shopping-cart-service.ask-timeout"))
 
   override def process(
-      envelope: EventEnvelope[ShoppingCart.Event])
-      : Future[Done] = {
+      envelope: EventEnvelope[ShoppingCart.Event]): Future[Done] = {
     envelope.event match {
       case checkout: ShoppingCart.CheckedOut =>
         sendOrder(checkout)
@@ -42,12 +40,9 @@ class SendOrderProjectionHandler(
 
   }
 
-  private def sendOrder(
-      checkout: ShoppingCart.CheckedOut): Future[Done] = {
+  private def sendOrder(checkout: ShoppingCart.CheckedOut): Future[Done] = {
     val entityRef =
-      sharding.entityRefFor(
-        ShoppingCart.EntityKey,
-        checkout.cartId)
+      sharding.entityRefFor(ShoppingCart.EntityKey, checkout.cartId)
     entityRef.ask(ShoppingCart.Get).flatMap { cart => // <2>
       val items =
         cart.items.iterator.map { case (itemId, quantity) =>

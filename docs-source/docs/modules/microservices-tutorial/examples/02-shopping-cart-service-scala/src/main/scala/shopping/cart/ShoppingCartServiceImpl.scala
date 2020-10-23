@@ -19,46 +19,35 @@ class ShoppingCartServiceImpl(system: ActorSystem[_])
 
   implicit private val timeout: Timeout =
     Timeout.create(
-      system.settings.config
-        .getDuration("shopping-cart-service.ask-timeout"))
+      system.settings.config.getDuration("shopping-cart-service.ask-timeout"))
 
   private val sharding = ClusterSharding(system)
 
-  override def addItem(
-      in: proto.AddItemRequest): Future[proto.Cart] = {
-    logger.info(
-      "addItem {} to cart {}",
-      in.itemId,
-      in.cartId)
-    val entityRef = sharding.entityRefFor(
-      ShoppingCart.EntityKey,
-      in.cartId)
+  override def addItem(in: proto.AddItemRequest): Future[proto.Cart] = {
+    logger.info("addItem {} to cart {}", in.itemId, in.cartId)
+    val entityRef = sharding.entityRefFor(ShoppingCart.EntityKey, in.cartId)
     val reply: Future[ShoppingCart.Summary] =
-      entityRef.askWithStatus(
-        ShoppingCart.AddItem(in.itemId, in.quantity, _))
+      entityRef.askWithStatus(ShoppingCart.AddItem(in.itemId, in.quantity, _))
     val response = reply.map(cart => toProtoCart(cart))
     convertError(response)
   }
 
-  private def toProtoCart(
-      cart: ShoppingCart.Summary): proto.Cart = {
-    proto.Cart(cart.items.iterator.map {
-      case (itemId, quantity) =>
-        proto.Item(itemId, quantity)
+  private def toProtoCart(cart: ShoppingCart.Summary): proto.Cart = {
+    proto.Cart(cart.items.iterator.map { case (itemId, quantity) =>
+      proto.Item(itemId, quantity)
     }.toSeq)
   }
 
-  private def convertError[T](
-      response: Future[T]): Future[T] = {
+  private def convertError[T](response: Future[T]): Future[T] = {
     response.recoverWith {
       case _: TimeoutException =>
         Future.failed(
-          new GrpcServiceException(Status.UNAVAILABLE
-            .withDescription("Operation timed out")))
+          new GrpcServiceException(
+            Status.UNAVAILABLE.withDescription("Operation timed out")))
       case exc =>
         Future.failed(
-          new GrpcServiceException(Status.INVALID_ARGUMENT
-            .withDescription(exc.getMessage)))
+          new GrpcServiceException(
+            Status.INVALID_ARGUMENT.withDescription(exc.getMessage)))
     }
   }
 

@@ -23,8 +23,7 @@ object ItemPopularityProjection {
       name = "ItemPopularityProjection",
       ShoppingCart.tags.size,
       index =>
-        ProjectionBehavior(
-          createProjectionFor(system, repository, index)),
+        ProjectionBehavior(createProjectionFor(system, repository, index)),
       ShardedDaemonProcessSettings(system),
       Some(ProjectionBehavior.Stop))
   }
@@ -33,31 +32,22 @@ object ItemPopularityProjection {
   private def createProjectionFor(
       system: ActorSystem[_],
       repository: ItemPopularityRepository,
-      index: Int): AtLeastOnceProjection[
-    Offset,
-    EventEnvelope[ShoppingCart.Event]] = {
+      index: Int)
+      : AtLeastOnceProjection[Offset, EventEnvelope[ShoppingCart.Event]] = {
     val tag = ShoppingCart.tags(index) // <2>
 
     val sourceProvider
-        : SourceProvider[Offset, EventEnvelope[
-          ShoppingCart.Event
-        ]] = // <3>
+        : SourceProvider[Offset, EventEnvelope[ShoppingCart.Event]] = // <3>
       EventSourcedProvider.eventsByTag[ShoppingCart.Event](
         system = system,
-        readJournalPluginId =
-          CassandraReadJournal.Identifier, // <4>
+        readJournalPluginId = CassandraReadJournal.Identifier, // <4>
         tag = tag)
 
     CassandraProjection.atLeastOnce( // <5>
-      projectionId =
-        ProjectionId("ItemPopularityProjection", tag),
+      projectionId = ProjectionId("ItemPopularityProjection", tag),
       sourceProvider,
       handler = () =>
-        new ItemPopularityProjectionHandler(
-          tag,
-          system,
-          repository
-        ) // <6>
+        new ItemPopularityProjectionHandler(tag, system, repository) // <6>
     )
   }
 
