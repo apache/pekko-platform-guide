@@ -285,7 +285,7 @@ You can learn more about the [.group-scala]#`EventSourcedBehaviorTestKit`# [.gro
 
 == Sending commands to the entities
 
-We want to send commands to the entities from the gRPC service implementation. In the xref:grpc-server.adoc[previous step], we wrote a dummy implementation of `addItem` in the `ShoppingCartServiceImpl`. We can now replace that and send `ShoppingCart.AddItem` commands from `ShoppingCartServiceImpl`:
+We want to send commands to the entities from the gRPC service implementation. In the xref:grpc-service.adoc[previous step], we wrote a dummy implementation of `addItem` in the `ShoppingCartServiceImpl`. We can now replace that and send `ShoppingCart.AddItem` commands from `ShoppingCartServiceImpl`:
 
 [.tabset]
 Java::

@@ -11,9 +11,8 @@ image::example-projection-grpc-client.png[Example gRPC client]
 
 On this page you will learn how to:
 
-* call another service with gRPC
-
-ifdef::todo[TODO link to synchronous communication concepts]
+* call another service with xref:concepts:akka-grpc.adoc[Akka gRPC]
+* repeat how to implement a gRPC service by adding the `ShoppingOrderService`
 
 [.tabset]
 Java::
@@ -64,6 +63,7 @@ Implement the `ShoppingOrderService` in a new class `ShoppingOrderServiceImpl`:
 
 [.tabset]
 Java::
+src/main/java/shopping/order/ShoppingOrderServiceImpl.java:
 +
 [source,java,indent=0]
 ----
@@ -71,16 +71,18 @@ include::example$shopping-order-service-java/src/main/java/shopping/order/Shoppi
 ----
 
 Scala::
+src/main/scala/shopping/order/ShoppingOrderServiceImpl.scala:
 +
 [source,scala,indent=0]
 ----
 include::example$shopping-order-service-scala/src/main/scala/shopping/order/ShoppingOrderServiceImpl.scala[]
 ----
 
-Similar to the xref:grpc-server.adoc[gRPC server for the ShoppingCartService] we need to initialize the gRPC server. Add a `ShoppingOrderServer` object:
+Similar to the xref:grpc-service.adoc[gRPC server for the ShoppingCartService] we need to initialize the gRPC server. Add a `ShoppingOrderServer` [.group-scala]#object# [.group-java]#class#:
 
 [.tabset]
 Java::
+src/main/java/shopping/order/ShoppingOrderServer.java:
 +
 [source,java,indent=0]
 ----
@@ -88,6 +90,7 @@ include::example$shopping-order-service-java/src/main/java/shopping/order/Shoppi
 ----
 
 Scala::
+src/main/scala/shopping/order/ShoppingOrderServer.scala:
 +
 [source,scala,indent=0]
 ----
@@ -111,7 +114,7 @@ Scala::
 include::example$shopping-order-service-scala/src/main/scala/shopping/order/Main.scala[]
 ----
 
-ifdef::todo[TODO: describe grpc.port configuration]
+The `grpc.port` configuration is defined in `local1.conf`, which is included in the generated template project.
 
 == Call service from Projection
 
@@ -127,11 +130,15 @@ mvn compile
 
 [.group-scala]
 [source,shell script]
+----
+sbt compile
+----
 
-Add a `SendOrderProjectionHandler` class that is the Projection `Handler` for processing the events:
+Add a `SendOrderProjectionHandler` class in the `shopping-cart-service` project. This is the Projection `Handler` for processing the events:
 
 [.tabset]
 Java::
+src/main/java/shopping/cart/SendOrderProjectionHandler.java:
 +
 [source,java,indent=0]
 ----
@@ -139,6 +146,7 @@ include::example$shopping-cart-service-java/src/main/java/shopping/cart/SendOrde
 ----
 
 Scala::
+src/main/scala/shopping/cart/SendOrderProjectionHandler.scala:
 +
 [source,scala,indent=0]
 ----
@@ -159,10 +167,11 @@ If the call to the `ShoppingOrderService` fails the returned [.group-scala]#`Fut
 
 The tagging of the events is already in place from a xref:projection-query.adoc#tagging[previous step].
 
-Place the initialization code of the Projection in an `SendOrderProjection` object:
+Place the initialization code of the Projection in an `SendOrderProjection` [.group-scala]#object# [.group-java]#class#:
 
 [.tabset]
 Java::
+src/main/java/shopping/cart/SendOrderProjection.java:
 +
 [source,java,indent=0]
 ----
@@ -170,6 +179,7 @@ include::example$shopping-cart-service-java/src/main/java/shopping/cart/SendOrde
 ----
 
 Scala::
+src/main/scala/shopping/cart/SendOrderProjection.scala:
 +
 [source,scala,indent=0]
 ----
@@ -192,6 +202,8 @@ Scala::
 ----
 include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/Main.scala[tag=SendOrderProjection]
 ----
+
+The reason for placing the initialization of `orderServiceClient` in a `protected` method is that tests can then replace it with a stub implementation.
 
 The gRPC client is using service discovery to locate the `ShoppingOrderService`. For local development add the following to `src/main/resources/local-shared.conf`, which is loaded when running locally:
 
@@ -263,7 +275,7 @@ Order 12 items from cart cart1
 
 === Stop the service
 
-When finished, stop the services with `ctrl-c`. Stop Cassandra and Kafka with:
+When finished, stop the `shopping-cart-service` and `shopping-order-service` with `ctrl-c`. Stop Cassandra and Kafka with:
 
 [source,shell script]
 ----
@@ -276,5 +288,6 @@ ifdef::todo[TODO: deploy the updated shopping-cart-service and the new shopping-
 
 This is the end of the tutorial.
 
+* xref:concepts:internal-and-external-communication.adoc[Internal and External Communication concepts].
 * {akka-grpc}/client/index.html[Akka gRPC client reference documentation {tab-icon}, window="tab"].
 * {akka-projection}/[Akka Projection reference documentation {tab-icon}, window="tab"].
