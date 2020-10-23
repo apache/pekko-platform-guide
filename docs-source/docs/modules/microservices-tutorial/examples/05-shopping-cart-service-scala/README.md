@@ -9,7 +9,7 @@
 2. Start a first node:
 
     ```
-    mvn compile exec:exec -DAPP_CONFIG=local1.conf
+    sbt -Dconfig.resource=local1.conf run
     ```
 
 3. Start `shopping-analytics-service`

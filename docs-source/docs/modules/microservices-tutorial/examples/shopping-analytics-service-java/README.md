@@ -1,26 +1,11 @@
 ## Running the sample code
 
-1. Make sure you have compiled the project
+1. Start a first node:
 
     ```
-    mvn compile 
+    mvn compile exec:exec -DAPP_CONFIG=local1.conf
     ```
 
-2. Start a node:
+2. Start `shopping-cart-service` and add item to cart
 
-    ```
-    mvn exec:exec -DAPP_CONFIG=local1.conf
-    ```
-   
-3. (Optional) Start another node with different ports:
-
-    ```
-    mvn exec:exec -DAPP_CONFIG=local2.conf
-    ```
-
-4. Check the readiness of the nodes
-
-    ```
-    curl http://localhost:9201/ready
-    curl http://localhost:9202/ready
-    ```
+3. Notice the log output in the terminal of the `shopping-analytics-service`
