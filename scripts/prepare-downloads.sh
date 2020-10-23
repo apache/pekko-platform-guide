@@ -54,7 +54,8 @@ function zipAndAttach() {
 
 ## Remove the tags used by Antora snippets from 
 ## the codebase before zipping
-removeTags
+#FIXME removeTags should not be done on the original sources
+#removeTags
 
 
 ## Scala Zip files
