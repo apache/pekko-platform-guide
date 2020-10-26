@@ -7,10 +7,9 @@ declare -r temporal_folder="${PWD}/target/zips"
 
 mkdir -p ${tutorial_attachments}
 
-## Remove Antora tags from codebase
+## Remove the tags used by Antora snippets from 
+## the codebase in the current folder
 function removeTags() {
-   pushd ${tutorial_sources}
-   
    ## remove tags from code
    find . -type f -print0 | xargs -0 sed -i "s/\/\/ tag::[^\[]*\[.*\]//g" 
    find . -type f -print0 | xargs -0 sed -i "s/\/\/ end::[^\[]*\[.*\]//g" 
@@ -21,8 +20,6 @@ function removeTags() {
 
    ## remove call-outs
    find . -type f -print0 | xargs -0 sed -i "s/\/\/ <[0-9]*>//g" 
-   
-   popd
 }
 
 
@@ -48,14 +45,10 @@ function fetchProject() {
 function zipAndAttach() {
    zip_name=$1
    pushd ${temporal_folder}
+   removeTags
    zip -r ${tutorial_attachments}/${zip_name} *
    popd
 }
-
-## Remove the tags used by Antora snippets from 
-## the codebase before zipping
-#FIXME removeTags should not be done on the original sources
-#removeTags
 
 
 ## Scala Zip files
