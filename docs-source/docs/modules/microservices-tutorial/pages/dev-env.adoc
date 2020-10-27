@@ -39,7 +39,7 @@ To install IntelliJ and prepare to develop the Scala example, follow these steps
 [.tabset]
 Java::
 +
-For the Java Shopping Cart example, we use `Maven` as the build tool. http://maven.apache.org/install.html[Install Maven] if you haven't already.
+For the Java Shopping Cart example, we use `Maven` as the build tool. https://maven.apache.org/install.html[Install Maven] if you haven't already.
 
 Scala::
 +
