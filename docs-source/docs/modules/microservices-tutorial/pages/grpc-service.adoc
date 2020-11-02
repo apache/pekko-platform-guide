@@ -15,11 +15,13 @@ First, we will create the `ShoppingCartService` with a single operation that add
 * interact with the service from the command line
 * deploy to the cloud
 
+== Source downloads
+
+If you prefer to simply view and run the example, download a zip file containing the completed code:
 
 [.tabset]
 Java::
 +
-.Source downloads:
 ****
 * link:_attachments/0-shopping-cart-start-java.zip[Source] with the initial project template.
 * link:_attachments/1-shopping-cart-grpc-java.zip[Source] with the steps on this page completed.
@@ -27,7 +29,6 @@ Java::
 
 Scala::
 +
-.Source downloads:
 ****
 * link:_attachments/0-shopping-cart-start-scala.zip[Source] with the initial project template.
 * link:_attachments/1-shopping-cart-grpc-scala.zip[Source] with the steps on this page completed.
