@@ -1,4 +1,4 @@
-= Howto migrate from CRUD to Event Sourcing
+= How to migrate from CRUD to Event Sourcing
 
 
 include::partial$include.adoc[]
