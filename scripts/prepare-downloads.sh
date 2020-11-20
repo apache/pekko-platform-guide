@@ -4,6 +4,8 @@ declare -r tutorial_sources="${PWD}/docs-source/docs/modules/microservices-tutor
 declare -r tutorial_attachments="${PWD}/docs-source/docs/modules/microservices-tutorial/assets/attachments"
 
 declare -r temporal_folder="${PWD}/target/zips"
+declare -r temporal_attachments="${PWD}/target/microservices-tutorial/_attachments"
+mkdir -p ${temporal_attachments}
 
 mkdir -p ${tutorial_attachments}
 
@@ -47,6 +49,7 @@ function zipAndAttach() {
    pushd ${temporal_folder}
    removeTags
    zip -r ${tutorial_attachments}/${zip_name} *
+   cp ${tutorial_attachments}/${zip_name} ${temporal_attachments}
    popd
 }
 
