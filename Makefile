@@ -22,7 +22,7 @@ clean:
 docker-image:
 	(cd ${ROOT_DIR}/antora-docker;  docker build -t ${antora_docker_image}:${antora_docker_image_tag} .)
 
-build: clean prepare-downloads html
+build: clean html prepare-downloads done
 
 prepare-downloads:
 	${ROOT_DIR}/scripts/prepare-downloads.sh
@@ -35,6 +35,8 @@ html: clean docker-image
 		-t ${antora_docker_image}:${antora_docker_image_tag} \
 		--cache-dir=./.cache/antora \
 		docs-source/site.yml
+
+done:
 	@echo "Done ${target_dir}/index.html"
 	@echo "# Tech Hub wants to know what to publish:"
 	@echo "${target_dir}"
