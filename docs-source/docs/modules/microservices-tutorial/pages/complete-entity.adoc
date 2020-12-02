@@ -118,6 +118,7 @@ Scala::
 ----
 include::example$03-shopping-cart-service-scala/src/test/scala/shopping/cart/ShoppingCartSpec.scala[tag=checkout]
 ----
+You will also have to update the "add item" to use the new `Summary` signature.
 
 Commands should be handled differently when the cart has been checked out. `AddItem` is no longer allowed after checkout. Therefore, we refactor the [.group-scala]#`handleCommand`# [.group-java]#`commandHandler`# method into two separate methods `openShoppingCart` and `checkedOutShoppingCart` that are used depending on the `checkedOut` state. The previous code for `AddItem` goes into the `openShoppingCart` method as well as the new `Checkout` command.
 
