@@ -309,7 +309,7 @@ include::example$02-shopping-cart-service-scala/src/main/scala/shopping/cart/Sho
 
 If the command is successful, the entity will reply with `StatusReply.Success` with the updated `ShoppingCart.Summary`. If the validation in the entity fails it will reply with `StatusReply.Error`, which will fail the [.group-scala]#`Future`# [.group-java]#`CompletionStage`# that is returned from `askWithStatus`.
 
-Also, we added an `ActorSystem` parameter to the constructor of `ShoppingCartServiceImpl`. Edit the `ShoppingCartServer` to include the `system` as the parameter when creating a new instance of the `ShoppingCartServiceImpl`.
+Also, we added an `ActorSystem` parameter to the constructor of `ShoppingCartServiceImpl`. Edit `Main` to include the `system` as the parameter when creating a new instance of the `ShoppingCartServiceImpl`.
 
 == Configure Cassandra
 
