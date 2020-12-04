@@ -64,19 +64,19 @@ CREATE TABLE IF NOT EXISTS metadata(
 CREATE TABLE IF NOT EXISTS all_persistence_ids(
   persistence_id text PRIMARY KEY);
 
-CREATE TABLE IF NOT EXISTS snapshots (
-  persistence_id text,
-  sequence_nr bigint,
-  timestamp bigint,
-  ser_id int,
-  ser_manifest text,
-  snapshot_data blob,
-  snapshot blob,
-  meta_ser_id int,
-  meta_ser_manifest text,
-  meta blob,
-  PRIMARY KEY (persistence_id, sequence_nr))
-  WITH CLUSTERING ORDER BY (sequence_nr DESC);
+    CREATE TABLE IF NOT EXISTS snapshots (
+      persistence_id text,
+      sequence_nr bigint,
+      timestamp bigint,
+      ser_id int,
+      ser_manifest text,
+      snapshot_data blob,
+      snapshot blob,
+      meta_ser_id int,
+      meta_ser_manifest text,
+      meta blob,
+      PRIMARY KEY (persistence_id, sequence_nr))
+      WITH CLUSTERING ORDER BY (sequence_nr DESC);
 
 CREATE TABLE IF NOT EXISTS offset_store (
   projection_name text,

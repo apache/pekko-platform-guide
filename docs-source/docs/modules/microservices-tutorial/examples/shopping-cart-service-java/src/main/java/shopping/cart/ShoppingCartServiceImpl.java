@@ -1,12 +1,14 @@
 package shopping.cart;
 
 import akka.actor.typed.ActorSystem;
+import akka.actor.typed.DispatcherSelector;
 import akka.cluster.sharding.typed.javadsl.ClusterSharding;
 import akka.cluster.sharding.typed.javadsl.EntityRef;
 import akka.grpc.GrpcServiceException;
 import io.grpc.Status;
 import java.time.Duration;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
@@ -18,13 +20,13 @@ public final class ShoppingCartServiceImpl implements ShoppingCartService {
 
   private final Logger logger = LoggerFactory.getLogger(getClass());
 
-  private final ItemPopularityRepository itemPopularityRepository;
+  private final AsyncItemPopularityRepository asyncItemPopularityRepository;
   private final Duration timeout;
   private final ClusterSharding sharding;
 
   public ShoppingCartServiceImpl(
-      ActorSystem<?> system, ItemPopularityRepository itemPopularityRepository) {
-    this.itemPopularityRepository = itemPopularityRepository;
+      ActorSystem<?> system, AsyncItemPopularityRepository asyncItemPopularityRepository) {
+    this.asyncItemPopularityRepository = asyncItemPopularityRepository;
     timeout = system.settings().config().getDuration("shopping-cart-service.ask-timeout");
     sharding = ClusterSharding.get(system);
   }
@@ -97,13 +99,14 @@ public final class ShoppingCartServiceImpl implements ShoppingCartService {
   // tag::getItemPopularity[]
   @Override
   public CompletionStage<GetItemPopularityResponse> getItemPopularity(GetItemPopularityRequest in) {
-    return itemPopularityRepository
-        .getItem(in.getItemId())
-        .thenApply(
-            maybePopularity -> {
-              long popularity = maybePopularity.orElse(0L);
-              return GetItemPopularityResponse.newBuilder().setPopularityCount(popularity).build();
-            });
+    CompletionStage<Optional<ItemPopularity>> itemPopularity =
+      asyncItemPopularityRepository.findById(in.getItemId());
+
+    return itemPopularity.thenApply(
+        popularity -> {
+          long count = popularity.map(ItemPopularity::getCount).orElse(0L);
+          return GetItemPopularityResponse.newBuilder().setPopularityCount(count).build();
+        });
   }
   // end::getItemPopularity[]
 

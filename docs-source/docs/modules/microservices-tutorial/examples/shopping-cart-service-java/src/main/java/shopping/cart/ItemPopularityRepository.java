@@ -1,11 +1,6 @@
 package shopping.cart;
 
-import akka.Done;
-import java.util.Optional;
-import java.util.concurrent.CompletionStage;
+import org.springframework.data.repository.CrudRepository;
 
-public interface ItemPopularityRepository {
-  CompletionStage<Done> update(String itemId, int delta);
-
-  CompletionStage<Optional<Long>> getItem(String itemId);
+public interface ItemPopularityRepository extends CrudRepository<ItemPopularity, String> {
 }
