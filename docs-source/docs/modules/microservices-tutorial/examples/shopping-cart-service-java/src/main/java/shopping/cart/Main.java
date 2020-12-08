@@ -12,9 +12,12 @@ import akka.grpc.GrpcClientSettings;
 // end::SendOrderProjection[]
 import akka.management.cluster.bootstrap.ClusterBootstrap;
 import akka.management.javadsl.AkkaManagement;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.ApplicationContext;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import shopping.cart.proto.ShoppingCartService;
+import shopping.cart.repository.AsyncItemPopularityRepository;
+import shopping.cart.repository.ItemPopularityRepository;
+import shopping.cart.repository.SpringIntegration;
 // tag::SendOrderProjection[]
 import shopping.order.proto.ShoppingOrderService;
 import shopping.order.proto.ShoppingOrderServiceClient;
@@ -35,17 +38,17 @@ public class Main extends AbstractBehavior<Void> {
   public Main(ActorContext<Void> context) {
     super(context);
 
-    AnnotationConfigApplicationContext springContext = new AnnotationConfigApplicationContext();
-    springContext.register(SpringConfig.class);
-    springContext.refresh();
-    ItemPopularityRepository itemPopularityRepository = springContext.getBean(ItemPopularityRepository.class);
+    ApplicationContext springContext =
+        SpringIntegration.applicationContext(context.getSystem().settings().config());
+    ItemPopularityRepository itemPopularityRepository =
+        springContext.getBean(ItemPopularityRepository.class);
     JpaTransactionManager transactionManager = springContext.getBean(JpaTransactionManager.class);
 
     ActorSystem<?> system = context.getSystem();
 
-    AsyncItemPopularityRepository asyncItemPopularityRepository = new AsyncItemPopularityRepository(
-            system.dispatchers().lookup(DispatcherSelector.blocking()),
-            itemPopularityRepository);
+    AsyncItemPopularityRepository asyncItemPopularityRepository =
+        new AsyncItemPopularityRepository(
+            system.dispatchers().lookup(DispatcherSelector.blocking()), itemPopularityRepository);
 
     AkkaManagement.get(system).start();
     ClusterBootstrap.get(system).start();
@@ -59,16 +62,17 @@ public class Main extends AbstractBehavior<Void> {
     String grpcInterface =
         system.settings().config().getString("shopping-cart-service.grpc.interface");
     int grpcPort = system.settings().config().getInt("shopping-cart-service.grpc.port");
-    ShoppingCartService grpcService = new ShoppingCartServiceImpl(system, asyncItemPopularityRepository);
+    ShoppingCartService grpcService =
+        new ShoppingCartServiceImpl(system, asyncItemPopularityRepository);
     ShoppingCartServer.start(grpcInterface, grpcPort, system, grpcService);
 
     // tag::PublishEventsProjection[]
-//    PublishEventsProjection.init(system, entityManagerFactory);
+    PublishEventsProjection.init(system, transactionManager);
     // end::PublishEventsProjection[]
 
     // tag::SendOrderProjection[]
-//    ShoppingOrderService orderService = orderServiceClient(system);
-//    SendOrderProjection.init(system, entityManagerFactory, orderService);
+    ShoppingOrderService orderService = orderServiceClient(system);
+    SendOrderProjection.init(system, transactionManager, orderService);
 
     // end::SendOrderProjection[]
   }

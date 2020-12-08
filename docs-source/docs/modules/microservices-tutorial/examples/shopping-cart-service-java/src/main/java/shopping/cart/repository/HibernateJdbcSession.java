@@ -1,9 +1,10 @@
-package shopping.cart;
+package shopping.cart.repository;
 
 import akka.japi.function.Function;
 import akka.projection.jdbc.JdbcSession;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Objects;
 import javax.persistence.EntityManager;
 import org.hibernate.Session;
 import org.hibernate.jdbc.ReturningWork;
@@ -23,7 +24,8 @@ public class HibernateJdbcSession extends DefaultTransactionDefinition implement
   }
 
   public EntityManager entityManager() {
-    return EntityManagerFactoryUtils.getTransactionalEntityManager(transactionManager.getEntityManagerFactory());
+    return EntityManagerFactoryUtils.getTransactionalEntityManager(
+        Objects.requireNonNull(transactionManager.getEntityManagerFactory()));
   }
 
   @Override
@@ -35,13 +37,7 @@ public class HibernateJdbcSession extends DefaultTransactionDefinition implement
           @Override
           public Result execute(Connection connection) throws SQLException {
             try {
-              Result result = func.apply(connection);
-
-              // FIXME tested that this will rollback above offset storage
-//              if (true)
-//                throw new RuntimeException("Simulated exc in doReturningWork");
-
-              return result;
+              return func.apply(connection);
             } catch (SQLException e) {
               throw e;
             } catch (Exception e) {
@@ -53,12 +49,12 @@ public class HibernateJdbcSession extends DefaultTransactionDefinition implement
 
   @Override
   public void commit() {
-    transactionManager.commit(transactionStatus);
+    if (entityManager().isOpen()) transactionManager.commit(transactionStatus);
   }
 
   @Override
   public void rollback() {
-    transactionManager.rollback(transactionStatus);
+    if (entityManager().isOpen()) transactionManager.rollback(transactionStatus);
   }
 
   @Override

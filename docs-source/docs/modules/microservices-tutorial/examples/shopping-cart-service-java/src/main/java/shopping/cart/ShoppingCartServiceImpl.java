@@ -1,7 +1,6 @@
 package shopping.cart;
 
 import akka.actor.typed.ActorSystem;
-import akka.actor.typed.DispatcherSelector;
 import akka.cluster.sharding.typed.javadsl.ClusterSharding;
 import akka.cluster.sharding.typed.javadsl.EntityRef;
 import akka.grpc.GrpcServiceException;
@@ -15,6 +14,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import shopping.cart.proto.*;
+import shopping.cart.repository.AsyncItemPopularityRepository;
 
 public final class ShoppingCartServiceImpl implements ShoppingCartService {
 
@@ -100,7 +100,7 @@ public final class ShoppingCartServiceImpl implements ShoppingCartService {
   @Override
   public CompletionStage<GetItemPopularityResponse> getItemPopularity(GetItemPopularityRequest in) {
     CompletionStage<Optional<ItemPopularity>> itemPopularity =
-      asyncItemPopularityRepository.findById(in.getItemId());
+        asyncItemPopularityRepository.findById(in.getItemId());
 
     return itemPopularity.thenApply(
         popularity -> {

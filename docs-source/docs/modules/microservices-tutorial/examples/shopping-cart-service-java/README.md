@@ -11,12 +11,12 @@
     ```shell
     # creates keyspace and all tables needed for Akka Persistence
     # as well as the offset store table for Akka Projection
-    docker exec -i shopping-cart-service_cassandra_1 cqlsh -t < ddl-scripts/create_tables.cql
+    docker exec -i shopping-cart-service_postgres-db_1 psql shopping-cart shopping-cart -t < ddl-scripts/create_tables.sql
     ```
 
     ```shell
     # creates the user defined projection table.
-    docker exec -i shopping-cart-service_cassandra_1 cqlsh -t < ddl-scripts/create_user_tables.cql
+    docker exec -i shopping-cart-service_postgres-db_1 psql shopping-cart shopping-cart -t < ddl-scripts/create_user_tables.sql
     ```
 
 3. Make sure you have compiled the project

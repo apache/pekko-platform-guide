@@ -19,12 +19,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <scala.binary.version>2.13</scala.binary.version>
         <akka.version>2.6.10</akka.version>
-        <akka-http.version>10.2.0</akka-http.version>
+        <akka-http.version>10.2.1</akka-http.version>
         <akka-management.version>1.0.9</akka-management.version>
-        <akka-persistence-cassandra.version>1.0.3</akka-persistence-cassandra.version>
         <alpakka-kafka.version>2.0.5</alpakka-kafka.version>
-        <akka-projection.version>1.0.0</akka-projection.version>
-        <akka-grpc.version>1.0.1</akka-grpc.version>
+        <akka-projection.version>1.0.0+30-e500e7ee</akka-projection.version>
+        <akka-grpc.version>1.0.2</akka-grpc.version>
         <!-- needs to be defined to allow for overriding through mvn exec:exec -DAPP_CONFIG=local1.conf -->
         <APP_CONFIG>application.conf</APP_CONFIG>
     </properties>
@@ -64,7 +63,7 @@
         </dependency>
         <dependency>
             <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-serialization-jackson_2.13</artifactId>
+            <artifactId>akka-serialization-jackson_${scala.binary.version}</artifactId>
             <version>${akka.version}</version>
         </dependency>
         <dependency>
@@ -76,11 +75,6 @@
             <groupId>com.typesafe.akka</groupId>
             <artifactId>akka-discovery_${scala.binary.version}</artifactId>
             <version>${akka.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-persistence-cassandra_${scala.binary.version}</artifactId>
-            <version>${akka-persistence-cassandra.version}</version>
         </dependency>
         <dependency>
             <groupId>com.typesafe.akka</groupId>
@@ -101,6 +95,11 @@
             <groupId>com.typesafe.akka</groupId>
             <artifactId>akka-http2-support_${scala.binary.version}</artifactId>
             <version>${akka-http.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lightbend.akka</groupId>
+            <artifactId>akka-persistence-jdbc_${scala.binary.version}</artifactId>
+            <version>4.0.0+41-3b3310e9</version>
         </dependency>
         <dependency>
             <groupId>com.lightbend.akka</groupId>
@@ -143,9 +142,9 @@
             <version>5.4.13.Final</version>
         </dependency>
         <dependency>
-            <groupId>org.hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
-            <version>2.5.1</version>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.18</version>
         </dependency>
 
         <dependency>

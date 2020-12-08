@@ -3,7 +3,7 @@ package shopping.cart;
 import akka.actor.typed.ActorSystem;
 import akka.cluster.sharding.typed.ShardedDaemonProcessSettings;
 import akka.cluster.sharding.typed.javadsl.ShardedDaemonProcess;
-import akka.persistence.cassandra.query.javadsl.CassandraReadJournal;
+import akka.persistence.jdbc.query.javadsl.JdbcReadJournal;
 import akka.persistence.query.Offset;
 import akka.projection.ProjectionBehavior;
 import akka.projection.ProjectionId;
@@ -13,8 +13,8 @@ import akka.projection.javadsl.AtLeastOnceProjection;
 import akka.projection.javadsl.SourceProvider;
 import akka.projection.jdbc.javadsl.JdbcProjection;
 import java.util.Optional;
-
 import org.springframework.orm.jpa.JpaTransactionManager;
+import shopping.cart.repository.HibernateJdbcSession;
 import shopping.order.proto.ShoppingOrderService;
 
 public class SendOrderProjection {
@@ -45,7 +45,7 @@ public class SendOrderProjection {
           int index) {
     String tag = ShoppingCart.TAGS.get(index);
     SourceProvider<Offset, EventEnvelope<ShoppingCart.Event>> sourceProvider =
-        EventSourcedProvider.eventsByTag(system, CassandraReadJournal.Identifier(), tag);
+        EventSourcedProvider.eventsByTag(system, JdbcReadJournal.Identifier(), tag);
 
     return JdbcProjection.atLeastOnceAsync(
         ProjectionId.of("SendOrderProjection", tag),
