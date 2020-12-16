@@ -2,6 +2,7 @@ package shopping.cart;
 
 import akka.actor.typed.ActorSystem;
 import akka.actor.typed.Behavior;
+import akka.actor.typed.DispatcherSelector;
 import akka.actor.typed.javadsl.AbstractBehavior;
 import akka.actor.typed.javadsl.ActorContext;
 import akka.actor.typed.javadsl.Behaviors;
@@ -11,9 +12,12 @@ import akka.grpc.GrpcClientSettings;
 // end::SendOrderProjection[]
 import akka.management.cluster.bootstrap.ClusterBootstrap;
 import akka.management.javadsl.AkkaManagement;
-import akka.stream.alpakka.cassandra.javadsl.CassandraSession;
-import akka.stream.alpakka.cassandra.javadsl.CassandraSessionRegistry;
+import org.springframework.context.ApplicationContext;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import shopping.cart.proto.ShoppingCartService;
+import shopping.cart.repository.AsyncItemPopularityRepository;
+import shopping.cart.repository.ItemPopularityRepository;
+import shopping.cart.repository.SpringIntegration;
 // tag::SendOrderProjection[]
 import shopping.order.proto.ShoppingOrderService;
 import shopping.order.proto.ShoppingOrderServiceClient;
@@ -34,7 +38,17 @@ public class Main extends AbstractBehavior<Void> {
   public Main(ActorContext<Void> context) {
     super(context);
 
+    ApplicationContext springContext =
+        SpringIntegration.applicationContext(context.getSystem().settings().config());
+    ItemPopularityRepository itemPopularityRepository =
+        springContext.getBean(ItemPopularityRepository.class);
+    JpaTransactionManager transactionManager = springContext.getBean(JpaTransactionManager.class);
+
     ActorSystem<?> system = context.getSystem();
+
+    AsyncItemPopularityRepository asyncItemPopularityRepository =
+        new AsyncItemPopularityRepository(
+            system.dispatchers().lookup(DispatcherSelector.blocking()), itemPopularityRepository);
 
     AkkaManagement.get(system).start();
     ClusterBootstrap.get(system).start();
@@ -42,30 +56,23 @@ public class Main extends AbstractBehavior<Void> {
     ShoppingCart.init(system);
 
     // tag::ItemPopularityProjection[]
-    CassandraSession session =
-        CassandraSessionRegistry.get(system).sessionFor("akka.persistence.cassandra"); // <1>
-    // use same keyspace for the item_popularity table as the offset store
-    String itemPopularityKeyspace =
-        system.settings().config().getString("akka.projection.cassandra.offset-store.keyspace");
-    ItemPopularityRepository itemPopularityRepository =
-        new ItemPopularityRepositoryImpl(session, itemPopularityKeyspace); // <2>
-
-    ItemPopularityProjection.init(system, itemPopularityRepository); // <3>
+    ItemPopularityProjection.init(system, transactionManager, itemPopularityRepository); // <3>
     // end::ItemPopularityProjection[]
 
     String grpcInterface =
         system.settings().config().getString("shopping-cart-service.grpc.interface");
     int grpcPort = system.settings().config().getInt("shopping-cart-service.grpc.port");
-    ShoppingCartService grpcService = new ShoppingCartServiceImpl(system, itemPopularityRepository);
+    ShoppingCartService grpcService =
+        new ShoppingCartServiceImpl(system, asyncItemPopularityRepository);
     ShoppingCartServer.start(grpcInterface, grpcPort, system, grpcService);
 
     // tag::PublishEventsProjection[]
-    PublishEventsProjection.init(system);
+    PublishEventsProjection.init(system, transactionManager);
     // end::PublishEventsProjection[]
 
     // tag::SendOrderProjection[]
     ShoppingOrderService orderService = orderServiceClient(system);
-    SendOrderProjection.init(system, orderService);
+    SendOrderProjection.init(system, transactionManager, orderService);
 
     // end::SendOrderProjection[]
   }
