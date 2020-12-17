@@ -1,9 +1,9 @@
 = Amazon ECR
-:toc:
-:toc-title: ON THIS PAGE
-:toclevels: 3
+:page-toclevels: 3
 
-Create a private repository from https://console.aws.amazon.com/ecr/repositories[Amazon Container Services (ECR) console]. Select the region you are working in. You need one repository for each application that you will deploy, with the same name as the application.
+include::partial$include.adoc[]
+
+Create a private repository from https://console.aws.amazon.com/ecr/repositories[Amazon Container Services (ECR) console {tab-icon}, window="tab"]. Select the region you are working in. You need one repository for each application that you will deploy, with the same name as the application.
 
 For example: `803424716218.dkr.ecr.eu-central-1.amazonaws.com/shopping-cart-service`
 
