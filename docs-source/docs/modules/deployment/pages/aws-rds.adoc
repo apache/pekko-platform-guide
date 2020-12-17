@@ -5,7 +5,7 @@
 
 == Create RDS PostgrSQL database
 
-Create new database from https://console.aws.amazon.com/rds/home:[Amazon Container Services console]. Select the region you are working in.
+Create a new database from https://console.aws.amazon.com/rds/home:[Amazon Container Services console]. Select the region you are working in.
 
 The example in the xref:microservices-tutorial:index.adoc[Implementing Microservices with Akka tutorial] is using PostgreSQL.
 
@@ -17,9 +17,13 @@ For a trial PostgreSQL you can select the following aside from defaults:
 - DB instance identifier: `shopping-cart`
 - Master password: <a password>
 - Disable storage autoscaling
-- Public access: Yes
-- Existing VPC security groups: default
+- VPC: Use the same as your EKS cluster is running in
+- Public access: Yes (if you want to access from outside of the VPC) or a VPC that is paired with the EKS VPS
+- Create new VPC security group: `shopping-cart-sg`
 - Disable Additional configuration / Enable automatic backups
+
+The security group will automatically have one role added to it which allows traffic from your current IP to the PostgreSQL port.
+If your IP changes then you'll need to update the security group.
 
 You find more detailed instructions in the https://aws.amazon.com/getting-started/tutorials/create-connect-postgresql-db/[Amazon RDS PostgreSQL documentation]
 
@@ -27,14 +31,26 @@ You find more detailed instructions in the https://aws.amazon.com/getting-starte
 
 To create tables and inspect the data it's useful to be able to connect a SQL tool such as https://www.pgadmin.org[https://www.pgadmin.org].
 
-FIXME: describe security group setting for external TCP access to port 5432
+This requires a public IP and the security group for the instance must allow external access to port 5432 from your IP or 0.0.0.0.
 
 See [documentation of how to retrieve connection settings](https://aws.amazon.com/getting-started/tutorials/create-connect-postgresql-db/).
 
 Create the tables with the ddl-scripts directory in the example:
 
-- `ddl-scripts/create_tables.cql`
-- `ddl-scripts/create_user_tables.cql`
+- `ddl-scripts/create_tables.sql`
+- `ddl-scripts/create_user_tables.sql`
+
+== Security group configuration
+
+If the RDS instance is in the same VPC as the EKS cluster (as described above):
+
+- Add an inbound rule to the RDS security group for port 5432 to the security group of the nodes in the EKS cluster
+- The EKS security group can be found on the EKS page in the console in the node group launch template
+
+If the RDS instance is in a different VPC:
+
+- Peer the two VPCs
+- Add an inbound rule to the RDS security group for the IP CIDR of the EKS VPC
 
 == JDBC configuration
 
