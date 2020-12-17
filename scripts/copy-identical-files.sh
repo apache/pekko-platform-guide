@@ -58,6 +58,19 @@ cp ${SRC} ${tutorial_root}/shopping-order-service-scala/project/
 cp ${SRC} ${tutorial_root}/00-shopping-order-service-scala/project/
 cp ${SRC} ${howto_root}/shopping-cart-service-scala/project/
 
+declare SRC="${tutorial_root}/00-shopping-cart-service-scala/docker-compose.yml"
+cp ${SRC} ${tutorial_root}/01-shopping-cart-service-scala/
+cp ${SRC} ${tutorial_root}/02-shopping-cart-service-scala/
+cp ${SRC} ${tutorial_root}/03-shopping-cart-service-scala/
+cp ${SRC} ${tutorial_root}/04-shopping-cart-service-scala/
+cp ${SRC} ${tutorial_root}/05-shopping-cart-service-scala/
+cp ${SRC} ${tutorial_root}/shopping-cart-service-scala/
+cp ${SRC} ${tutorial_root}/00-shopping-analytics-service-scala/
+cp ${SRC} ${tutorial_root}/shopping-analytics-service-scala/
+cp ${SRC} ${tutorial_root}/00-shopping-order-service-scala/
+cp ${SRC} ${tutorial_root}/shopping-order-service-scala/
+
+
 # java only project build files
 declare SRC="${tutorial_root}/00-shopping-cart-service-java/pom.xml"
 cp ${SRC} ${tutorial_root}/01-shopping-cart-service-java/
@@ -73,20 +86,7 @@ cp ${SRC} ${tutorial_root}/shopping-analytics-service-java/
 declare SRC="${tutorial_root}/00-shopping-order-service-java/pom.xml"
 cp ${SRC} ${tutorial_root}/shopping-order-service-java/
 
-# scala and java project files
-# Each time we copy the file from the scala variant. They are language agnostic.
-declare SRC="${tutorial_root}/00-shopping-cart-service-scala/docker-compose.yml"
-cp ${SRC} ${tutorial_root}/01-shopping-cart-service-scala/
-cp ${SRC} ${tutorial_root}/02-shopping-cart-service-scala/
-cp ${SRC} ${tutorial_root}/03-shopping-cart-service-scala/
-cp ${SRC} ${tutorial_root}/04-shopping-cart-service-scala/
-cp ${SRC} ${tutorial_root}/05-shopping-cart-service-scala/
-cp ${SRC} ${tutorial_root}/shopping-cart-service-scala/
-cp ${SRC} ${tutorial_root}/00-shopping-analytics-service-scala/
-cp ${SRC} ${tutorial_root}/shopping-analytics-service-scala/
-cp ${SRC} ${tutorial_root}/00-shopping-order-service-scala/
-cp ${SRC} ${tutorial_root}/shopping-order-service-scala/
-
+declare SRC="${tutorial_root}/00-shopping-cart-service-java/docker-compose.yml"
 cp ${SRC} ${tutorial_root}/01-shopping-cart-service-java/
 cp ${SRC} ${tutorial_root}/02-shopping-cart-service-java/
 cp ${SRC} ${tutorial_root}/03-shopping-cart-service-java/
@@ -96,6 +96,8 @@ cp ${SRC} ${tutorial_root}/shopping-cart-service-java/
 cp ${SRC} ${tutorial_root}/shopping-analytics-service-java/
 cp ${SRC} ${tutorial_root}/shopping-order-service-java/
 
+# scala and java project files
+# Each time we copy the file from the scala variant. They are language agnostic.
 
 declare SRC="${tutorial_root}/00-shopping-cart-service-scala/LICENSE"
 cp ${SRC} ${tutorial_root}/01-shopping-cart-service-scala/
@@ -152,7 +154,7 @@ cp ${SRC} ${tutorial_root}/04-shopping-cart-service-scala/ddl-scripts/
 cp ${SRC} ${tutorial_root}/05-shopping-cart-service-scala/ddl-scripts/
 cp ${SRC} ${tutorial_root}/shopping-cart-service-scala/ddl-scripts/
 
-cp ${SRC} ${tutorial_root}/00-shopping-cart-service-java/ddl-scripts/
+declare SRC="${tutorial_root}/00-shopping-cart-service-java/ddl-scripts/create_tables.sql"
 cp ${SRC} ${tutorial_root}/01-shopping-cart-service-java/ddl-scripts/
 cp ${SRC} ${tutorial_root}/02-shopping-cart-service-java/ddl-scripts/
 cp ${SRC} ${tutorial_root}/03-shopping-cart-service-java/ddl-scripts/
@@ -335,6 +337,19 @@ cp ${SRC} ${tutorial_root}/shopping-analytics-service-java/src/test/resources/
 cp ${SRC} ${tutorial_root}/00-shopping-order-service-java/src/test/resources/
 cp ${SRC} ${tutorial_root}/shopping-order-service-java/src/test/resources/
 
+declare SRC="${tutorial_root}/00-shopping-cart-service-scala/kubernetes/shopping-cart-service-cr.yml"
+cp ${SRC} ${tutorial_root}/01-shopping-cart-service-scala/kubernetes/
+
+cp ${SRC} ${tutorial_root}/00-shopping-cart-service-java/kubernetes/
+cp ${SRC} ${tutorial_root}/01-shopping-cart-service-java/kubernetes/
+
+declare SRC="${tutorial_root}/00-shopping-order-service-scala/kubernetes/shopping-order-service-cr.yml"
+cp ${SRC} ${tutorial_root}/shopping-order-service-scala/kubernetes/
+cp ${SRC} ${tutorial_root}/00-shopping-order-service-java/kubernetes/
+cp ${SRC} ${tutorial_root}/shopping-order-service-java/kubernetes/
+
+declare SRC="${tutorial_root}/00-shopping-analytics-service-scala/kubernetes/shopping-analytics-service-cr.yml"
+cp ${SRC} ${tutorial_root}/00-shopping-analytics-service-java/kubernetes/
 
 # scala source file
 declare SRC="${tutorial_root}/00-shopping-cart-service-scala/src/main/scala/shopping/cart/CborSerializable.scala"
@@ -379,8 +394,16 @@ declare SRC="${tutorial_root}/shopping-cart-service-scala/ddl-scripts/create_use
 cp ${SRC} ${tutorial_root}/05-shopping-cart-service-scala/ddl-scripts/
 cp ${SRC} ${tutorial_root}/04-shopping-cart-service-scala/ddl-scripts/
 
+declare SRC="${tutorial_root}/shopping-cart-service-java/ddl-scripts/create_user_tables.sql"
 cp ${SRC} ${tutorial_root}/05-shopping-cart-service-java/ddl-scripts/
 cp ${SRC} ${tutorial_root}/04-shopping-cart-service-java/ddl-scripts/
+
+declare SRC="${tutorial_root}/shopping-cart-service-scala/kubernetes/shopping-cart-service-cr.yml"
+cp ${SRC} ${tutorial_root}/05-shopping-cart-service-scala/kubernetes/
+cp ${SRC} ${tutorial_root}/05-shopping-cart-service-java/kubernetes/
+
+declare SRC="${tutorial_root}/shopping-analytics-service-scala/kubernetes/shopping-analytics-service-cr.yml"
+cp ${SRC} ${tutorial_root}/shopping-analytics-service-java/kubernetes/
 
 # scala sources
 declare SRC="${tutorial_root}/shopping-cart-service-scala/src/main/scala/shopping/cart/ItemPopularityProjection.scala"
@@ -441,13 +464,14 @@ declare SRC="${tutorial_root}/shopping-cart-service-java/src/main/java/shopping/
 cp ${SRC} ${tutorial_root}/05-shopping-cart-service-java/src/main/java/shopping/cart/
 cp ${SRC} ${tutorial_root}/04-shopping-cart-service-java/src/main/java/shopping/cart/
 
-declare SRC="${tutorial_root}/shopping-cart-service-java/src/main/java/shopping/cart/ItemPopularityRepository.java"
-cp ${SRC} ${tutorial_root}/05-shopping-cart-service-java/src/main/java/shopping/cart/
-cp ${SRC} ${tutorial_root}/04-shopping-cart-service-java/src/main/java/shopping/cart/
-
-declare SRC="${tutorial_root}/shopping-cart-service-java/src/main/java/shopping/cart/ItemPopularityRepositoryImpl.java"
-cp ${SRC} ${tutorial_root}/05-shopping-cart-service-java/src/main/java/shopping/cart/
-cp ${SRC} ${tutorial_root}/04-shopping-cart-service-java/src/main/java/shopping/cart/
+# FIXME
+#declare SRC="${tutorial_root}/shopping-cart-service-java/src/main/java/shopping/cart/ItemPopularityRepository.java"
+#cp ${SRC} ${tutorial_root}/05-shopping-cart-service-java/src/main/java/shopping/cart/
+#cp ${SRC} ${tutorial_root}/04-shopping-cart-service-java/src/main/java/shopping/cart/
+#
+#declare SRC="${tutorial_root}/shopping-cart-service-java/src/main/java/shopping/cart/ItemPopularityRepositoryImpl.java"
+#cp ${SRC} ${tutorial_root}/05-shopping-cart-service-java/src/main/java/shopping/cart/
+#cp ${SRC} ${tutorial_root}/04-shopping-cart-service-java/src/main/java/shopping/cart/
 
 declare SRC="${tutorial_root}/shopping-cart-service-java/src/main/java/shopping/cart/PublishEventsProjection.java"
 cp ${SRC} ${tutorial_root}/05-shopping-cart-service-java/src/main/java/shopping/cart/
@@ -502,6 +526,13 @@ cp ${SRC} ${tutorial_root}/02-shopping-cart-service-scala/src/main/resources/
 
 cp ${SRC} ${tutorial_root}/03-shopping-cart-service-java/src/main/resources/
 cp ${SRC} ${tutorial_root}/02-shopping-cart-service-java/src/main/resources/
+
+declare SRC="${tutorial_root}/04-shopping-cart-service-scala/kubernetes/shopping-cart-service-cr.yml"
+cp ${SRC} ${tutorial_root}/03-shopping-cart-service-scala/kubernetes/
+cp ${SRC} ${tutorial_root}/02-shopping-cart-service-scala/kubernetes/
+cp ${SRC} ${tutorial_root}/04-shopping-cart-service-java/kubernetes/
+cp ${SRC} ${tutorial_root}/03-shopping-cart-service-java/kubernetes/
+cp ${SRC} ${tutorial_root}/02-shopping-cart-service-java/kubernetes/
 
 # from 02
 declare SRC="${tutorial_root}/02-shopping-cart-service-scala/src/main/protobuf/ShoppingCartService.proto"
