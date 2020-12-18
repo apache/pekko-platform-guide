@@ -1,0 +1,10 @@
+= Configuration provided by the operator
+:page-toclevels: 3
+
+include::partial$include.adoc[]
+
+The Akka Operator will automatically provide configuration for the xref:integrations.adoc[Integrations] to the application.
+
+For troubleshooting it can be good to know how the configuration is loaded.
+
+The configuration that the Akka Operator provides via a Secret is located in `/etc/config-volume/main.conf` in the Pod. The `main.conf` includes `application.conf` and the JVM system property `config.file` is set to `main.conf` by the operator. In other words, `main.conf` will be used when the application starts the `ActorSystem` without specifying a configuration, or when using `ConfigFactory.load()`.
