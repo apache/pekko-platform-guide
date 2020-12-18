@@ -114,7 +114,7 @@ Apply the CR:
 kubectl apply -f kubernetes/shopping-cart-service-cr.yml
 ----
 
-The Akka Operator will automatically xref:main-config.adoc[provide the configuration] from the Secret when the application starts the `ActorSystem`.
+The Akka Operator will automatically xref:config-secret.adoc#main-conf[provide the configuration] from the Secret when the application starts the `ActorSystem`.
 
 == Uninstall Strimzi
 

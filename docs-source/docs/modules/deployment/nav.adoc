@@ -3,3 +3,4 @@
 * xref:integrations.adoc[Integrations]
 * xref:aws-ecr.adoc[Amazon ECR]
 * xref:aws-ingress.adoc[Amazon LoadBalancer Controller]
+* xref:config-secret.adoc[Environment configuration]
