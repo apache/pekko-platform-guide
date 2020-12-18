@@ -1,4 +1,4 @@
-= Amazon RDS
+= Relational database - Amazon RDS
 :page-toclevels: 3
 
 include::partial$include.adoc[]
@@ -18,14 +18,29 @@ For a trial PostgreSQL you can select the following aside from defaults:
 - Master password: <a password>
 - Disable storage autoscaling
 - VPC: Use the same as your EKS cluster is running in
-- Public access: Yes (if you want to access from outside of the VPC) or a VPC that is paired with the EKS VPS
-- Create new VPC security group: `shopping-cart-sg`
+- Public access: Yes (if you want to access from outside of the VPC)
+- Create new VPC security group: `rds-shopping-cart-sg`
 - Disable Additional configuration / Enable automatic backups
 
-The security group will automatically have one role added to it which allows traffic from your current IP to the PostgreSQL port.
-If your IP changes then you'll need to update the security group.
+The security group will automatically have one role added to it which allows traffic from your current IP to the PostgreSQL port. If your IP changes then you'll need to update the security group.
 
 You find more detailed instructions in the https://aws.amazon.com/getting-started/tutorials/create-connect-postgresql-db/[Amazon RDS PostgreSQL documentation {tab-icon}, window="tab"]
+
+== Security group configuration
+
+If the RDS instance is in the same VPC as the EKS cluster (as described above):
+
+- Add an inbound rule to the RDS security group for port 5432 to the security group of the nodes in the EKS cluster
+- The EKS security group can be found on the EKS page in the console in the node group launch template
+
+More details in https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Scenarios.html#USER_VPC.Scenario1[A DB instance in a VPC accessed by an EC2 instance in the same VPC {tab-icon}, window="tab"]
+
+If the RDS instance is in a different VPC:
+
+- Peer the two VPCs
+- Add an inbound rule to the RDS security group for the IP CIDR of the EKS VPC
+
+More details in https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Scenarios.html#USER_VPC.Scenario3[A DB instance in a VPC accessed by an EC2 instance in a different VPC {tab-icon}, window="tab"]
 
 == Connect with SQL tool
 
@@ -36,18 +51,6 @@ This requires a public IP and the security group for the instance must allow ext
 See https://aws.amazon.com/getting-started/tutorials/create-connect-postgresql-db/[documentation of how to retrieve connection settings {tab-icon}, window="tab"].
 
 Create the tables with the `ddl-scripts/create_tables.cql` script in the example of the xref:microservices-tutorial:index.adoc[Implementing Microservices with Akka tutorial].
-
-== Security group configuration
-
-If the RDS instance is in the same VPC as the EKS cluster (as described above):
-
-- Add an inbound rule to the RDS security group for port 5432 to the security group of the nodes in the EKS cluster
-- The EKS security group can be found on the EKS page in the console in the node group launch template
-
-If the RDS instance is in a different VPC:
-
-- Peer the two VPCs
-- Add an inbound rule to the RDS security group for the IP CIDR of the EKS VPC
 
 == JDBC configuration
 
@@ -74,12 +77,4 @@ To enable the JDBC integration you define the name of the secret in `jdbc` secti
 include::microservices-tutorial:example$02-shopping-cart-service-scala/kubernetes/shopping-cart-service-cr.yml[]
 ----
 
-The Akka Operator will automatically provide the configuration for the connection based on the Secret when the application starts the `ActorSystem`.
-
-=== The configuration in the Pod
-
-For troubleshooting it can be good to know how the configuration is loaded.
-
-The configuration that the Akka Operator provides via a Secret is located in `/etc/config-volume/main.conf` in the Pod. The `main.conf` includes `application.conf` and the JVM system property `config.file` is set to `main.conf` by the operator. In other words, `main.conf` will be used when the application starts the `ActorSystem` without specifying a configuration, or when using `ConfigFactory.load()`.
-
-FIXME the details of main.conf should probably be described in a separate (general) page.
+The Akka Operator will automatically xref:config-secret.adoc#main-conf[provide the configuration] for the connection based on the Secret when the application starts the `ActorSystem`.

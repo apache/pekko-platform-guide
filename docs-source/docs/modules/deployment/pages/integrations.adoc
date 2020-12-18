@@ -1,0 +1,10 @@
+= Integrations
+:page-toclevels: 3
+
+include::partial$include.adoc[]
+
+* xref:aws-rds.adoc[]
+* xref:astra.adoc[]
+* xref:cassandra.adoc[]
+* xref:confluent-cloud.adoc[]
+* xref:strimzi.adoc[]

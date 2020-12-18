@@ -1,4 +1,7 @@
 .Cloud deployment
+
+* xref:integrations.adoc[Integrations]
 * xref:aws-ecr.adoc[Amazon ECR]
-* xref:aws-rds.adoc[Amazon RDS]
 * xref:aws-ingress.adoc[Amazon LoadBalancer Controller]
+* xref:config-secret.adoc[Environment configuration]
+* xref:troubleshooting.adoc[Troubleshooting]
