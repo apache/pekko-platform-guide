@@ -62,7 +62,7 @@ A (very) simplified version of a `ShoppingCart` can be modelled using two comman
 include::example$shopping-cart-service-scala/src/main/scala/shopping/cart/ShoppingCart.scala[tag=howto-crud-to-es-initial]
 ----
 
-Finally, the `ShoppingCart` (that is the `State`) will contain the code to handle a comand, and the code to handle an event.
+Finally, the `ShoppingCart` (that is the `State`) will contain the code to handle a command, and the code to handle an event.
 
 The code to handle the commands will follow two steps:
 
