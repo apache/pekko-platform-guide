@@ -3,7 +3,7 @@
 
 include::partial$include.adoc[]
 
-For production usage we recommend using xref:confluent-cloud.adoc[Confluent Cloud] (Cloud-Native Kafka-as-a-Service).
+For production usage we recommend using xref:aws-msk.adoc[Amazon MSK] or xref:confluent-cloud.adoc[Confluent Cloud] (Kafka-as-a-Service).
 
 For development or test environments you may want to manage your own Kafka cluster with Strimzi.
 https://strimzi.io/docs/operators/latest/using.html[Strimzi {tab-icon}, window="tab"] simplifies the process of running Apache Kafka in a Kubernetes cluster.
@@ -69,31 +69,20 @@ kubectl apply -f kubernetes/strimzi-topic-cr.yml
 
 == Configure connection
 
-Define the connection details in a config file. Use the bootstrap servers retrieved above.
+Place the connection credentials in a https://kubernetes.io/docs/concepts/configuration/secret/[Secret {tab-icon}, window="tab"]. The Secret must contain:
 
-.kubernetes/strimzi-config.conf
-[source,shell script]
-----
-# common config for akka.kafka.producer.kafka-clients and akka.kafka.consumer.kafka-clients
-kafka-connection-settings {
-  bootstrap.servers = "kafka-strimzi-kafka-bootstrap.akka-demo.svc:9092"
-}
-akka.kafka.producer {
-  kafka-clients = ${kafka-connection-settings}
-}
-akka.kafka.consumer {
-  kafka-clients = ${kafka-connection-settings}
-}
-----
+* `bootstrapServersKey` - the URL to the Kafka bootstrap servers
 
-Create the `strimzi-config` config secret from the config file:
+The Secret can be created with for example:
 
 [source,shell script]
 ----
-kubectl create secret generic strimzi-config --from-file=kubernetes/strimzi-config.conf
+kubectl create secret generic shopping-cart-service-kafka-secret --from-literal=bootstrapServers=<bootstrap servers connect string>
 ----
 
-Define the `configSecret` in the CR of the application:
+Use the bootstrap servers retrieved above.
+
+To enable the Kafka integration you define the name of the secret in `kafka` of the CR:
 
 [source,yaml]
 ----
@@ -103,8 +92,8 @@ metadata:
   name: shopping-cart-service
 spec:
   image: <image>
-  configSecret:
-    secretName: strimzi-config
+  kafka:
+    credentialsSecret: shopping-cart-service-kafka-secret
 ----
 
 Apply the CR:
@@ -114,7 +103,8 @@ Apply the CR:
 kubectl apply -f kubernetes/shopping-cart-service-cr.yml
 ----
 
-The Akka Operator will automatically xref:config-secret.adoc#main-conf[provide the configuration] from the Secret when the application starts the `ActorSystem`.
+The Akka Operator will automatically xref:config-secret.adoc#main-conf[provide the configuration] for the connection based on the Secret when the application starts the `ActorSystem`.
+
 
 == Uninstall Strimzi
 
