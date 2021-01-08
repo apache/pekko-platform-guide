@@ -77,14 +77,17 @@ They are similar to application logging, but are more coarse grained. A single e
 
 === Event Reasons
 
-FIXME this should be a table
+|===
+|Reason |Type |Definition
 
-----
-| Reason                     | Type     | Definition                                                       |
-|----------------------------|----------|------------------------------------------------------------------|
-| `ReconciliationSuccessful` | `Normal` | The reconciliation of a Microservice has completed successfully. |
-| `ReconciliationFailure`    | `Error`  | The reconciliation of a Microservice has failed.                 |
-----
+|`ReconciliationSuccessful`
+|`Normal`
+|The reconciliation of a Microservice has completed successfully.
+
+|`ReconciliationFailure`
+|`Error`
+|The reconciliation of a Microservice has failed.
+|===
 
 === Viewing Events
 
