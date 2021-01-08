@@ -20,5 +20,5 @@ spec:
       cpu: "1"
   jdbc:
     credentialsSecret: shopping-cart-service-jdbc-secret
-  cloudKafkaConfluent:
+  kafka:
     credentialsSecret: shopping-cart-service-kafka-secret
