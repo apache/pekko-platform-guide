@@ -194,11 +194,7 @@ You can stop the service with `ctrl-c`.
 
 == Run in Kubernetes
 
-To run in Kubernetes you need ... FIXME:
-
-* Create Kubernetes cluster in Amazon Elastic Kubernetes Service (EKS)
-* Install `kubectl` and authenticate to the Kubernetes cluster
-* Install the Akka Platform operator from Amazon Marketplace
+Create a xref:deployment:aws-install.adoc[Kubernetes cluster and install the Akka Platform Operator].
 
 === Build Docker image
 

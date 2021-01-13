@@ -1,0 +1,114 @@
+= Installation in Amazon EKS
+:page-toclevels: 3
+
+include::partial$include.adoc[]
+
+:sectnums:
+== Prerequisites
+
+===  Install kubectl
+
+The Kubernetes command-line tool, `kubectl`, allows you to run commands against Kubernetes clusters.
+
+Follow the instructions in the https://kubernetes.io/docs/tasks/tools/install-kubectl[Kubernetes documentation {tab-icon}, window="tab"]  to install `kubectl`.
+
+===  Install Helm
+
+Helm is used for installing the Akka Platform Operator in the Kubernetes cluster.
+
+Follow the instructions in the https://helm.sh/docs/intro/install/[Helm documentation {tab-icon}, window="tab"]  to install `helm`.
+
+=== Install AWS CLI
+
+The AWS Command Line Interface (AWS CLI) enables you to interact with AWS services using commands in your command-line shell.
+
+Follow the instructions in the https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html[AWS documentation {tab-icon}, window="tab"]  to install `aws`.
+
+=== Install eksctl
+
+`eksctl` is a command line utility for creating and managing Kubernetes clusters on Amazon EKS.
+
+Follow the instructions in the https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html[AWS documentation {tab-icon}, window="tab"]  to install `eksctl`.
+
+=== Login to your AWS account
+
+For first time AWS user, please register your account at https://aws.amazon.com/[https://aws.amazon.com/ {tab-icon}, window="tab"].
+
+Go to https://console.aws.amazon.com/iam/home?#/users[AWS Identity and Access Management (IAM) console {tab-icon}, window="tab"] to create a user and create access keys under Security Credential tab.
+
+Install the credentials with the `aws` tool:
+
+[source,shell script]
+----
+aws configure
+----
+
+:!Sectnums:
+== Create a Kubernetes cluster
+
+An Kubernetes cluster can be created from the https://console.aws.amazon.com/iam/home?#/users[Amazon EKS console {tab-icon}, window="tab"] or with the `eksctl` command line tool. For example:
+
+[source,shell script]
+----
+eksctl create cluster --name eks-akka-demo --version 1.17 --region eu-central-1 --nodegroup-name linux-nodes --nodes 3 --nodes-min 1 --nodes-max 4 --with-oidc --managed
+----
+
+NOTE: We recommend using EKS with EC2 nodes, and not the Fargate option.
+
+== Amazon Marketplace
+
+FIXME direct link to product page.
+
+Subscribe to the https://aws.amazon.com/marketplace[Lightbend Akka Platform Operator {tab-icon}, window="tab"].
+
+== Install Akka Platform Operator
+
+Authenticate docker to the Amazon ECR repository:
+
+FIXME update with the Marketplace ECR
+
+[source,shell script]
+----
+aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 803424716218.dkr.ecr.eu-central-1.amazonaws.com
+----
+
+Install the Akka Platform operator with Helm:
+
+FIXME update with the Marketplace ECR
+
+[source,shell script]
+----
+helm install akka-operator target/akka-operator-<version>.tgz --namespace lightbend --set image.repository=803424716218.dkr.ecr.eu-central-1.amazonaws.com/akka-operator --set image.tag=<tag> --create-namespace
+----
+
+Verify that the operator is running:
+
+[source,shell script]
+----
+kubectl get pods --namespace lightbend
+----
+
+== Uninstall Akka Platform Operator
+
+Delete the `akka-operator` with Helm:
+
+[source,shell script]
+----
+helm delete akka-operator --namespace lightbend
+----
+
+Delete CRD:
+
+[source,shell script]
+----
+kubectl delete customresourcedefinition akkamicroservices.akka.lightbend.com
+----
+
+== Delete Kubernetes cluster
+
+[source,shell script]
+----
+eksctl delete cluster --name eks-akka-demo
+----
+
+NOTE: Deleting the cluster from the https://console.aws.amazon.com/iam/home?#/users[Amazon EKS console {tab-icon}, window="tab"] requires several steps and therefore it's easiest to use `eksctl` for this.
