@@ -46,7 +46,7 @@ aws configure
 :!Sectnums:
 == Create a Kubernetes cluster
 
-An Kubernetes cluster can be created from the https://console.aws.amazon.com/iam/home?#/users[Amazon EKS console {tab-icon}, window="tab"] or with the `eksctl` command line tool. For example:
+An Kubernetes cluster can be created from the https://console.aws.amazon.com/eks/home[Amazon EKS console {tab-icon}, window="tab"] or with the `eksctl` command line tool. For example:
 
 [source,shell script]
 ----
@@ -144,18 +144,71 @@ FIXME update with the Marketplace ECR
 aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 803424716218.dkr.ecr.eu-central-1.amazonaws.com
 ----
 
-Install the Akka Platform Operator with Helm:
+Install the Akka Platform Operator with Helm.
 
-FIXME update with the Marketplace ECR
+Add the Akka Platform Operator Helm repository and update the local index:
 
 [source,shell script]
 ----
-helm install akka-operator target/akka-operator-<version>.tgz \
+helm repo add akka-operator-helm https://lightbend.github.io/akka-operator-helm/
+helm repo update
+----
+
+[source,shell script]
+----
+helm install akka-operator akka-operator-helm/charts/akka-operator-<version>.tgz \
   --namespace lightbend  \
   --set image.repository=803424716218.dkr.ecr.eu-central-1.amazonaws.com/akka-operator  \
   --set image.tag=<tag>  \
   --set serviceAccount.name=akka-operator
   --create-namespace
+----
+
+Verify that the operator is running:
+
+[source,shell script]
+----
+kubectl get pods --namespace lightbend
+----
+
+You can now go back to the xref:microservices-tutorial:grpc-service.adoc#kubernetes[tutorial] and follow the instructions of how to deploy the application.
+
+== Update Akka Platform Operator
+
+To update the Akka Platform Operator version you have to update the Custom Resource Definition (CRD) separately because Helm will not perform that.
+
+Authenticate docker to the Amazon ECR repository:
+
+FIXME update with the Marketplace ECR
+
+[source,shell script]
+----
+aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 803424716218.dkr.ecr.eu-central-1.amazonaws.com
+----
+
+Update the Akka Microservices CRD (replace the `<version>` in the URL):
+
+[source,shell script]
+----
+kubectl apply -f  https://lightbend.github.io/akka-operator-helm/akka-operator/crds/<version>/akka-microservices-crd.yml
+----
+
+Update the Akka Platform Operator with Helm.
+
+Add the Akka Platform Operator Helm repository and update the local index:
+
+[source,shell script]
+----
+helm repo add akka-operator-helm https://lightbend.github.io/akka-operator-helm/
+helm repo update
+----
+
+[source,shell script]
+----
+helm upgrade akka-operator akka-operator-helm/charts/akka-operator-<version>.tgz \
+  --namespace lightbend \
+  --set image.repository=803424716218.dkr.ecr.eu-central-1.amazonaws.com/akka-operator \
+  --set image.tag=<version>
 ----
 
 Verify that the operator is running:
