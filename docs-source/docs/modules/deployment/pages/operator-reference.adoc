@@ -1,0 +1,76 @@
+= Akka Platform Operator reference
+:page-toclevels: 3
+
+include::partial$include.adoc[]
+
+== AkkaMicroservices deployment descriptor (CRD)
+
+The https://lightbend.github.io/akka-operator-helm/akka-operator/crds/v1/akka-microservices-crd.yml[schema definition of the AkkaMicroservices deployment descriptor (CRD) {tab-icon}, window="tab"].
+
+A fictive example of a https://lightbend.github.io/akka-operator-helm/api-reference/v1/shopping-cart-service-full-cr.yml[deployment descriptor (CR) containing all properties {tab-icon}, window="tab"].
+
+== Scale the number of Pods
+
+The `replicas` field in the deployment descriptor defines the number of Pods that will be used.
+
+[source,yaml]
+----
+apiVersion: akka.lightbend.com/v1
+kind: AkkaMicroservice
+metadata:
+  name: shopping-cart-service
+spec:
+  image: <image>
+  replicas: 3
+----
+
+You can scale the number of pods by applying the changed deployment descriptor. Kubernetes will add or remove Pods to adjust to the desired number.
+
+[source,shell script]
+----
+kubectl apply -f kubernetes/shopping-cart-service-cr.yml
+----
+
+Another way of changing number of Pods is to use `kubectl scale` without changing the deployment descriptor:
+
+[source,shell script]
+----
+kubectl scale --replicas=3 akkamicroservices shopping-cart-servics
+----
+
+== Resource requests and limits
+
+https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/[Resources for Containers {tab-icon}, window="tab"] can be defined in the Akka Microservices deployment descriptor.
+
+[source,yaml]
+----
+apiVersion: akka.lightbend.com/v1
+kind: AkkaMicroservice
+metadata:
+  name: shopping-cart-service
+spec:
+  image: <image>
+  resources:
+    limits:
+      memory: "2Gi"
+    requests:
+      memory: "2Gi"
+      cpu: "1"
+----
+
+For multi-threaded applications such as the JVM, the CFS scheduler limits are an ill fit, because they will restrict the allowed CPU usage even when more CPU cycles are available from the host system. This means your application may be starved of CPU time, but your system appears idle.
+
+To avoid CFS scheduler limits, it is best not to use `resources.limits.cpu` limits, but use `resources.requests.cpu` configuration instead.
+
+== Namespaces
+
+The Akka Platform Operator manages Akka Microservices in all namespaces of the Kubernetes cluster, which means that you should only install the operator once. It is possible to configure the operator to only manage a specific namespace if that would be needed.
+
+You can define a specific namespace that the operator should manage with the following value of the Helm chart when installing the operator.
+
+[source,shell script]
+----
+--set java_tool_options=-Dakka.operator.application-namespace=the-app-ns -Xlog:gc -XX:InitialRAMPercentage=75 -XX:MaxRAMPercentage=75
+----
+
+The operator itself can still be installed in a different namespace, or in the same namespace.

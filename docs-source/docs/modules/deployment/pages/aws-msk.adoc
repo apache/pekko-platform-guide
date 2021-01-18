@@ -85,7 +85,7 @@ The Secret can be created with for example:
 kubectl create secret generic shopping-cart-service-kafka-secret --from-literal=bootstrapServers=<copied bootstrap servers connect string>
 ----
 
-To enable the Kafka integration you define the name of the secret in `kafka` of the CR:
+To enable the Kafka integration you define the name of the secret in `kafka` of the deployment descriptor:
 
 [source,yaml]
 ----
@@ -99,7 +99,7 @@ spec:
     credentialsSecret: shopping-cart-service-kafka-secret
 ----
 
-Apply the CR:
+Apply the deployment descriptor:
 
 [source,shell script]
 ----

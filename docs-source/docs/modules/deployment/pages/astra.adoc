@@ -16,7 +16,7 @@ The Secret can be created with for example:
 kubectl create secret generic shopping-cart-service-astra-secret --from-literal=username=scott --from-literal=password=tiger --from-file=secureConnectBundle=/path/to/secure-connect.zip
 ----
 
-To enable the Astra integration you define the name of the secret in `cassandraDataStaxAstra` of the CR:
+To enable the Astra integration you define the name of the secret in `cassandraDataStaxAstra` of the deployment descriptor:
 
 [source,yaml]
 ----
