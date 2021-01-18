@@ -354,7 +354,7 @@ include::example$03-shopping-cart-service-scala/src/main/scala/shopping/cart/Sho
 
 == Run locally
 
-Start the Postgres database, unless it's already running:
+Start the PostgresSQL database, unless it's already running:
 
 [source,shell script]
 ----
@@ -378,35 +378,86 @@ mvn compile exec:exec -DAPP_CONFIG=local1.conf
 
 === Exercise the service
 
-Try it with `grpcurl`.
+// # tag::exercise[]
+Use `https://github.com/fullstorydev/grpcurl[grpcurl]` to exercise the service:
 
-Add an item to the cart:
+. Add an item to the cart:
++
 [source,shell script]
 ----
 grpcurl -d '{"cartId":"cart2", "itemId":"socks", "quantity":3}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.AddItem
 ----
 
-Check the quantity of the cart:
+. Check the quantity of the cart:
++
 [source,shell script]
 ----
 grpcurl -d '{"cartId":"cart2"}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.GetCart
 ----
 
-
-Check out cart:
+. Check out cart:
++
 [source,shell script]
 ----
 grpcurl -d '{"cartId":"cart2"}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.Checkout
 ----
+// # end::exercise[]
+
 
 === Stop the service
 
-When finished, stop the service with `ctrl-c`. Leave Postgres running for the next set of steps, or stop it with:
+When finished, stop the service with `ctrl-c`. Leave PostgresSQL running for the next set of steps, or stop it with:
 
 [source,shell script]
 ----
 docker-compose down
 ----
+
+[#kubernetes]
+== Run in Kubernetes
+
+Create a xref:deployment:aws-install.adoc[Kubernetes cluster and install the Akka Platform Operator] if you haven't already.
+
+=== Create a PostgresSQL database
+
+Make sure you have created your database and loaded the schema as decribed in the previous step.
+
+=== Build Docker image
+
+Create a Docker repository and authenticate Docker as described in xref:deployment:aws-ecr.adoc[Amazon ECR] if you haven't already.
+
+Rebuild the Docker image.
+
+include::partial$build-docker-for-kube.adoc[]
+
+=== Update the deployment descriptor
+
+Update the `kubernetes/shopping-cart-service-cr.yml` deployment descriptor with the new image tag as previously described.
+
+=== Apply to Kubernetes
+
+Re-apply the `shopping-cart-service-cr.yml` to Kubernetes:
+
+[source,shell script]
+----
+kubectl apply -f kubernetes/shopping-cart-service-cr.yml
+----
+
+You can see progress by viewing the status:
+
+[source,shell script]
+----
+kubectl get akkamicroservices/shopping-cart-service
+----
+
+=== Exercise the service in Kubernetes
+
+include::partial$prepare-to-exercise-in-kube.adoc[]
+
+include::complete-entity.adoc[tag=exercise]
+
+Note the logging from the `ShoppingCartServiceImpl` in the console that is running `kubectl logs -f`.
+
 
 :!sectnums:
 == Optional commands and events

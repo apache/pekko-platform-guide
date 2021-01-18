@@ -8,7 +8,7 @@ services:
       POSTGRES_USER: shopping-cart
       POSTGRES_PASSWORD: shopping-cart
 
-  # this second postgres is used when running test
+  # this second PostgresSQL is used when running test
   postgres-db-test:
     image: postgres:latest
     ports:
