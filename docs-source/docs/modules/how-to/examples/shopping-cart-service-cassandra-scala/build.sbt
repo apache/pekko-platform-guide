@@ -1,5 +1,4 @@
 name := "shopping-cart-service"
-version := "1.0"
 
 organization := "com.lightbend.akka.samples"
 organizationHomepage := Some(url("https://akka.io"))
@@ -28,6 +27,12 @@ val AlpakkaKafkaVersion = "2.0.6"
 val AkkaProjectionVersion = "1.0.0"
 
 enablePlugins(AkkaGrpcPlugin)
+
+enablePlugins(JavaAppPackaging, DockerPlugin)
+dockerBaseImage := "adoptopenjdk:11-jre-hotspot"
+dockerUsername := sys.props.get("docker.username")
+dockerRepository := sys.props.get("docker.registry")
+ThisBuild / dynverSeparator := "-"
 
 // tag::akka-persistence-cassandra[]
 libraryDependencies ++= Seq(

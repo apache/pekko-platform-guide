@@ -1,5 +1,4 @@
 name := "cleanup-dependencies-project"
-version := "1.0"
 
 organization := "com.lightbend.akka.samples"
 organizationHomepage := Some(url("https://akka.io"))
@@ -45,6 +44,12 @@ val AkkaProjectionVersion = "1.0.0"
 // tag::remove-grpc-plugin[]
 enablePlugins(AkkaGrpcPlugin)
 // end::remove-grpc-plugin[]
+
+enablePlugins(JavaAppPackaging, DockerPlugin)
+dockerBaseImage := "adoptopenjdk:11-jre-hotspot"
+dockerUsername := sys.props.get("docker.username")
+dockerRepository := sys.props.get("docker.registry")
+ThisBuild / dynverSeparator := "-"
 
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-cluster-sharding-typed" % AkkaVersion,
