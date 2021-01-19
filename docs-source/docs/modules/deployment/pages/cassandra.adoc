@@ -121,7 +121,7 @@ Create the `cassandra-config` config secret from the config file:
 kubectl create secret generic cassandra-config --from-file=kubernetes/cassandra-config.conf
 ----
 
-Define the `configSecret` in the CR of the application:
+Define the `configSecret` in the deployment descriptor of the application:
 
 .kubernetes/shopping-cart-service-cr.yml
 [source,yaml]
@@ -136,7 +136,7 @@ spec:
     secretName: cassandra-config
 ----
 
-Apply the CR:
+Apply the deployment descriptor:
 
 [source,shell script]
 ----
