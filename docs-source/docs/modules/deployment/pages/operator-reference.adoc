@@ -70,7 +70,7 @@ You can define a specific namespace that the operator should manage with the fol
 
 [source,shell script]
 ----
---set java_tool_options=-Dakka.operator.application-namespace=the-app-ns -Xlog:gc -XX:InitialRAMPercentage=75 -XX:MaxRAMPercentage=75
+--set java_tool_options="-Dakka.operator.application-namespace=the-app-ns -Xlog:gc -XX:InitialRAMPercentage=75 -XX:MaxRAMPercentage=75"
 ----
 
 The operator itself can still be installed in a different namespace, or in the same namespace.
