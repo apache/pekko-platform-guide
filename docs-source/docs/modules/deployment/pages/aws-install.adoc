@@ -106,8 +106,6 @@ With the file `policy.json` contents as:
         {
             "Effect": "Allow",
             "Action": [
-                "aws-marketplace:BatchMeterUsage",
-                "aws-marketplace:ResolveCustomer",
                 "aws-marketplace:MeterUsage"
             ],
             "Resource": "*"
