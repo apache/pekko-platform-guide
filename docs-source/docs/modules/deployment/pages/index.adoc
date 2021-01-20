@@ -16,8 +16,8 @@ The Akka Platform Operator provides the following high level features:
 * support for gRPC and HTTP services and internet facing ingress
 * insights to deployment status
 
-== Overview of deployment procedure
 [#deployment_procedure]
+== Overview of deployment procedure
 
 === Deploying an Akka Microservices application
 
@@ -51,4 +51,3 @@ image::deployment-overview2.png[Deployment 2]
 * xref:aws-install.adoc[Installation in Amazon EKS]
 * {akka-management}/[Akka Management {tab-icon}, window="tab"] for Akka Cluster formation and health checks
 * {akka-management}/kubernetes-deployment/index.html[Deploying Akka Cluster to Kubernetes without the Akka Platform Operator {tab-icon}, window="tab"]
-

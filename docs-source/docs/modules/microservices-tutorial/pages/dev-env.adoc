@@ -63,8 +63,8 @@ sbt:shopping-cart-service> test
 
 The https://github.com/fullstorydev/grpcurl[grpcurl {tab-icon}, window="tab"] tool is useful for making gRPC calls from the command line. It is used in tutorial procedures and we recommend that you install it as described in https://github.com/fullstorydev/grpcurl#installation[the grpcurl documentation {tab-icon}, window="tab"].
 
-== Docker and Docker Compose
 [#docker]
+== Docker and Docker Compose
 
 See the instructions for installing https://docs.docker.com/get-docker/[Docker {tab-icon}, window="tab"] and https://docs.docker.com/compose/install/[Docker Compose {tab-icon}, window="tab"] on your platform.
 
