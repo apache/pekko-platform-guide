@@ -8,8 +8,8 @@ We provide a template so that you don't need to create the shopping cart project
 
 :sectnums:
 
-== Download the empty template
 [#seed-template]
+== Download the empty template
 
 The starting template is available as downloadable zip file with Java or Scala sources. Select your preferred language (Java/Scala):
 
@@ -47,8 +47,8 @@ sbt compile
 
 ifdef::review[REVIEWERS: we should add what they will see if successful and what to do if not.]
 
-== Open the project in IntelliJ
 [#intellij]
+== Open the project in IntelliJ
 
 If you are using IntelliJ, follow these steps to open the project:
 

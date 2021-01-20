@@ -11,14 +11,14 @@ Each step of the tutorial has instructions of how to run in Kubernetes, for exam
 
 Alternatively, you can deploy {akka-management}/kubernetes-deployment/index.html[Akka Cluster applications to Kubernetes without the Akka Platform Operator {tab-icon}, window="tab"], but that requires more expertise of Kubernetes.
 
-== Docker
 [#docker]
+== Docker
 
 Docker is a popular containerization technology. If you are unfamiliar to containers, we recommend the 
 {docker-docs}/get-started/[Get Started with Docker {tab-icon}, window="tab"] documentation.
 
-== Kubernetes
 [#kubernetes]
+== Kubernetes
 
 [quote, ,'https://en.wikipedia.org/wiki/Kubernetes[Wikipedia]']
 ____
