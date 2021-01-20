@@ -84,11 +84,9 @@ Scala::
 include::example$04-shopping-cart-service-scala/src/main/scala/shopping/cart/repository/ItemPopularityRepository.scala[tag=trait]
 ----
 
-. Add the `ItemPopularity`:
+. [.group-java]#Add the `ItemPopularity`:#
 +
-[.tabset]
-Java::
-+
+[.group-java]
 .src/main/java/shopping/cart/ItemPopularity.java:
 [source,java,indent=0]
 ----
