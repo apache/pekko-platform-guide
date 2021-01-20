@@ -10,7 +10,7 @@ metadata:
   namespace: "shopping"
 spec:
   replicas: 1
-  image: <repository>/shopping-cart-service:<tag>
+  image: <docker-registry>/shopping-cart-service:<tag> # <1>
   javaOptions: "-Xlog:gc -XX:InitialRAMPercentage=75 -XX:MaxRAMPercentage=75"
   resources:
     limits:
@@ -21,4 +21,4 @@ spec:
   jdbc:
     credentialsSecret: shopping-cart-service-jdbc-secret
   kafka:
-    credentialsSecret: shopping-cart-service-kafka-secret
+    credentialsSecret: shopping-cart-service-kafka-secret  # <2>

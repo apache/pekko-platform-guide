@@ -68,7 +68,7 @@ Follow these steps to prepare for running shopping cart:
 docker-compose up -d
 ----
 
-. Create the Postgres tables from the SQL script located inside the `ddl-scripts` at the root of the project:
+. Create the PostgresSQL tables from the SQL script located inside the `ddl-scripts` at the root of the project:
 +
 [source,shell script]
 ----
@@ -77,7 +77,7 @@ docker exec -i shopping-cart-service_postgres-db_1 psql -U shopping-cart -t < dd
 +
 It creates all tables needed for Akka Persistence as well as the offset store table for Akka Projection.
 +
-include::docker-important.adoc[]
+include::partial$docker-important.adoc[]
 +
 
 // # end::docker[]

@@ -170,21 +170,23 @@ Shopping online at gRPC server 127.0.0.1:8101
 
 === Exercise the service
 
-Try exercising the service with https://github.com/fullstorydev/grpcurl[grpcurl].
+// # tag::exercise[]
+Use `https://github.com/fullstorydev/grpcurl[grpcurl]` to exercise the service:
 
-Add 3 socks to a cart:
-
+. Add 3 socks to a cart:
++
 [source,shell script]
 ----
 grpcurl -d '{"cartId":"cart1", "itemId":"socks", "quantity":3}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.AddItem
 ----
 
-Add 2 t-shirts to the same cart:
-
+. Add 2 t-shirts to the same cart:
++
 [source,shell script]
 ----
 grpcurl -d '{"cartId":"cart1", "itemId":"t-shirt", "quantity":2}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.AddItem
 ----
+// # end::exercise[]
 
 Note the logging from the `ShoppingCartServiceImpl` in the console.
 
@@ -192,8 +194,8 @@ Note the logging from the `ShoppingCartServiceImpl` in the console.
 
 You can stop the service with `ctrl-c`.
 
-== Run in Kubernetes
 [#kubernetes]
+== Run in Kubernetes
 
 Read the xref:deployment:index.adoc[overview of Kubernetes deployment] to get an understanding of how the Kubernetes deployment with the Akka Platform Operator works.
 
@@ -205,50 +207,20 @@ Create a Docker repository and authenticate Docker as described in xref:deployme
 
 The [.group-scala]#`build.sbt and project/plugins.sbt`# [.group-java]#`pom.xml`# contains build plugin settings for building a Docker image.
 
-The version number of the image is derived from the git commit. You can enable git for the directory with the following commands. Alternatively the version can be specified with `-Dversion.number=0.1-SNAPSHOT`.
-
-[source,shell script]
-----
-git init
-git add .
-git commit -m "first gRPC"
-----
-
-[.tabset]
-Java::
-+
-----
-mvn -DskipTests -Ddocker.registry=803424716218.dkr.ecr.eu-central-1.amazonaws.com clean package docker:push
-----
-+
-If you see error "Given Docker name 'shopping-cart-service:${git.commit.time}-${git.commit.id.abbrev}' is invalid" it is because the directory is not a git repository. You can specify the version number with:
-+
-----
-mvn -Dversion.number=0.1-SNAPSHOT -DskipTests -Ddocker.registry=803424716218.dkr.ecr.eu-central-1.amazonaws.com clean package docker:push
-----
-
-Scala::
-+
-----
-sbt -Ddocker.registry=803424716218.dkr.ecr.eu-central-1.amazonaws.com docker:publish
-----
+include::partial$build-docker-for-kube.adoc[]
 
 === Update the deployment descriptor
 
 In `kubernetes/shopping-cart-service-cr.yml` you find the deployment descriptor of the `AkkaMicroservice` that the Akka Platform Operator will use when deploying the application in Kubernetes.
-
-Update the image reference in `kubernetes/shopping-cart-service-cr.yml` with the image tag from the output of the Docker build above, for example:
-
-[source,shell script]
-----
-DOCKER> Tagging image shopping-cart-service:20201209-135004-363ae2b successful!
-----
 
 .kubernetes/shopping-cart-service-cr.yml:
 [source,yaml]
 ----
 include::example$01-shopping-cart-service-scala/kubernetes/shopping-cart-service-cr.yml[]
 ----
+
+<1> Replace `<docker-registry>` with your docker registry address and update the image reference with the image tag from the output of the Docker build above, for example: `803424716218.dkr.ecr.eu-central-1.amazonaws.com/shopping-cart-service:20201209-135004-363ae2b`. 
+
 
 === Apply to Kubernetes
 
@@ -277,42 +249,9 @@ kubectl get akkamicroservices/shopping-cart-service
 
 === Exercise the service in Kubernetes
 
-You can list the pods with:
+include::partial$prepare-to-exercise-in-kube.adoc[]
 
-[source,shell script]
-----
-kubectl get pods -l app=shopping-cart-service
-----
-
-Inspect logs from a separate terminal window:
-
-[source,shell script]
-----
-kubectl logs -f <pod name from above>
-----
-
-Add port forwarding for the gRPC endpoint from a separate terminal:
-
-[source,shell script]
-----
-kubectl port-forward svc/shopping-cart-service-grpc 8101:8101
-----
-
-Try exercising the service with https://github.com/fullstorydev/grpcurl[grpcurl].
-
-Add 3 socks to a cart:
-
-[source,shell script]
-----
-grpcurl -d '{"cartId":"cart1", "itemId":"socks", "quantity":3}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.AddItem
-----
-
-Add 2 t-shirts to the same cart:
-
-[source,shell script]
-----
-grpcurl -d '{"cartId":"cart1", "itemId":"t-shirt", "quantity":2}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.AddItem
-----
+include::grpc-service.adoc[tag=exercise]
 
 Note the logging from the `ShoppingCartServiceImpl` in the console that is running `kubectl logs -f`.
 

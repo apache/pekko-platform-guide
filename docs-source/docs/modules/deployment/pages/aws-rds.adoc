@@ -5,7 +5,7 @@ include::partial$include.adoc[]
 
 == Create RDS PostgrSQL database
 
-Create a new database from https://console.aws.amazon.com/rds/home:[Amazon Container Services console {tab-icon}, window="tab"]. Select the region you are working in.
+Create a new database from https://console.aws.amazon.com/rds/home[Amazon Container Services console {tab-icon}, window="tab"]. Select the region you are working in.
 
 The example in the xref:microservices-tutorial:index.adoc[Implementing Microservices with Akka tutorial] is using PostgreSQL.
 
@@ -42,6 +42,7 @@ If the RDS instance is in a different VPC:
 
 More details in https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Scenarios.html#USER_VPC.Scenario3[A DB instance in a VPC accessed by an EC2 instance in a different VPC {tab-icon}, window="tab"]
 
+[#connect-sql-tool] 
 == Connect with SQL tool
 
 To create tables and inspect the data it's useful to be able to connect a SQL tool such as https://www.pgadmin.org[https://www.pgadmin.org {tab-icon}, window="tab"].
