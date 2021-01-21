@@ -361,7 +361,6 @@ mvn compile exec:exec -DAPP_CONFIG=local1.conf
 
 === Exercise the service
 
-// # tag::exercise[]
 Use `https://github.com/fullstorydev/grpcurl[grpcurl]` to exercise the service:
 
 . Use `grpcurl` to add 3 socks to a cart:
@@ -388,7 +387,6 @@ grpcurl -d '{"cartId":"cart1", "itemId":"t-shirt", "quantity":2}' -plaintext 127
 ----
 +
 The returned updated cart should still contain the 3 socks.
-// # end::exercise[]
 
 === Exercise with multiple service instances
 
@@ -493,7 +491,30 @@ kubectl get akkamicroservices/shopping-cart-service
 
 include::partial$prepare-to-exercise-in-kube.adoc[]
 
-include::entity.adoc[tag=exercise]
+Use `https://github.com/fullstorydev/grpcurl[grpcurl]` to exercise the service:
+
+. Use `grpcurl` to add 3 socks to a cart:
++
+[source,shell script]
+----
+grpcurl -d '{"cartId":"cart1", "itemId":"socks", "quantity":3}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.AddItem
+----
+
+. Test the validation logic by trying to add the same item again, which should result in an error:
++
+[source,shell script]
+----
+grpcurl -d '{"cartId":"cart1", "itemId":"socks", "quantity":5}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.AddItem
+----
+
+. Add 2 t-shirts to the same cart:
++
+[source,shell script]
+----
+grpcurl -d '{"cartId":"cart1", "itemId":"t-shirt", "quantity":2}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.AddItem
+----
++
+The returned updated cart should still contain the 3 socks.
 
 Note the logging from the `ShoppingCartServiceImpl` in the console that is running `kubectl logs -f`.
 
