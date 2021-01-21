@@ -18,7 +18,6 @@ For a trial PostgreSQL you can select the following aside from defaults:
 - Master password: <a password>
 - Disable storage autoscaling
 - VPC: Use the same as your EKS cluster is running in
-- Public access: Yes (if you want to access from outside of the VPC)
 - Create new VPC security group: `rds-shopping-cart-sg`
 - Disable Additional configuration / Enable automatic backups
 
@@ -53,30 +52,41 @@ When using different VPC for RDS and EKS.
 
 More details in https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Scenarios.html#USER_VPC.Scenario3[A DB instance in a VPC accessed by an EC2 instance in a different VPC {tab-icon}, window="tab"]
 
-[#connect-sql-tool] 
-== Connect with SQL tool
+[#create-tables]
+== Create tables
 
-To create tables and inspect the data it's useful to be able to connect a SQL tool such as https://www.pgadmin.org[https://www.pgadmin.org {tab-icon}, window="tab"].
+The connection details are shown in the Connectivity & security tab of the database in https://console.aws.amazon.com/rds/home#databases[Amazon RDS console {tab-icon}, window="tab"], specifically the Endpoint (hostname).
 
-This requires a public IP and the security group for the instance must allow external access to port 5432 from your IP or 0.0.0.0.
+To create the tables and other administrative tasks you can connect to the RDS PostgreSQL database from a Pod in your EKS cluster.
 
-Go to the https://console.aws.amazon.com/rds/home#databases[Amazon RDS console {tab-icon}, window="tab"] and click on the "VPC security groups" in the  database tab "Connectivity & security".
+Create a temporary Pod and run `psql` to load the ddl sql scripts with:
 
-Edit inbound rules > add rule > Custom TCP > Port 5432 > Source Anywhere or My IP. Save rules.
+[source,shell script]
+----
+kubectl run -i rds-mgmt --image=postgres \
+  --restart=Never --rm --env "PGPASSWORD=<password>" -- \
+  psql -h <rds endpoint> -U postgres -t < ddl-scripts/create_tables.sql
+----
 
-See https://aws.amazon.com/getting-started/tutorials/create-connect-postgresql-db/[documentation of how to retrieve connection settings {tab-icon}, window="tab"].
+It creates all tables needed for Akka Persistence as well as the offset store table for Akka Projection.
 
-Create the tables with the `ddl-scripts/create_tables.cql` script in the example of the xref:microservices-tutorial:index.adoc[Implementing Microservices with Akka tutorial].
+For an interactive `psql` session you can use:
+
+[source,shell script]
+----
+kubectl run -i --tty rds-mgmt --image=postgres --restart=Never --rm -- \
+  psql -h <rds endpoint> -U postgres
+----
 
 == JDBC configuration
 
 To use the JDBC integration in the Akka Platform Operator you place the connection credentials in a https://kubernetes.io/docs/concepts/configuration/secret/[Secret {tab-icon}, window="tab"]. The Secret must contain three entries:
 
-* `connectionUrl` - the JDBC connection URL `jdbc:postgresql://<endpoint>:5432/<database name>?reWriteBatchedInserts=true`, for example `jdbc:postgresql://shopping-cart.c46wxwryhegl.eu-central-1.rds.amazonaws.com:5432/postgres?reWriteBatchedInserts=true`
+* `connectionUrl` - the JDBC connection URL `jdbc:postgresql://<rds endpoint>:5432/<database name>?reWriteBatchedInserts=true`, for example `jdbc:postgresql://shopping-cart.c46wxwryhegl.eu-central-1.rds.amazonaws.com:5432/postgres?reWriteBatchedInserts=true`
 * `username` - the database username, default master user in RDS PostgrSQL is `postgres`
 * `password` - the database password, the password you defined when creating the RDS PostgrSQL database
 
-See https://aws.amazon.com/getting-started/tutorials/create-connect-postgresql-db/[documentation of how to retrieve connection settings {tab-icon}, window="tab"].
+The connection details are shown in the Connectivity & security tab of the database in https://console.aws.amazon.com/rds/home#databases[Amazon RDS console {tab-icon}, window="tab"], specifically the Endpoint (hostname).
 
 The Secret can be created with the following `kubectl` command, replacing the values for your database:
 
