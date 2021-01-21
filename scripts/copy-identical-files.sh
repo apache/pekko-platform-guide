@@ -356,7 +356,6 @@ cp ${SRC} ${tutorial_root}/shopping-order-service-java/src/test/resources/
 
 declare SRC="${tutorial_root}/00-shopping-cart-service-scala/kubernetes/shopping-cart-service-cr.yml"
 cp ${SRC} ${tutorial_root}/01-shopping-cart-service-scala/kubernetes/
-
 cp ${SRC} ${tutorial_root}/00-shopping-cart-service-java/kubernetes/
 cp ${SRC} ${tutorial_root}/01-shopping-cart-service-java/kubernetes/
 
@@ -460,6 +459,7 @@ cp ${SRC} ${tutorial_root}/04-shopping-cart-service-scala/ddl-scripts/
 declare SRC="${tutorial_root}/shopping-cart-service-scala/kubernetes/shopping-cart-service-cr.yml"
 cp ${SRC} ${tutorial_root}/05-shopping-cart-service-scala/kubernetes/
 cp ${SRC} ${tutorial_root}/05-shopping-cart-service-java/kubernetes/
+cp ${SRC} ${tutorial_root}/shopping-cart-service-java/kubernetes/
 
 declare SRC="${tutorial_root}/shopping-analytics-service-scala/kubernetes/shopping-analytics-service-cr.yml"
 cp ${SRC} ${tutorial_root}/shopping-analytics-service-java/kubernetes/
