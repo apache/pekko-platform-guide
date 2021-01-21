@@ -1,4 +1,4 @@
-= Amazon ECR
+= Amazon Elastic Container Registry (ECR)
 :page-supergroup-java-scala: Language
 :page-toclevels: 3
 
