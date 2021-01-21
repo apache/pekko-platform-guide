@@ -7,7 +7,7 @@ https://aws.amazon.com/msk/[Amazon Managed Streaming for Apache Kafka {tab-icon}
 
 == Create Amazon MSK cluster
 
-Create a new Kafka cluster from https://console.aws.amazon.com/msk/home:[Amazon MSK console {tab-icon}, window="tab"]. Select the region you are working in.
+Create a new Kafka cluster from https://console.aws.amazon.com/msk/home[Amazon MSK console {tab-icon}, window="tab"]. Select the region you are working in.
 
 Select the following aside from defaults:
 
@@ -24,11 +24,11 @@ You find more detailed instructions and alternatives in the https://docs.aws.ama
 
 To allow the nodes in the EKS cluster to connect to the MSK cluster you have to add a rule in the security group.
 
-Go to the https://console.aws.amazon.com/vpc/home:[VPC console {tab-icon}, window="tab"]. Select "Security Groups".
+Go to the https://console.aws.amazon.com/vpc/home[VPC console {tab-icon}, window="tab"]. Select "Security Groups".
 
-There are 3 security groups for the EKS cluster and you should select the one with description "EKS created security group ...". The one that has a name that doesn't contain a `/`. Make a note of this security group id for the EKS cluster.
+There are 3 security groups for the EKS cluster and you should select the one with description "EKS created security group ...". The one that has a name that doesn't contain `ControlPlaneSecurityGroup` and doesn't contain `ClusterSharedNodeSecurityGroup` . Make a note of this security group id for the EKS cluster.
 
-Go back to the https://console.aws.amazon.com/msk/home:[Amazon MSK console {tab-icon}, window="tab"] and click on the "Security groups applied" in the MSK Cluster summary.
+Go back to the https://console.aws.amazon.com/msk/home[Amazon MSK console {tab-icon}, window="tab"] and click on the "Security groups applied" in the MSK Cluster summary.
 
 Edit inbound rules > add rule > All traffic > Source custom. Add the security group for the EKS cluster. Save rules.
 
@@ -54,7 +54,7 @@ tar -xzf kafka_2.12-2.2.1.tgz
 cd kafka_2.12-2.2.1
 ----
 
-From https://console.aws.amazon.com/msk/home:[Amazon MSK console {tab-icon}, window="tab"] you find the connection URL in the "View client information". Copy the list of ZooKeeper host/port pairs.
+From https://console.aws.amazon.com/msk/home[Amazon MSK console {tab-icon}, window="tab"] you find the connection URL in the "View client information". Copy the list of ZooKeeper host/port pairs.
 
 Save the connect string in an environment variable at the bash prompt of the Pod you started with `kubectl run`.
 
@@ -70,13 +70,20 @@ Create a Kafka `shopping-cart-events` topic with:
 bin/kafka-topics.sh --zookeeper ${ZOOKEEPER_CONNECT_STRING} --create --topic shopping-cart-events --replication-factor 3 --partitions 4
 ----
 
+Exit the temporary Pod:
+
+[source,shell script]
+----
+exit
+----
+
 == Kafka configuration
 
 Place the connection credentials in a https://kubernetes.io/docs/concepts/configuration/secret/[Secret {tab-icon}, window="tab"]. The Secret must contain:
 
 * `bootstrapServersKey` - the URL to the Kafka bootstrap servers
 
-From https://console.aws.amazon.com/msk/home:[Amazon MSK console {tab-icon}, window="tab"] you find the connection URL in the "View client information". Copy the plaintext bootstrap servers.
+From https://console.aws.amazon.com/msk/home[Amazon MSK console {tab-icon}, window="tab"] you find the connection URL in the "View client information". Copy the plaintext bootstrap servers.
 
 The Secret can be created with for example:
 

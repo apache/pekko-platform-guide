@@ -9,8 +9,16 @@ metadata:
   name: shopping-cart-service
   namespace: "shopping"
 spec:
-  image: 803424716218.dkr.ecr.eu-central-1.amazonaws.com/shopping-cart-service:20201217-100759-5d55273
+  replicas: 1
+  image: <docker-registry>/shopping-cart-service:<tag> # <1>
+  javaOptions: "-Xlog:gc -XX:InitialRAMPercentage=75 -XX:MaxRAMPercentage=75"
+  resources:
+    limits:
+      memory: "2Gi"
+    requests:
+      memory: "2Gi"
+      cpu: "1"
   jdbc:
     credentialsSecret: shopping-cart-service-jdbc-secret
   kafka:
-    credentialsSecret: shopping-cart-service-kafka-secret
+    credentialsSecret: shopping-cart-service-kafka-secret  # <2>

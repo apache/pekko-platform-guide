@@ -5,7 +5,7 @@ include::partial$include.adoc[]
 
 == Create RDS PostgrSQL database
 
-Create a new database from https://console.aws.amazon.com/rds/home[Amazon Container Services console {tab-icon}, window="tab"]. Select the region you are working in.
+Create a new database from https://console.aws.amazon.com/rds/home[Amazon RDS console {tab-icon}, window="tab"]. Select the region you are working in.
 
 The example in the xref:microservices-tutorial:index.adoc[Implementing Microservices with Akka tutorial] is using PostgreSQL.
 
@@ -26,16 +26,27 @@ The security group will automatically have one role added to it which allows tra
 
 You find more detailed instructions in the https://aws.amazon.com/getting-started/tutorials/create-connect-postgresql-db/[Amazon RDS PostgreSQL documentation {tab-icon}, window="tab"]
 
-== Security group configuration
+== Allow EKS security group
 
-If the RDS instance is in the same VPC as the EKS cluster (as described above):
+=== RDS instance is in the same VPC as the EKS cluster
 
-- Add an inbound rule to the RDS security group for port 5432 to the security group of the nodes in the EKS cluster
-- The EKS security group can be found on the EKS page in the console in the node group launch template
+When using same VPC for RDS and EKS as described above.
+
+To allow the nodes in the EKS cluster to connect to the RDS instance you have to add a rule in the security group.
+
+Go to the https://console.aws.amazon.com/vpc/home[VPC console {tab-icon}, window="tab"]. Select "Security Groups".
+
+There are 3 security groups for the EKS cluster and you should select the one with description "EKS created security group ...". The one that has a name that doesn't contain `ControlPlaneSecurityGroup` and doesn't contain `ClusterSharedNodeSecurityGroup` . Make a note of this security group id for the EKS cluster.
+
+Go back to the https://console.aws.amazon.com/rds/home#databases[Amazon RDS console {tab-icon}, window="tab"] and click on the "VPC security groups" in the  database tab "Connectivity & security".
+
+Edit inbound rules > add rule > Custom TCP > Port 5432 > Source custom. Add the security group for the EKS cluster. Save rules.
 
 More details in https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Scenarios.html#USER_VPC.Scenario1[A DB instance in a VPC accessed by an EC2 instance in the same VPC {tab-icon}, window="tab"]
 
-If the RDS instance is in a different VPC:
+=== RDS instance is in a different VPC
+
+When using different VPC for RDS and EKS.
 
 - Peer the two VPCs
 - Add an inbound rule to the RDS security group for the IP CIDR of the EKS VPC
@@ -48,6 +59,10 @@ More details in https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.
 To create tables and inspect the data it's useful to be able to connect a SQL tool such as https://www.pgadmin.org[https://www.pgadmin.org {tab-icon}, window="tab"].
 
 This requires a public IP and the security group for the instance must allow external access to port 5432 from your IP or 0.0.0.0.
+
+Go to the https://console.aws.amazon.com/rds/home#databases[Amazon RDS console {tab-icon}, window="tab"] and click on the "VPC security groups" in the  database tab "Connectivity & security".
+
+Edit inbound rules > add rule > Custom TCP > Port 5432 > Source Anywhere or My IP. Save rules.
 
 See https://aws.amazon.com/getting-started/tutorials/create-connect-postgresql-db/[documentation of how to retrieve connection settings {tab-icon}, window="tab"].
 
