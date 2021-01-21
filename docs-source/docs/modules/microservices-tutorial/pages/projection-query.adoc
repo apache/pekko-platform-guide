@@ -442,7 +442,7 @@ Create the item popularity table using the `ddl-scripts/create_user_tables.sql` 
 [source,shell script]
 ----
 kubectl run -i rds-mgmt --image=postgres \
-  --restart=Never --rm --env "PGPASSWORD=postgres" -- \
+  --restart=Never --rm --env "PGPASSWORD=<password>" -- \
   psql -h <rds endpoint> -U postgres -t < ddl-scripts/create_user_tables.sql
 ----
 
