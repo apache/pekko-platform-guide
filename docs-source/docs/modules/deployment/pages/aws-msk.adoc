@@ -32,6 +32,7 @@ Go back to the https://console.aws.amazon.com/msk/home[Amazon MSK console {tab-i
 
 Edit inbound rules > add rule > All traffic > Source custom. Add the security group for the EKS cluster. Save rules.
 
+[#create-topic]
 == Create topic
 
 To create a topic or other administrative tasks you can connect to the MSK cluster from a Pod in your EKS cluster.

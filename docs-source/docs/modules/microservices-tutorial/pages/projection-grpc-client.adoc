@@ -254,7 +254,6 @@ sbt -Dconfig.resource=local1.conf run
 
 === Exercise the service
 
-// # tag::exercise[]
 Use `https://github.com/fullstorydev/grpcurl[grpcurl]` to exercise the service:
 
 . Try the new order service directly (on port 8301):
@@ -281,7 +280,6 @@ grpcurl -d '{"cartId":"cart1"}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingC
 ----
 Order 12 items from cart cart1
 ----
-// # end::exercise[]
 
 === Stop the service
 
@@ -354,19 +352,32 @@ kubectl logs -f <shopping-cart-service pod name from above>
 kubectl logs -f <shopping-order-service pod name from above>
 ----
 
-. Add port forwarding for the gRPC endpoint for both services from a separate terminal:
+. Add port forwarding for the `shopping-cart-service` gRPC endpoint from a separate terminal:
 +
 [source,shell script]
 ----
 kubectl port-forward svc/shopping-cart-service-grpc 8101:8101
 ----
+
+Use `https://github.com/fullstorydev/grpcurl[grpcurl]` to exercise the service:
+
+. Use the checkout in the shopping cart service with `grpcurl`:
 +
 [source,shell script]
 ----
-kubectl port-forward svc/shopping-order-service-grpc 8301:8301
+grpcurl -d '{"cartId":"cart1", "itemId":"scissors", "quantity":1}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.AddItem
+----
++
+[source,shell script]
+----
+grpcurl -d '{"cartId":"cart1"}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.Checkout
 ----
 
-include::projection-grpc-client.adoc[tag=exercise]
+. In the terminal of the `shopping-order-service` you should see the log of the order:
++
+----
+Order 15 items from cart cart1
+----
 
 :!sectnums:
 == Learn more
