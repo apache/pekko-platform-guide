@@ -1,11 +1,11 @@
-= Akka Platform Operator reference
+= Akka Operator reference
 :page-toclevels: 3
 
 include::partial$include.adoc[]
 
 == AkkaMicroservices deployment descriptor (CRD)
 
-The deployment descriptor of an Akka Microservice that is managed by the Akka Platform Operator is defined in a https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/[Kubernetes Custom Resource {tab-icon}, window="tab"].
+The deployment descriptor of an Akka Microservice that is managed by the Akka Operator is defined in a https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/[Kubernetes Custom Resource {tab-icon}, window="tab"].
 
 The https://lightbend.github.io/akka-operator-helm/akka-operator/crds/v1/akka-microservices-crd.yml[schema definition of the AkkaMicroservices deployment descriptor (CRD) {tab-icon}, window="tab"].
 
@@ -66,7 +66,7 @@ To avoid CFS scheduler limits, it is best not to use `resources.limits.cpu` limi
 
 == Namespaces
 
-The Akka Platform Operator manages Akka Microservices in all namespaces of the Kubernetes cluster, which means that you should only install the operator once. It is possible to configure the operator to only manage a specific namespace if that would be needed.
+The Akka Operator manages Akka Microservices in all namespaces of the Kubernetes cluster, which means that you should only install the operator once. It is possible to configure the operator to only manage a specific namespace if that would be needed.
 
 You can define a specific namespace that the operator should manage with the following value of the Helm chart when installing the operator.
 

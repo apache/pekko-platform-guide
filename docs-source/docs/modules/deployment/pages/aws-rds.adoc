@@ -82,7 +82,7 @@ kubectl run -i --tty rds-mgmt --image=postgres --restart=Never --rm -- \
 
 == JDBC configuration
 
-To use the JDBC integration in the Akka Platform Operator you place the connection credentials in a https://kubernetes.io/docs/concepts/configuration/secret/[Secret {tab-icon}, window="tab"]. The Secret must contain three entries:
+To use the JDBC integration in the Akka Operator you place the connection credentials in a https://kubernetes.io/docs/concepts/configuration/secret/[Secret {tab-icon}, window="tab"]. The Secret must contain three entries:
 
 * `connectionUrl` - the JDBC connection URL `jdbc:postgresql://<rds endpoint>:5432/<database name>?reWriteBatchedInserts=true`, for example `jdbc:postgresql://shopping-cart.c46wxwryhegl.eu-central-1.rds.amazonaws.com:5432/postgres?reWriteBatchedInserts=true`
 * `username` - the database username, default master user in RDS PostgreSQL is `postgres`

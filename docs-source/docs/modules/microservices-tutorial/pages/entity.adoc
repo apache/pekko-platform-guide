@@ -434,7 +434,7 @@ docker-compose down
 [#kubernetes]
 == Run in Kubernetes
 
-Create a xref:deployment:aws-install.adoc[Kubernetes cluster and install the Akka Platform Operator] if you haven't already.
+Create a xref:deployment:aws-install.adoc[Kubernetes cluster and install the Akka Operator] if you haven't already.
 
 === Create PostgreSQL database
 

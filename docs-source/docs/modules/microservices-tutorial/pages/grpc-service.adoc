@@ -197,9 +197,9 @@ You can stop the service with `ctrl-c`.
 [#kubernetes]
 == Run in Kubernetes
 
-Read the xref:deployment:index.adoc[overview of Kubernetes deployment] to get an understanding of how the Kubernetes deployment with the Akka Platform Operator works.
+Read the xref:deployment:index.adoc[overview of Kubernetes deployment] to get an understanding of how the Kubernetes deployment with the Akka Operator works.
 
-Create a xref:deployment:aws-install.adoc[Kubernetes cluster and install the Akka Platform Operator].
+Create a xref:deployment:aws-install.adoc[Kubernetes cluster and install the Akka Operator].
 
 === Build Docker image
 
@@ -211,7 +211,7 @@ include::partial$build-docker-for-kube.adoc[]
 
 === Update the deployment descriptor
 
-In `kubernetes/shopping-cart-service-cr.yml` you find the deployment descriptor of the `AkkaMicroservice` that the Akka Platform Operator will use when deploying the application in Kubernetes.
+In `kubernetes/shopping-cart-service-cr.yml` you find the deployment descriptor of the `AkkaMicroservice` that the Akka Operator will use when deploying the application in Kubernetes.
 
 .kubernetes/shopping-cart-service-cr.yml:
 [source,yaml]
@@ -240,7 +240,7 @@ It can be convenient to set that namespace as current instead of specifying the 
 kubectl config set-context --current --namespace=shopping
 ----
 
-The Akka Platform Operator will notice the deployment descriptor and deploy the `shopping-cart-service`. You can see progress by viewing the status:
+The Akka Operator will notice the deployment descriptor and deploy the `shopping-cart-service`. You can see progress by viewing the status:
 
 [source,shell script]
 ----
