@@ -5,7 +5,7 @@ include::partial$include.adoc[]
 
 This page describes the general workflow for deploying an application. Each step of the xref:microservices-tutorial:index.adoc[Implementing Microservices with Akka tutorial] also has instructions of how to run in Kubernetes. The example in the tutorial includes build files for creating Docker images and template deployment descriptors.
 
-It assumes that you have already read the xref:deployment:index.adoc[overview of Kubernetes deployment], created a xref:deployment:aws-install.adoc[Kubernetes cluster and installed the Akka Platform Operator].
+It assumes that you have already read the xref:deployment:index.adoc[overview of Kubernetes deployment], created a xref:deployment:aws-install.adoc[Kubernetes cluster and installed the Akka Operator].
 
 :sectnums:
 == Build Docker image
@@ -14,7 +14,7 @@ Build and publish a Docker image of the application as described in xref:deploym
 
 == Update the deployment descriptor
 
-Update the deployment descriptor in `kubernetes/shopping-cart-service-cr.yml` of the `AkkaMicroservice` that the Akka Platform Operator will use when deploying the application in Kubernetes.
+Update the deployment descriptor in `kubernetes/shopping-cart-service-cr.yml` of the `AkkaMicroservice` that the Akka Operator will use when deploying the application in Kubernetes.
 
 .kubernetes/shopping-cart-service-cr.yml:
 [source,yaml]
@@ -42,7 +42,7 @@ It can be convenient to set that namespace as current instead of specifying the 
 kubectl config set-context --current --namespace=shopping
 ----
 
-The Akka Platform Operator will notice the deployment descriptor and deploy the `shopping-cart-service`. You can see progress by viewing the status:
+The Akka Operator will notice the deployment descriptor and deploy the `shopping-cart-service`. You can see progress by viewing the status:
 
 [source,shell script]
 ----
