@@ -15,5 +15,5 @@
 3. Check for service readiness
 
     ```shell
-    curl http://localhost:9201/ready
+    curl http://localhost:9301/ready
     ```
