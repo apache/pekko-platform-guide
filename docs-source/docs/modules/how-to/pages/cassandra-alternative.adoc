@@ -128,9 +128,12 @@ src/main/java/shopping/cart/ItemPopularity.java
 
 Scala::
 +
-* FIXME
-
-
+* src/main/scala/shopping/cart/repository/ItemPopularityRepository.scala
+* src/main/scala/shopping/cart/repository/ScalikeJdbcSession.scala
+* src/main/scala/shopping/cart/repository/ScalikeJdbcSetup.scala
+* src/main/scala/shopping/cart/ItemPopularityProjection.scala
+* src/main/scala/shopping/cart/ItemPopularityProjectionHandler.scala
+* remove the `ScalikeJdbcSetup.init`, `ItemPopularityRepository` and `ItemPopularityProjection.init` in `Main.scala`.
 
 Follow these steps to process events in a Projection that stores the offset in Cassandra and updates an `item_popularity` table in Cassandra.
 
