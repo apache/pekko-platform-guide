@@ -101,17 +101,11 @@ public class ItemPopularityIntegrationTest {
     TestProbe<Object> probe = testKit.createTestProbe();
     probe.awaitAssert(
         () -> {
-          // FIXME https://github.com/akka/akka/issues/29677 Supplier does not allow throwing
-          // checked
-          try {
-            Optional<Long> item1Popularity =
-                itemPopularityRepository.getItem(item1).toCompletableFuture().get(3, SECONDS);
-            assertTrue(item1Popularity.isPresent());
-            assertEquals(3L, item1Popularity.get().intValue());
-            return null;
-          } catch (Exception ex) {
-            throw new RuntimeException(ex);
-          }
+          Optional<Long> item1Popularity =
+              itemPopularityRepository.getItem(item1).toCompletableFuture().get(3, SECONDS);
+          assertTrue(item1Popularity.isPresent());
+          assertEquals(3L, item1Popularity.get().intValue());
+          return null;
         });
 
     CompletionStage<ShoppingCart.Summary> reply2 =
@@ -128,17 +122,11 @@ public class ItemPopularityIntegrationTest {
 
     probe.awaitAssert(
         () -> {
-          // FIXME https://github.com/akka/akka/issues/29677 Supplier does not allow throwing
-          // checked
-          try {
-            Optional<Long> item2Popularity =
-                itemPopularityRepository.getItem(item2).toCompletableFuture().get(3, SECONDS);
-            assertTrue(item2Popularity.isPresent());
-            assertEquals(5 + 4, item2Popularity.get().longValue());
-            return null;
-          } catch (Exception ex) {
-            throw new RuntimeException(ex);
-          }
+          Optional<Long> item2Popularity =
+              itemPopularityRepository.getItem(item2).toCompletableFuture().get(3, SECONDS);
+          assertTrue(item2Popularity.isPresent());
+          assertEquals(5 + 4, item2Popularity.get().longValue());
+          return null;
         });
   }
 }

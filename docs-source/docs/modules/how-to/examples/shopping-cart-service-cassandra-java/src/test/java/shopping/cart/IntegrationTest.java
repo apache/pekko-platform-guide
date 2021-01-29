@@ -296,32 +296,24 @@ public class IntegrationTest {
     TestProbe<Object> testProbe = testNode1.testKit.createTestProbe();
     testProbe.awaitAssert(
         () -> {
-          // FIXME https://github.com/akka/akka/issues/29677 Supplier does not allow throwing
-          // checked
-          try {
-            assertEquals(
-                42,
-                testNode1
-                    .getClient()
-                    .getItemPopularity(
-                        GetItemPopularityRequest.newBuilder().setItemId("foo").build())
-                    .toCompletableFuture()
-                    .get(requestTimeout.getSeconds(), SECONDS)
-                    .getPopularityCount());
+          assertEquals(
+              42,
+              testNode1
+                  .getClient()
+                  .getItemPopularity(GetItemPopularityRequest.newBuilder().setItemId("foo").build())
+                  .toCompletableFuture()
+                  .get(requestTimeout.getSeconds(), SECONDS)
+                  .getPopularityCount());
 
-            assertEquals(
-                18,
-                testNode1
-                    .getClient()
-                    .getItemPopularity(
-                        GetItemPopularityRequest.newBuilder().setItemId("bar").build())
-                    .toCompletableFuture()
-                    .get(requestTimeout.getSeconds(), SECONDS)
-                    .getPopularityCount());
-            return null;
-          } catch (Exception ex) {
-            throw new RuntimeException(ex);
-          }
+          assertEquals(
+              18,
+              testNode1
+                  .getClient()
+                  .getItemPopularity(GetItemPopularityRequest.newBuilder().setItemId("bar").build())
+                  .toCompletableFuture()
+                  .get(requestTimeout.getSeconds(), SECONDS)
+                  .getPopularityCount());
+          return null;
         });
 
     ItemAdded published2 = kafkaTopicProbe.expectMessageClass(ItemAdded.class);
