@@ -98,7 +98,7 @@ Scala::
 include::example$shopping-order-service-scala/src/main/scala/shopping/order/ShoppingOrderServer.scala[]
 ----
 
-. Call the `ShoppingOrderServer.init` from `Main`:
+. Call the `ShoppingOrderServer.start` from `Main`:
 +
 [.tabset]
 Java::

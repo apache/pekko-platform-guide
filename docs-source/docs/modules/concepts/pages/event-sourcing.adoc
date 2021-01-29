@@ -3,7 +3,7 @@
 
 include::partial$include.adoc[]
 
-Event Sourcing is a modelling technique were you not only model the state of your business but also the transitions between states. Then, instead of storing the current state the datastore saves these increments.
+Event Sourcing is a modelling technique where you not only model the state of your business but also the transitions between states. Then, instead of storing the current state the datastore saves these increments.
 
 A difference to persistence based on Create-Read-Update-Delete (CRUD) data-stores is that we don't need to map our imagined entities to a database model up-front. Instead, we model the entities, and the events that affect their state.
 
