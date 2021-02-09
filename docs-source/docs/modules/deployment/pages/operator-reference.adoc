@@ -271,6 +271,16 @@ kubectl apply -f kubernetes/shopping-cart-service-cr.yml
 
 The Akka Operator will automatically mount the `logback.xml` and include system property `logback.configurationFile` to the application, which means that it will be loaded instead of the default `logback.xml` that is bundled with the application. You have to restart the Pods for it to take effect, which will happen automatically by a rolling update when you apply changes of the deployment descriptor.
 
+== Akka Cluster status
+
+Akka Operator checks and reports the Akka cluster membership status. It includes the number of members that have joined the Akka cluster and their state from the Akka cluster point of view. This can be Up or Non-Up. The total number of members is a sum of Up plus Non-Up. Up means that a replica has successfully joined the cluster.
+
+Comparing the number of Up nodes to the current number of replicas can provide an understanding of whether all running replicas are in a normal state or not. Similarly, the number of Non-Up replicas tells us how many replicas are not in the normal operating state, such as Joining or Exiting.
+
+Additionally to Up and Non-Up, there is also Unreachable. This is the number of unreachable nodes from the view of one (the oldest node). For example, if the oldest node was partitioned from the rest of a cluster of Up nodes it would have a high number of unreachable, while if you ask the other nodes they would only say that one node, the oldest, is unreachable.
+
+These numbers can be useful to watch the Akka cluster state during rolling updates to make sure it is in a normal state. See xref:troubleshooting.adoc[troubleshooting deployment status] for some examples.
+
 == Namespaces
 
 The Akka Operator manages Akka Microservices in all namespaces of the Kubernetes cluster, which means that you should only install the operator once. It is possible to configure the operator to only manage a specific namespace if that would be needed.
