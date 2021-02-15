@@ -104,6 +104,7 @@ public class ItemPopularityIntegrationTest {
     assertEquals(4L, summary3.items.get(item2).intValue());
 
     probe.awaitAssert(
+        Duration.ofSeconds(10),
         () -> {
           Optional<ItemPopularity> item2Popularity = itemPopularityRepository.findById(item2);
           assertTrue(item2Popularity.isPresent());

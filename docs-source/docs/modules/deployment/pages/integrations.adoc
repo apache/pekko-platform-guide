@@ -1,4 +1,4 @@
-= Integrations
+= Integrations with databases and message brokers
 :page-toclevels: 3
 
 include::partial$include.adoc[]
@@ -11,9 +11,11 @@ To decouple communication between different Microservices, we can publish messag
 
 The Akka Operator provides integrations with:
 
+* xref:gcp-sql.adoc[]
 * xref:aws-rds.adoc[]
 * xref:astra.adoc[]
 * xref:cassandra.adoc[]
+* xref:jdbc.adoc[Databases that support JDBC]
 
 == Message broker integrations
 

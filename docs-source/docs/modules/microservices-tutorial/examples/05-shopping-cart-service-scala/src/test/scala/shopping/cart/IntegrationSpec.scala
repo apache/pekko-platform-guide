@@ -31,7 +31,6 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.time.Span
 import org.scalatest.wordspec.AnyWordSpec
 import org.slf4j.LoggerFactory
-import scalikejdbc.ConnectionPool
 import shopping.cart.repository.ScalikeJdbcSetup
 
 object IntegrationSpec {
@@ -51,7 +50,8 @@ object IntegrationSpec {
         "shopping-cart-service" {
           endpoints = [
             {host = "127.0.0.1", port = ${managementPorts(0)}},
-            {host = "127.0.0.1", port = ${managementPorts(1)}}
+            {host = "127.0.0.1", port = ${managementPorts(1)}},
+            {host = "127.0.0.1", port = ${managementPorts(2)}}
           ]
         }
       }
@@ -122,7 +122,7 @@ class IntegrationSpec
 
   override protected def beforeAll(): Unit = {
     super.beforeAll()
-    ScalikeJdbcSetup.fromConfig(IntegrationSpec.sharedConfig)
+    ScalikeJdbcSetup.init(testNode1.system)
     CreateTableTestUtils.dropAndRecreateTables(testNode1.system)
     // avoid concurrent creation of tables
     val timeout = 10.seconds
@@ -175,8 +175,9 @@ class IntegrationSpec
     super.afterAll()
     testNode3.testKit.shutdownTestKit()
     testNode2.testKit.shutdownTestKit()
+    // testNode1 must be the last to shutdown
+    // because responsible to close ScalikeJdbc connections
     testNode1.testKit.shutdownTestKit()
-    ConnectionPool.closeAll()
   }
 
   "Shopping Cart service" should {
