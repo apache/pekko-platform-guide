@@ -162,7 +162,7 @@ public class IntegrationTest {
     systems = Arrays.asList(testNode1.system, testNode2.system, testNode3.system);
 
     ApplicationContext springContext =
-        SpringIntegration.applicationContext(testNode1.system.settings().config());
+        SpringIntegration.applicationContext(testNode1.system);
     JpaTransactionManager transactionManager = springContext.getBean(JpaTransactionManager.class);
     // create schemas
     CreateTableTestUtils.createTables(transactionManager, testNode1.system);
