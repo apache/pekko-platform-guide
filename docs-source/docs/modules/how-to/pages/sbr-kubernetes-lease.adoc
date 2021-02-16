@@ -1,0 +1,28 @@
+= Increase SBR's decision process
+
+
+include::partial$include.adoc[]
+
+Deploying on Kubernetes opens the door to use Kubernetes provided mechanisms for decision making. The Akka {akka}/split-brain-resolver.html[Split-Brain Resolver {tab-icon}, window="tab"] can delegate on a Kubernetes-backed {akka-management}/kubernetes-lease.html[Lease {tab-icon}, window="tab"] the control over which half of a cluster may remain up during a split-brain scenario.
+
+== Add the SBR and kubernetes lease dependencies
+
+First make sure your application includes the SBR and the Kubernetes Lease dependencies on the build:
+
+[.tabset]
+Java::
++
+.pom.xml:
+[source,xml,indent=0]
+----
+include::example$shopping-cart-service-java/pom.xml[tag=akka-sbr-kubernetes-lease]
+----
+
+Scala::
++
+.build.sbt:
+[source,scala,indent=0]
+----
+include::example$shopping-cart-service-scala/build.sbt[tag=akka-sbr-kubernetes-lease]
+----
+
