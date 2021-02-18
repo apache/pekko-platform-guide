@@ -44,8 +44,8 @@ metadata:
 spec:
   image: <image>
   splitBrainResolver:
-    lease:
-      actorSystemName: "ShoppingCartService" # <1>
+    useKubernetesLease: true # <1>
+
 ----
 
-<1> When using a lease as a backend for the Split-Brain Resolver, the lease name must be `<actorSystem.name>-akka-sbr`. In this case, the lease will be `ShoppingCartService-akka-sbr`.
+<1> When using a kubernetes lease as a backend for the Split-Brain Resolver, the poerator will make sure the Lease exists and will name it `<metadata.name>-akka-sbr`. In this case, the lease will be `shopping-cart-service-akka-sbr`.
