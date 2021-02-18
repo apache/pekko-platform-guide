@@ -28,10 +28,6 @@ Scala::
 include::example$shopping-cart-service-scala/build.sbt[tag=akka-sbr-kubernetes-lease]
 ----
 
-== Prepare your application
-
-When using a Kubernetes-backed Lease to improve the SBR decision process, you must make sure the name of your `ActorSystem` is the same for all the nodes of the Akka Cluster. At same time, you must make sure that different Akka Clusters deployed in the same Kubernetes cluster use different names. Each Akka Cluster must have a single Lease, and each Lease is identified by the name of the `ActorSystem`.
-
 == Setup you Kubernetes Cluster and AkkaMicroservice
 
 When xref:deployment:aws-install.adoc#_install_akka_operator[installing the Akka Operator] on your Kubernetes cluster using the Helm chart you will also install the Akka Kubernetes Lease CRD.
@@ -49,9 +45,7 @@ spec:
   image: <image>
   splitBrainResolver:
     lease:
-      provider: "kubernetes" # <1>
-        actorSystemName: "ShoppingCartService" # <2>
+      actorSystemName: "ShoppingCartService" # <1>
 ----
 
-<1> Specify the Lease provider is `"kubernetes"` to create ne lease instance and setup the necessary `Role` and `RoleBinding`for your pods.
-<2> When using a lease as a backend for the Split-Brain Resolver, the lease name must be `<actorSystem.name>-akka-sbr`. In this case, the lease will be `ShoppingCartService-akka-sbr`.
+<1> When using a lease as a backend for the Split-Brain Resolver, the lease name must be `<actorSystem.name>-akka-sbr`. In this case, the lease will be `ShoppingCartService-akka-sbr`.
