@@ -15,7 +15,7 @@ When using HTTP if you override the readiness probe to a path on your HTTP port 
 
 == TLS certificate
 
-You need a TLS certificate for the internet facing load balancer.
+You need a TLS certificate for the internet facing load balancer. Akka gRPC also needs to be configured with a certificate as GKE ingress for HTTP/2 only works over SSL. This certificate can be any self signed certificate as no validation is done bewtween the loadbalancer the application. // TODO link to and improve the how-to on gRPC TLS
 
 For development and test you can import a self signed certificate, which can be created with for example:
 
