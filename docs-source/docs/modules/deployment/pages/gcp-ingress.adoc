@@ -1,4 +1,4 @@
-= AWS LoadBalancer Controller
+= GKE Ingress
 :page-toclevels: 3
 
 include::partial$include.adoc[]
@@ -36,7 +36,7 @@ This is referenced from the Akka Microservice.
 
 == Enable grpcIngress
 
-Add the `grpcIngres` section to the deployment descriptor and `akka.lightbend.com/ingress-class` annotation set to `gce`:
+Add the `grpcIngres` section to the deployment descriptor with class set to `gce`:
 
 .kubernetes/shopping-cart-service-cr.yml:
 [source,yaml]
@@ -47,16 +47,20 @@ metadata:
   name: shopping-cart-service
   namespace: "shopping"
   annotations:
-    akka.lightbend.com/ingress-class: gce
 spec:
   image: <image>
   grpcIngress:
     enabled: true
     certificate: "<secret-name>"
+    class: "gce"
 ----
 
 
-When the deployment descriptor has been applied the Akka Operator will create an Ingress with the appropriate GKE annotations and `ClusterIp` service.
+When the deployment descriptor has been applied the Akka Operator will create:
+
+* An Ingress with the appropriate GKE annotations
+* A `ClusterIP` service.
+* A `BackendConfig' to configure a health check to match the readiness check
 
 You can retrieve the public address with:
 
