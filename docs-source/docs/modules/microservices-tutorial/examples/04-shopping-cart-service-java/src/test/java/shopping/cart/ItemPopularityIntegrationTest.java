@@ -39,8 +39,7 @@ public class ItemPopularityIntegrationTest {
   @BeforeClass
   public static void beforeClass() throws Exception {
 
-    ApplicationContext springContext =
-        SpringIntegration.applicationContext(system.settings().config());
+    ApplicationContext springContext = SpringIntegration.applicationContext(system);
     itemPopularityRepository = springContext.getBean(ItemPopularityRepository.class);
     JpaTransactionManager transactionManager = springContext.getBean(JpaTransactionManager.class);
     // create schemas

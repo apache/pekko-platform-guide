@@ -1,8 +1,5 @@
 package shopping.cart.repository;
 
-import akka.Done;
-import akka.actor.CoordinatedShutdown;
-import akka.actor.typed.ActorSystem;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigValue;
 import com.zaxxer.hikari.HikariDataSource;
@@ -10,7 +7,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
