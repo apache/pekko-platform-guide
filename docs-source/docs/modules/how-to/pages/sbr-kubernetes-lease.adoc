@@ -3,7 +3,7 @@
 
 include::partial$include.adoc[]
 
-Deploying on Kubernetes opens the door to use Kubernetes provided mechanisms for decision making. The Akka {akka}/split-brain-resolver.html[Split-Brain Resolver {tab-icon}, window="tab"] can delegate on a Kubernetes-backed {akka-management}/kubernetes-lease.html[Lease {tab-icon}, window="tab"] the control over which half of a cluster may remain up during a split-brain scenario.
+Deploying on Kubernetes opens the door to use Kubernetes-provided mechanisms for decision-making. The Akka {akka}/split-brain-resolver.html[Split-Brain Resolver {tab-icon}, window="tab"] can use a {akka-management}/kubernetes-lease.html[Lease {tab-icon}, window="tab"] backed by Kubernetes to control  which side of a cluster may remain up during a split-brain scenario.
 
 NOTE: This How-To guide assumes you are developing an application based on Akka Cluster and already enabled and configured xref:concepts:akka-cluster.adoc#_split_brain_resolver[Akka Cluster's Split-Brain Resolver].
 
@@ -48,4 +48,4 @@ spec:
 
 ----
 
-<1> When using a kubernetes lease as a backend for the Split-Brain Resolver, the poerator will make sure the Lease exists and will name it `<metadata.name>-akka-sbr`. In this case, the lease will be `shopping-cart-service-akka-sbr`.
+<1> When using a kubernetes lease as a backend for the Split-Brain Resolver, the operator will name the lease `<metadata.name>-akka-sbr`. In the example above, the lease will be named `shopping-cart-service-akka-sbr`.
