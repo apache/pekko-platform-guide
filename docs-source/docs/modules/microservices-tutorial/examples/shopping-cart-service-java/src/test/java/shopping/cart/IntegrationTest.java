@@ -168,8 +168,7 @@ public class IntegrationTest {
     testNode3 = new TestNodeFixture(grpcPorts.get(2), managementPorts, 2);
     systems = Arrays.asList(testNode1.system, testNode2.system, testNode3.system);
 
-    ApplicationContext springContext =
-        SpringIntegration.applicationContext(testNode1.system.settings().config());
+    ApplicationContext springContext = SpringIntegration.applicationContext(testNode1.system);
     JpaTransactionManager transactionManager = springContext.getBean(JpaTransactionManager.class);
     // create schemas
     CreateTableTestUtils.createTables(transactionManager, testNode1.system);

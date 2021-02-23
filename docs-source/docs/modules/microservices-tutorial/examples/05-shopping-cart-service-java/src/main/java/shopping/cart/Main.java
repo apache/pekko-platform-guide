@@ -33,13 +33,11 @@ public class Main {
 
     ShoppingCart.init(system);
 
-    ApplicationContext springContext =
-        SpringIntegration.applicationContext(system.settings().config());
+    ApplicationContext springContext = SpringIntegration.applicationContext(system);
+    JpaTransactionManager transactionManager = springContext.getBean(JpaTransactionManager.class);
 
     ItemPopularityRepository itemPopularityRepository =
         springContext.getBean(ItemPopularityRepository.class);
-
-    JpaTransactionManager transactionManager = springContext.getBean(JpaTransactionManager.class);
 
     ItemPopularityProjection.init(system, transactionManager, itemPopularityRepository);
 

@@ -35,8 +35,7 @@ public class Main {
 
     // tag::ItemPopularityProjection[]
     // tag::repo-instance[]
-    ApplicationContext springContext =
-        SpringIntegration.applicationContext(system.settings().config()); // <1>
+    ApplicationContext springContext = SpringIntegration.applicationContext(system); // <1>
 
     ItemPopularityRepository itemPopularityRepository =
         springContext.getBean(ItemPopularityRepository.class); // <2>
