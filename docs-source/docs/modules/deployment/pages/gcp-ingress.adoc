@@ -10,7 +10,7 @@ ion documentation {tab-icon}, window="tab"]
 
 Exposing the Akka Management port, as opposed to the gRPC and HTTP ports, is only possible using the  https://cloud.google.com/kubernetes-engine/docs/how-to/container-native-load-balancing[container-native load balancing {tab-icon}, window="tab"].
 
-When using HTTP if you override the readiness probe to a path on your HTTP port this will also be used for the load balancer health check.
+If you override the readiness probe to a path on your HTTP port, this will also be used for the load balancer health check.
 
 == TLS certificate
 
