@@ -28,7 +28,7 @@ Create a secret for the certificate:
 
 [source, shell script]
 ----
-kubectl create secret tls ingress-secret  --cert dummy-cert.pem  --key dummy-key.pem
+kubectl create secret tls my-ingress-secret --cert dummy-cert.pem  --key dummy-key.pem
 ----
 
 This is referenced from the Akka Microservice.
@@ -50,7 +50,7 @@ spec:
   image: <image>
   grpcIngress:
     enabled: true
-    certificate: "<secret-name>"
+    certificate: "my-ingress-secret"
     class: "gce"
 ----
 
