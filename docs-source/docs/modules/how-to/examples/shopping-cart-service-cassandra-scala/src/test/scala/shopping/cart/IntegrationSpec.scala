@@ -83,6 +83,12 @@ object IntegrationSpec {
         filter-leeway = 5s
         system-shutdown-default = 30s
       }
+
+      # don't self-join until all 3 have been started and probed sucessfully
+      akka.management.cluster.bootstrap.contact-point-discovery {
+        required-contact-point-nr = 3
+        contact-with-all-contact-points = true
+      }
     """)
     .withFallback(
       ConfigFactory.load("local1")
