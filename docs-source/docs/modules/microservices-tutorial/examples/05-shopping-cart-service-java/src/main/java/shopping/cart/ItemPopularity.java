@@ -1,6 +1,5 @@
 package shopping.cart;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 @Entity
@@ -43,5 +42,4 @@ public class ItemPopularity {
   public ItemPopularity changeCount(long delta) {
     return new ItemPopularity(itemId, version, count + delta);
   }
-
 }
