@@ -90,10 +90,11 @@ public class IntegrationTest {
     public shopping.cart.proto.ShoppingCartService getClient() {
       if (client == null) {
         client = shopping.cart.proto.ShoppingCartServiceClient.create(clientSettings, system);
-        CoordinatedShutdown.get(system).addTask(
+        CoordinatedShutdown.get(system)
+            .addTask(
                 CoordinatedShutdown.PhaseBeforeServiceUnbind(),
                 "close-test-client-for-grpc",
-                () -> client.close() );
+                () -> client.close());
       }
       return client;
     }
