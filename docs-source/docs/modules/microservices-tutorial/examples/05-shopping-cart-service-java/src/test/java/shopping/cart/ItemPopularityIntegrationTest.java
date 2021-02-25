@@ -111,4 +111,50 @@ public class ItemPopularityIntegrationTest {
           return null;
         });
   }
+
+  @Test
+  public void safelyUpdatePopularityCount() throws Exception {
+    ClusterSharding sharding = ClusterSharding.get(system);
+
+    final String item = "concurrent-item";
+    int cartCount = 100;
+    int itemCount = 1;
+    final Duration timeout = Duration.ofSeconds(30);
+
+    // Given `item1` is already on the popularity projection DB...
+    CompletionStage<ShoppingCart.Summary> rep1 =
+        sharding
+            .entityRefFor(ShoppingCart.ENTITY_KEY, "concurrent-cart0")
+            .askWithStatus(replyTo -> new ShoppingCart.AddItem(item, itemCount, replyTo), timeout);
+
+    TestProbe<Object> probe = testKit.createTestProbe();
+    probe.awaitAssert(
+        () -> {
+          Optional<ItemPopularity> item1Popularity = itemPopularityRepository.findById(item);
+          assertTrue(item1Popularity.isPresent());
+          assertEquals(itemCount, item1Popularity.get().getCount());
+          return null;
+        });
+
+    // ... when 99 concurrent carts add `item1`...
+    for (int i = 1; i < cartCount; i++) {
+      System.out.print(".");
+      CompletionStage<ShoppingCart.Summary> rep =
+          sharding
+              .entityRefFor(ShoppingCart.ENTITY_KEY, "concurrent-cart" + i)
+              .askWithStatus(
+                  replyTo -> new ShoppingCart.AddItem(item, itemCount, replyTo), timeout);
+      rep.toCompletableFuture().get(3, SECONDS);
+    }
+
+    // ... then the popularity count is 100
+    probe.awaitAssert(
+        timeout,
+        () -> {
+          Optional<ItemPopularity> item1Popularity = itemPopularityRepository.findById(item);
+          assertTrue(item1Popularity.isPresent());
+          assertEquals(cartCount * itemCount, item1Popularity.get().getCount());
+          return null;
+        });
+  }
 }
