@@ -44,9 +44,4 @@ public class ItemPopularity {
     return new ItemPopularity(itemId, version, count + delta);
   }
 
-  @Transient
-  @JsonIgnore
-  boolean isNew() {
-    return itemId.equals("") || version <= 0;
-  }
 }

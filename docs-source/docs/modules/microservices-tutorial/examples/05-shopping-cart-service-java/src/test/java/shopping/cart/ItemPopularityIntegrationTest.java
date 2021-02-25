@@ -138,13 +138,10 @@ public class ItemPopularityIntegrationTest {
 
     // ... when 99 concurrent carts add `item1`...
     for (int i = 1; i < cartCount; i++) {
-      System.out.print(".");
-      CompletionStage<ShoppingCart.Summary> rep =
-          sharding
-              .entityRefFor(ShoppingCart.ENTITY_KEY, "concurrent-cart" + i)
-              .askWithStatus(
-                  replyTo -> new ShoppingCart.AddItem(item, itemCount, replyTo), timeout);
-      rep.toCompletableFuture().get(3, SECONDS);
+      sharding
+          .entityRefFor(ShoppingCart.ENTITY_KEY, "concurrent-cart" + i)
+          .<ShoppingCart.Summary>askWithStatus(
+              replyTo -> new ShoppingCart.AddItem(item, itemCount, replyTo), timeout);
     }
 
     // ... then the popularity count is 100
