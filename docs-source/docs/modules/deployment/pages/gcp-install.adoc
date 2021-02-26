@@ -1,0 +1,117 @@
+= Installation in Google Cloud Platform
+:page-toclevels: 3
+
+include::partial$include.adoc[]
+
+To install Akka Cloud Platform on Google Kubernetes Engine (GKE), you must have a Google Cloud Platform account and a project.
+
+:sectnums:
+== Verify Prerequisites
+
+To install and use the Akka Cloud Platform, you must have the following tools installed. We recommend using the latest versions of these tools. If you do not have them yet or need to update, we provide links to installation instructions:
+
+* The Kubernetes command-line tool, `kubectl`, allows you to run commands against Kubernetes clusters. Follow the instructions in the https://kubernetes.io/docs/tasks/tools/install-kubectl[Kubernetes documentation {tab-icon}, window="tab"]  to install `kubectl`.
+
+* The GCP Cloud SDK: Command Line Interface (`gcloud` CLI) enables you to interact with GCP using commands in your command-line shell. Follow the instructions in the GCP documentation to https://cloud.google.com/sdk/docs/install[install {tab-icon}, window="tab"] and https://cloud.google.com/sdk/docs/initializing[initialize {tab-icon}, window="tab"] `gcloud`.
+
+== Login to your GCP account
+
+For first time GCP user, please register your Google account at https://console.cloud.google.com[https://console.cloud.google.com {tab-icon}, window="tab"].
+
+ifdef::review[REVIEWERS: I was confused whether the following steps need to be done only by the first time user, or by all?]
+
+. From a command prompt, use the `gcloud` tool to https://cloud.google.com/sdk/docs/initializing[login {tab-icon}, window="tab"]:
++
+[source,shell script]
+----
+gcloud init
+----
++
+. Check your settings with the command:
++
+[source,shell script]
+----
+gcloud config list
+----
++
+It'll produce an output similar to:
++
+[source,shell script]
+----
+[compute]
+region = europe-west1
+zone = europe-west1-b
+[core]
+account = <account-name>
+disable_usage_reporting = True
+project = <gcp-project-name>
+----
+
+== (Optional) Create a Kubernetes cluster
+
+(If you are on a hurry and don't have a cluster yet, jump straight to <<GCP Marketplace>>)
+
+A typical cluster takes up to 5 minutes to create. To create a manually GKE cluster you may use the GUI on your browser or follow these steps:
+
+. Choose want version of the GKE cluster you want to use:
++
+[source,shell script]
+----
+gcloud container get-server-config --format json | jq -r .defaultClusterVersion
+----
++
+The command above produces a value like `1.17.15-gke.800`. Or read the https://cloud.google.com/kubernetes-engine/docs/release-notes[GKE Release Notes  {tab-icon}, window="tab"] for more versions available.
++
+. Create the Kubernetes cluster with the `gcloud` command line tool:
++
+[source,shell script]
+----
+gcloud container clusters create $CLUSTER_NAME \
+  --cluster-version 1.17.15-gke.800 \
+  --enable-ip-alias \
+  --image-type cos \
+  --machine-type n1-standard-4 \
+  --num-nodes 3 \
+  --enable-autoscaling \
+  --min-nodes=1 \
+  --max-nodes=7 \
+  --no-enable-autoupgrade
+----
+
+See the https://cloud.google.com/sdk/gcloud/reference/container/clusters/create[Create Clusters reference {tab-icon}, window="tab"] for more details and options.
+
+After the cluster is available, configure `kubectl` to connect to the cluster
+
+[source, shell script]
+----
+ gcloud container clusters get-credentials $CLUSTER_NAME
+----
+
+== GCP Marketplace
+
+Open the https://console.cloud.google.com/marketplace/details/lightbend-public/akka-cloud-platform[Akka Cloud Platform {tab-icon}, window="tab"] product page or search for "Akka Cloud Platform" in the https://console.cloud.google.com/marketplace[GCP Marketplace {tab-icon}, window="tab"]. Once in the product page, purchase a plan.
+
+TODO: Explain the purchase process
+
+Once you've purchased a plan to use the Akka Cloud Platform, proceed to configure it. Make sure you have a project selected on the GUI or the options to purchase and configure will be disabled.
+
+To completely configure and use the Akka Cloud Platform you need to set up a few fields:
+
+. GKE cluster where you are installing the operator (or use the "Create a new cluster" is you still don't have one)
+. Namespace <-- TODO: explain what the recommended value and implications of using a dedicated namespace vs `default`
+. App instance name: select a unique name. We recommend using the default or `akka-platform-operator-1`.
+. akka-operator.serviceAccount.name <-- TODO: explain this
+. Reporting Service Account <-- TODO: explain this
+
+Finally, take a moment to review all the permissions the Akka Clout Platform operator will use in order to operate your applications.
+
+== TODO: install from helm?
+
+== Delete a Kubernetes cluster
+
+[source,shell script]
+----
+gcloud container clusters delete $CLUSTER_NAME
+----
+
+Alternatively, you can use the https://console.cloud.google.com/kubernetes/list[GCP GUI {tab-icon}, window="tab"] to delete the cluster.
