@@ -1,13 +1,19 @@
 name := "shopping-cart-service-scala"
-version := "1.0"
 
 organization := "com.lightbend.akka.samples"
 organizationHomepage := Some(url("https://akka.io"))
 licenses := Seq(("CC0", url("https://creativecommons.org/publicdomain/zero/1.0")))
 
-scalaVersion := "2.13.3"
+scalaVersion := "2.13.5"
 
-Compile / scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked", "-Xlog-reflective-calls", "-Xlint")
+Compile / scalacOptions ++= Seq(
+  "-target:11",
+  "-deprecation",
+  "-feature",
+  "-unchecked",
+  "-Xlog-reflective-calls",
+  "-Xlint"
+)
 Compile / javacOptions ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")
 
 Test / parallelExecution := false
@@ -17,16 +23,22 @@ Test / logBuffered := false
 run / fork := false
 Global / cancelable := false // ctrl-c
 
-val AkkaVersion = "2.6.10"
+val AkkaVersion = "2.6.13"
 // tag::dependencies-for-healthchecks[]
-val AkkaHttpVersion = "10.2.1"
+val AkkaHttpVersion = "10.2.3"
 val AkkaManagementVersion = "1.0.9"
 // end::dependencies-for-healthchecks[]
 val AkkaPersistenceCassandraVersion = "1.0.4"
-val AlpakkaKafkaVersion = "2.0.5"
-val AkkaProjectionVersion = "1.0.0"
+val AlpakkaKafkaVersion = "2.0.6"
+val AkkaProjectionVersion = "1.1.0"
 
 enablePlugins(AkkaGrpcPlugin)
+
+enablePlugins(JavaAppPackaging, DockerPlugin)
+dockerBaseImage := "docker.io/library/adoptopenjdk:11-jre-hotspot"
+dockerUsername := sys.props.get("docker.username")
+dockerRepository := sys.props.get("docker.registry")
+ThisBuild / dynverSeparator := "-"
 
 // tag::dependencies-for-healthchecks[]
 libraryDependencies ++= Seq(
@@ -48,6 +60,7 @@ libraryDependencies ++= Seq(
   "com.lightbend.akka.management" %% "akka-management-cluster-http" % AkkaManagementVersion,
   // end::dependencies-for-healthchecks[]
   "com.lightbend.akka.management" %% "akka-management-cluster-bootstrap" % AkkaManagementVersion,
+  "com.lightbend.akka.discovery" %% "akka-discovery-kubernetes-api" % AkkaManagementVersion,
   "com.typesafe.akka" %% "akka-discovery" % AkkaVersion,
 
   // Common dependencies for logging and testing
@@ -74,4 +87,3 @@ libraryDependencies ++= Seq(
 // tag::dependencies-for-healthchecks[]
 )
 // end::dependencies-for-healthchecks[]
-

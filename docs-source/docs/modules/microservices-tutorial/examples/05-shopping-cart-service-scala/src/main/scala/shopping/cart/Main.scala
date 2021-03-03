@@ -1,65 +1,52 @@
 package shopping.cart
 
-import akka.actor.typed.scaladsl.AbstractBehavior
-import akka.actor.typed.scaladsl.ActorContext
 import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.ActorSystem
-import akka.actor.typed.Behavior
 import akka.management.cluster.bootstrap.ClusterBootstrap
 import akka.management.scaladsl.AkkaManagement
-
-// tag::ItemPopularityProjection[]
-import akka.stream.alpakka.cassandra.scaladsl.CassandraSessionRegistry
-
-// end::ItemPopularityProjection[]
+import org.slf4j.LoggerFactory
+import scala.util.control.NonFatal
+import shopping.cart.repository.ItemPopularityRepositoryImpl
+import shopping.cart.repository.ScalikeJdbcSetup
 
 object Main {
 
+  val logger = LoggerFactory.getLogger("shopping.cart.Main")
+
   def main(args: Array[String]): Unit = {
-    ActorSystem[Nothing](Main(), "ShoppingCartService")
+    val system =
+      ActorSystem[Nothing](Behaviors.empty, "ShoppingCartService")
+    try {
+      init(system)
+    } catch {
+      case NonFatal(e) =>
+        logger.error("Terminating due to initialization failure.", e)
+        system.terminate()
+    }
   }
 
-  def apply(): Behavior[Nothing] = {
-    Behaviors.setup[Nothing](context => new Main(context))
+  def init(system: ActorSystem[_]): Unit = {
+    ScalikeJdbcSetup.init(system)
+
+    AkkaManagement(system).start()
+    ClusterBootstrap(system).start()
+
+    ShoppingCart.init(system)
+
+    val itemPopularityRepository = new ItemPopularityRepositoryImpl()
+    ItemPopularityProjection.init(system, itemPopularityRepository)
+
+    // tag::PublishEventsProjection[]
+    PublishEventsProjection.init(system)
+    // end::PublishEventsProjection[]
+
+    val grpcInterface =
+      system.settings.config.getString("shopping-cart-service.grpc.interface")
+    val grpcPort =
+      system.settings.config.getInt("shopping-cart-service.grpc.port")
+    val grpcService =
+      new ShoppingCartServiceImpl(system, itemPopularityRepository)
+    ShoppingCartServer.start(grpcInterface, grpcPort, system, grpcService)
   }
-}
 
-class Main(context: ActorContext[Nothing])
-    extends AbstractBehavior[Nothing](context) {
-  val system = context.system
-  AkkaManagement(system).start()
-  ClusterBootstrap(system).start()
-
-  ShoppingCart.init(system)
-
-  // tag::ItemPopularityProjection[]
-  val session = CassandraSessionRegistry(system).sessionFor(
-    "akka.persistence.cassandra"
-  ) // <1>
-  // use same keyspace for the item_popularity table as the offset store
-  val itemPopularityKeyspace =
-    system.settings.config
-      .getString("akka.projection.cassandra.offset-store.keyspace")
-  val itemPopularityRepository =
-    new ItemPopularityRepositoryImpl(session, itemPopularityKeyspace)(
-      system.executionContext
-    ) // <2>
-
-  ItemPopularityProjection.init(system, itemPopularityRepository) // <3>
-  // end::ItemPopularityProjection[]
-
-  val grpcInterface =
-    system.settings.config.getString("shopping-cart-service.grpc.interface")
-  val grpcPort =
-    system.settings.config.getInt("shopping-cart-service.grpc.port")
-  val grpcService =
-    new ShoppingCartServiceImpl(system, itemPopularityRepository)
-  ShoppingCartServer.start(grpcInterface, grpcPort, system, grpcService)
-
-  // tag::PublishEventsProjection[]
-  PublishEventsProjection.init(system)
-  // end::PublishEventsProjection[]
-
-  override def onMessage(msg: Nothing): Behavior[Nothing] =
-    this
 }

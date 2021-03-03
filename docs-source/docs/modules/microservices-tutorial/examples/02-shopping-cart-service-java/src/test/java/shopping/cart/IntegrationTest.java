@@ -6,12 +6,9 @@ import static org.junit.Assert.assertEquals;
 import akka.actor.testkit.typed.javadsl.ActorTestKit;
 import akka.actor.testkit.typed.javadsl.TestProbe;
 import akka.actor.typed.ActorSystem;
-import akka.actor.typed.Behavior;
-import akka.actor.typed.javadsl.Behaviors;
 import akka.cluster.MemberStatus;
 import akka.cluster.typed.Cluster;
 import akka.grpc.GrpcClientSettings;
-import akka.persistence.testkit.javadsl.PersistenceInit;
 import akka.testkit.SocketUtil;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
@@ -24,25 +21,20 @@ import java.util.stream.Collectors;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import scala.jdk.CollectionConverters;
 import shopping.cart.proto.*;
+import shopping.cart.repository.SpringIntegration;
 
 public class IntegrationTest {
 
-  private static final long UNIQUE_QUALIFIER = System.currentTimeMillis();
-  private static final String KEYSPACE = "IntegrationTest_" + UNIQUE_QUALIFIER;
+  private static final Logger logger = LoggerFactory.getLogger(IntegrationTest.class);
 
   private static Config sharedConfig() {
-    return ConfigFactory.parseString(
-            "akka.persistence.cassandra.journal.keyspace = "
-                + KEYSPACE
-                + "\n"
-                + "akka.persistence.cassandra.snapshot.keyspace = "
-                + KEYSPACE
-                + "\n"
-                + "akka.projection.cassandra.offset-store.keyspace = "
-                + KEYSPACE)
-        .withFallback(ConfigFactory.load("integration-test.conf"));
+    return ConfigFactory.load("integration-test.conf");
   }
 
   private static Config nodeConfig(
@@ -60,6 +52,9 @@ public class IntegrationTest {
             + "},\n"
             + "  { host = \"127.0.0.1\", port = "
             + managementPorts.get(1)
+            + "},\n"
+            + "  { host = \"127.0.0.1\", port = "
+            + managementPorts.get(2)
             + "},\n"
             + "]");
   }
@@ -98,6 +93,7 @@ public class IntegrationTest {
 
   @BeforeClass
   public static void setup() throws Exception {
+
     List<InetSocketAddress> inetSocketAddresses =
         CollectionConverters.SeqHasAsJava(
                 SocketUtil.temporaryServerAddresses(6, "127.0.0.1", false))
@@ -115,14 +111,14 @@ public class IntegrationTest {
     testNode3 = new TestNodeFixture(grpcPorts.get(2), managementPorts, 2);
     systems = Arrays.asList(testNode1.system, testNode2.system, testNode3.system);
 
-    // avoid concurrent creation of keyspace and tables
-    PersistenceInit.initializeDefaultPlugins(testNode1.system, Duration.ofSeconds(10))
-        .toCompletableFuture()
-        .get(10, SECONDS);
+    ApplicationContext springContext = SpringIntegration.applicationContext(testNode1.system);
+    JpaTransactionManager transactionManager = springContext.getBean(JpaTransactionManager.class);
+    // create schemas
+    CreateTableTestUtils.createTables(transactionManager, testNode1.system);
 
-    testNode1.testKit.spawn(createMainBehavior(), "guardian");
-    testNode2.testKit.spawn(createMainBehavior(), "guardian");
-    testNode3.testKit.spawn(createMainBehavior(), "guardian");
+    Main.init(testNode1.testKit.system());
+    Main.init(testNode2.testKit.system());
+    Main.init(testNode3.testKit.system());
 
     // wait for all nodes to have joined the cluster, become up and see all other nodes as up
     TestProbe<Object> upProbe = testNode1.testKit.createTestProbe();
@@ -148,10 +144,6 @@ public class IntegrationTest {
     testNode3.testKit.shutdownTestKit();
     testNode2.testKit.shutdownTestKit();
     testNode1.testKit.shutdownTestKit();
-  }
-
-  public static Behavior<Void> createMainBehavior() {
-    return Behaviors.setup(Main::new);
   }
 
   @Test
