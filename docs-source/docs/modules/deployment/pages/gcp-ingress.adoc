@@ -14,28 +14,32 @@ If you override the readiness probe to a path on your HTTP port, this will also 
 
 == TLS certificate
 
-You need a TLS certificate for the internet facing load balancer. Akka gRPC also needs to be configured with a certificate as GKE ingress for HTTP/2 only works over SSL. This certificate can be any self signed certificate as no validation is done bewtween the loadbalancer the application. // TODO link to and improve the how-to on gRPC TLS
-
-For development and test you can import a self signed certificate, which can be created with for example:
-
+1. Internet traffic
++
+You need a TLS certificate for the internet facing load balancer. For development and test you can import a self-signed certificate, which can be created with for example:
++
 [source,shell script]
 ----
 openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:4096 -keyout dummy-key.pem -out dummy-cert.pem -subj "/CN=dummy/O=dummy"
 ----
-
++
 // TODO support uploading to GCP as well
 Create a secret for the certificate:
-
++
 [source, shell script]
 ----
 kubectl create secret tls my-ingress-secret --cert dummy-cert.pem  --key dummy-key.pem
 ----
-
-This is referenced from the Akka Microservice.
++
+This secret will be referenced from the Akka Microservice (see example below).
++
+2. Internal traffic
++
+You also need a certificate for the traffic from the load balancer to your pod as GKE ingress for HTTP/2 only works over SSL. Therefore, Akka gRPC needs to be configured with a certificate. The certificate between the load balancer and the pod can be any self-signed certificate as no validation is done. The xref:how-to:enable-TLS.adoc[] section will help you set up your Akka HTTP server to serve TLS traffic.
 
 == Enable grpcIngress
 
-Add the `grpcIngres` section to the deployment descriptor with class set to `gce`:
+Add the `grpcIngress` section to the deployment descriptor with class set to `gce`:
 
 .kubernetes/shopping-cart-service-cr.yml:
 [source,yaml]
@@ -45,21 +49,23 @@ kind: AkkaMicroservice
 metadata:
   name: shopping-cart-service
   namespace: "shopping"
-  annotations:
 spec:
-  image: <image>
+  image: <docker-image>
   grpcIngress:
     enabled: true
-    certificate: "my-ingress-secret"
+    certificate: "my-ingress-secret" # <1>
     class: "gce"
 ----
 
+<1> See the section  <<TLS Certificate>> above.
 
 When the deployment descriptor has been applied the Akka Operator will create:
 
-* An Ingress with the appropriate GKE annotations
-* A `ClusterIP` service.
-* A `BackendConfig' to configure a health check to match the readiness check
+* an `Ingress` with the appropriate GKE annotations
+* a `ClusterIP` service
+* a `BackendConfig` to configure a health check to match the readiness check
+
+NOTE: The GKE Ingress instance takes a few minutes to be ready. Then, even when the ingress is listed as `OK` it will take a few more minutes to be `HEALTHY` and usable.
 
 You can retrieve the public address with:
 
@@ -75,4 +81,4 @@ To access the public endpoint with grpcurl you use the public address from above
 grpcurl -insecure -d '{"cartId":"cart3", "itemId":"hoodie", "quantity":2}' <ingress ip>:443 shoppingcart.ShoppingCartService.AddItem
 ----
 
-You have to use the `-insecure` flag if the certificate is self signed.
+You have to use the `-insecure` flag if the certificate is self-signed.
