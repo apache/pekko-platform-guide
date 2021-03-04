@@ -3,8 +3,7 @@
 
 include::partial$include.adoc[]
 
-gRPC and HTTP ingress with the https://cloud.google.com/kubernetes-engine/docs/concepts/ingress[GKE Ingress Controller {tab-icon}, window="tab"] is supported
-ion documentation {tab-icon}, window="tab"]
+The Akka Platform Operator supports creating two ingresses. These ingresses are meant to serve HTTP and gRPC traffic. Both ingresses are implemented using the https://cloud.google.com/kubernetes-engine/docs/concepts/ingress[GKE Ingress Controller {tab-icon}, window="tab"].
 
 == Container native load balancing
 
@@ -35,11 +34,11 @@ This secret will be referenced from the Akka Microservice (see example below).
 +
 2. Internal traffic
 +
-You also need a certificate for the traffic from the load balancer to your pod as GKE ingress for HTTP/2 only works over SSL. Therefore, Akka gRPC needs to be configured with a certificate. The certificate between the load balancer and the pod can be any self-signed certificate as no validation is done. The xref:how-to:enable-TLS.adoc[] section will help you set up your Akka HTTP server to serve TLS traffic.
+The traffic from the intern-facing  LoadBalancer to your application may or may not require TLS. On the `httpIngress` you don't need an SSL certificate and private key. When serving gRPC, though, you need a certificate for the traffic from the load balancer to your pod as GKE load balancer for HTTP/2 only works over SSL. Therefore, Akka gRPC needs to be configured with a certificate. The certificate between the load balancer and the pod can be any self-signed certificate as no validation is done. The xref:how-to:enable-TLS.adoc[] section will help you set up your Akka HTTP server to serve TLS traffic.
 
-== Enable grpcIngress
+== Enable an ingress
 
-Add the `grpcIngress` section to the deployment descriptor with class set to `gce`:
+Add the `grpcIngress` or `httpIngress` section to the deployment descriptor with the class attribute set to `gce`:
 
 .kubernetes/shopping-cart-service-cr.yml:
 [source,yaml]
@@ -51,6 +50,10 @@ metadata:
   namespace: "shopping"
 spec:
   image: <docker-image>
+  httpIngress:
+    enabled: true
+    certificate: "my-ingress-secret" # <1>
+    class: "gce"
   grpcIngress:
     enabled: true
     certificate: "my-ingress-secret" # <1>
