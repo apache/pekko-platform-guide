@@ -27,9 +27,4 @@ Clink on the "Deploy".
 
 == Delete a Kubernetes cluster
 
-[source,shell script]
-----
-gcloud container clusters delete $CLUSTER_NAME
-----
-
-Alternatively, you can use the https://console.cloud.google.com/kubernetes/list[GCP GUI {tab-icon}, window="tab"] to delete the cluster.
+You can use the https://console.cloud.google.com/kubernetes/list[GCP GUI {tab-icon}, window="tab"] to delete the cluster.
