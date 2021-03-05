@@ -84,6 +84,11 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-stream-kafka" % AlpakkaKafkaVersion,
   "com.lightbend.akka" %% "akka-projection-testkit" % AkkaProjectionVersion % Test,
 
+  // 5. Kubernetes Lease (used by SBR)
+  // tag::akka-sbr-kubernetes-lease[]
+  "com.lightbend.akka.management" %% "akka-lease-kubernetes" % AkkaManagementVersion
+  // end::akka-sbr-kubernetes-lease[]
+
 // tag::dependencies-for-healthchecks[]
 )
 // end::dependencies-for-healthchecks[]
