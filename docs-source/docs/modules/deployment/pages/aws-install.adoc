@@ -11,7 +11,7 @@ A familiarity with the following services and skillsets is recommended before in
 
 * https://kubernetes.io/docs/setup/[Basic Kubernetes knowledge {tab-icon}, window="tab"] and experience with resources such as `ServiceAccounts`,  `Roles`, and `Deployments`.
 * https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html[AWS EKS {tab-icon}, window="tab"] and its command line tool https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html[`eksctl` {tab-icon}, window="tab"].
-* https://docs.aws.amazon.com/iam/[AWS IAM configuration {tab-icon}, window="tab"].
+* https://docs.aws.amazon.com/iam/[AWS IAM {tab-icon}, window="tab"] and https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html[IAM security best practices {tab-icon}, window="tab"].
 * https://helm.sh/docs/intro/quickstart/[Helm {tab-icon}, window="tab"] command line tool `helm`.
 * https://yaml.org/spec/1.2/spec.html[YAML {tab-icon}, window="tab"] to define configuration for the Akka Cloud Platform Helm chart and Akka Microservices deployment descriptors.
 
