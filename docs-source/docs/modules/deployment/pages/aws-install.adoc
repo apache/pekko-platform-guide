@@ -5,6 +5,16 @@ include::partial$include.adoc[]
 
 To install Akka Cloud Platform on Amazon Elastic Kubernetes Service (EKS), you must have an Amazon account and subscribe to the https://aws.amazon.com/marketplace/pp?sku=7hhouu843kzmgqs6besqjjsbf[Akka Cloud Platform {tab-icon}, window="tab"].
 
+== Pre-requisite Skills
+
+A familiarity with the following services and skillsets is recommended before installation.
+
+* https://kubernetes.io/docs/setup/[Basic Kubernetes knowledge {tab-icon}, window="tab"] and experience with resources such as `ServiceAccounts`,  `Roles`, and `Deployments`.
+* https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html[AWS EKS {tab-icon}, window="tab"] and its command line tool https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html[`eksctl` {tab-icon}, window="tab"].
+* https://docs.aws.amazon.com/iam/[AWS IAM configuration {tab-icon}, window="tab"].
+* https://helm.sh/docs/intro/quickstart/[Helm {tab-icon}, window="tab"] command line tool `helm`.
+* https://yaml.org/spec/1.2/spec.html[YAML {tab-icon}, window="tab"] to define configuration for the Akka Cloud Platform Helm chart and Akka Microservices deployment descriptors.
+
 == Expected Time to Install
 
 A new installation will take approximately _40 minutes_.
