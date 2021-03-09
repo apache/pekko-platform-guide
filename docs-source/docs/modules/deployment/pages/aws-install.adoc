@@ -108,7 +108,7 @@ If you have not already done it, subscribe to the https://aws.amazon.com/marketp
 
 == Create a service account for the Akka Operator
 
-The Akka Operator requires a https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html[service account with IAM roles {tab-icon}, window="tab"]
+The Akka Operator requires a https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html[service account with IAM roles {tab-icon}, window="tab"] in order to access the AWS Marketplace usage metering API.
 
 . If your EKS cluster has not been created with https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html[IAM OIDC provider {tab-icon}, window="tab"] (e.g. with the `--with-oidc` option with `eksctl`), enable it with:
 +
