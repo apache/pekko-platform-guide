@@ -88,7 +88,7 @@ After the cluster is available, configure `kubectl` to connect to the cluster
 
 [source, shell script]
 ----
- aws eks update-kubeconfig --region eu-central-1 --name eks-akka-demo
+aws eks update-kubeconfig --region eu-central-1 --name eks-akka-demo
 ----
 
 == Install the Kubernetes Metrics Server
@@ -104,7 +104,7 @@ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/late
 
 == Amazon Marketplace
 
-If you have not already done it, subscribe to the https://aws.amazon.com/marketplace/pp?sku=7hhouu843kzmgqs6besqjjsbf[Akka Cloud Platform {tab-icon}, window="tab"].
+If you have not already done it, subscribe to the https://aws.amazon.com/marketplace/pp?sku=7hhouu843kzmgqs6besqjjsbf[Akka Cloud Platform {tab-icon}, window="tab"] by clicking the Subscribe button on the product page and accepting the terms and conditions.
 
 == Create a service account for the Akka Operator
 
@@ -290,3 +290,13 @@ eksctl delete cluster --region eu-central-1 --name eks-akka-demo
 ----
 
 NOTE: Deleting the cluster from the https://console.aws.amazon.com/eks/home[Amazon EKS console {tab-icon}, window="tab"] requires several steps and therefore it's easiest to use `eksctl` for this.
+
+== Troubleshooting
+
+_Cluster creation fails with "Cannot create cluster '<CLUSTER_NAME>' because <AWS_REGION>, the targeted availability zone does not currently have sufficient capacity_
+
+Creating an EKS cluster will provision many underlying AWS resources such as VPCs, Security Groups, EC2 instances, Elastic IPs, etc. All AWS accounts have default quotas for the number of resources that can be created per region. If you already have an EKS cluster or other AWS resources deployed in a region you may receive this error while creating an EKS cluster. To resolve you can pick a different region, clean up existing resources, or make a request to AWS https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-resource-limits.html[for a higher resource quota {tab-icon}, window="tab"].
+
+_Akka Operator pod in `ImagePullBackoff` status_
+
+After the Akka Cloud Platform Helm chart is installed you observe an `ImagePullBackOff` status on a pod for the `akka-operator` `Deployment`. When you describe the pod you find a `Failed` event with a docker pull error message that mentions `You are not entitled to pull this AWS Marketplace product image`. This will occur when your AWS account is not subscribed to the Akka Cloud Platform on AWS Marketplace. To resolve you must xref:deployment:aws-install.adoc#_amazon_marketplace[subscribe to the product] and then wait for the `akka-operator` pod to restart and attempt to pull the image again.
