@@ -5,6 +5,14 @@ include::partial$include.adoc[]
 
 To install Akka Cloud Platform on Amazon Elastic Kubernetes Service (EKS), you must have an Amazon account and subscribe to the https://aws.amazon.com/marketplace/pp?sku=7hhouu843kzmgqs6besqjjsbf[Akka Cloud Platform {tab-icon}, window="tab"].
 
+== Expected Time to Install
+
+A new installation will take approximately _40 minutes_.
+
+* Provision Amazon EKS cluster - _30 minutes_ - Depends on how many nodes are provisioned and what instance types are chosen. It is also variable based on day-to-day AWS region conditions. This estimate is for the cluster parameters described in this guide.
+* Install pre-requisities into EKS - _5 minutes_ - Subscribe to product, Kubernetes `metrics-server`, and to setup service account.
+* Install Akka Platform Operator - _5 minutes_ - Installation of the Akka Platform Operator helm chart with minimal configuration.
+
 :sectnums:
 == Verify Prerequisites
 
