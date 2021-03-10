@@ -54,7 +54,11 @@ The Secret can be created with the following `kubectl` command, replacing the va
 
 [source,shell script]
 ----
-kubectl create secret generic shopping-cart-service-jdbc-secret --from-literal=username=postgres --from-literal=password=tiger --from-literal=connectionUrl="<connection url>"
+kubectl create secret generic \
+    shopping-cart-service-jdbc-secret \
+    --from-literal=username=postgres \
+    --from-literal=password=tiger \
+    --from-literal=connectionUrl="<connection url>"
 ----
 
 To enable the JDBC integration you define the name of the secret in `jdbc` section of the deployment descriptor:
