@@ -1,7 +1,11 @@
-= Integrations with databases and message brokers
-:page-toclevels: 3
-
+= Getting started with cloud deployment
 include::partial$include.adoc[]
+
+== Pre-requisite Skills
+
+== Required tools
+
+== Integrations with databases and message brokers
 
 Stateful services need a datastore. You can store state using xref:concepts:event-sourcing.adoc[Event Sourcing] or CRUD. The example in the tutorial uses PostgreSQL for xref:microservices-tutorial:entity.adoc[storing the events] and xref:microservices-tutorial:entity.adoc[and creating a Projection for queries]. An alternative is described in xref::how-to:cassandra-alternative.adoc[]
 
@@ -9,18 +13,19 @@ To decouple communication between different Microservices, we can publish messag
 
 == Data store integrations
 
-The Akka Operator provides integrations with:
+Examples of Akka Operator data store integrations can be seen in:
 
-* xref:gcp-sql.adoc[]
-* xref:aws-rds.adoc[]
+
+* xref:aws-rds.adoc[Using the Amazon Relational Database Service (RDS)]
+* xref:gcp-sql.adoc[Using GCP Cloud SQL]
 * xref:astra.adoc[]
 * xref:cassandra.adoc[]
 * xref:jdbc.adoc[Databases that support JDBC]
 
 == Message broker integrations
 
-The Akka Operator provides integrations with:
+Examples of Akka Operator data store integrations can be seen in:
 
-* xref:aws-msk.adoc[]
+* xref:aws-msk.adoc[Using Amazon Managed Streaming for Apache Kafka (Amazon MSK)]
 * xref:confluent-cloud.adoc[]
 * xref:strimzi.adoc[]

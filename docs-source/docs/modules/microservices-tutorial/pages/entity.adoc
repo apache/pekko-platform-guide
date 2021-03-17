@@ -528,4 +528,4 @@ Note the logging from the `ShoppingCartServiceImpl` in the console that is runni
 * xref:concepts:event-sourcing.adoc[Event Sourcing concepts].
 * {akka}/typed/persistence.html[Akka Event Sourcing reference documentation {tab-icon}, window="tab"].
 * {akka}/typed/cluster-sharding.html[Akka Cluster Sharding reference documentation {tab-icon}, window="tab"].
-* xref:how-to:cassandra-alternative.adoc[]
+* xref::how-to:cassandra-alternative.adoc[]
