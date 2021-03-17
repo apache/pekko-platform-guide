@@ -24,6 +24,7 @@ lazy val `akka-platform-dependencies` =
       libraryDependencies := bomIncludeModules.value,
       description := s"${description.value} (depending on Scala ${CrossVersion.binaryScalaVersion(scalaVersion.value)})",
       publishLocalConfiguration := publishLocalConfiguration.value.withOverwrite(true),
-      publishM2Configuration := publishM2Configuration.value.withOverwrite(true))
+      publishM2Configuration := publishM2Configuration.value.withOverwrite(true)
+    )
 
 addCommandAlias("checkBom", ";scalafmtSbt;+update;+akka-platform-dependencies/billOfMaterials:publishM2")
