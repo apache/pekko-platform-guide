@@ -2,8 +2,8 @@
 
 include::ROOT:partial$include.adoc[]
 
-The Akka Cloud Platform enables developers to quickly build and launch cloud-native microservices on their cloud service provider of choice. It provides frameworks and runtimes for building cloud-native applications that easily integrate with other services in your chosen ecosystem.
+The Akka Cloud Platform enables developers to quickly build and deploy cloud-native Microservices on their cloud service provider of choice. It provides frameworks and runtimes for building cloud-native applications that easily integrate with other services in your chosen ecosystem.
 
-Akka Platform technology uses microservices that are resilient to failure, highly efficient, and operate at any scale. Simple integration paths provide streamlined integration with relevant services in the ecosystem.
+Akka Platform technology enables you to create microservices that are resilient to failure, highly efficient, and operate at any scale. Simple integration paths provide streamlined integration with relevant services in the ecosystem.
 
-All necessary building blocks such as persistence, event sourcing, distributed data, streaming, telemetry and observability are included. Simple integration paths for relevant cloud services (e.g. Kafka, Cassandra, data stores).
+All necessary building blocks such as persistence, event sourcing, distributed data, streaming, telemetry and observability are included. I also provides simple integration paths for relevant cloud services (e.g. Kafka, Cassandra, data stores).

@@ -1,6 +1,5 @@
 .How to ...
-* xref:cassandra-alternative.adoc[Using Cassandra instead of PostgreSQL]
-
+* xref:cassandra-alternative.adoc[Use Cassandra instead of PostgreSQL]
 * xref:from-crud-to-eventsourcing.adoc[Migrate from CRUD to Event Sourcing]
 * xref:scale-independently.adoc[Scale command and query-side]
 * xref:sbr-kubernetes-lease.adoc[Improve SBR's decision process]

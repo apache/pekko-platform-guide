@@ -4,28 +4,3 @@ include::partial$include.adoc[]
 == Pre-requisite Skills
 
 == Required tools
-
-== Integrations with databases and message brokers
-
-Stateful services need a datastore. You can store state using xref:concepts:event-sourcing.adoc[Event Sourcing] or CRUD. The example in the tutorial uses PostgreSQL for xref:microservices-tutorial:entity.adoc[storing the events] and xref:microservices-tutorial:entity.adoc[and creating a Projection for queries]. An alternative is described in xref::how-to:cassandra-alternative.adoc[]
-
-To decouple communication between different Microservices, we can publish messages to a broker, such as Apache Kafka. The tutorial illustrates how to use Apache Kafka in xref:microservices-tutorial:projection-kafka.adoc[Projection publishing to Kafka]. See xref:concepts:internal-and-external-communication.adoc[Internal and External Communication concepts] for more information.
-
-== Data store integrations
-
-Examples of Akka Operator data store integrations can be seen in:
-
-
-* xref:aws-rds.adoc[Using the Amazon Relational Database Service (RDS)]
-* xref:gcp-sql.adoc[Using GCP Cloud SQL]
-* xref:astra.adoc[]
-* xref:cassandra.adoc[]
-* xref:jdbc.adoc[Databases that support JDBC]
-
-== Message broker integrations
-
-Examples of Akka Operator data store integrations can be seen in:
-
-* xref:aws-msk.adoc[Using Amazon Managed Streaming for Apache Kafka (Amazon MSK)]
-* xref:confluent-cloud.adoc[]
-* xref:strimzi.adoc[]

@@ -64,6 +64,7 @@ Follow these steps to prepare for running shopping cart:
 // # tag::docker[]
 . From the root project directory, run the following command:
 +
+[source,shell script]
 ----
 docker-compose up -d
 ----
