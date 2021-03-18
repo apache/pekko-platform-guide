@@ -116,7 +116,7 @@ object Dependencies {
    */
 
   val akkaResilienceEnhancements = Seq(
-    "com.lightbend.akka" %% "akka-diagnostics"   % AkkaEnhancements,
+    "com.lightbend.akka" %% "akka-diagnostics" % AkkaEnhancements
   )
 
   val telemetry = Seq(

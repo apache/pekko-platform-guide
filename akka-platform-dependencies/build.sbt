@@ -16,7 +16,6 @@ lazy val `akka-platform-dependencies` =
         akkaProjections ++
         akkaGrpc ++
         akkaPersistencePlugins ++
-        akkaPersistenceEnhancements ++
         akkaResilienceEnhancements ++
         alpakka ++
         telemetry,
