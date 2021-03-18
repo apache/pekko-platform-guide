@@ -35,7 +35,9 @@ However, please remember that the operator is not involved in any other part of 
 
 == Enable grpcIngress
 
+
 Add the `grpcIngress` section to the deployment descriptor and set its class to `alb`:
+
 
 .kubernetes/shopping-cart-service-cr.yml:
 [source,yaml]
@@ -71,4 +73,3 @@ grpcurl -insecure -d '{"cartId":"cart3", "itemId":"hoodie", "quantity":2}' k8s-s
 ----
 
 NOTE: You have to use the `-insecure` flag if the certificate is self-signed.
-

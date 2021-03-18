@@ -10,6 +10,7 @@
 ** xref:aws-msk.adoc[]
 ** xref:confluent-cloud.adoc[]
 ** xref:strimzi.adoc[]
+* xref:gcp-ingress.adoc[Google GKE Ingress]
 * xref:aws-ecr.adoc[Amazon Elastic Container Registry]
 * xref:aws-ingress.adoc[Amazon LoadBalancer Controller]
 * xref:config-secret.adoc[Environment configuration]
