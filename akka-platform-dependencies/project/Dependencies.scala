@@ -114,24 +114,9 @@ object Dependencies {
   /**
    * Commercial components
    */
-  val akkaPersistenceEnhancements = Seq(
-    "com.lightbend.akka" %% "akka-gdpr"                         % AkkaEnhancements,
-    "com.lightbend.akka" %% "akka-gdpr-jackson"                 % AkkaEnhancements,
-    "com.lightbend.akka" %% "akka-gdpr-playjson"                % AkkaEnhancements,
-    "com.lightbend.akka" %% "akka-persistence-update"           % AkkaEnhancements,
-    "com.lightbend.akka" %% "akka-persistence-update-cassandra" % AkkaEnhancements,
-    // FIXME: not published for Scala 2.13
-    //"com.lightbend.akka" %% "akka-persistence-update-jdbc" % AkkaEnhancements,
-    "com.lightbend.akka" %% "akka-persistence-multi-dc"         % AkkaEnhancements,
-    "com.lightbend.akka" %% "akka-persistence-multi-dc-testkit" % AkkaEnhancements
-  )
 
   val akkaResilienceEnhancements = Seq(
-    "com.lightbend.akka" %% "akka-split-brain-resolver" % AkkaEnhancements,
-    // FIXME: this is also published in the akka management org. no longer commercial only?
-    //"com.lightbend.akka" %% "akka-lease-kubernetes" % AkkaEnhancements,
     "com.lightbend.akka" %% "akka-diagnostics"   % AkkaEnhancements,
-    "com.lightbend.akka" %% "akka-fast-failover" % AkkaEnhancements
   )
 
   val telemetry = Seq(
