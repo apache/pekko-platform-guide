@@ -88,4 +88,5 @@ jdbc-connection-settings {
   url = "connectionUrl"
   user = "username"
   password = "password
+}
 ----
