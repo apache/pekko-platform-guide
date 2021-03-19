@@ -7,3 +7,4 @@ nav:
 - modules/deployment/nav.adoc
 - modules/how-to/nav.adoc
 - modules/concepts/nav.adoc
+- modules/telemetry/nav.adoc

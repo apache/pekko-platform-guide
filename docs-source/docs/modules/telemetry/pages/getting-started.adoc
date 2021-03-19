@@ -1,0 +1,122 @@
+= Getting started
+:page-toclevels: 3
+
+include::ROOT:partial$include.adoc[]
+
+== Lightbend Account & Credentials
+
+ifdef::todo[TODO: Support has a signup process that will get AWS customers Lightbend credentials to download commercial dependencies.]
+
+== Set up Cinnamon Agent
+
+To get started, you should configure {telemetry}/setup/setup.html[your build] to use the Cinnamon Agent for one of the following build systems: {telemetry}/setup/cinnamon-agent-sbt.html[sbt], {telemetry}/setup/cinnamon-agent-maven.html[Maven], or {telemetry}/setup/cinnamon-agent-gradle.html[Gradle].
+
+=== Maven build changes
+
+To automatically pull down the agent as part of your build, you add the following plugin to download as part of the `package` task.
+
+ifdef::todo[TODO: Externalize pom.xml configuration to a sample application?]
+
+```xml
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-dependency-plugin</artifactId>
+  <version>3.1.1</version>
+  <executions>
+    <execution>
+      <id>copy</id>
+      <phase>compile</phase>
+      <goals>
+        <goal>copy</goal>
+      </goals>
+      <configuration>
+        <artifactItems>
+          <artifactItem>
+            <groupId>com.lightbend.cinnamon</groupId>
+            <artifactId>cinnamon-agent</artifactId>
+            <version>2.15.0</version>
+            <overWrite>true</overWrite>
+            <destFileName>cinnamon-agent.jar</destFileName>
+          </artifactItem>
+        </artifactItems>
+      </configuration>
+    </execution>
+  </executions>
+</plugin>
+```
+
+Next, the agent needs to be added as a java command-line option, for example, here is how to add it for the `exec:exec` task:
+
+```xml
+<plugin>
+  <groupId>org.codehaus.mojo</groupId>
+  <artifactId>exec-maven-plugin</artifactId>
+  <version>1.6.0</version>
+  <configuration>
+    <executable>java</executable>
+    <arguments>
+      <argument>-classpath</argument>
+      <classpath/>
+      <argument>-javaagent:${project.build.directory}/dependency/cinnamon-agent.jar</argument>
+      <argument>... your other arguments here ...</argument>
+    </arguments>
+  </configuration>
+</plugin>
+```
+
+See full details and a complete sample {telemetry}/setup/cinnamon-agent-maven.html[here].
+
+== Instrumenting your application
+
+Lightbend Telemetry can capture data for {akka-http}/introduction.html[Akka HTTP and Akka gRPC] related features. After adding the Cinnamon Agent as described above, make sure that you add the Cinnamon Akka HTTP module dependency to your build file:
+
+```xml
+<!-- Use Akka HTTP instrumentation -->
+<dependency>
+  <groupId>com.lightbend.cinnamon</groupId>
+  <artifactId>cinnamon-akka-http_2.12</artifactId>
+  <version>2.16.0-SNAPSHOT</version>
+</dependency>
+<!-- Use Akka gRPC instrumentation -->
+<dependency>
+  <groupId>com.lightbend.cinnamon</groupId>
+  <artifactId>cinnamon-akka-grpc_2.12</artifactId>
+  <version>2.16.0-SNAPSHOT</version>
+</dependency>
+```
+
+== Telemetry Configuration
+
+A {telemetry}/instrumentations/akka-http/akka-http-configuration.html#example-configurations[simple configuration] for your Akka HTTP server would be the one that matches all paths, hosts and ports:
+
+ifdef::todo[TODO: Externalize configuration snippets to a sample application?]
+
+```conf
+cinnamon.akka.http.servers {
+  "*:*" {
+    paths {
+      "*" {
+        metrics = on
+      }
+    }
+  }
+}
+```
+
+A similar configuration can be done for the client:
+
+```conf
+cinnamon.akka.http.clients {
+  "*:*" {
+    paths {
+      "*" {
+        metrics = on
+      }
+    }
+  }
+}
+```
+
+== Whats Next?
+
+The next step is to use Prometheus as a metrics backend.
