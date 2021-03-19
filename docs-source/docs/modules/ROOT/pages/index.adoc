@@ -76,4 +76,8 @@ Some development tasks arise from requirements on existing projects. The xref:ho
 
 
 
+== Lightbend Telemetry
+
+See xref:telemetry:index.adoc[] section.
+
 **This documentation was last published: {localdate}**
