@@ -6,4 +6,4 @@ The Akka Cloud Platform enables developers to quickly build and deploy cloud-nat
 
 Akka Platform technology enables you to create microservices that are resilient to failure, highly efficient, and operate at any scale. Simple integration paths provide streamlined integration with relevant services in the ecosystem.
 
-All necessary building blocks such as persistence, event sourcing, distributed data, streaming, telemetry and observability are included. I also provides simple integration paths for relevant cloud services (e.g. Kafka, Cassandra, data stores).
+All necessary building blocks such as persistence, event sourcing, distributed data, streaming, telemetry and observability are included. It also provides simple integration paths for relevant cloud services (e.g. Kafka, Cassandra, data stores).
