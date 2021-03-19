@@ -281,6 +281,23 @@ Additionally to Up and Non-Up, there is also Unreachable. This is the number of 
 
 These numbers can be useful to watch the Akka cluster state during rolling updates to make sure it is in a normal state. See xref:troubleshooting.adoc[troubleshooting deployment status] for some examples.
 
+== Reporting Metrics to Prometheus
+
+Exporting metrics to Prometheus requires opening a port on your Pods for Prometheus to scrape the metrics data gathered.
+
+.kubernetes/shopping-cart-service-cr.yml
+[source,yaml]
+----
+apiVersion: akka.lightbend.com/v1
+kind: AkkaMicroservice
+metadata:
+  name: shopping-cart-service
+spec:
+  prometheusPort: "9001"
+---- 
+
+Specifying the Prometheus port the Akka Operator will open the port on your application's Pods and annotate the pods appropriately for Prometheus to locate them in the Kubernetes cluster and scrape them.
+
 == Namespaces
 
 The Akka Operator manages Akka Microservices in all namespaces of the Kubernetes cluster, which means that you should only install the operator once. It is possible to configure the operator to only manage a specific namespace if that would be needed.
