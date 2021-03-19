@@ -87,6 +87,6 @@ It can be useful to have access to the database connection settings for addition
 jdbc-connection-settings {
   url = "connectionUrl"
   user = "username"
-  password = "password
+  password = "password"
 }
 ----
