@@ -11,9 +11,9 @@
 *** xref:aws-msk.adoc[Using Amazon Managed Streaming for Apache Kafka (Amazon MSK)]
 *** xref:aws-ingress.adoc[Using the AWS LoadBalancer Controller and TLS Certificates]
 ** Deploying with Google Cloud Platform (GCP)
-// *** xref:installing-on-google-kubernetes-engine.adoc[Installing on Google Kubernetes Engine (GKE)]
+*** xref:installing-on-google-kubernetes-engine.adoc[Installing on Google Kubernetes Engine (GKE)]
 *** xref:gcp-sql.adoc[Using GCP Cloud SQL]
-// *** xref:gcp-and-tls-certificates.adoc[Using the GCP LoadBalancer Controller and TLS Certificates]
+*** xref:gcp-and-tls-certificates.adoc[Using the GCP LoadBalancer Controller and TLS Certificates]
 ** Alternative DBMS and broker options
 *** Kafka
 **** xref:confluent-cloud.adoc[]
