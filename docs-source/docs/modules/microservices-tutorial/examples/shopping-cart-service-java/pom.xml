@@ -220,6 +220,7 @@
             <plugin>
                 <groupId>com.lightbend.akka.grpc</groupId>
                 <artifactId>akka-grpc-maven-plugin</artifactId>
+                <version>${akka-grpc-maven-plugin.version}</version>
                 <version>${akka-grpc.version}</version>
                 <configuration>
                     <language>Java</language>
