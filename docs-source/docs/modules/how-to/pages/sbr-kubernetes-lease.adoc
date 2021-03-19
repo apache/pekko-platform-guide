@@ -1,4 +1,4 @@
-= Increase SBR's decision process
+= Improve SBR's decision process
 
 
 include::partial$include.adoc[]
