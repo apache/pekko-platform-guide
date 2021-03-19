@@ -114,22 +114,22 @@ Then, on separate terminal windows, you can start two additional nodes with `loc
 [.group-java]
 [source,shell script]
 ----
-# On another terminal run:
+# On a second terminal run:
 #   (make sure to compile before running exec:exec)
 mvn compile exec:exec -DAPP_CONFIG=local2.conf
 
-# And on a third terminal, run:
+# On a third terminal run:
 mvn compile exec:exec -DAPP_CONFIG=local3.conf
 ----
 
 [.group-scala]
 [source,shell script]
 ----
-# On another terminal run:
+# On a second terminal run:
 sbt -Dconfig.resource=local2.conf run
 
 
-# And on a third terminal, run:
+# On a third terminal run:
 sbt -Dconfig.resource=local3.conf run
 ----
 
