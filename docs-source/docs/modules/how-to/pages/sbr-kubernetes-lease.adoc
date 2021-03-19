@@ -28,7 +28,7 @@ Scala::
 include::example$shopping-cart-service-scala/build.sbt[tag=akka-sbr-kubernetes-lease]
 ----
 
-== Setup you Kubernetes Cluster and AkkaMicroservice
+== Setup your Kubernetes Cluster and AkkaMicroservice
 
 When xref:deployment:aws-install.adoc#_install_akka_operator[installing the Akka Operator] on your Kubernetes cluster using the Helm chart you will also install the Akka Kubernetes Lease CRD.
 
