@@ -25,7 +25,8 @@ A self-singed certificate can be created as in the following example:
 ----
 openssl req -new -newkey rsa:2048 -x509 -sha256 -days 365 -nodes -out MyCertificate.crt -keyout MyKey.key
 ----
-Please make sure you fill in a value for every field requested when creating the certificate and private key, and use a domain name formatted value for the 'Common Name', for instance "example.com".  
+
+Please make sure you fill in a value for every field requested when creating the certificate and private key, and use a domain name formatted value for the 'Common Name', for instance, "example.com".  
 
 You can import the cert into ACM with the following command:
 
