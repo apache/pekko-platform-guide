@@ -283,7 +283,7 @@ These numbers can be useful to watch the Akka cluster state during rolling updat
 
 == Reporting Metrics to Prometheus
 
-Exporting metrics to Prometheus requires opening a port on your Pods for Prometheus to scrape the metrics data gathered.
+Exporting metrics to Prometheus requires opening a port on your Pods for Prometheus to scrape the metrics data gathered. The Akka Operator assumes you will be using https://developer.lightbend.com/docs/telemetry/current/plugins/prometheus/prometheus.html#prometheus[Lightbend Telemetry's support for Prometheus]. You have to configure the build of your application following the Lightbend Telemetry docs. You should also make sure to enable the `http-server` exporter. Then, you need to open the prometheus port:
 
 .kubernetes/shopping-cart-service-cr.yml
 [source,yaml]
@@ -296,7 +296,18 @@ spec:
   prometheusPort: "9001"
 ---- 
 
-Specifying the Prometheus port the Akka Operator will open the port on your application's Pods and annotate the pods appropriately for Prometheus to locate them in the Kubernetes cluster and scrape them.
+Specifying the Prometheus port the Akka Operator will open the port on your application's Pods and annotate the pods appropriately for Prometheus to locate them in the Kubernetes cluster and scrape them. The Akka operator will also create and inject an Environment Variable with the port value so you can setup your configuration to read from that value:
+
+.src/main/resources/telemetry.conf
+[source,hocon]
+----
+cinnamon.prometheus {
+  http-server {
+    port = 9001
+    port = ${HTTP_PROMETHEUS_PORT}
+  }
+}
+----
 
 == Namespaces
 
