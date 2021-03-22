@@ -7,3 +7,16 @@ The Akka Cloud Platform enables developers to quickly build and deploy cloud-nat
 Akka Platform technology enables you to create microservices that are resilient to failure, highly efficient, and operate at any scale. Simple integration paths provide streamlined integration with relevant services in the ecosystem.
 
 All necessary building blocks such as persistence, event sourcing, distributed data, streaming, telemetry and observability are included. It also provides simple integration paths for relevant cloud services (e.g. Kafka, Cassandra, data stores).
+
+== Getting Started with Cloud Deployment
+Before you can get started with cloud deployment you should:
+
+. Determine which platform you will be using (Google Cloud Platform, for example).
+. Have an active account with your chosen platform.
+. Subscribe to the Akka Cloud Platform with xref:gcp-install.adoc[Google] or xref:aws-install.adoc[Amazon].
+. Set up your xref:microservices-tutorial:dev-env.adoc[environment].
+
+Once you have these in hand review the xref:cloud-deployment.adoc[] page and then proceed to the section appropriate to your platform.
+
+* xref:gcp-install.adoc[]
+* xref:aws-install.adoc[]

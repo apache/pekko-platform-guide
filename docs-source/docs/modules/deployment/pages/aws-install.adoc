@@ -1,4 +1,4 @@
-= Installation on Amazon EKS
+= Installation on Amazon Elastic Kubernetes Service (EKS)
 :page-toclevels: 3
 
 include::partial$include.adoc[]
