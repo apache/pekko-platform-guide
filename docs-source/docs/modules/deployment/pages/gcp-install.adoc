@@ -12,7 +12,7 @@ If you are a first time GCP user, please follow these steps:
 
 == Deploy from marketplace
 
-With your account and project ready, open the https://console.cloud.google.com/marketplace/details/lightbend-public/akka-cloud-platform[Akka Cloud Platform {tab-icon}], or go to https://console.cloud.google.com/kubernetes/application[Kubernetes Engine Applications {tab-icon}, window="tab"] and search for "Akka Cloud Platform”. When you are on the product page, go ahead and subscribe to a plan.
+With your account and project ready, open the https://console.cloud.google.com/marketplace/details/lightbend-public/akka-cloud-platform[Akka Cloud Platform {tab-icon}], or go to https://console.cloud.google.com/kubernetes/application[Kubernetes Engine Applications {tab-icon}, window="tab"] and search for "Akka Cloud Platform”. When you are on the product page, go ahead and purchase a plan.
 
 Once you've purchased a plan to use the Akka Cloud Platform, proceed to configure it. Make sure you have a project selected on the GUI or the options to purchase and configure will be disabled.
 
