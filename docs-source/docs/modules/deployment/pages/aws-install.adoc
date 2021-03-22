@@ -5,6 +5,7 @@ include::partial$include.adoc[]
 
 To install Akka Cloud Platform on Amazon Elastic Kubernetes Service (EKS), you must have an Amazon account and a subscription to the https://aws.amazon.com/marketplace/pp?sku=7hhouu843kzmgqs6besqjjsbf[Akka Cloud Platform {tab-icon}, window="tab"].
 
+
 == Pre-requisite Skills
 
 A familiarity with the following services and skillsets is recommended before installation.
