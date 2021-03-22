@@ -13,7 +13,7 @@
 ** Deploying with Google Cloud Platform (GCP)
 *** xref:gcp-install.adoc[Installing on Google Kubernetes Engine (GKE)]
 *** xref:gcp-sql.adoc[Using GCP Cloud SQL]
-*** xref:gcp-ingress.adoc[Using the GKE Ingress Controller and  TLS Certificates]
+*** xref:gcp-ingress.adoc[Using the GKE Ingress Controller and TLS Certificates]
 ** Alternative DBMS and broker options
 *** Kafka
 **** xref:confluent-cloud.adoc[]
