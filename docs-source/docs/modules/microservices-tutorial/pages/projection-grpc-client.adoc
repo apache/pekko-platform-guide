@@ -297,7 +297,7 @@ When finished:
 ----
 docker-compose stop
 ----
-NOTE: The following steps for cloud deloyment are optional. If you are only deploying locally you can skip to the next section of the tutorial.
+NOTE: The following steps for cloud deloyment are optional. If you are only running locally you have completed the tutorial Congratulations.
 
 [#kubernetes]
 == Run in Kubernetes
