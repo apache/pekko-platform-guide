@@ -193,7 +193,7 @@ Note the logging from the `ShoppingCartServiceImpl` in the console.
 
 You can stop the service with `ctrl-c`.
 
-NOTE: The following steps for cloud deloyment are optional. If you are only running locally you can skip to the next section of the tutorial.
+NOTE: The following steps for cloud deployment are optional. If you are only running locally, you can skip to the next section of the tutorial.
 
 [#kubernetes]
 == Run in Kubernetes
