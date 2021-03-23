@@ -13,7 +13,7 @@ Before you can get started with cloud deployment you should:
 
 . Determine which platform you will be using (Google Cloud Platform, for example).
 . Have an active account with your chosen platform.
-. Subscribe to the Akka Cloud Platform with xref:gcp-install.adoc[Google] or xref:aws-install.adoc[Amazon].
+. Subscribe to the Akka Cloud Platform with xref:gcp-install.adoc[GCP] or xref:aws-install.adoc[AWS].
 . Set up your xref:microservices-tutorial:dev-env.adoc[environment].
 
 Once you have these in hand review the xref:cloud-deployment.adoc[] page and then proceed to the section appropriate to your platform.
