@@ -24,9 +24,9 @@ To completely configure and use the Akka Cloud Platform you need to fill in a fe
 . The akka-operator.serviceAccount.name — This is the name of the service account used by the operator to access Kubernetes resources.
 . The Reporting Service Account — This is the service account used for reporting data to Google.
 
-Finally, take a moment to review all the permissions the Akka Clout Platform operator will use in order to operate your applications.
+. Take a moment to review all the permissions the Akka Clout Platform operator will use in order to operate your applications.
 
-Click `Deploy`.
+. Click `Deploy`.
 
 == Delete a Kubernetes cluster
 
