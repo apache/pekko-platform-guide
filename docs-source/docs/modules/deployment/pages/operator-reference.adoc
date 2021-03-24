@@ -283,7 +283,7 @@ These numbers can be useful to watch the Akka cluster state during rolling updat
 
 == Reporting Metrics to Prometheus
 
-Exporting metrics to Prometheus requires opening a port on your Pods for Prometheus to scrape the metrics data gathered. The Akka Operator assumes you will be using https://developer.lightbend.com/docs/telemetry/current/plugins/prometheus/prometheus.html#prometheus[Lightbend Telemetry's support for Prometheus]. You have to configure the build of your application following the Lightbend Telemetry docs. You should also make sure to enable the `http-server` exporter. Then, you need to open the prometheus port:
+Exporting metrics to Prometheus requires opening a port on your Pods. The https://prometheus.io/docs/introduction/overview/#architecture[Prometheus Architecture documentation  {tab-icon}, window="tab"] explains all the components of Prometheus and how data is extracted from your process: for Prometheus to gather the metrics from your process you have to expose an HTTP server. The Akka Operator assumes you will be using {cinnamon-docs}/plugins/prometheus/prometheus.html#prometheus[Lightbend Telemetry's support for Prometheus]. Once you configure the build of your application following the Lightbend Telemetry docs, you should have the `http-server` exporter enabled on your configuration. That `cinnamon.prometheus.exporters += http-server` setting binds, by default, to the port `9001`. Then, you need to configure the kubernetes resource to open the prometheus port:
 
 .kubernetes/shopping-cart-service-cr.yml
 [source,yaml]
@@ -293,21 +293,23 @@ kind: AkkaMicroservice
 metadata:
   name: shopping-cart-service
 spec:
-  prometheusPort: "9001"
+  prometheusPort: "9005"
 ---- 
 
-Specifying the Prometheus port the Akka Operator will open the port on your application's Pods and annotate the pods appropriately for Prometheus to locate them in the Kubernetes cluster and scrape them. The Akka operator will also create and inject an Environment Variable with the port value so you can setup your configuration to read from that value:
+Specifying the Prometheus port instructs the Akka Operator to open the port on the Pods and annotate the pods appropriately. These annotations allow Prometheus workers on the cluster to locate your pods and scrape them. The Akka operator will also create and inject an environment variable named `HTTP_PROMETHEUS_PORT` with the port value you configure in the resource manifest. Use that environment variable to set up your configuration:
 
 .src/main/resources/telemetry.conf
 [source,hocon]
 ----
 cinnamon.prometheus {
   http-server {
-    port = 9001
+    port = 9008
     port = ${HTTP_PROMETHEUS_PORT}
   }
 }
 ----
+
+In the examples above, the `telemetry.conf` configures the port to `9008`. It also configures a conditional overwrite using the `${NAME}` syntax: if the `HTTP_PROMETHEUS_PORT` environment variable exists, then use that value. When deploying the application using the Akka Operator, the `HTTP_PROMETHEUS_PORT` environment variable will exist and the value is set to `9005` (see snippet above) so the Telemetry agent will start Prometheus's `http-server` on port `9005`.
 
 == Namespaces
 
