@@ -13,7 +13,7 @@
 :akka-persistence-cassandra:  https://doc.akka.io/docs/akka-persistence-cassandra/current
 :akka-projection:  https://doc.akka.io/docs/akka-projection/current
 :alpakka:  https://doc.akka.io/docs/alpakka/current
-:telemetry:  https://developer.lightbend.com/docs/telemetry/current
+:cinnamon-docs: https://developer.lightbend.com/docs/telemetry/current
 
 //constant to add icon for opening link in a new page
 :tab-icon: image:ROOT:new-tab.svg[width=12]
