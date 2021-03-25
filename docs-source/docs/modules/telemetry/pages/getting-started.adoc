@@ -9,7 +9,7 @@ ifdef::todo[TODO: Support has a signup process that will get AWS customers Light
 
 == Set up Cinnamon Agent
 
-To get started, you should configure {telemetry}/setup/setup.html[your build] to use the Cinnamon Agent for one of the following build systems: {telemetry}/setup/cinnamon-agent-sbt.html[sbt], {telemetry}/setup/cinnamon-agent-maven.html[Maven], or {telemetry}/setup/cinnamon-agent-gradle.html[Gradle].
+To get started, you should configure {cinnamon-docs}/setup/setup.html[your build] to use the Cinnamon Agent for one of the following build systems: {cinnamon-docs}/setup/cinnamon-agent-sbt.html[sbt], {cinnamon-docs}/setup/cinnamon-agent-maven.html[Maven], or {cinnamon-docs}/setup/cinnamon-agent-gradle.html[Gradle].
 
 === Maven build changes
 
@@ -64,7 +64,7 @@ Next, the agent needs to be added as a java command-line option, for example, he
 </plugin>
 ```
 
-See full details and a complete sample {telemetry}/setup/cinnamon-agent-maven.html[here].
+See full details and a complete sample {cinnamon-docs}/setup/cinnamon-agent-maven.html[here].
 
 == Instrumenting your application
 
@@ -87,7 +87,7 @@ Lightbend Telemetry can capture data for {akka-http}/introduction.html[Akka HTTP
 
 == Telemetry Configuration
 
-A {telemetry}/instrumentations/akka-http/akka-http-configuration.html#example-configurations[simple configuration] for your Akka HTTP server would be the one that matches all paths, hosts and ports:
+A {cinnamon-docs}/instrumentations/akka-http/akka-http-configuration.html#example-configurations[simple configuration] for your Akka HTTP server would be the one that matches all paths, hosts and ports:
 
 ifdef::todo[TODO: Externalize configuration snippets to a sample application?]
 
@@ -116,7 +116,3 @@ cinnamon.akka.http.clients {
   }
 }
 ```
-
-== Whats Next?
-
-The next step is to use Prometheus as a metrics backend.

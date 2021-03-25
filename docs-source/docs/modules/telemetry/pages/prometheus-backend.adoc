@@ -5,7 +5,7 @@ include::ROOT:partial$include.adoc[]
 
 Lightbend Telemetry can report metrics to https://prometheus.io/[Prometheus] using a backend plugin integrated with the https://github.com/prometheus/client_java[Prometheus JVM client].
 
-Here is the core Cinnamon Prometheus dependency you need to add to your `pom.xml` together with the {telemetry}/plugins/prometheus/prometheus.html#http-server[HTTP server exporter]:
+Here is the core Cinnamon Prometheus dependency you need to add to your `pom.xml` together with the {cinnamon-docs}/plugins/prometheus/prometheus.html#http-server[HTTP server exporter]:
 
 ```xml
 <!-- Cinnamon Prometheus core dependency -->
@@ -32,6 +32,6 @@ cinnamon.prometheus {
 
 Prometheus metrics will now be available at the configured server location. Using the defaults, this is at http://localhost:9001/metrics.
 
-See {telemetry}/plugins/prometheus/prometheus.html[our docs for more details and reference configuration].
+See {cinnamon-docs}/plugins/prometheus/prometheus.html[our docs for more details and reference configuration].
 
 ifdef::todo[TODO: Support has a signup process that will get AWS customers Lightbend credentials to download commercial dependencies.]
