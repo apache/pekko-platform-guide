@@ -23,10 +23,10 @@ A self-singed certificate can be created as in the following example:
 
 [source,shell script]
 ----
-openssl req -new -newkey rsa:2048 -x509 -sha256 -days 365 -nodes -out MyCertificate.crt -keyout MyKey.key
+openssl req -new -newkey rsa:2048 -x509 -sha256 -days 365 -nodes -out MyCertificate.crt -keyout MyKey.key -subj "/CN=example.com/O=example"
 ----
 
-Please make sure you fill in a value for every field requested when creating the certificate and private key, and use a domain name formatted value for the 'Common Name', for instance, "example.com".  
+NOTE: When creating a self-signed certificate, make sure you use a domain name for the 'Common Name', for instance, "example.com". If you do not use a domain name, but just any non-empty name for the 'Common Name', the ingress controller will not be able to find the certificate and the ingress will fail to get an IP address, which shows up as a `CertificateNotFound` error in the events for the ingress.
 
 You can import the cert into ACM with the following command:
 
