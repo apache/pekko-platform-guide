@@ -35,7 +35,7 @@ To completely configure and use the Akka Cloud Platform you need to fill in a fe
 . Click `Deploy`.
 
 After clicking `Deploy` the Google console navigates to the `Application starting` page. Wait for the application components to deploy.
-From a terminal, login to your project using the gcloud CLI, follow the quick start at https://cloud.google.com/sdk/docs/quickstart[https://cloud.google.com/sdk/docs/quickstart {tab-icon}, window="tab"] if you are not familiar with it yet.
+From a terminal, login to your project using the gcloud CLI, you can find quick-start instructions at https://cloud.google.com/sdk/docs/quickstart[https://cloud.google.com/sdk/docs/quickstart {tab-icon}, window="tab"].
 Navigate to https://console.cloud.google.com/kubernetes/application, click on the cluster name for the Akka Cloud Platform application, click on the `CONNECT` button, copy the gcloud command for command line access, an example of it is shown below:
 
 [source,shell script]
