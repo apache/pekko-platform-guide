@@ -17,21 +17,21 @@ image::deployment-overview1.png[Deployment 1]
 
 The call-outs in the illustration highlight the following:
 
-. A https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/[Kubernetes Custom Resource Definition {tab-icon}, window="tab"] named `akkamicroservices.akka.lightbend.com` defines the deployment descriptor resource for Akka Microservices applications that the Akka Cloud Platform will deploy.
-. The installed Akka Operator runs continuously in the Kubernetes cluster.
-. You publish a Docker image containing the Akka Microservices application.
-. You define the deployment descriptor for the Akka Microservice in a yaml file. It refers to the Docker published image and specifies other operational properties. You apply the `.yaml` file to the Kubernetes cluster with `kubectl` (Kubernetes standard command-line tool).
-. The Akka Operator sees the new deployment descriptor and creates a https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/[Kubernetes Deployment {tab-icon}, window="tab"]
-. Kubernetes downloads the application image and starts the Akka Microservices application. The Akka Operator automatically provides additional configuration to the application.
+<1> A https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/[Kubernetes Custom Resource Definition {tab-icon}, window="tab"] named `akkamicroservices.akka.lightbend.com` defines the deployment descriptor resource for Akka Microservices applications that the Akka Cloud Platform will deploy.
+<2> The installed Akka Operator runs continuously in the Kubernetes cluster.
+<3> You publish a Docker image containing the Akka Microservices application.
+<4> You define the deployment descriptor for the Akka Microservice in a yaml file. It refers to the Docker published image and specifies other operational properties. You apply the `.yaml` file to the Kubernetes cluster with `kubectl` (Kubernetes standard command-line tool).
+<5> The Akka Operator sees the new deployment descriptor and creates a https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/[Kubernetes Deployment {tab-icon}, window="tab"]
+<6> Kubernetes downloads the application image and starts the Akka Microservices application. The Akka Operator automatically provides additional configuration to the application.
 
 To update the Akka Microservices application, you repeat steps 3 - 6. The Akka Operator sees the changes to the deployment descriptor and updates the Kubernetes Deployment accordingly. Kubernetes performs a rolling update of the application as shown in the illustration below.
 
 image::deployment-overview2.png[Deployment 2]
 
-. You build and publish the Docker image.
-. You apply the deployment descriptor.
-. The operator creates a separate Kubernetes Deployment for the other Microservice.
-. The pods and application are started.
+<1> You build and publish the Docker image.
+<2> You apply the deployment descriptor.
+<3> The operator creates a separate Kubernetes Deployment for the other Microservice.
+<4> The pods and application are started.
 
 == Learn more
 

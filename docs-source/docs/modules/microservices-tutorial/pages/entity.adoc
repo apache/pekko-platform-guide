@@ -436,7 +436,10 @@ NOTE: The following steps for cloud deployment are optional. If you are only run
 [#kubernetes]
 == Run in Kubernetes
 
-Create a xref:deployment:aws-install.adoc[Kubernetes cluster and install the Akka Operator] if you haven't already.
+Before following the steps below, create Kubernetes cluster and install the Akka Operator. Used the instructions below for:
+
+* xref:deployment:aws-install.adoc[]
+* xref:deployment:gcp-install.adoc[]
 
 === Create PostgreSQL database
 
@@ -455,7 +458,13 @@ kubectl run -i rds-mgmt --image=postgres \
 
 Create a Docker repository and authenticate Docker as described in xref:deployment:aws-ecr.adoc[Amazon Elastic Container Registry] if you haven't already.
 
-Rebuild the Docker image. 
+==== *Docker image for GCP*
+If you are using GCP, follow the instructions in https://cloud.google.com/container-registry/docs/using-with-google-cloud-platform[Using Container Registry with Google Cloud {tab-icon}, window="tab"] to deploy Docker images on GCP's container registry.
+
+==== *Docker image for AWS*
+If you are using AWS, follow the procedure as described in xref:deployment:aws-ecr.adoc[Amazon Elastic Container Registry].
+
+Rebuild the Docker image.
 
 include::partial$build-docker-for-kube.adoc[]
 
