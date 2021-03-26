@@ -40,9 +40,12 @@ To completely configure and use the Akka Cloud Platform you need to fill in a fe
 
 [source,shell script]
 ----
-gcloud container clusters get-credentials my-cluster --zone my-zone --project my-project
+gcloud container clusters \ 
+  get-credentials acp-cluster-1 \
+  --zone us-west1-a \
+  --project shopping-cart
 ----
-Execute the command from a terminal to connect to the Kubernetes cluster. You are now ready to start using the Akka Cloud Platform. 
+Paste the command you copied from the Google console into a terminal to connect to the Kubernetes cluster. You are now ready to start using the Akka Cloud Platform. 
 
 == Delete a Kubernetes cluster
 
