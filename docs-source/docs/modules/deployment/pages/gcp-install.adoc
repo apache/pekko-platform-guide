@@ -40,7 +40,7 @@ Navigate to https://console.cloud.google.com/kubernetes/application, click on th
 
 [source,shell script]
 ----
-gcloud container clusters get-credentials my-cluster --zone us-west1-c --project my-project
+gcloud container clusters get-credentials my-cluster --zone my-zone --project my-project
 ----
 Execute the command from a terminal to connect to the Kubernetes cluster. You are now ready to start using the Akka Cloud Platform. 
 
