@@ -19,8 +19,7 @@ Follow the instructions in xref:deployment:aws-ecr.adoc[Amazon Elastic Container
 
 GCP::
 +
-Follow the instructions in https://cloud.google.com/container-registry/docs/using-with-google-cloud-platform[Using Container Registry with Google Cloud] to deploy Docker images on GCP's container registry.
-
+Follow the instructions in https://cloud.google.com/container-registry/docs/using-with-google-cloud-platform[Using Container Registry with Google Cloud {tab-icon}, window="tab"] to deploy Docker images on GCP's container registry.
 
 == Update the deployment descriptor
 
@@ -32,7 +31,7 @@ Update the deployment descriptor in `kubernetes/shopping-cart-service-cr.yml` of
 include::microservices-tutorial:example$01-shopping-cart-service-scala/kubernetes/shopping-cart-service-cr.yml[]
 ----
 
-<1> Replace `<docker-registry>` with your docker registry address and update the image reference with the image tag from the output of the Docker build above, for example: `803424716218.dkr.ecr.eu-central-1.amazonaws.com/shopping-cart-service:20201209-135004-363ae2b`.
+<1> Replace `<docker-registry>` with your docker registry address and update the image reference with the image tag from the output of the Docker build above, for example: `803424716218.dkr.ecr.eu-central-1.amazonaws.com/shopping-cart-service:20201209-135004-363ae2b` if you are using AWS or `eu.gcr.io/earthly-project-41643/shopping-cart-service:20201209-135004-363ae2b`if you are ucing GCP.
 
 == Apply to Kubernetes
 
