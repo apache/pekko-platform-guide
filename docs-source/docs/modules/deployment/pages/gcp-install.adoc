@@ -20,7 +20,7 @@ See https://cloud.google.com/compute/docs/console[https://cloud.google.com/compu
 
 With your account and project ready, open the {gcp-marketplace}[Akka Cloud Platform {tab-icon}], or go to https://console.cloud.google.com/kubernetes/application[Kubernetes Engine Applications {tab-icon}, window="tab"] and search for "Akka Cloud Platform”. When you are on the product page, go ahead and purchase a plan.
 
-Once you've purchased a plan to use the Akka Cloud Platform, proceed to configure it. Make sure you have a project selected on the GUI or the options to purchase and configure will be disabled.
+Once you've purchased a plan to use the Akka Cloud Platform, proceed to configure it, click `Configure`. Make sure you have a project selected on the GUI or the options to purchase and configure will be disabled.
 
 To completely configure and use the Akka Cloud Platform you need to fill in a few fields:
 
@@ -33,6 +33,16 @@ To completely configure and use the Akka Cloud Platform you need to fill in a fe
 . Take a moment to review all the permissions the Akka Cloud Platform operator will use in order to operate your applications.
 
 . Click `Deploy`.
+
+After clicking `Deploy` the Google console navigates to the `Application starting` page. Wait for the application components to deploy.
+From a terminal, login to your project using the gcloud CLI, follow the quick start at https://cloud.google.com/sdk/docs/quickstart[https://cloud.google.com/sdk/docs/quickstart {tab-icon}, window="tab"] if you are not familiar with it yet.
+Navigate to https://console.cloud.google.com/kubernetes/application, click on the cluster name for the Akka Cloud Platform application, click on the `CONNECT` button, copy the gcloud command for command line access, an example of it is shown below:
+
+[source,shell script]
+----
+gcloud container clusters get-credentials my-cluster --zone us-west1-c --project my-project
+----
+Execute the command from a terminal to connect to the Kubernetes cluster. You are now ready to start using the Akka Cloud Platform. 
 
 == Delete a Kubernetes cluster
 
