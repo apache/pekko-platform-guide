@@ -281,6 +281,36 @@ Additionally to Up and Non-Up, there is also Unreachable. This is the number of 
 
 These numbers can be useful to watch the Akka cluster state during rolling updates to make sure it is in a normal state. See xref:troubleshooting.adoc[troubleshooting deployment status] for some examples.
 
+== Reporting Metrics to Prometheus
+
+Exporting metrics to Prometheus requires opening a port on your Pods. The https://prometheus.io/docs/introduction/overview/#architecture[Prometheus Architecture documentation  {tab-icon}, window="tab"] explains all the components of Prometheus and how data is extracted from your process: for Prometheus to gather the metrics from your process you have to expose an HTTP server. The Akka Operator assumes your application uses {cinnamon-docs}/plugins/prometheus/prometheus.html#prometheus[Lightbend Telemetry's support for Prometheus]. Once you configure the build of your application following the Lightbend Telemetry docs, you should have the `http-server` exporter enabled on your configuration. That `cinnamon.prometheus.exporters += http-server` setting binds, by default, to the port `9001`. Then, you need to configure the Kubernetes resource to open the Prometheus port:
+
+.kubernetes/shopping-cart-service-cr.yml
+[source,yaml]
+----
+apiVersion: akka.lightbend.com/v1
+kind: AkkaMicroservice
+metadata:
+  name: shopping-cart-service
+spec:
+  prometheusPort: "9005"
+---- 
+
+Specifying the Prometheus port instructs the Akka Operator to open the port on the Pods and annotate the pods appropriately. These annotations allow Prometheus workers on the cluster to locate your pods and scrape them. The Akka operator will also create and inject an environment variable named `HTTP_PROMETHEUS_PORT` with the port value you configure in the resource manifest. Use that environment variable to set up your configuration:
+
+.src/main/resources/telemetry.conf
+[source,hocon]
+----
+cinnamon.prometheus {
+  http-server {
+    port = 9008
+    port = ${HTTP_PROMETHEUS_PORT}
+  }
+}
+----
+
+In the examples above, the `telemetry.conf` configures the port to `9008`. It also configures a conditional overwrite using the `${NAME}` syntax: if the `HTTP_PROMETHEUS_PORT` environment variable exists, then use that value. When deploying the application using the Akka Operator, the `HTTP_PROMETHEUS_PORT` environment variable will exist and the value is set to `9005` (see snippet above) so the Telemetry agent will start Prometheus's `http-server` on port `9005`.
+
 == Namespaces
 
 The Akka Operator manages Akka Microservices in all namespaces of the Kubernetes cluster, which means that you should only install the operator once. It is possible to configure the operator to only manage a specific namespace if that would be needed.
@@ -289,10 +319,150 @@ You can define a specific namespace that the operator should manage with the fol
 
 [source,shell script]
 ----
---set java_tool_options="-Dakka.operator.application-namespace=the-app-ns -Xlog:gc -XX:InitialRAMPercentage=75 -XX:MaxRAMPercentage=75"
+--set java_tool_options="\
+   -Dakka.operator.application-namespace=the-app-ns \
+   -Xlog:gc -XX:InitialRAMPercentage=75 \
+   -XX:MaxRAMPercentage=75"
 ----
 
 The operator itself can still be installed in a different namespace, or in the same namespace.
+
+== Secrets and environment configuration
+:page-toclevels: 3
+
+include::partial$include.adoc[]
+
+The Akka Operator has support for managing https://kubernetes.io/docs/concepts/configuration/secret/[Kubernetes Secrets {tab-icon}, window="tab"] that can be used, for example, as credentials for custom integrations. Note that the operator has specific and more convenient support for xref:integrations.adoc[certain integrations].
+
+=== Secrets
+
+Secrets with entries that will be mounted as files can be defined in `secretVolumes` of the deployment descriptor.
+
+.kubernetes/shopping-cart-service-cr.yml
+[source,yaml]
+----
+apiVersion: akka.lightbend.com/v1
+kind: AkkaMicroservice
+metadata:
+  name: shopping-cart-service
+spec:
+  image: <image>
+  secretVolumes:
+    - secretName: shopping-cart-service-secret
+      mountPath: "/etc/secret-volume"
+----
+
+The Secret can be created with for example:
+
+[source,shell script]
+----
+kubectl create secret generic \
+    shopping-cart-service-secret \
+    --from-file=connect.zip=secure-connect-bundle.zip
+----
+
+You can see the mounted files with:
+
+[source,shell script]
+----
+kubectl exec -i -t <pod name> -- /bin/bash
+
+ls /etc/secret-volume
+----
+
+=== Environment variables
+
+Environment variables can be used for the configuration of custom integrations.
+
+https://kubernetes.io/docs/concepts/configuration/secret/[Secrets {tab-icon}, window="tab"] with entries that will be included as environment variables be defined in `envSecret` of the deployment descriptor.
+
+.kubernetes/shopping-cart-service-cr.yml
+[source,yaml]
+----
+apiVersion: akka.lightbend.com/v1
+kind: AkkaMicroservice
+metadata:
+  name: shopping-cart-service
+spec:
+  image: <image>
+  envSecret:
+    secretName: shopping-cart-service-env
+----
+
+The application.conf can use such environment variables with:
+
+[source,conf]
+----
+      username = ${?DB_USER}
+      password = ${?DB_PWD}
+----
+
+The Secret can be created with for example:
+
+[source,conf]
+----
+kubectl create secret generic \
+    shopping-cart-service-env \
+    --from-literal=DB_USER=scott \
+    --from-literal=DB_PWD=tiger
+----
+
+=== Configuration
+
+For environment specific configuration that will override the application.conf in the image (jar) you can define configuration in the https://kubernetes.io/docs/concepts/configuration/secret/[Secrets {tab-icon}, window="tab"] specified by the `configSecret` in the deployment descriptor.
+
+The entries in the Secret will be concatenated into a `main.conf` together with configuration provided by the operator. The `main.conf` includes `application.conf` and will be loaded when the `ActorSystem` is started.
+
+.kubernetes/shopping-cart-service-cr.yml
+[source,yaml]
+----
+apiVersion: akka.lightbend.com/v1
+kind: AkkaMicroservice
+metadata:
+  name: shopping-cart-service
+spec:
+  image: <image>
+  configSecret:
+    secretName: shopping-cart-service-config
+----
+
+The Secret can be created with for example:
+
+[source,shell script]
+----
+kubectl create secret generic \
+    shopping-cart-service-config \
+    --from-file=logging.conf=kubernetes/logging.conf \
+    --from-file=environment.conf=kubernetes/environment.conf
+----
+
+You can see the mounted `main.conf` with:
+
+[source,shell script]
+----
+kubectl exec -i -t <pod name> -- /bin/bash
+
+cat /etc/config-volume/main.conf
+----
+
+[#main-conf]
+=== Application configuration in the Pod
+
+The Akka Operator will automatically provide configuration for the xref:integrations.adoc[Integrations] to the application.
+
+For troubleshooting it can be good to know how the configuration is loaded.
+
+The configuration that the Akka Operator provides via a Secret is located in `/etc/config-volume/main.conf` in the Pod. The `main.conf` includes `application.conf` and the JVM system property `config.file` is set to `main.conf` by the operator. In other words, `main.conf` will be used when the application starts the `ActorSystem` without specifying a configuration, or when using `ConfigFactory.load()`.
+
+You can see the mounted `main.conf` with:
+
+[source,shell script]
+----
+kubectl exec -i -t <pod name> -- /bin/bash
+
+cat /etc/config-volume/main.conf
+----
+
 
 == Learn more
 
