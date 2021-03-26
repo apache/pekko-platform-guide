@@ -5,12 +5,22 @@ include::partial$include.adoc[]
 
 This page describes the general workflow for deploying an application. Each step of the xref:microservices-tutorial:index.adoc[Implementing Microservices with Akka tutorial] also has instructions of how to run in Kubernetes. The tutorial includes build files for creating Docker images and template deployment descriptors.
 
-The steps below assume that you have already read the xref:deployment:index.adoc[overview of Kubernetes deployment], and have created a xref:deployment:aws-install.adoc[Kubernetes cluster and installed the Akka Operator].
+The steps below assume that you have already read the xref:deployment:index.adoc[overview of Kubernetes deployment], and have created a Kubernetes cluster and installed the Akka Operator (in xref:deployment:aws-install.adoc[AWS] or xref:deployment:gcp-install.adoc[GCP]).
 
 :sectnums:
 == Build Docker image
 
-Build and publish a Docker image of the application as described in xref:deployment:aws-ecr.adoc[Amazon Elastic Container Registry].
+Build and publish a Docker image of the application.
+
+[.tabset]
+AWS::
++
+Follow the instructions in xref:deployment:aws-ecr.adoc[Amazon Elastic Container Registry] to deploy Docker images on AWS's container registry.
+
+GCP::
++
+Follow the instructions in https://cloud.google.com/container-registry/docs/using-with-google-cloud-platform[Using Container Registry with Google Cloud] to deploy Docker images on GCP's container registry.
+
 
 == Update the deployment descriptor
 
