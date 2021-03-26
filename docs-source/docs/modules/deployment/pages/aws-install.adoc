@@ -1,9 +1,17 @@
-= Installation in Amazon EKS
+= Installation on Amazon Elastic Kubernetes Service (EKS)
 :page-toclevels: 3
 
 include::partial$include.adoc[]
 
-To install Akka Cloud Platform on Amazon Elastic Kubernetes Service (EKS), you must have an Amazon account and subscribe to the https://aws.amazon.com/marketplace/pp?sku=7hhouu843kzmgqs6besqjjsbf[Akka Cloud Platform {tab-icon}, window="tab"].
+NOTE: To install Akka Cloud Platform on Amazon Elastic Kubernetes Service (EKS), you must have an Amazon account and a subscription to the https://aws.amazon.com/marketplace/pp?sku=7hhouu843kzmgqs6besqjjsbf[Akka Cloud Platform {tab-icon}, window="tab"].
+
+== Expected Time to Install
+
+A new installation will take approximately _40 minutes_.
+
+* Provision Amazon EKS cluster - _30 minutes_ - Depends on how many nodes are provisioned and what instance types are chosen. It is also variable based on day-to-day AWS region conditions. This estimate is for the cluster parameters described in this guide.
+* Install pre-requisities into Amazon EKS - _5 minutes_ - Subscribe to product, install a Kubernetes `metrics-server`, and set up a service account.
+* Install Akka Cloud Platform - _5 minutes_ - Installation of the Akka Cloud Platform helm chart with minimal configuration.
 
 == Pre-requisite Skills
 
@@ -104,7 +112,7 @@ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/late
 
 == AWS Marketplace
 
-If you have not already done it, subscribe to the https://aws.amazon.com/marketplace/pp?sku=7hhouu843kzmgqs6besqjjsbf[Akka Cloud Platform {tab-icon}, window="tab"] by clicking the Subscribe button on the product page and accepting the terms and conditions.
+If you have not already done it, subscribe to the {aws-marketplace}[Akka Cloud Platform {tab-icon}, window="tab"] by clicking the Subscribe button on the product page and accepting the terms and conditions.
 
 == Create a service account for the Akka Operator
 
@@ -114,7 +122,10 @@ The Akka Operator requires a https://docs.aws.amazon.com/eks/latest/userguide/ia
 +
 [source,shell script]
 ----
-eksctl utils associate-iam-oidc-provider --cluster eks-akka-demo --region eu-central-1 --approve
+eksctl utils associate-iam-oidc-provider \
+    --cluster eks-akka-demo \
+    --region eu-central-1 \
+    --approve
 ----
 
 . Create an IAM policy for the service account:
@@ -141,7 +152,9 @@ eksctl utils associate-iam-oidc-provider --cluster eks-akka-demo --region eu-cen
 +
 [source,shell script]
 ----
-aws iam create-policy --policy-name AkkaPlatformOperator --policy-document file://policy.json
+aws iam create-policy \
+    --policy-name AkkaPlatformOperator \
+    --policy-document file://policy.json
 ----
 +
 Make a note of the policy ARN for the next step.
@@ -181,9 +194,9 @@ To delete the service account, run the following:
 [source, shell script]
 ----
 eksctl delete iamserviceaccount  \
-  --name akka-operator \
-  --cluster eks-akka-demo \
-  --region eu-central-1
+    --name akka-operator \
+    --cluster eks-akka-demo \
+    --region eu-central-1
 ----
 ====
 == Install Akka Operator
@@ -286,7 +299,9 @@ kubectl delete customresourcedefinition akkamicroservices.akka.lightbend.com
 
 [source,shell script]
 ----
-eksctl delete cluster --region eu-central-1 --name eks-akka-demo
+eksctl delete cluster \
+    --region eu-central-1 \
+    --name eks-akka-demo
 ----
 
 NOTE: Deleting the cluster from the https://console.aws.amazon.com/eks/home[Amazon EKS console {tab-icon}, window="tab"] requires several steps and therefore it's easiest to use `eksctl` for this.
