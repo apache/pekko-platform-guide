@@ -40,8 +40,7 @@ To completely configure and use the Akka Cloud Platform you need to fill in a fe
 
 [source,shell script]
 ----
-gcloud container clusters \ 
-  get-credentials acp-cluster-1 \
+gcloud container clusters get-credentials acp-cluster-1 \
   --zone us-west1-a \
   --project shopping-cart
 ----
