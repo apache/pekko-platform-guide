@@ -43,13 +43,18 @@ Akka Cloud Platform enhances Akka by adding operational tooling, services, and s
 ** Integrated legal, purchasing, and billing with the marketplaces
 
 == How to get the most out of this guide
+
 For a code-first experience, have a look at the Implementing Microservices with Akka tutorial, which walks you through an example project and explains how features from the Akka ecosystem fit together to build Reactive Systems. The tutorial will point you to the relevant concepts where applicable.
 
-If this is your first experience with Reactive frameworks or Akka, we recommend reviewing the Concepts section. This section presents some background and ideas behind Reactive. You can read about those concepts when introduced in the tutorial, or read them first if you prefer a more theoretical overview before diving into the code. There you will learn, for example:
+If this is your first experience with Reactive frameworks or Akka, we recommend reviewing the xref:concepts:index.adoc[What is Reactive?] section. This section presents some background and ideas behind Reactive. You can read about those concepts when introduced in the tutorial, or read them first if you prefer a more theoretical overview before diving into the code. There you will learn, for example:
 
 * The challenges that Reactive Architecture can help you overcome
 * A summary of Reactive Principles
 * The benefits of using Akka
+
+If you are looking for a deeper dive into the conceptual framework it is also advisable to review xref:concepts:event-sourcing.adoc[Designing Reactive Microsystems].
+
+The xref:concepts:akka-actor.adoc[Akka modules for Microservices] section provides a conceptual overview for each of the Akka modules used with Microservices.
 
 == Cloud deployment
 
