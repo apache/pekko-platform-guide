@@ -306,12 +306,25 @@ Create a xref:deployment:aws-install.adoc[Kubernetes cluster and install the Akk
 
 === Build Docker image
 
-Create a Docker repository and authenticate Docker as described in xref:deployment:aws-ecr.adoc[Amazon Elastic Container Registry] if you haven't already.
+Create a Docker repository and authenticate Docker.
+
+[.tabset]
+GCP::
++
+Follow the instructions in https://cloud.google.com/container-registry/docs/using-with-google-cloud-platform[Using Container Registry with Google Cloud {tab-icon}, window="tab"] to deploy Docker images on GCP's container registry.
+
+AWS::
++
+Follow the instructions in xref:deployment:aws-ecr.adoc[Amazon Elastic Container Registry] to deploy Docker images on AWS's container registry.
+
+=== Additional steps for Docker and AWS
+
+If you are using AWS, you will also need to complete the following procedures.
 
 Build and publish the Docker images for both `shopping-cart-service` and `shopping-order-service`.
 
 include::partial$build-docker-for-kube.adoc[]
- 
+
 === Update the deployment descriptor
 
 Update the `shopping-cart-service/kubernetes/shopping-cart-service-cr.yml` and `shopping-order-service/kubernetes/shopping-order-service-cr.yml` deployment descriptors with the respective image tag produced on the previous step.
