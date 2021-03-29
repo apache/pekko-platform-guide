@@ -426,16 +426,23 @@ Make sure you have created your database and loaded the schema as described in t
 
 Create a Docker repository and authenticate Docker.
 
-==== *Docker image for AWS*
+[.tabset]
+GCP::
++
+Follow the instructions in https://cloud.google.com/container-registry/docs/using-with-google-cloud-platform[Using Container Registry with Google Cloud {tab-icon}, window="tab"] to deploy Docker images on GCP's container registry.
 
-If you are using AWS, follow the procedure as described in xref:deployment:aws-ecr.adoc[Amazon Elastic Container Registry].
+AWS::
++
+Follow the instructions in xref:deployment:aws-ecr.adoc[Amazon Elastic Container Registry] to deploy Docker images on AWS's container registry.
+
+=== Additional steps for Docker and AWS
+
+If you are using AWS, you will also need to complete the following procedures.
 
 Rebuild the Docker image.
 
 include::partial$build-docker-for-kube.adoc[]
 
-==== *Docker image for GCP*
-If you are using GCP, follow the instructions in https://cloud.google.com/container-registry/docs/using-with-google-cloud-platform[Using Container Registry with Google Cloud {tab-icon}, window="tab"] to deploy Docker images on GCP's container registry.
 
 === Update the deployment descriptor
 

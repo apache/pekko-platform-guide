@@ -202,16 +202,18 @@ We suggest that you read xref:deployment:index.adoc[] to get an understanding of
 
 Before following the steps below, create Kubernetes cluster and install the Akka Operator. Used the instructions below for:
 
-* xref:deployment:aws-install.adoc[]
-* xref:deployment:gcp-install.adoc[]
+[.tabset]
+GCP::
++
+Follow the instructions in https://cloud.google.com/container-registry/docs/using-with-google-cloud-platform[Using Container Registry with Google Cloud {tab-icon}, window="tab"] to deploy Docker images on GCP's container registry.
 
-=== Build Docker image
+AWS::
++
+Follow the instructions in xref:deployment:aws-ecr.adoc[Amazon Elastic Container Registry] to deploy Docker images on AWS's container registry.
 
-Create a Docker repository and authenticate Docker.
+=== Additional steps for Docker and AWS
 
-==== *Docker image for AWS*
-
-If you are using AWS, follow the procedure as described in xref:deployment:aws-ecr.adoc[Amazon Elastic Container Registry].
+If you are using AWS, you will also need to complete the following procedures.
 
 The [.group-scala]#`build.sbt and project/plugins.sbt`# [.group-java]#`pom.xml`# contains build plugin settings for building a Docker image.
 
@@ -219,8 +221,6 @@ include::partial$build-docker-for-kube.adoc[]
 
 include::deployment:partial$git-init.adoc[]
 
-==== *Docker image for GCP*
-If you are using GCP, follow the instructions in https://cloud.google.com/container-registry/docs/using-with-google-cloud-platform[Using Container Registry with Google Cloud {tab-icon}, window="tab"] to deploy Docker images on GCP's container registry.
 
 === Update the deployment descriptor
 
