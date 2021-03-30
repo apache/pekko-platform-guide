@@ -83,7 +83,7 @@ You can retrieve the public address with:
 
 [source,shell script]
 ----
-kubectl get ingress shopping-order-service-grpc-ingress
+kubectl get ingress shopping-order-service-grpc-ingress --namespace=shopping
 ----
 
 To access the public endpoint with grpcurl you use the public address from above, with port 443:
