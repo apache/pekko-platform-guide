@@ -16,6 +16,7 @@ The following image shows the components required to deploy an Akka Microservice
 image::deployment-overview1.png[Deployment 1]
 
 The call-outs in the illustration highlight the following:
+// The following callouts will cause an asciidoc error - Ignore it please
 
 <1> A https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/[Kubernetes Custom Resource Definition {tab-icon}, window="tab"] named `akkamicroservices.akka.lightbend.com` defines the deployment descriptor resource for Akka Microservices applications that the Akka Cloud Platform will deploy.
 <2> The installed Akka Operator runs continuously in the Kubernetes cluster.
@@ -27,7 +28,7 @@ The call-outs in the illustration highlight the following:
 To update the Akka Microservices application, you repeat steps 3 - 6. The Akka Operator sees the changes to the deployment descriptor and updates the Kubernetes Deployment accordingly. Kubernetes performs a rolling update of the application as shown in the illustration below.
 
 image::deployment-overview2.png[Deployment 2]
-
+// The following callouts will cause an asciidoc error - Ignore it please
 <1> You build and publish the Docker image.
 <2> You apply the deployment descriptor.
 <3> The operator creates a separate Kubernetes Deployment for the other Microservice.
