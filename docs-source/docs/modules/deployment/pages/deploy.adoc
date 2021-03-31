@@ -31,7 +31,12 @@ Update the deployment descriptor in `kubernetes/shopping-cart-service-cr.yml` of
 include::microservices-tutorial:example$01-shopping-cart-service-scala/kubernetes/shopping-cart-service-cr.yml[]
 ----
 
-<1> Replace `<docker-registry>` with your docker registry address and update the image reference with the image tag you just created. The specific value and syntax of the `<docker-registry>` can vary depending on the registry you used. the most popular registries include https://hub.docker.com/[DockerHub] and https://quay.io/[Quay.io] but you are probably publishing your images to AWS's xref:aws-ecr.adoc[ECR] or the Container Registry in GCP. If you published to AWS's ECR, the final value of the `image:` property will look similar to: `803424716218.dkr.ecr.eu-central-1.amazonaws.com/shopping-cart-service:20201209-135004-363ae2b`.  If you are using the container registry in GCP, the `image:` property will be similar to `eu.gcr.io/earthly-project-41643/shopping-cart-service:20201209-135004-363ae2b`.
+<1> Replace `<docker-registry>` with your docker registry address and update the image reference with the image tag you just created. The specific value and syntax of the `<docker-registry>` can vary depending on the registry you used. the most popular registries include https://hub.docker.com/[DockerHub {tab-icon}, window="tab] and https://quay.io/[Quay.io {tab-icon}, window="tab] but you are probably publishing your images to AWS's xref:aws-ecr.adoc[ECR] or the Container Registry in GCP. +
+ +
+If you published to AWS's ECR, the final value of the `image:` property will look similar to: `803424716218.dkr.ecr.eu-central-1.amazonaws.com/shopping-cart-service:20201209-135004-363ae2b`. +
+ +
+If you are using the container registry in GCP, the `image:` property will be similar to `eu.gcr.io/earthly-project-41643/shopping-cart-service:20201209-135004-363ae2b`.
+
 
 == Apply to Kubernetes
 
