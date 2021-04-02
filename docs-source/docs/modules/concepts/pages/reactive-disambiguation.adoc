@@ -7,12 +7,12 @@ include::partial$include.adoc[]
 
 Introduced in 2013, the Reactive Manifesto summarizes the properties a system must fulfill to be considered reactive. The following are the four aspects all reactive systems must fulfill:
 
-* *Responsive*: The system responds in a timely manner if at all possible.
-* *Resilient*: The system stays responsive in the face of failure.
-* *Elastic*: The system stays responsive under varying workload.
-* *Message Driven*: Reactive Systems rely on asynchronous message-passing to establish a boundary between components that ensures loose coupling, isolation and location transparency.
+* *Responsive* — The system responds in a timely manner if at all possible.
+* *Resilient* — The system stays responsive in the face of failure.
+* *Elastic* — The system stays responsive under varying workload.
+* *Message Driven* — Reactive Systems rely on asynchronous message-passing to establish a boundary between components that ensures loose coupling, isolation and location transparency.
 
-Read the whole manifesto at {reactive-manifesto}[https://www.reactivemanifesto.org/ {tab-icon}, window="tab"].
+You can read the whole manifesto on {reactive-manifesto}[ReactiveManifesto.org {tab-icon}, window="tab"].
 
 [#reactive_principles]
 == Reactive Principles (and Patterns)
@@ -32,8 +32,7 @@ The eight foundational principles of implementing a distributed system that make
 . Decouple Space
 . Handle Dynamics
 
-
-Read all the details (and the patterns) at {reactive-principles}[https://principles.reactive.foundation {tab-icon}, window="tab"].
+Read all the details (and the patterns) at the {reactive-principles}[Reactive Foundation {tab-icon}, window="tab"].
 
 == Reactive Systems
 
@@ -43,7 +42,9 @@ A System is a building block of an application, and a Reactive System is one tha
 
 == Reactive Programming
 
-[quote,'Jonas Bonér and Viktor Klang' ,'https://info.lightbend.com/reactive-programming-versus-reactive-systems.html[Reactive Programming vs Reactive Systems]']
+[quote, 'https://info.lightbend.com/reactive-programming-versus-reactive-systems.html[Reactive Programming vs Reactive Systems {tab-icon}, window="tab"]' , 'Jonas Bonér and Viktor Klang' ,']
+
+
 ____
 Reactive Programming, [...] is a subset of Asynchronous Programming and a paradigm where the availability of new information drives the logic forward rather than having control flow driven by a thread-of-execution.
 
@@ -52,7 +53,7 @@ ____
 
 == Reactive Streams
 
-[quote,'','{reactive-streams}']
+[quote,'{reactive-streams}[Reactive Streams {tab-icon}, window="tab"]','']
 Reactive Streams is an initiative to provide a standard for asynchronous stream processing with non-blocking back pressure. This encompasses efforts aimed at runtime environments (JVM and JavaScript) as well as network protocols.
 
 == Learn more

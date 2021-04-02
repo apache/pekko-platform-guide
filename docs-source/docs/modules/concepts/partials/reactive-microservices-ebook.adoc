@@ -2,4 +2,4 @@
 
 include::partial$include.adoc[]
 
-NOTE: This is an excerpt from the {reactive-microservices-ebook}[ebook *"Reactive Microservices Architecture: Design Principles For Distributed Systems"* _Jonas Bonér, Co-Founder & CTO, Lightbend, Inc_].
+NOTE: The following is an excerpt from {reactive-microservices-ebook}[*Reactive Microservices Architecture: Design Principles For Distributed Systems* — By Jonas Bonér {tab-icon}, window="tab"].

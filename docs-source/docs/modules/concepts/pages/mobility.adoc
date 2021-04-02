@@ -2,6 +2,7 @@
 
 
 include::partial$include.adoc[]
+include::partial$reactive-microservices-ebook.adoc[]
 
 
 With the advent of cloud computing, virtualization, and Docker containers, we have a lot of power at our disposal to efficiently manage hardware resources. The problem is that none of this matters if our Microservices and its underlying platform cannot make efficient use of it. What we need are services that are mobile, allowing them to be elastic.
@@ -21,8 +22,6 @@ Second, an address needs to be virtual in the sense that it can, and often does,
 - _Relocation of a stateful service_: It can be beneficial to move a service instance from one location to another in order to improve locality of reference21 or resource efficiency.
 
 Using virtual addresses means that the client can stay oblivious to all of these low-level runtime concerns—it communicates with a service through an address and does not have to care about how and where the service is currently configured to operate.
-
-include::partial$reactive-microservices-ebook.adoc[]
 
 == Learn more
 
