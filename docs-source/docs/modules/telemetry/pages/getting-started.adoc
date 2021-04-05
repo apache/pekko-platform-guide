@@ -5,11 +5,11 @@ include::ROOT:partial$include.adoc[]
 
 == Lightbend Account & Credentials
 
-ifdef::todo[TODO: Support has a signup process that will get AWS customers Lightbend credentials to download commercial dependencies.]
+Use of lightbend Telemetry requires an account and credentials. Account options are described on the opening page of this xref::ROOT:index.adoc[].
 
 == Set up Cinnamon Agent
 
-To get started, you should configure {cinnamon-docs}/setup/setup.html[your build] to use the Cinnamon Agent for one of the following build systems: {cinnamon-docs}/setup/cinnamon-agent-sbt.html[sbt], {cinnamon-docs}/setup/cinnamon-agent-maven.html[Maven], or {cinnamon-docs}/setup/cinnamon-agent-gradle.html[Gradle].
+To get started, you should configure {cinnamon-docs}/setup/setup.html[your build {tab-icon}, window="tab"] to use the Cinnamon Agent for one of the following build systems: {cinnamon-docs}/setup/cinnamon-agent-sbt.html[SBT {tab-icon}, window="tab"], {cinnamon-docs}/setup/cinnamon-agent-maven.html[Maven {tab-icon}, window="tab"], or {cinnamon-docs}/setup/cinnamon-agent-gradle.html[Gradle {tab-icon}, window="tab"].
 
 === Maven build changes
 
@@ -17,7 +17,9 @@ To automatically pull down the agent as part of your build, you add the followin
 
 ifdef::todo[TODO: Externalize pom.xml configuration to a sample application?]
 
-```xml
+[source]
+----
+xml
 <plugin>
   <groupId>org.apache.maven.plugins</groupId>
   <artifactId>maven-dependency-plugin</artifactId>
@@ -43,11 +45,12 @@ ifdef::todo[TODO: Externalize pom.xml configuration to a sample application?]
     </execution>
   </executions>
 </plugin>
-```
+----
 
-Next, the agent needs to be added as a java command-line option, for example, here is how to add it for the `exec:exec` task:
+Next, the agent needs to be added as a java command-line option. The following is an example of how to add the agent for the `exec:exec` task:
 
-```xml
+[source,xml]
+----
 <plugin>
   <groupId>org.codehaus.mojo</groupId>
   <artifactId>exec-maven-plugin</artifactId>
@@ -62,15 +65,16 @@ Next, the agent needs to be added as a java command-line option, for example, he
     </arguments>
   </configuration>
 </plugin>
-```
+----
 
-See full details and a complete sample {cinnamon-docs}/setup/cinnamon-agent-maven.html[here].
+The {cinnamon-docs}/setup/cinnamon-agent-maven.html[Full Telemetry Documentation {tab-icon}, window="tab"] contains full details and a complete sample.
 
 == Instrumenting your application
 
-Lightbend Telemetry can capture data for {akka-http}/introduction.html[Akka HTTP and Akka gRPC] related features. After adding the Cinnamon Agent as described above, make sure that you add the Cinnamon Akka HTTP module dependency to your build file:
+Lightbend Telemetry can capture data for {akka-http}/introduction.html[Akka HTTP and Akka gRPC {tab-icon}, window="tab"] related features. After adding the Cinnamon Agent as described above, make sure that you add the Cinnamon Akka HTTP module dependency to your build file:
 
-```xml
+[source,xml]
+----
 <!-- Use Akka HTTP instrumentation -->
 <dependency>
   <groupId>com.lightbend.cinnamon</groupId>
@@ -83,15 +87,16 @@ Lightbend Telemetry can capture data for {akka-http}/introduction.html[Akka HTTP
   <artifactId>cinnamon-akka-grpc_2.12</artifactId>
   <version>2.16.0-SNAPSHOT</version>
 </dependency>
-```
+----
 
 == Telemetry Configuration
 
-A {cinnamon-docs}/instrumentations/akka-http/akka-http-configuration.html#example-configurations[simple configuration] for your Akka HTTP server would be the one that matches all paths, hosts and ports:
+A {cinnamon-docs}/instrumentations/akka-http/akka-http-configuration.html#example-configurations[simple configuration {tab-icon}, window="tab"] for your Akka HTTP server will match all paths, hosts and ports:
 
 ifdef::todo[TODO: Externalize configuration snippets to a sample application?]
 
-```conf
+[source,conf]
+----
 cinnamon.akka.http.servers {
   "*:*" {
     paths {
@@ -101,11 +106,12 @@ cinnamon.akka.http.servers {
     }
   }
 }
-```
+----
 
 A similar configuration can be done for the client:
 
-```conf
+[source,conf]
+----
 cinnamon.akka.http.clients {
   "*:*" {
     paths {
@@ -115,4 +121,4 @@ cinnamon.akka.http.clients {
     }
   }
 }
-```
+----

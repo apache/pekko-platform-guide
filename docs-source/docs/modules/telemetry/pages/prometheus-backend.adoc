@@ -3,11 +3,12 @@
 
 include::ROOT:partial$include.adoc[]
 
-Lightbend Telemetry can report metrics to https://prometheus.io/[Prometheus] using a backend plugin integrated with the https://github.com/prometheus/client_java[Prometheus JVM client].
+Lightbend Telemetry can report metrics to https://prometheus.io/[Prometheus {tab-icon}, window="tab"] using a backend plugin integrated with the https://github.com/prometheus/client_java[Prometheus JVM client {tab-icon}, window="tab"].
 
-Here is the core Cinnamon Prometheus dependency you need to add to your `pom.xml` together with the {cinnamon-docs}/plugins/prometheus/prometheus.html#http-server[HTTP server exporter]:
+The following is the core Cinnamon Prometheus dependency that you will need to add to your `pom.xml`, together with the {cinnamon-docs}/plugins/prometheus/prometheus.html#http-server[HTTP server exporter {tab-icon}, window="tab"]:
 
-```xml
+[source,xml]
+----
 <!-- Cinnamon Prometheus core dependency -->
 <dependency>
     <groupId>com.lightbend.cinnamon</groupId>
@@ -20,18 +21,18 @@ Here is the core Cinnamon Prometheus dependency you need to add to your `pom.xml
     <artifactId>cinnamon-prometheus-httpserver</artifactId>
     <version>2.15.0</version>
 </dependency>
-```
+----
 
-After that, enable the HTTP server exporter using the following configuration:
+After you have made that alteration, enable the HTTP server exporter using the following configuration:
 
-```conf
+[source,conf]
+----
 cinnamon.prometheus {
   exporters += http-server
 }
-```
+----
 
-Prometheus metrics will now be available at the configured server location. Using the defaults, this is at http://localhost:9001/metrics.
+Metrics from Prometheus will now be available at the configured server location. If you are using the defaults, the location is http://localhost:9001/metrics.
 
-See {cinnamon-docs}/plugins/prometheus/prometheus.html[our docs for more details and reference configuration].
+See the {cinnamon-docs}/plugins/prometheus/prometheus.html[Full Telemetry documentation  {tab-icon}, window="tab"] for  details and references regarding Prometheus configuration.
 
-ifdef::todo[TODO: Support has a signup process that will get AWS customers Lightbend credentials to download commercial dependencies.]
