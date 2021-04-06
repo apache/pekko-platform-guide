@@ -3,13 +3,14 @@
 
 include::ROOT:partial$include.adoc[]
 
+:sectnums:
 == Lightbend Account & Credentials
 
-Use of lightbend Telemetry requires an account and credentials. Account options are described on the opening page of this xref::ROOT:index.adoc[].
+Use of lightbend Telemetry requires an account and credentials. Account options are described on the opening page of this xref:ROOT:index.adoc[].
 
 == Set up Cinnamon Agent
 
-To get started, you should configure {cinnamon-docs}/setup/setup.html[your build {tab-icon}, window="tab"] to use the Cinnamon Agent for one of the following build systems: {cinnamon-docs}/setup/cinnamon-agent-sbt.html[SBT {tab-icon}, window="tab"], {cinnamon-docs}/setup/cinnamon-agent-maven.html[Maven {tab-icon}, window="tab"], or {cinnamon-docs}/setup/cinnamon-agent-gradle.html[Gradle {tab-icon}, window="tab"].
+To get started, you should configure {cinnamon-docs}/setup/setup.html[your build {tab-icon}, window="tab"] to use the Cinnamon Agent for one of the following build systems: {cinnamon-docs}/setup/cinnamon-agent-sbt.html[sbt {tab-icon}, window="tab"], {cinnamon-docs}/setup/cinnamon-agent-maven.html[Maven {tab-icon}, window="tab"], or {cinnamon-docs}/setup/cinnamon-agent-gradle.html[Gradle {tab-icon}, window="tab"].
 
 === Maven build changes
 
@@ -17,9 +18,9 @@ To automatically pull down the agent as part of your build, you add the followin
 
 ifdef::todo[TODO: Externalize pom.xml configuration to a sample application?]
 
-[source]
+.pom.xml:
+[source,xml,indent=0]
 ----
-xml
 <plugin>
   <groupId>org.apache.maven.plugins</groupId>
   <artifactId>maven-dependency-plugin</artifactId>
@@ -49,6 +50,7 @@ xml
 
 Next, the agent needs to be added as a java command-line option. The following is an example of how to add the agent for the `exec:exec` task:
 
+.pom.xml
 [source,xml]
 ----
 <plugin>
@@ -73,13 +75,14 @@ The {cinnamon-docs}/setup/cinnamon-agent-maven.html[Full Telemetry Documentation
 
 Lightbend Telemetry can capture data for {akka-http}/introduction.html[Akka HTTP and Akka gRPC {tab-icon}, window="tab"] related features. After adding the Cinnamon Agent as described above, make sure that you add the Cinnamon Akka HTTP module dependency to your build file:
 
+.pom.xml
 [source,xml]
 ----
 <!-- Use Akka HTTP instrumentation -->
 <dependency>
   <groupId>com.lightbend.cinnamon</groupId>
   <artifactId>cinnamon-akka-http_2.12</artifactId>
-  <version>2.16.0-SNAPSHOT</version>
+  <version>2.15.0</version>
 </dependency>
 <!-- Use Akka gRPC instrumentation -->
 <dependency>
@@ -95,7 +98,8 @@ A {cinnamon-docs}/instrumentations/akka-http/akka-http-configuration.html#exampl
 
 ifdef::todo[TODO: Externalize configuration snippets to a sample application?]
 
-[source,conf]
+.src/main/resources/telemetry.conf
+[source,hocon]
 ----
 cinnamon.akka.http.servers {
   "*:*" {
@@ -110,7 +114,8 @@ cinnamon.akka.http.servers {
 
 A similar configuration can be done for the client:
 
-[source,conf]
+.src/main/resources/telemetry.conf
+[source,hocon]
 ----
 cinnamon.akka.http.clients {
   "*:*" {
@@ -122,3 +127,5 @@ cinnamon.akka.http.clients {
   }
 }
 ----
+
+:!sectnums:

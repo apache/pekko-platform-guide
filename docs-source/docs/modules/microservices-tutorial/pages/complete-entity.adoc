@@ -420,15 +420,29 @@ Create a xref:deployment:aws-install.adoc[Kubernetes cluster and install the Akk
 
 === Create a PostgresSQL database
 
-Make sure you have created your database and loaded the schema as decribed in the previous step.
+Make sure you have created your database and loaded the schema as described in the previous tutorial section.
 
 === Build Docker image
 
-Create a Docker repository and authenticate Docker as described in xref:deployment:aws-ecr.adoc[Amazon Elastic Container Registry] if you haven't already.
+Create a Docker repository and authenticate Docker.
+
+[.tabset]
+GCP::
++
+Follow the instructions in https://cloud.google.com/container-registry/docs/using-with-google-cloud-platform[Using Container Registry with Google Cloud {tab-icon}, window="tab"] to deploy Docker images on GCP's container registry.
+
+AWS::
++
+Follow the instructions in xref:deployment:aws-ecr.adoc[Amazon Elastic Container Registry] to deploy Docker images on AWS's container registry.
+
+=== Additional steps for Docker and AWS
+
+If you are using AWS, you will also need to complete the following procedures.
 
 Rebuild the Docker image.
 
 include::partial$build-docker-for-kube.adoc[]
+
 
 === Update the deployment descriptor
 
