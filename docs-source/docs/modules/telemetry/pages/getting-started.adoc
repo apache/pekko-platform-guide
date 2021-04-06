@@ -1,5 +1,6 @@
 = Getting started
 :page-toclevels: 3
+:page-supergroup-java-scala: Language
 
 include::ROOT:partial$include.adoc[]
 
@@ -22,104 +23,119 @@ Once you have a subscription, visit https://www.lightbend.com/account/lightbend-
 
 To get started, you should configure {cinnamon-docs}/setup/setup.html[your build {tab-icon}, window="tab"] to use the Cinnamon Agent for one of the following build systems: {cinnamon-docs}/setup/cinnamon-agent-sbt.html[sbt {tab-icon}, window="tab"], {cinnamon-docs}/setup/cinnamon-agent-maven.html[Maven {tab-icon}, window="tab"], or {cinnamon-docs}/setup/cinnamon-agent-gradle.html[Gradle {tab-icon}, window="tab"].
 
-=== Maven build changes
+=== Commercial Repositories
 
-To automatically pull down the agent as part of your build, you add the following plugin to download as part of the `package` task.
+Here we assume that you have the repositories configured as environment variables that can be read by your build tool:
 
-ifdef::todo[TODO: Externalize pom.xml configuration to a sample application?]
+[source,shell script]
+----
+export LIGHTBEND_COMMERCIAL_MVN=https://repo.lightbend.com/...
+export LIGHTBEND_COMMERCIAL_IVY=https://repo.lightbend.com/...
+----
 
-.pom.xml:
+These values will be later read by your build tool.
+
+[.tabset]
+Java::
++
+.pom.xml
 [source,xml,indent=0]
 ----
-<plugin>
-  <groupId>org.apache.maven.plugins</groupId>
-  <artifactId>maven-dependency-plugin</artifactId>
-  <version>3.1.1</version>
-  <executions>
-    <execution>
-      <id>copy</id>
-      <phase>compile</phase>
-      <goals>
-        <goal>copy</goal>
-      </goals>
-      <configuration>
-        <artifactItems>
-          <artifactItem>
-            <groupId>com.lightbend.cinnamon</groupId>
-            <artifactId>cinnamon-agent</artifactId>
-            <version>2.15.0</version>
-            <overWrite>true</overWrite>
-            <destFileName>cinnamon-agent.jar</destFileName>
-          </artifactItem>
-        </artifactItems>
-      </configuration>
-    </execution>
-  </executions>
-</plugin>
+include::example$telemetry-sample/pom.xml[tag=telemetry-commercial-repository]
 ----
 
-Next, the agent needs to be added as a java command-line option. The following is an example of how to add the agent for the `exec:exec` task:
+=== Build Properties
 
+Let's define some version properties that will be reused later in multiple places of the build.
+
+[.tabset]
+Java::
++
 .pom.xml
-[source,xml]
+[source,xml,indent=0]
 ----
-<plugin>
-  <groupId>org.codehaus.mojo</groupId>
-  <artifactId>exec-maven-plugin</artifactId>
-  <version>1.6.0</version>
-  <configuration>
-    <executable>java</executable>
-    <arguments>
-      <argument>-classpath</argument>
-      <classpath/>
-      <argument>-javaagent:${project.build.directory}/dependency/cinnamon-agent.jar</argument>
-      <argument>... your other arguments here ...</argument>
-    </arguments>
-  </configuration>
-</plugin>
+include::example$telemetry-sample/pom.xml[tag=telemetry-build-properties]
 ----
 
 The {cinnamon-docs}/setup/cinnamon-agent-maven.html[Full Telemetry Documentation {tab-icon}, window="tab"] contains more details and a complete sample.
 
-== Instrumenting your application
+=== Instrumenting your application
 
 Lightbend Telemetry can capture data for {akka-http}/introduction.html[Akka HTTP and Akka gRPC {tab-icon}, window="tab"] related features. After adding the Cinnamon Agent as described above, make sure that you add the Cinnamon Akka HTTP module dependency to your build file:
 
+[.tabset]
+Java::
++
 .pom.xml
-[source,xml]
+[source,xml,indent=0]
 ----
-<!-- Use Akka HTTP instrumentation -->
-<dependency>
-  <groupId>com.lightbend.cinnamon</groupId>
-  <artifactId>cinnamon-akka-http_2.12</artifactId>
-  <version>2.15.0</version>
-</dependency>
-<!-- Use Akka gRPC instrumentation -->
-<dependency>
-  <groupId>com.lightbend.cinnamon</groupId>
-  <artifactId>cinnamon-akka-grpc_2.12</artifactId>
-  <version>2.16.0-SNAPSHOT</version>
-</dependency>
+include::example$telemetry-sample/pom.xml[tag=telemetry-dependencies]
+----
+
+The {cinnamon-docs}/instrumentations/instrumentations.html[Telemetry Documentation {tab-icon}, window="tab"] contains full list of available instrumentations.
+
+=== Run the application using Cinnamon Agent
+
+Configure your build tool to use the agent.
+
+[.tabset]
+Java::
++
+.pom.xml
+[source,xml,indent=0]
+----
+include::example$telemetry-sample/pom.xml[tag=telemetry-agent-copy]
+----
+
+Next, the agent needs to be added as a java command-line option. The following is an example of how to use the agent when running the application locally:
+
+[.tabset]
+Java::
++
+.pom.xml
+[source,xml,indent=0]
+----
+include::example$telemetry-sample/pom.xml[tag=telemetry-javaagent-run]
+----
+
+You can optionally use the agent when running tests.
+
+[.tabset]
+Java::
++
+.pom.xml
+[source,xml,indent=0]
+----
+include::example$telemetry-sample/pom.xml[tag=telemetry-javaagent-test]
+----
+
+And also to include the agent JAR file when generating Docker images.
+
+[.tabset]
+Java::
++
+.pom.xml
+[source,xml,indent=0]
+----
+include::example$telemetry-sample/pom.xml[tag=telemetry-javaagent-docker]
 ----
 
 == Telemetry Configuration
 
-A {cinnamon-docs}/instrumentations/akka-http/akka-http-configuration.html#example-configurations[simple configuration {tab-icon}, window="tab"] for your Akka HTTP server will match all paths, hosts and ports:
-
-ifdef::todo[TODO: Externalize configuration snippets to a sample application?]
+Lightbend Telemetry supports a {cinnamon-docs}/plugins/chmetrics/reporters.html#reporters[reporter {tab-icon} window="tab"] that can be used to see the metrics locally in your terminal. 
 
 .src/main/resources/telemetry.conf
 [source,hocon]
 ----
-cinnamon.akka.http.servers {
-  "*:*" {
-    paths {
-      "*" {
-        metrics = on
-      }
-    }
-  }
-}
+include::example$telemetry-sample/src/main/resources/telemetry.conf[tag=telemetry-config-console]
+----
+
+A {cinnamon-docs}/instrumentations/akka-http/akka-http-configuration.html#example-configurations[simple configuration {tab-icon}, window="tab"] for your Akka HTTP server will match all paths, hosts and ports:
+
+.src/main/resources/telemetry.conf
+[source,hocon]
+----
+include::example$telemetry-sample/src/main/resources/telemetry.conf[tag=telemetry-config-http-server]
 ----
 
 A similar configuration can be done for the client:
@@ -127,15 +143,7 @@ A similar configuration can be done for the client:
 .src/main/resources/telemetry.conf
 [source,hocon]
 ----
-cinnamon.akka.http.clients {
-  "*:*" {
-    paths {
-      "*" {
-        metrics = on
-      }
-    }
-  }
-}
+include::example$telemetry-sample/src/main/resources/telemetry.conf[tag=telemetry-config-http-client]
 ----
 
 :!sectnums:

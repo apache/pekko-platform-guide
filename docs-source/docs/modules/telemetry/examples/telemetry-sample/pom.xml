@@ -18,7 +18,7 @@
     <!-- tag::telemetry-build-properties[] -->
     <properties>
         <akka-platform.version>0.1.1</akka-platform.version>
-        <lightbend.cinnamon.version>2.15.0</lightbend.cinnamon.version>
+        <lightbend.cinnamon.version>2.16.0-20210319-d1d704b</lightbend.cinnamon.version>
         <scala.version>2.13.3</scala.version>
         <scala.binary.version>2.13</scala.binary.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -63,37 +63,16 @@
             <artifactId>cinnamon-chmetrics</artifactId>
             <version>${lightbend.cinnamon.version}</version>
         </dependency>
-        <!-- Use Akka instrumentation -->
-        <dependency>
-            <groupId>com.lightbend.cinnamon</groupId>
-            <artifactId>cinnamon-akka_${scala.binary.version}</artifactId>
-            <version>${lightbend.cinnamon.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.lightbend.cinnamon</groupId>
-            <artifactId>cinnamon-akka-typed_${scala.binary.version}</artifactId>
-            <version>${lightbend.cinnamon.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.lightbend.cinnamon</groupId>
-            <artifactId>cinnamon-akka-persistence_${scala.binary.version}</artifactId>
-            <version>${lightbend.cinnamon.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.lightbend.cinnamon</groupId>
-            <artifactId>cinnamon-akka-stream_${scala.binary.version}</artifactId>
-            <version>${lightbend.cinnamon.version}</version>
-        </dependency>
         <!-- Use Akka HTTP instrumentation -->
         <dependency>
             <groupId>com.lightbend.cinnamon</groupId>
             <artifactId>cinnamon-akka-http_${scala.binary.version}</artifactId>
             <version>${lightbend.cinnamon.version}</version>
         </dependency>
-        <!-- Use Akka Projection instrumentation -->
+        <!-- Use Akka gRPC instrumentation -->
         <dependency>
             <groupId>com.lightbend.cinnamon</groupId>
-            <artifactId>cinnamon-akka-projection_${scala.binary.version}</artifactId>
+            <artifactId>cinnamon-akka-grpc_${scala.binary.version}</artifactId>
             <version>${lightbend.cinnamon.version}</version>
         </dependency>
         <!-- end::telemetry-dependencies[] -->
@@ -131,6 +110,7 @@
             </plugin>
 
             <!-- tag::telemetry-agent-copy[] -->
+            <!-- Copy the agent to a know location that can be referenced later -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
