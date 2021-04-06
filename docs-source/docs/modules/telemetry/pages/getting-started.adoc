@@ -5,7 +5,7 @@ include::ROOT:partial$include.adoc[]
 
 == Lightbend Account & Credentials
 
-Use of lightbend Telemetry requires an account and credentials. Account options are described on the opening page of this xref::ROOT:index.adoc[].
+Use of lightbend Telemetry requires an account and credentials. Account options are described on the opening page of this xref:ROOT:index.adoc[].
 
 == Set up Cinnamon Agent
 
