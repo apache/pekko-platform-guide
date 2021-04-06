@@ -1,3 +1,4 @@
+// tag::telemetry-commercial-repository[]
 resolvers in ThisBuild ++= {
   val mvnResolver = sys.env.get("LIGHTBEND_COMMERCIAL_MVN").map { url =>
     "lightbend-commercial-mvn".at(url)
@@ -9,3 +10,4 @@ resolvers in ThisBuild ++= {
 
   (mvnResolver ++ ivyResolver).toList
 }
+// end::telemetry-commercial-repository[]

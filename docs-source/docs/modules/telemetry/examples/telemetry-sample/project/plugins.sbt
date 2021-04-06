@@ -1,6 +1,6 @@
 // tag::telemetry-sbt-plugin[]
 // The Cinnamon Telemetry plugin
-addSbtPlugin("com.lightbend.cinnamon" % "sbt-cinnamon" % "2.15.0")
+addSbtPlugin("com.lightbend.cinnamon" % "sbt-cinnamon" % "2.16.0-20210319-d1d704b")
 // end::telemetry-sbt-plugin[]
 
 // tag::telemetry-javaagent-docker[]

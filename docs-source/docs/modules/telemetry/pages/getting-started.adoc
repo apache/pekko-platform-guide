@@ -44,6 +44,14 @@ Java::
 include::example$telemetry-sample/pom.xml[tag=telemetry-commercial-repository]
 ----
 
+Scala::
++
+.credentials.sbt
+[source,scala,indent=0]
+----
+include::example$telemetry-sample/credentials.sbt[tag=telemetry-commercial-repository]
+----
+
 === Build Properties
 
 Let's define some version properties that will be reused later in multiple places of the build.
@@ -55,6 +63,16 @@ Java::
 [source,xml,indent=0]
 ----
 include::example$telemetry-sample/pom.xml[tag=telemetry-build-properties]
+----
++
+TIP: You don't need all these properties and can skip or change some of them to match your project's needs. For example, you can change `maven.compiler.source` and `maven.compiler.target` to use Java 8.
+
+Scala::
++
+.build.sbt
+[source,scala,indent=0]
+----
+include::example$telemetry-sample/build.sbt[tag=telemetry-build-properties]
 ----
 
 The {cinnamon-docs}/setup/cinnamon-agent-maven.html[Full Telemetry Documentation {tab-icon}, window="tab"] contains more details and a complete sample.
@@ -72,6 +90,14 @@ Java::
 include::example$telemetry-sample/pom.xml[tag=telemetry-dependencies]
 ----
 
+Scala::
++
+.build.sbt
+[source,scala,indent=0]
+----
+include::example$telemetry-sample/build.sbt[tag=telemetry-dependencies]
+----
+
 The {cinnamon-docs}/instrumentations/instrumentations.html[Telemetry Documentation {tab-icon}, window="tab"] contains full list of available instrumentations.
 
 === Run the application using Cinnamon Agent
@@ -87,6 +113,24 @@ Java::
 include::example$telemetry-sample/pom.xml[tag=telemetry-agent-copy]
 ----
 
+Scala::
++
+In Scala projects, you need to add Cinnamon sbt plugin instead.
++
+.project/plugins.sbt
+[source,scala,indent=0]
+----
+include::example$telemetry-sample/project/plugins.sbt[tag=telemetry-sbt-plugin]
+----
++
+And enable it in your project:
++
+.build.sbt
+[source,scala,indent=0]
+----
+include::example$telemetry-sample/build.sbt[tag=telemetry-sbt-plugin]
+----
+
 Next, the agent needs to be added as a java command-line option. The following is an example of how to use the agent when running the application locally:
 
 [.tabset]
@@ -96,6 +140,14 @@ Java::
 [source,xml,indent=0]
 ----
 include::example$telemetry-sample/pom.xml[tag=telemetry-javaagent-run]
+----
+
+Scala::
++
+.build.sbt
+[source,scala,indent=0]
+----
+include::example$telemetry-sample/build.sbt[tag=telemetry-javaagent-run]
 ----
 
 You can optionally use the agent when running tests.
@@ -109,6 +161,14 @@ Java::
 include::example$telemetry-sample/pom.xml[tag=telemetry-javaagent-test]
 ----
 
+Scala::
++
+.build.sbt
+[source,scala,indent=0]
+----
+include::example$telemetry-sample/build.sbt[tag=telemetry-javaagent-test]
+----
+
 And also to include the agent JAR file when generating Docker images.
 
 [.tabset]
@@ -118,6 +178,24 @@ Java::
 [source,xml,indent=0]
 ----
 include::example$telemetry-sample/pom.xml[tag=telemetry-javaagent-docker]
+----
+
+Scala::
++
+First, add `sbt-native-packager` to your project:
++
+.project/plugins.sbt
+[source,scala,indent=0]
+----
+include::example$telemetry-sample/project/plugins.sbt[tag=telemetry-javaagent-docker]
+----
++
+And then configure it in your project:
++
+.project/plugins.sbt
+[source,scala,indent=0]
+----
+include::example$telemetry-sample/build.sbt[tag=telemetry-javaagent-docker]
 ----
 
 == Telemetry Configuration

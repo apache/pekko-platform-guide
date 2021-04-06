@@ -16,6 +16,14 @@ Java::
 include::example$telemetry-sample/pom.xml[tag=telemetry-prometheus-dependencies]
 ----
 
+Scala::
++
+.build.sbt
+[source,scala,indent=0]
+----
+include::example$telemetry-sample/build.sbt[tag=telemetry-prometheus-dependencies]
+----
+
 After you have made that alteration, enable the HTTP server exporter using the following configuration:
 
 .src/main/resources/telemetry.conf
