@@ -9,7 +9,7 @@ Use of lightbend Telemetry requires an account and credentials. Account options 
 
 == Set up Cinnamon Agent
 
-To get started, you should configure {cinnamon-docs}/setup/setup.html[your build {tab-icon}, window="tab"] to use the Cinnamon Agent for one of the following build systems: {cinnamon-docs}/setup/cinnamon-agent-sbt.html[SBT {tab-icon}, window="tab"], {cinnamon-docs}/setup/cinnamon-agent-maven.html[Maven {tab-icon}, window="tab"], or {cinnamon-docs}/setup/cinnamon-agent-gradle.html[Gradle {tab-icon}, window="tab"].
+To get started, you should configure {cinnamon-docs}/setup/setup.html[your build {tab-icon}, window="tab"] to use the Cinnamon Agent for one of the following build systems: {cinnamon-docs}/setup/cinnamon-agent-sbt.html[sbt {tab-icon}, window="tab"], {cinnamon-docs}/setup/cinnamon-agent-maven.html[Maven {tab-icon}, window="tab"], or {cinnamon-docs}/setup/cinnamon-agent-gradle.html[Gradle {tab-icon}, window="tab"].
 
 === Maven build changes
 
