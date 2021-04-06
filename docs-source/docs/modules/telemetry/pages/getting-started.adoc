@@ -74,6 +74,8 @@ Scala::
 ----
 include::example$telemetry-sample/build.sbt[tag=telemetry-build-properties]
 ----
++
+TIP: Lightbend Telemetry supports other versions of Akka and Scala.
 
 The {cinnamon-docs}/setup/cinnamon-agent-maven.html[Full Telemetry Documentation {tab-icon}, window="tab"] contains more details and a complete sample.
 

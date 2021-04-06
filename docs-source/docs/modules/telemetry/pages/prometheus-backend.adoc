@@ -5,7 +5,7 @@ include::ROOT:partial$include.adoc[]
 
 Lightbend Telemetry can report metrics to https://prometheus.io/[Prometheus {tab-icon}, window="tab"] using a backend plugin integrated with the https://github.com/prometheus/client_java[Prometheus JVM client {tab-icon}, window="tab"].
 
-The following is the core Cinnamon Prometheus dependency that you will need to add to your `pom.xml`, together with the {cinnamon-docs}/plugins/prometheus/prometheus.html#http-server[HTTP server exporter {tab-icon}, window="tab"]:
+The following is the core Cinnamon Prometheus dependency that you will need to add to your build tool configuration, together with the {cinnamon-docs}/plugins/prometheus/prometheus.html#http-server[HTTP server exporter {tab-icon}, window="tab"]:
 
 [.tabset]
 Java::
