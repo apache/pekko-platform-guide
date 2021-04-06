@@ -70,18 +70,17 @@ The tutorial shows how to build and run each service step by step:
 
 include::microservices-tutorial:partial$listing.adoc[]
 
+== Lightbend Telemetry
+
+Lightbend Telemetry can capture data for {akka-http}/introduction.html[Akka HTTP and Akka gRPC {tab-icon}, window="tab"] related features. For those interested in adding telemetry to their deployments we advise reviewing the xref:telemetry:index.adoc[Telemetry] section of this guide.
+
 == How to...
 
 Some development tasks arise from requirements on existing projects. The xref:how-to:index.adoc[] section contains guidance on introducing new features or architectural improvements to an existing codebase.
 
 
 
-== Lightbend Telemetry
 
-See xref:telemetry:index.adoc[] section.
 
-== Lightbend Telemetry
-
-See xref:telemetry:index.adoc[] section.
 
 **This documentation was last published: {localdate}**
