@@ -17,9 +17,9 @@ To automatically pull down the agent as part of your build, you add the followin
 
 ifdef::todo[TODO: Externalize pom.xml configuration to a sample application?]
 
-[source]
+.pom.xml:
+[source,xml,indent=0]
 ----
-xml
 <plugin>
   <groupId>org.apache.maven.plugins</groupId>
   <artifactId>maven-dependency-plugin</artifactId>
