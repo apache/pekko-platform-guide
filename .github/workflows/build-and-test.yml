@@ -4,6 +4,10 @@ on:
   push:
     branches: [ main ]
 
+env:
+  LIGHTBEND_COMMERCIAL_MVN: ${{ secrets.LIGHTBEND_COMMERCIAL_MVN }}
+  LIGHTBEND_COMMERCIAL_IVY: ${{ secrets.LIGHTBEND_COMMERCIAL_IVY }}
+
 jobs:
   copy-identical-files:
     name: Verify identical files are correct
@@ -76,6 +80,9 @@ jobs:
 
       - name: "04 Shopping cart service (Java)"
         run: scripts/mvn-test.sh docs-source/docs/modules/microservices-tutorial/examples/04-shopping-cart-service-java
+
+      - name: "Telemetry Sample (Java)"
+        run: scripts/mvn-test.sh ./docs-source/docs/modules/telemetry/examples/telemetry-sample
 
   java-compile-and-test-part2:
     name: Compile and Test Part 2 (Java)
@@ -157,6 +164,9 @@ jobs:
 
       - name: "04 Shopping cart service (Scala)"
         run: scripts/sbt-test.sh docs-source/docs/modules/microservices-tutorial/examples/04-shopping-cart-service-scala
+
+      - name: "Telemetry Sample (Scala)"
+        run: scripts/sbt-test.sh ./docs-source/docs/modules/telemetry/examples/telemetry-sample
 
   scala-compile-and-test-part2:
     name: Compile and Test Part 2 (Scala)
