@@ -95,7 +95,8 @@ A {cinnamon-docs}/instrumentations/akka-http/akka-http-configuration.html#exampl
 
 ifdef::todo[TODO: Externalize configuration snippets to a sample application?]
 
-[source,conf]
+.src/main/resources/telemetry.conf:
+[source,hocon]
 ----
 cinnamon.akka.http.servers {
   "*:*" {
