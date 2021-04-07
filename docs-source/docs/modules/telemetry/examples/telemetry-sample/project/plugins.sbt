@@ -1,3 +1,4 @@
+// TODO: replace with 2.16.0 once it's released
 // tag::telemetry-sbt-plugin[]
 // The Cinnamon Telemetry plugin
 addSbtPlugin("com.lightbend.cinnamon" % "sbt-cinnamon" % "2.16.0-20210319-d1d704b")

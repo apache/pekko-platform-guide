@@ -15,6 +15,7 @@
         </license>
     </licenses>
 
+    <!-- TODO: replace with 2.16.0 once it's released -->
     <!-- tag::telemetry-build-properties[] -->
     <properties>
         <akka-platform.version>0.1.1</akka-platform.version>

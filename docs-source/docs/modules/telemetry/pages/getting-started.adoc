@@ -4,7 +4,7 @@
 
 include::ROOT:partial$include.adoc[]
 
-Lightbend Telemetry can capture data for {akka-http}/introduction.html[Akka HTTP and Akka gRPC {tab-icon}, window="tab"] related features.
+{cinnamon-docs}/home.html[Lightbend Telemetry {tab-icon}, window="tab"] can capture data for applications using {cinnamon-docs}/instrumentations/instrumentations.html[Akka libraries and modules{tab-icon}, window="tab"], Play, and Lagom. You can see a {cinnamon-docs}/instrumentations/instrumentations.html[list of all the available metrics and instrumentations in Lightbend Telemetry documentation {tab-icon}, window="tab"].
 
 Lightbend provides two essential pieces for Monitoring your deployments; Telemetry (a.k.a. Cinnamon) and Lightbend Console. This documentation is focused solely on Telemetry. Telemetry makes it possible to gather metric, event and trace information from your applications. The information is transferred to various backends. The rest of this documentation provides an overview of Telemetry and explains how to get started, configure and run Telemetry in production.
 
@@ -12,9 +12,9 @@ Lightbend provides two essential pieces for Monitoring your deployments; Telemet
 
 == Subscriptions and credentials
 
-Use of lightbend Telemetry requires a subscription and credentials. A Lightbend subscription includes open source components that are distributed from the https://maven.apache.org/repository/[Maven Central Repository], as well as the commercial components which are distributed from a private repository. A https://www.lightbend.com/lightbend-platform-subscription[Lightbend Subscription] entitles you to use all commercial features and includes https://www.lightbend.com/lightbend-platform-subscription[support] and https://academy.lightbend.com/dashboard/[Lightbend Academy].
+Use of Lightbend Telemetry requires a subscription and credentials. A Lightbend subscription includes open source components that are distributed from the https://maven.apache.org/repository/[Maven Central Repository], as well as the commercial components which are distributed from a private repository. A https://www.lightbend.com/lightbend-platform-subscription[Lightbend Subscription] entitles you to use all commercial features and includes https://www.lightbend.com/lightbend-platform-subscription[support] and access to https://academy.lightbend.com/dashboard/[Lightbend Academy].
 
-Telemetry is also available by subscription to the Akka Cloud Platform which is via {aws-marketplace}[Amazon Web Services (AWS) {tab-icon}, window="tab"] or {gcp-marketplace}[Google Cloud Platform (GCP) {tab-icon}].
+Lightbend Telemetry is also available by subscription to the Akka Cloud Platform which is via {aws-marketplace}[Amazon Web Services (AWS) {tab-icon}, window="tab"] or {gcp-marketplace}[Google Cloud Platform (GCP) {tab-icon}].
 
 Once you have a subscription, visit https://www.lightbend.com/account/lightbend-platform/credentials[lightbend.com] and login to learn how to add credentials to your development projects.
 
@@ -81,7 +81,7 @@ The {cinnamon-docs}/setup/cinnamon-agent-maven.html[Full Telemetry Documentation
 
 === Instrumenting your application
 
-Lightbend Telemetry can capture data for {akka-http}/introduction.html[Akka HTTP and Akka gRPC {tab-icon}, window="tab"] related features. After adding the Cinnamon Agent as described above, make sure that you add the Cinnamon Akka HTTP module dependency to your build file:
+After adding the Cinnamon Agent as described above, make sure that you add the {cinnamon-docs}/instrumentations/instrumentations.html[Cinnamon instrumentations {tab-icon}, window="tab"] that are necessary for your application. In this example, we add instrumentations for Akka HTTP and Akka gRPC:
 
 [.tabset]
 Java::
@@ -202,7 +202,7 @@ include::example$telemetry-sample/build.sbt[tag=telemetry-javaagent-docker]
 
 == Telemetry Configuration
 
-Lightbend Telemetry supports a {cinnamon-docs}/plugins/chmetrics/reporters.html#reporters[reporter {tab-icon} window="tab"] that can be used to see the metrics locally in your terminal. 
+Lightbend Telemetry supports a {cinnamon-docs}/plugins/chmetrics/reporters.html#reporters[reporter {tab-icon}, window="tab"] that can be used to see the metrics locally in your terminal. 
 
 .src/main/resources/telemetry.conf
 [source,hocon]
