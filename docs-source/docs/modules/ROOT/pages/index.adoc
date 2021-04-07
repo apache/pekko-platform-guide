@@ -80,7 +80,4 @@ Some development tasks arise from requirements on existing projects. The xref:ho
 
 
 
-
-
-
 **This documentation was last published: {localdate}**
