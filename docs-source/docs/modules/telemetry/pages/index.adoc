@@ -3,7 +3,7 @@
 
 include::ROOT:partial$include.adoc[]
 
-Distributed systems are complex and have many moving parts, much of which are asynchronous and run in parallel. When building complex systems, it is best to consider design in small chunks that are composable. Instrumenting complex systems is no different. Lightbend Telemetry breaks capture down into composable parts that will provide better insight into your system. This section of the Akka Platform Guide is designed to get you started with a minimum telemetry deployment.
+Distributed systems are complex and have many moving parts, much of which are asynchronous and run in parallel. When building complex systems, it is best to consider design in small chunks that are composable. Instrumenting complex systems is no different. Lightbend Telemetry breaks down into composable parts that will provide better insight into your system. This section of the Akka Platform Guide is designed to get you started with a minimum telemetry deployment.
 
 == Lightbend Telemetry
 
