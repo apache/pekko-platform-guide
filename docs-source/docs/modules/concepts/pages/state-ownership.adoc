@@ -4,6 +4,7 @@
 :toclevels: 3
 
 include::partial$include.adoc[]
+include::partial$reactive-microservices-ebook.adoc[]
 
 
 Microservices are often stateful entities: they encapsulate state and behavior, in similar fashion to an Object or an Actor, and isolation most certainly applies to state and requires that you treat state and behavior as a single unit.
@@ -14,5 +15,3 @@ What is needed is that each Microservice take sole responsibility for their own 
 
 When communicating with another Microservice, across Bounded Contexts, you can only ask politely for its state—you can’t force it to reveal it. Each service responds to a request at its own will, with immutable data (facts) derived from its current state, and never exposes its mutable state directly.
 
-
-include::partial$reactive-microservices-ebook.adoc[]

@@ -195,6 +195,7 @@ To delete the service account, run the following:
 ----
 eksctl delete iamserviceaccount  \
     --name akka-operator \
+    --namespace lightbend \
     --cluster eks-akka-demo \
     --region eu-central-1
 ----
