@@ -15,10 +15,13 @@
         </license>
     </licenses>
 
-    <!-- TODO: replace with 2.16.0 once it's released -->
+    <!--
+        TODO: Remove `lightbend.cinnamon.version` after releasing 2.16.0 and
+        updating it on akka-platform-dependencies
+    -->
     <!-- tag::telemetry-build-properties[] -->
     <properties>
-        <akka-platform.version>0.1.1</akka-platform.version>
+        <akka-platform.version>0.1.4</akka-platform.version>
         <lightbend.cinnamon.version>2.16.0-20210319-d1d704b</lightbend.cinnamon.version>
         <scala.version>2.13.3</scala.version>
         <scala.binary.version>2.13</scala.binary.version>
