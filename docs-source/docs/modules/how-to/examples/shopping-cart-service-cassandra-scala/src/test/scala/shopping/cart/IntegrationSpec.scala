@@ -7,6 +7,7 @@ import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 import scala.concurrent.duration._
 
+import akka.actor.CoordinatedShutdown
 import akka.actor.testkit.typed.scaladsl.ActorTestKit
 import akka.actor.typed.ActorSystem
 import akka.cluster.MemberStatus
@@ -17,7 +18,7 @@ import akka.kafka.Subscriptions
 import akka.kafka.scaladsl.Consumer
 import akka.persistence.testkit.scaladsl.PersistenceInit
 import akka.testkit.SocketUtil
-import com.google.protobuf.any.{ Any => ScalaPBAny }
+import com.google.protobuf.any.{Any => ScalaPBAny}
 import com.typesafe.config.Config
 import com.typesafe.config.ConfigFactory
 import org.apache.kafka.common.serialization.ByteArrayDeserializer
@@ -132,8 +133,14 @@ object IntegrationSpec {
       GrpcClientSettings
         .connectToServiceAt("127.0.0.1", grpcPort)(testKit.system)
         .withTls(false)
-    lazy val client: proto.ShoppingCartService =
+    lazy val client: proto.ShoppingCartServiceClient =
       proto.ShoppingCartServiceClient(clientSettings)(testKit.system)
+
+    CoordinatedShutdown
+      .get(system)
+      .addTask(
+        CoordinatedShutdown.PhaseBeforeServiceUnbind,
+        "close-test-client-for-grpc")(() => client.close());
 
   }
 }
