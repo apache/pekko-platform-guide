@@ -1,5 +1,6 @@
 package shopping.cart;
 
+import akka.actor.CoordinatedShutdown;
 import akka.actor.typed.ActorSystem;
 import akka.actor.typed.javadsl.Behaviors;
 // tag::SendOrderProjection[]
@@ -73,7 +74,14 @@ public class Main {
                 system)
             .withTls(false);
 
-    return ShoppingOrderServiceClient.create(orderServiceClientSettings, system);
+    ShoppingOrderServiceClient client = ShoppingOrderServiceClient.create(orderServiceClientSettings, system);
+    CoordinatedShutdown.get(system)
+        .addTask(
+            CoordinatedShutdown.PhaseBeforeServiceUnbind(),
+            "close-test-client-for-grpc",
+            () -> client.close());
+
+    return client;
   }
   // end::SendOrderProjection[]
 
