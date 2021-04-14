@@ -4,6 +4,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import akka.actor.CoordinatedShutdown;
 import akka.actor.testkit.typed.javadsl.ActorTestKit;
 import akka.actor.testkit.typed.javadsl.TestProbe;
 import akka.actor.typed.ActorSystem;
@@ -23,7 +24,6 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
 import org.apache.kafka.common.serialization.ByteArrayDeserializer;
@@ -38,9 +38,6 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import scala.jdk.CollectionConverters;
 import shopping.cart.proto.*;
 import shopping.cart.repository.SpringIntegration;
-import shopping.order.proto.OrderRequest;
-import shopping.order.proto.OrderResponse;
-import shopping.order.proto.ShoppingOrderService;
 
 public class IntegrationTest {
 
@@ -77,7 +74,7 @@ public class IntegrationTest {
     private final ActorTestKit testKit;
     private final ActorSystem<?> system;
     private final GrpcClientSettings clientSettings;
-    private shopping.cart.proto.ShoppingCartService client = null;
+    private shopping.cart.proto.ShoppingCartServiceClient client = null;
 
     public TestNodeFixture(int grcpPort, List<Integer> managementPorts, int managementPortIndex) {
       testKit =
@@ -93,6 +90,11 @@ public class IntegrationTest {
     public shopping.cart.proto.ShoppingCartService getClient() {
       if (client == null) {
         client = shopping.cart.proto.ShoppingCartServiceClient.create(clientSettings, system);
+        CoordinatedShutdown.get(system)
+            .addTask(
+                CoordinatedShutdown.PhaseBeforeServiceUnbind(),
+                "close-test-client-for-grpc",
+                () -> client.close());
       }
       return client;
     }
@@ -144,13 +146,10 @@ public class IntegrationTest {
   private static TestNodeFixture testNode3;
   private static List<ActorSystem<?>> systems;
   private static TestProbe<Object> kafkaTopicProbe;
-  private static TestProbe<OrderRequest> orderServiceProbe;
-  private static ShoppingOrderService testOrderService;
   private static final Duration requestTimeout = Duration.ofSeconds(10);
 
   @BeforeClass
   public static void setup() throws Exception {
-
     List<InetSocketAddress> inetSocketAddresses =
         CollectionConverters.SeqHasAsJava(
                 SocketUtil.temporaryServerAddresses(6, "127.0.0.1", false))
@@ -174,21 +173,10 @@ public class IntegrationTest {
     CreateTableTestUtils.createTables(transactionManager, testNode1.system);
 
     kafkaTopicProbe = testNode1.testKit.createTestProbe();
-    orderServiceProbe = testNode1.testKit.createTestProbe();
-    // stub of the ShoppingOrderService
-    testOrderService =
-        new ShoppingOrderService() {
-          @Override
-          public CompletionStage<OrderResponse> order(OrderRequest in) {
-            orderServiceProbe.getRef().tell(in);
-            return CompletableFuture.completedFuture(
-                OrderResponse.newBuilder().setOk(true).build());
-          }
-        };
 
-    Main.init(testNode1.testKit.system(), testOrderService);
-    Main.init(testNode2.testKit.system(), testOrderService);
-    Main.init(testNode3.testKit.system(), testOrderService);
+    Main.init(testNode1.testKit.system());
+    Main.init(testNode2.testKit.system());
+    Main.init(testNode3.testKit.system());
 
     // wait for all nodes to have joined the cluster, become up and see all other nodes as up
     TestProbe<Object> upProbe = testNode1.testKit.createTestProbe();
@@ -308,11 +296,6 @@ public class IntegrationTest {
         testNode2.getClient().checkout(CheckoutRequest.newBuilder().setCartId("cart-2").build());
     Cart cart4 = response4.toCompletableFuture().get(requestTimeout.getSeconds(), SECONDS);
     assertTrue(cart4.getCheckedOut());
-
-    OrderRequest orderRequest = orderServiceProbe.expectMessageClass(OrderRequest.class);
-    assertEquals("cart-2", orderRequest.getCartId());
-    assertEquals("bar", orderRequest.getItems(0).getItemId());
-    assertEquals(18, orderRequest.getItems(0).getQuantity());
 
     CheckedOut published4 = kafkaTopicProbe.expectMessageClass(CheckedOut.class);
     assertEquals("cart-2", published4.getCartId());
