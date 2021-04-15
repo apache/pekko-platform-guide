@@ -73,7 +73,7 @@ object Main {
       .get(system)
       .addTask(
         CoordinatedShutdown.PhaseBeforeServiceUnbind,
-        "close-test-client-for-grpc")(() => client.close());
+        "close-client-for-grpc")(() => client.close());
 
     client
   }
