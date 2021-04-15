@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory
 import scala.util.control.NonFatal
 
 import akka.actor.CoordinatedShutdown
-import shopping.order.proto.{ShoppingOrderService, ShoppingOrderServiceClient}
+import shopping.order.proto.{ ShoppingOrderService, ShoppingOrderServiceClient }
 import akka.grpc.GrpcClientSettings
 // tag::ItemPopularityProjection[]
 import akka.stream.alpakka.cassandra.scaladsl.CassandraSessionRegistry

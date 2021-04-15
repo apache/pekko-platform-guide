@@ -66,7 +66,8 @@ public class Main {
                 system)
             .withTls(false);
 
-    ShoppingOrderServiceClient client = ShoppingOrderServiceClient.create(orderServiceClientSettings, system);
+    ShoppingOrderServiceClient client =
+        ShoppingOrderServiceClient.create(orderServiceClientSettings, system);
     CoordinatedShutdown.get(system)
         .addTask(
             CoordinatedShutdown.PhaseBeforeServiceUnbind(),

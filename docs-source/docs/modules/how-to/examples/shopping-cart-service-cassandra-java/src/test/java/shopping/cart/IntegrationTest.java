@@ -1,5 +1,9 @@
 package shopping.cart;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import akka.actor.CoordinatedShutdown;
 import akka.actor.testkit.typed.javadsl.ActorTestKit;
 import akka.actor.testkit.typed.javadsl.TestProbe;
@@ -16,6 +20,14 @@ import com.google.protobuf.Any;
 import com.google.protobuf.CodedInputStream;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
+import java.net.InetSocketAddress;
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
+import java.util.stream.Collectors;
 import org.apache.kafka.common.serialization.ByteArrayDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.junit.AfterClass;
@@ -29,19 +41,6 @@ import shopping.order.proto.OrderRequest;
 import shopping.order.proto.OrderResponse;
 import shopping.order.proto.ShoppingOrderService;
 
-import java.net.InetSocketAddress;
-import java.time.Duration;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
-import java.util.stream.Collectors;
-
-import static java.util.concurrent.TimeUnit.SECONDS;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 public class IntegrationTest {
 
   private static final Logger logger = LoggerFactory.getLogger(IntegrationTest.class);
@@ -51,18 +50,18 @@ public class IntegrationTest {
 
   private static Config sharedConfig() {
     return ConfigFactory.parseString(
-        "akka.persistence.cassandra.journal.keyspace = "
-            + KEYSPACE
-            + "\n"
-            + "akka.persistence.cassandra.snapshot.keyspace = "
-            + KEYSPACE
-            + "\n"
-            + "akka.projection.cassandra.offset-store.keyspace = "
-            + KEYSPACE
-            + "\n"
-            + "shopping-cart-service.kafka.topic = \"shopping-cart-events_"
-            + UNIQUE_QUALIFIER
-            + "\"")
+            "akka.persistence.cassandra.journal.keyspace = "
+                + KEYSPACE
+                + "\n"
+                + "akka.persistence.cassandra.snapshot.keyspace = "
+                + KEYSPACE
+                + "\n"
+                + "akka.projection.cassandra.offset-store.keyspace = "
+                + KEYSPACE
+                + "\n"
+                + "shopping-cart-service.kafka.topic = \"shopping-cart-events_"
+                + UNIQUE_QUALIFIER
+                + "\"")
         .withFallback(ConfigFactory.load("integration-test.conf"));
   }
 
@@ -173,7 +172,7 @@ public class IntegrationTest {
   public static void setup() throws Exception {
     List<InetSocketAddress> inetSocketAddresses =
         CollectionConverters.SeqHasAsJava(
-            SocketUtil.temporaryServerAddresses(6, "127.0.0.1", false))
+                SocketUtil.temporaryServerAddresses(6, "127.0.0.1", false))
             .asJava();
     List<Integer> grpcPorts =
         inetSocketAddresses.subList(0, 3).stream()
