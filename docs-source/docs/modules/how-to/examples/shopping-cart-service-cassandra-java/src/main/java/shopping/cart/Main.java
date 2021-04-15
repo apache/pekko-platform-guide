@@ -1,6 +1,5 @@
 package shopping.cart;
 
-import akka.actor.CoordinatedShutdown;
 import akka.actor.typed.ActorSystem;
 import akka.actor.typed.javadsl.Behaviors;
 import akka.grpc.GrpcClientSettings;
@@ -66,14 +65,6 @@ public class Main {
                 system)
             .withTls(false);
 
-    ShoppingOrderServiceClient client =
-        ShoppingOrderServiceClient.create(orderServiceClientSettings, system);
-    CoordinatedShutdown.get(system)
-        .addTask(
-            CoordinatedShutdown.PhaseBeforeServiceUnbind(),
-            "close-client-for-grpc",
-            () -> client.close());
-
-    return client;
+    return ShoppingOrderServiceClient.create(orderServiceClientSettings, system);
   }
 }

@@ -67,15 +67,7 @@ object Main {
           system.settings.config.getString("shopping-order-service.host"),
           system.settings.config.getInt("shopping-order-service.port"))(system)
         .withTls(false)
-    val client =
-      ShoppingOrderServiceClient(orderServiceClientSettings)(system)
-    CoordinatedShutdown
-      .get(system)
-      .addTask(
-        CoordinatedShutdown.PhaseBeforeServiceUnbind,
-        "close-client-for-grpc")(() => client.close());
-
-    client
+    ShoppingOrderServiceClient(orderServiceClientSettings)(system)
   }
   // end::SendOrderProjection[]
 
