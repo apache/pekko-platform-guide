@@ -6,6 +6,7 @@ import akka.management.cluster.bootstrap.ClusterBootstrap
 import akka.management.scaladsl.AkkaManagement
 import org.slf4j.LoggerFactory
 import scala.util.control.NonFatal
+
 import shopping.order.proto.{ ShoppingOrderService, ShoppingOrderServiceClient }
 import akka.grpc.GrpcClientSettings
 // tag::ItemPopularityProjection[]
@@ -73,9 +74,7 @@ object Main {
           system.settings.config.getString("shopping-order-service.host"),
           system.settings.config.getInt("shopping-order-service.port"))(system)
         .withTls(false)
-    val orderServiceClient =
-      ShoppingOrderServiceClient(orderServiceClientSettings)(system)
-    orderServiceClient
+    ShoppingOrderServiceClient(orderServiceClientSettings)(system)
   }
 
 }
