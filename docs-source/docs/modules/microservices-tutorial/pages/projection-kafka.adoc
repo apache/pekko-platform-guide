@@ -269,7 +269,7 @@ mvn compile exec:exec -DAPP_CONFIG=local1.conf
 sbt -Dconfig.resource=local1.conf run
 ----
 
-. Run the new `shopping-analytics-service` with:
+. In another terminal, run the new `shopping-analytics-service` with:
 +
 [.group-java]
 [source,shell script]
@@ -289,17 +289,17 @@ sbt -Dconfig.resource=local1.conf run
 // # tag::exercise[]
 Use `https://github.com/fullstorydev/grpcurl[grpcurl]` to exercise the service:
 
-. Use `grpcurl` to add 1 pencil to a cart:
+. Start another terminal, and use `grpcurl` to add 1 pencil to a cart:
 +
 [source,shell script]
 ----
-grpcurl -d '{"cartId":"cart1", "itemId":"pencil", "quantity":1}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.AddItem
+grpcurl -d '{"cartId":"cart4", "itemId":"pencil", "quantity":1}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.AddItem
 ----
 
 . Look at the log output in the terminal of the `shopping-analytics-service`. You should see the logging from the `AddItem`, showing that the new service consumed the event from Kafka:
 +
 ----
-ItemAdded: 1 pencil to cart cart1
+ItemAdded: 1 pencil to cart cart4
 ----
 // # end::exercise[]
 

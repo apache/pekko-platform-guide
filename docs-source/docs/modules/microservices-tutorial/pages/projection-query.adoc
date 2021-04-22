@@ -396,7 +396,7 @@ Use `https://github.com/fullstorydev/grpcurl[grpcurl]` to exercise the service:
 +
 [source,shell script]
 ----
-grpcurl -d '{"cartId":"cart1", "itemId":"hoodie", "quantity":5}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.AddItem
+grpcurl -d '{"cartId":"cart3", "itemId":"hoodie", "quantity":5}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.AddItem
 ----
 
 . Check the popularity of the item:
@@ -410,7 +410,7 @@ grpcurl -d '{"itemId":"hoodie"}' -plaintext 127.0.0.1:8101 shoppingcart.Shopping
 +
 [source,shell script]
 ----
-grpcurl -d '{"cartId":"cart3", "itemId":"hoodie", "quantity":2}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.AddItem
+grpcurl -d '{"cartId":"cart5", "itemId":"hoodie", "quantity":2}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.AddItem
 ----
 
 . Check that the popularity count increased to 7:
