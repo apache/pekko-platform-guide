@@ -5,7 +5,7 @@ include::ROOT:partial$include.adoc[]
 
 Next, we will create the `ShoppingCart` Cart entity that manages the state for each shopping cart. The architectural overview shows how the entity is related to the Cart service. The Cart entity will use Event Sourcing to persist events that capture changes to the Cart's state. The entity writes events to the event journal, which we will use later to create projections:
 
-image::example-entity.png[Example entity]
+image::example-entity.svg[Example entity]
 
 For now, we'll implement the command to add items to the Cart. In the next part of the tutorial, we will expand it to handle more commands and events. On this page you will learn how to:
 

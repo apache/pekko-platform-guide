@@ -9,7 +9,7 @@ To accomplish this, we will add another Projection from the events of the `Shopp
 
 
 [caption=""]
-image::example-projection-kafka.png[Example Kafka]
+image::example-projection-kafka.svg[Example Kafka]
 
 
 This part of the xref:overview.adoc[full example] will focus on the Kafka producer in the `PublishEventsProjection` and the Kafka consumer in `ShoppingAnalyticsService`. On this page you will learn how to:

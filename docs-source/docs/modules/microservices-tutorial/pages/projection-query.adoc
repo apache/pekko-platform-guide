@@ -9,7 +9,7 @@ ifdef::review[REVIEWERS: I don't follow the logic at the end of the last sentenc
 
 
 [caption=""]
-image::example-projection-query.png[Example query]
+image::example-projection-query.svg[Example query]
 
 This piece of the xref:overview.adoc[full example] focuses on the `ItemPopularityProjection` and a query representation in the database. On this page you will learn how to:
 
