@@ -4,7 +4,7 @@ include::ROOT:partial$include.adoc[]
 
 This tutorial shows how to build the functionality for a Shopping Cart system. When complete, end users will be able to add items to a cart and checkout, creating an order. As shown in the following illustration, the system includes three services that use xref:concepts:akka-grpc.adoc[Akka gRPC] and Kafka as transport mechanisms: Cart, Order, and Analytics.
 
-image::example-overview.png[Example overview]
+image::example-overview.svg[Example overview]
 
 Each user's cart is represented by a Cart Entity. Cart state is persisted using xref:concepts:event-sourcing.adoc[Event Sourcing]: When a user updates their cart, the Entity persists events in an _Event Journal_ database. Using xref:concepts:cqrs.adoc[Command Query Responsibility Segregation] (CQRS), which separates read and write responsibility, {akka-projection}/[Akka Projections {tab-icon}, window="tab"] provide the data necessary for the Order and Analytics services.
 

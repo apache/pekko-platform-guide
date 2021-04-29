@@ -5,7 +5,7 @@ include::ROOT:partial$include.adoc[]
 
 Next, we will create the `ShoppingCart` Cart entity that manages the state for each shopping cart. The architectural overview shows how the entity is related to the Cart service. The Cart entity will use Event Sourcing to persist events that capture changes to the Cart's state. The entity writes events to the event journal, which we will use later to create projections:
 
-image::example-entity.png[Example entity]
+image::example-entity.svg[Example entity]
 
 For now, we'll implement the command to add items to the Cart. In the next part of the tutorial, we will expand it to handle more commands and events. On this page you will learn how to:
 
@@ -394,7 +394,7 @@ The returned updated cart should still contain the 3 socks.
 
 Another fun experiment is to start several instances of the service on different ports (2552, 2553) and then interact with different carts via the different gRPC servers (gRPC ports 8101, 8102, 8103). To do this, you can use the other provided configuration files:
 
-. Start a second instance with local configuration #2:
+. In a new terminal, start a second instance with local configuration #2:
 +
 [.group-scala]
 [source,shell script]
@@ -409,7 +409,7 @@ sbt -Dconfig.resource=local2.conf run
 mvn compile exec:exec -DAPP_CONFIG=local2.conf
 ----
 
-. Start a third instance wit local configuration #3:
+. Within another terminal, start a third instance with local configuration #3:
 +
 [.group-scala]
 [source,shell script]

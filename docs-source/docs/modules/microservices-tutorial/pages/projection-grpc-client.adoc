@@ -6,7 +6,7 @@ include::ROOT:partial$include.adoc[]
 To complete the example, we need a way to handle orders. We will add another Projection from the events of the `ShoppingCart` entity. We will also create a gRPC Order Service, `ShoppingOrderService`. The Projection calls the Order Service when the shopping carts are checked out. 
 
 [caption=""]
-image::example-projection-grpc-client.png[Example gRPC client]
+image::example-projection-grpc-client.svg[Example gRPC client]
 
 This part of the xref:overview.adoc[full example] focuses on the gRPC client in the `SendOrderProjection`. On this page you will learn how to:
 

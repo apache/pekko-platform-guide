@@ -7,7 +7,7 @@ On this page, we will complete the cart entity with more commands and events. Th
 
 .This part of the xref:overview.adoc[full example] will focus on the shopping cart entity.
 [caption=""]
-image::example-entity.png[Example entity]
+image::example-entity.svg[Example entity]
 
 On this page you will learn how to:
 

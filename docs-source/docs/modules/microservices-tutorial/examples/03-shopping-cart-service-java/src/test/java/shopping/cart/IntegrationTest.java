@@ -3,6 +3,7 @@ package shopping.cart;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.Assert.assertEquals;
 
+import akka.actor.CoordinatedShutdown;
 import akka.actor.testkit.typed.javadsl.ActorTestKit;
 import akka.actor.testkit.typed.javadsl.TestProbe;
 import akka.actor.typed.ActorSystem;
@@ -64,7 +65,7 @@ public class IntegrationTest {
     private final ActorTestKit testKit;
     private final ActorSystem<?> system;
     private final GrpcClientSettings clientSettings;
-    private shopping.cart.proto.ShoppingCartService client = null;
+    private shopping.cart.proto.ShoppingCartServiceClient client = null;
 
     public TestNodeFixture(int grcpPort, List<Integer> managementPorts, int managementPortIndex) {
       testKit =
@@ -80,6 +81,11 @@ public class IntegrationTest {
     public shopping.cart.proto.ShoppingCartService getClient() {
       if (client == null) {
         client = shopping.cart.proto.ShoppingCartServiceClient.create(clientSettings, system);
+        CoordinatedShutdown.get(system)
+            .addTask(
+                CoordinatedShutdown.PhaseBeforeServiceUnbind(),
+                "close-test-client-for-grpc",
+                () -> client.close());
       }
       return client;
     }
