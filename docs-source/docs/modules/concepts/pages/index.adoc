@@ -52,7 +52,7 @@ Domain-Driven Design (DDD) is a proven modelling pattern in which business and t
 
 https://www.oreilly.com/library/view/reactive-microsystems/9781491994368/ch04.html[Events-First Domain Driven Design {tab-icon}, window="tab"] has emerged as modification of DDD that makes it easier to model data dependencies and communication across the system. Events are facts, things that happen in the running system. For example, in an ordering system, the finalization of an order is an important event. During https://blog.redelastic.com/corporate-arts-crafts-modelling-reactive-systems-with-event-storming-73c6236f5dd7[Event Storming {tab-icon}, window="tab"], you would explore what leads up to that event. That might include, for example, queries about sales tax rates, selection of a shipping method, and validation of payment. This will help you identify the entities involved and draw the correct boundaries around them.
 
-image::events-first.SVG[Events First]
+image::events-first.svg[Events First]
 
 Events provide a record of what happens to each entity and when it happened. A Microservice can publish events to durable storage, a so-called event log. Other Microservices or external systems can then access those events. This decouples Microservices from each other. The event log supports recovery with a history that can be replayed. It also provides an excellent basis for auditing and debugging.
 
@@ -82,7 +82,7 @@ The desired outcome determines how you handle the message. Effectively, you need
 
 In contrast, with asynchronous messaging, the requestor simply sends a message and continues with its business. Since Microservices depend on the health of their host and network connections, asynchronous messaging offers an obvious advantage. The illustration below illustrates how processing requests asynchronously can speed up execution.
 
-image::async-sync.SVG[Synchronous vs Asynchronous]
+image::async-sync.svg[Synchronous vs Asynchronous]
 
 If the message is important, you need some way of persisting it to make sure it will be dealt with at some point in time. An event-driven architecture offers several ways of handling this. For example, in a Microservices system, you could use a message broker with delivery guarantees, or write such messages to a database or log. If a reply is required, the sender could just wait for an acknowledgement that the request was received and continue its work, expecting the answer to the question later.
 
@@ -94,7 +94,7 @@ When designing a reactive Microservice system, you want to choose the best messa
 - Commands are requests for another service to do something, where the requestor usually needs an answer or an acknowledgement. For example, Fred initiates an ATM withdrawal of one hundred dollars from his checking account. He wants his money now, and if it isn't forthcoming, he again wants to know why. A slightly different case might be when Fred changes his PIN online, he needs to know whether it succeeded. Both of these use cases also motivate some type of synchronous communication.
 - Events carry or represent historical facts that cannot be changed. Asynchronous messaging is the most efficient and robust way to communicate them. To continue our example, when Fred receives his money, it is a fact that he withdrew one hundred dollars from his checking account. He can redeposit the money, spend it or lose it, but that doesn't change the withdrawal event.
 
-image::query-command-event.SVG[Query Command Event]
+image::query-command-event.svg[Query Command Event]
 
 Asynchronous messaging provides a simple scalable pattern that you should take advantage of whenever possible. However, synchronous messaging can--and should--be accomplished as efficiently as possible. For example, the sender might wait for a simple acknowledgement from the receiver and continue its work, expecting a reply from the receiver with the answer at some future point. This requires acceptance that it is OK for the system to achieve a consistent state eventually, rather than immediately, as described in <<Eventual Consistency>>.
 
@@ -112,7 +112,7 @@ The focus on events during system design opens up possibilities of persisting da
 
 An event log provides reliable auditing and simplifies debugging. When the log is provided by a messaging service, other Microservices and legacy applications can subscribe to events of interest. Also, in the case of failure, it is possible to replay the log at any time. This pattern is referred to as xref:event-sourcing.adoc[Event Sourcing].
 
-image::event-sourcing.SVG[Event Sourcing]
+image::event-sourcing.svg[Event Sourcing]
 
 Event Sourcing can provide insights that are lost in traditional systems where data is overwritten. For example, on an ecommerce website, you could track which products are most often put in the cart and then removed. This information would not be available in shopping carts implemented as simple update in place persistence.
 
