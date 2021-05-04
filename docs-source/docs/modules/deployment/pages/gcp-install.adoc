@@ -98,16 +98,16 @@ helm repo add akka-operator-helm https://lightbend.github.io/akka-operator-helm/
 helm repo update
 ----
 
-. Install the latest version with (using for `reportingSecret` the previously created secret name):
+. Install the latest version with the command:
 +
 [source,shell script]
 ----
 helm install akka-operator akka-operator-helm/akka-operator \
   --namespace lightbend \
   --set provider.name=gcp \
-  --set reportingSecret=akka-cloud-platform-1-license
+  --set reportingSecret=akka-cloud-platform-1-license  # <1>
 ----
-
+<1> `akka-cloud-platform-1-license` is the previously created secret name (see steps above)
 == Upgrading a Akka Cloud Platform on GKE
 
 Upgrading of Akka Cloud Platform is only supported using the command line option.
