@@ -26,7 +26,7 @@ Once you've purchased a plan to use the Akka Cloud Platform, proceed to configur
 
 == Deploy from marketplace
 
-To completely configure and use the Akka Cloud Platform you need to fill in a few fields in the Tab "Click to Deploy on GKE":
+Complete the configuration of the Akka Cloud Platform by filling in a few fields in the Tab "Click to Deploy on GKE":
 
 . A Namespace — Keeping the Marketplace offering in a specific namespace will ease follow up operations and will enforce separation of concerns.
 . An App instance name — Select a unique name. We recommend using the default or `akka-platform-operator-1`.
@@ -51,7 +51,7 @@ Paste the command you copied from the Google console into a terminal to connect 
 
 == Deploy from command line
 
-To completely configure and use the Akka Cloud Platform you a few additional steps after switching to the Tab "Deploy via command line".
+Complete the configuration of the Akka Cloud Platform switching to the Tab "Deploy via command line" and following those additional steps:
 
 . Generate a license key and save it to the disk (e.g. `license.yaml`).
 
@@ -108,6 +108,7 @@ helm install akka-operator akka-operator-helm/akka-operator \
   --set reportingSecret=akka-cloud-platform-1-license  # <1>
 ----
 <1> `akka-cloud-platform-1-license` is the previously created secret name (see steps above)
+
 == Upgrading the Akka Cloud Platform on GKE
 
 Upgrading of Akka Cloud Platform is only supported using the command line option.
@@ -128,15 +129,16 @@ helm repo add akka-operator-helm https://lightbend.github.io/akka-operator-helm/
 helm repo update
 ----
 
-. Install the latest version with (using for `reportingSecret` the previously created secret name):
+. Install the latest version with the command:
 +
 [source,shell script]
 ----
 helm install akka-operator akka-operator-helm/akka-operator \
   --namespace lightbend \
   --set provider.name=gcp \
-  --set reportingSecret=akka-cloud-platform-1-license
+  --set reportingSecret=akka-cloud-platform-1-license  # <1>
 ----
+<1> `akka-cloud-platform-1-license` is the previously created secret name (see steps above)
 
 == Delete a Kubernetes cluster
 
