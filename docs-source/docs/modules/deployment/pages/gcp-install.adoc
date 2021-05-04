@@ -69,7 +69,7 @@ kubectl create namespace lightbend
 kubectl apply -f license.yaml --namespace lightbend
 ----
 
-. The output will be like (Take note of the secret name for future reference, in this case: `akka-cloud-platform-1-license`):
+. The output will be similar to the following snippet. Take note of the secret name for future reference, in the case below the name is: `akka-cloud-platform-1-license`.
 +
 [source,shell script]
 ----
