@@ -108,7 +108,7 @@ helm install akka-operator akka-operator-helm/akka-operator \
   --set reportingSecret=akka-cloud-platform-1-license  # <1>
 ----
 <1> `akka-cloud-platform-1-license` is the previously created secret name (see steps above)
-== Upgrading a Akka Cloud Platform on GKE
+== Upgrading the Akka Cloud Platform on GKE
 
 Upgrading of Akka Cloud Platform is only supported using the command line option.
 Using the Marketplace UI you forcefully need to uninstall first and install back again Application.
