@@ -87,11 +87,11 @@ kubectl apply -f "https://raw.githubusercontent.com/GoogleCloudPlatform/marketpl
 
 . Update the Akka Microservices CRD to latest:
 +
-[source,shell script]
+[source,shell script,subs="attributes+"]
 ----
-kubectl apply -f  https://raw.githubusercontent.com/lightbend/akka-operator-helm/v1.1.19/akka-operator/crds/v1/akka-microservices-crd.yml # <1>
+kubectl apply -f  https://raw.githubusercontent.com/lightbend/akka-operator-helm/v{akka-cloud-platform-version}/akka-operator/crds/v1/akka-microservices-crd.yml # <1>
 ----
-<1> `v1.1.19` is the latest available version published to GCP (see steps above)
+<1> `v{akka-cloud-platform-version}` is the latest available version published to GCP (see steps above)
 
 . Add the Akka Operator Helm repository and update the local index:
 +
@@ -103,15 +103,15 @@ helm repo update
 
 . Install the latest version with the command:
 +
-[source,shell script]
+[source,shell script,subs="attributes+"]
 ----
 helm install akka-operator akka-operator-helm/akka-operator \
   --namespace lightbend \
-  --version=1.1.19 \  # <1>
+  --version={akka-cloud-platform-version} \  # <1>
   --set provider.name=gcp \
   --set reportingSecret=akka-cloud-platform-1-license  # <2>
 ----
-<1> `1.1.19` is the latest available version published to GCP (see steps above)
+<1> `{akka-cloud-platform-version}` is the latest available version published to GCP (see steps above)
 <2> `akka-cloud-platform-1-license` is the previously created secret name (see steps above)
 
 == Upgrading the Akka Cloud Platform on GKE
@@ -123,11 +123,11 @@ Using the Marketplace UI you forcefully need to uninstall first and install back
 
 . Update the Akka Microservices CRD to latest:
 +
-[source,shell script]
+[source,shell script,subs="attributes+"]
 ----
-kubectl apply -f  https://raw.githubusercontent.com/lightbend/akka-operator-helm/v1.1.19/akka-operator/crds/v1/akka-microservices-crd.yml # <1>
+kubectl apply -f  https://raw.githubusercontent.com/lightbend/akka-operator-helm/v{akka-cloud-platform-version}/akka-operator/crds/v1/akka-microservices-crd.yml # <1>
 ----
-<1> `v1.1.19` is the version published to GCP (see steps above)
+<1> `v{akka-cloud-platform-version}` is the version published to GCP (see steps above)
 
 . Add the Akka Operator Helm repository and update the local index:
 +
@@ -139,15 +139,15 @@ helm repo update
 
 . Upgrade with the command:
 +
-[source,shell script]
+[source,shell script,subs="attributes+"]
 ----
 helm upgrade akka-operator akka-operator-helm/akka-operator \
   --namespace lightbend \
-  --version=1.1.19 \  # <1>
+  --version={akka-cloud-platform-version} \  # <1>
   --set provider.name=gcp \
   --set reportingSecret=akka-cloud-platform-1-license  # <2>
 ----
-<1> `1.1.19` is the version published to GCP (see steps above)
+<1> `{akka-cloud-platform-version}` is the version published to GCP (see steps above)
 <2> `akka-cloud-platform-1-license` is the previously created secret name (see steps above)
 
 == Delete a Kubernetes cluster
