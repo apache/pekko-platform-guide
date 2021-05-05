@@ -8,4 +8,6 @@ nav:
 - modules/telemetry/nav.adoc
 - modules/how-to/nav.adoc
 - modules/concepts/nav.adoc
-
+asciidoc:
+  attributes:
+    akka-cloud-platform-version: 1.1.19
