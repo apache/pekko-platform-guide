@@ -147,7 +147,7 @@ helm upgrade akka-operator akka-operator-helm/akka-operator \
   --set provider.name=gcp \
   --set reportingSecret=akka-cloud-platform-1-license  # <2>
 ----
-<1> `1.1.19` is the latest available version published to GCP (see steps above)
+<1> `1.1.19` is the version published to GCP (see steps above)
 <2> `akka-cloud-platform-1-license` is the previously created secret name (see steps above)
 
 == Delete a Kubernetes cluster
