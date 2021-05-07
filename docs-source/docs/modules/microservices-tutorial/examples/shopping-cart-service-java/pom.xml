@@ -17,7 +17,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <akka-platform.version>0.1.4</akka-platform.version>
+        <akka-platform.version>0.1.5</akka-platform.version>
         <akka-grpc-maven-plugin.version>1.1.1</akka-grpc-maven-plugin.version>
         <scala.binary.version>2.13</scala.binary.version>
         <!-- needs to be defined to allow for overriding through mvn exec:exec -DAPP_CONFIG=local1.conf -->
