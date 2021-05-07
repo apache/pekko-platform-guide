@@ -73,12 +73,6 @@
             <artifactId>cinnamon-akka-http_${scala.binary.version}</artifactId>
             <version>${lightbend.cinnamon.version}</version>
         </dependency>
-        <!-- Use Akka gRPC instrumentation -->
-        <dependency>
-            <groupId>com.lightbend.cinnamon</groupId>
-            <artifactId>cinnamon-akka-grpc_${scala.binary.version}</artifactId>
-            <version>${lightbend.cinnamon.version}</version>
-        </dependency>
         <!-- end::telemetry-dependencies[] -->
 
         <!-- tag::telemetry-prometheus-dependencies[] -->

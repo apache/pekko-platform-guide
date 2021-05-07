@@ -49,9 +49,7 @@ libraryDependencies ++= Seq(
   // Use Coda Hale Metrics
   Cinnamon.library.cinnamonCHMetrics,
   // Use Akka HTTP instrumentation
-  Cinnamon.library.cinnamonAkkaHttp,
-  // Use Akka gRPC instrumentation
-  Cinnamon.library.cinnamonAkkaGrpc)
+  Cinnamon.library.cinnamonAkkaHttp)
 // end::telemetry-dependencies[]
 
 // tag::telemetry-prometheus-dependencies[]
