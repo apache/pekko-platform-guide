@@ -59,6 +59,7 @@ function zipAndAttach() {
    removeTags
    zip --quiet -r ${zip_name} *
    cp ${zip_name} ${temporal_attachments}
+   echo "Prepared attachment at ${temporal_attachments}/${zip_name}"
    popd
 }
 
