@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 declare -r tutorial_sources="${PWD}/docs-source/docs/modules/microservices-tutorial/examples"
 declare -r tutorial_attachments="${PWD}/docs-source/docs/modules/microservices-tutorial/assets/attachments"
 
