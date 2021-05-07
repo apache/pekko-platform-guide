@@ -46,6 +46,7 @@ function prepareTemporalFolder() {
 function fetchProject() {
    source_name=$1
    target_name=$2
+   echo "Fetching content from [$1] to [$2]"
    cp -a ${source_name} ${temporal_folder}/${target_name}
 }
 
@@ -53,6 +54,7 @@ function fetchProject() {
 ## attachment file (aka, the ZIP file on the appropriate location)
 function zipAndAttach() {
    zip_name=$1
+   echo "Preparing ZIP $1"
    pushd ${temporal_folder}
    removeTags
    zip --quiet -r ${zip_name} *
