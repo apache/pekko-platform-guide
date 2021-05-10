@@ -21,7 +21,6 @@
     -->
     <!-- tag::telemetry-build-properties[] -->
     <properties>
-        <akka-platform.version>0.1.5</akka-platform.version>
         <scala.version>2.13.3</scala.version>
         <scala.binary.version>2.13</scala.binary.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -46,7 +45,7 @@
             <dependency>
                 <groupId>com.lightbend.akka</groupId>
                 <artifactId>akka-platform-dependencies_${scala.binary.version}</artifactId>
-                <version>${akka-platform.version}</version>
+                <version>0.1.5</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
