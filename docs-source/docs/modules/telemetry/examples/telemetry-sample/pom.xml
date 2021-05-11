@@ -64,6 +64,21 @@
             <groupId>com.lightbend.cinnamon</groupId>
             <artifactId>cinnamon-chmetrics</artifactId>
         </dependency>
+        <!-- Use Akka instrumentations -->
+        <dependency>
+            <groupId>com.lightbend.cinnamon</groupId>
+            <artifactId>cinnamon-akka_${scala.binary.version}</artifactId>
+        </dependency>
+        <!-- Use Akka Persistence instrumentation -->
+        <dependency>
+            <groupId>com.lightbend.cinnamon</groupId>
+            <artifactId>cinnamon-akka-persistence_${scala.binary.version}</artifactId>
+        </dependency>
+        <!-- Akka Projection instrumentations -->
+        <dependency>
+            <groupId>com.lightbend.cinnamon</groupId>
+            <artifactId>cinnamon-akka-projection_${scala.binary.version}</artifactId>
+        </dependency>
         <!-- Use Akka HTTP instrumentation -->
         <dependency>
             <groupId>com.lightbend.cinnamon</groupId>

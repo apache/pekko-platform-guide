@@ -48,6 +48,12 @@ test / cinnamon := true
 libraryDependencies ++= Seq(
   // Use Coda Hale Metrics
   Cinnamon.library.cinnamonCHMetrics,
+  // Use Akka instrumentation
+  Cinnamon.library.cinnamonAkka,
+  // Use Akka Persistence instrumentation
+  Cinnamon.library.cinnamonAkkaPersistence,
+  // Use Akka Projection instrumentation
+  Cinnamon.library.cinnamonAkkaProjection,
   // Use Akka HTTP instrumentation
   Cinnamon.library.cinnamonAkkaHttp)
 // end::telemetry-dependencies[]
