@@ -81,7 +81,7 @@ The {cinnamon-docs}/setup/cinnamon-agent-maven.html[Full Telemetry Documentation
 
 === Instrumenting your application
 
-After adding the Cinnamon Agent as described above, make sure that you add the {cinnamon-docs}/instrumentations/instrumentations.html[Cinnamon instrumentations {tab-icon}, window="tab"] that are necessary for your application. In this example, we add instrumentations for Akka HTTP and Akka gRPC:
+After adding the Cinnamon Agent as described above, make sure that you add the {cinnamon-docs}/instrumentations/instrumentations.html[Cinnamon instrumentations {tab-icon}, window="tab"] that are necessary for your application. In this example, we add instrumentations for {cinnamon-docs}/instrumentations/akka/akka.html[Akka {tab-icon}, window="tab"], {cinnamon-docs}/instrumentations/akka-persistence/akka-persistence.html[Akka Persistence {tab-icon}, window="tab"], {cinnamon-docs}/instrumentations/akka-projection/akka-projection.html[Akka Projection {tab-icon}, window="tab"], and {cinnamon-docs}/instrumentations/akka-http/akka-http.html[Akka HTTP {tab-icon}, window="tab"]:
 
 [.tabset]
 Java::
