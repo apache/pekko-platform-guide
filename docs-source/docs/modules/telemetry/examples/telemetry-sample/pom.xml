@@ -21,8 +21,6 @@
     -->
     <!-- tag::telemetry-build-properties[] -->
     <properties>
-        <akka-platform.version>0.1.4</akka-platform.version>
-        <lightbend.cinnamon.version>2.16.0-20210319-d1d704b</lightbend.cinnamon.version>
         <scala.version>2.13.3</scala.version>
         <scala.binary.version>2.13</scala.binary.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -47,7 +45,7 @@
             <dependency>
                 <groupId>com.lightbend.akka</groupId>
                 <artifactId>akka-platform-dependencies_${scala.binary.version}</artifactId>
-                <version>${akka-platform.version}</version>
+                <version>0.1.5</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -65,19 +63,26 @@
         <dependency>
             <groupId>com.lightbend.cinnamon</groupId>
             <artifactId>cinnamon-chmetrics</artifactId>
-            <version>${lightbend.cinnamon.version}</version>
+        </dependency>
+        <!-- Use Akka instrumentations -->
+        <dependency>
+            <groupId>com.lightbend.cinnamon</groupId>
+            <artifactId>cinnamon-akka_${scala.binary.version}</artifactId>
+        </dependency>
+        <!-- Use Akka Persistence instrumentation -->
+        <dependency>
+            <groupId>com.lightbend.cinnamon</groupId>
+            <artifactId>cinnamon-akka-persistence_${scala.binary.version}</artifactId>
+        </dependency>
+        <!-- Akka Projection instrumentations -->
+        <dependency>
+            <groupId>com.lightbend.cinnamon</groupId>
+            <artifactId>cinnamon-akka-projection_${scala.binary.version}</artifactId>
         </dependency>
         <!-- Use Akka HTTP instrumentation -->
         <dependency>
             <groupId>com.lightbend.cinnamon</groupId>
             <artifactId>cinnamon-akka-http_${scala.binary.version}</artifactId>
-            <version>${lightbend.cinnamon.version}</version>
-        </dependency>
-        <!-- Use Akka gRPC instrumentation -->
-        <dependency>
-            <groupId>com.lightbend.cinnamon</groupId>
-            <artifactId>cinnamon-akka-grpc_${scala.binary.version}</artifactId>
-            <version>${lightbend.cinnamon.version}</version>
         </dependency>
         <!-- end::telemetry-dependencies[] -->
 
@@ -86,13 +91,11 @@
         <dependency>
             <groupId>com.lightbend.cinnamon</groupId>
             <artifactId>cinnamon-prometheus</artifactId>
-            <version>${lightbend.cinnamon.version}</version>
         </dependency>
         <!-- Cinnamon Prometheus HTTP server dependency -->
         <dependency>
             <groupId>com.lightbend.cinnamon</groupId>
             <artifactId>cinnamon-prometheus-httpserver</artifactId>
-            <version>${lightbend.cinnamon.version}</version>
         </dependency>
         <!-- end::telemetry-prometheus-dependencies[] -->
     </dependencies>
@@ -131,7 +134,6 @@
                                 <artifactItem>
                                     <groupId>com.lightbend.cinnamon</groupId>
                                     <artifactId>cinnamon-agent</artifactId>
-                                    <version>${lightbend.cinnamon.version}</version>
                                     <overWrite>true</overWrite>
                                     <destFileName>cinnamon-agent.jar</destFileName>
                                 </artifactItem>
