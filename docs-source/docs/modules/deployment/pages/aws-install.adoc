@@ -23,14 +23,6 @@ A familiarity with the following services and skillsets is recommended before in
 * https://helm.sh/docs/intro/quickstart/[Helm {tab-icon}, window="tab"] command line tool `helm`.
 * https://yaml.org/spec/1.2/spec.html[YAML {tab-icon}, window="tab"] to define configuration for Akka Microservices deployment descriptors.
 
-== Expected Time to Install
-
-A new installation will take approximately _40 minutes_.
-
-* Provision Amazon EKS cluster - _30 minutes_ - Depends on how many nodes are provisioned and what instance types are chosen. It is also variable based on day-to-day AWS region conditions. This estimate is for the cluster parameters described in this guide.
-* Install pre-requisities into Amazon EKS - _5 minutes_ - Subscribe to product, install a Kubernetes `metrics-server`, and set up a service account.
-* Install Akka Cloud Platform - _5 minutes_ - Installation of the Akka Cloud Platform helm chart with minimal configuration.
-
 :sectnums:
 == Verify Prerequisites
 
