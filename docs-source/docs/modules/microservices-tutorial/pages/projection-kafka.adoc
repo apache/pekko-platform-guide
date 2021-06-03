@@ -17,6 +17,9 @@ This part of the xref:overview.adoc[full example] will focus on the Kafka produc
 * send messages to a Kafka topic from a Projection
 * consume messages from a Kafka topic
 
+=== Akka Workshop
+The fourth video of the https://info.lightbend.com/akka-platform-workshop-part-4-on-demand-recording.html[Akka Workshop Series {tab-icon}, window="tab"] covers CQRS and Projections for Kafka and gRPC. It provides some solid guidance to aid you in understanding this section, and the next section of this guide.
+
 == Source downloads
 
 If you prefer to simply view and run the example, download a zip file containing the completed code:
