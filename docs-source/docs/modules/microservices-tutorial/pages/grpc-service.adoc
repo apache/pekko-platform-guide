@@ -15,6 +15,10 @@ First, we will create the `ShoppingCartService` with a single operation that add
 * interact with the service from the command line
 * deploy to the cloud
 
+== Akka Workshop
+The first video of the
+https://info.lightbend.com/akka-platform-workshop-part-1-on-demand-recording.html[Akka Workshop Series {tab-icon}, window="tab"] covers creating the gRPC series.
+
 == Source downloads
 
 If you prefer to simply view and run the example, download a zip file containing the completed code:
