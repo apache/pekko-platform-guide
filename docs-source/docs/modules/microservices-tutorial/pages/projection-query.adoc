@@ -5,7 +5,7 @@ include::ROOT:partial$include.adoc[]
 
 Next, we will create an {akka-projection}/[Akka Projection {tab-icon}, window="tab"] from the events emitted by the `ShoppingCart` entity. The Projection will update counts in the database to track item popularity. Then, we can query the database to find how popular an item is. Since `ShoppingCart` entities can only be addressed by individual cart identifiers, we can find a particular cart, but we can't find all carts that contain a particular item.
 
-ifdef::review[REVIEWERS: I don't follow the logic at the end of the last sentence in the prev para. Is it that each shopping cart only knows about it's own items?]
+ifdef::review[REVIEWERS: I don't follow the logic at the end of the last sentence in the prev para. Is it that each shopping cart only knows about its own items?]
 
 
 [caption=""]
@@ -19,7 +19,10 @@ This piece of the xref:overview.adoc[full example] focuses on the `ItemPopularit
 
 The xref:concepts:cqrs.adoc[CQRS] section explains why it is a good practice to build a Projection from entity events that can be queried. The {akka-blog}/news/2020/09/10/akka-projection-intro-video[Introduction to Akka Projections video {tab-icon}, window="tab"] is also a good starting point for learning about Akka Projections.
 
-This example is using PostgreSQL for storing the Projection result and the Projection offset. An alternative is described in xref:how-to:cassandra-alternative.adoc[].
+This example is using PostgreSQL for storing the Projection result, and the Projection offset. An alternative is described in xref:how-to:cassandra-alternative.adoc[].
+
+=== Akka Workshop
+The third video of the https://info.lightbend.com/akka-platform-workshop-part-3-on-demand-recording.html[Akka Workshop Series {tab-icon}, window="tab"] covers both Projections for queries and CQRS. It provides some solid guidance to aid you in understanding this section of this guide.
 
 == Source downloads
 

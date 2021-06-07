@@ -15,6 +15,10 @@ First, we will create the `ShoppingCartService` with a single operation that add
 * interact with the service from the command line
 * deploy to the cloud
 
+== Akka Workshop
+The first video of the
+https://info.lightbend.com/akka-platform-workshop-part-1-on-demand-recording.html[Akka Workshop Series {tab-icon}, window="tab"] covers creating the gRPC series.
+
 == Source downloads
 
 If you prefer to simply view and run the example, download a zip file containing the completed code:
@@ -198,9 +202,13 @@ NOTE: The following steps for cloud deployment are optional. If you are only run
 [#kubernetes]
 == Run in Kubernetes
 
-We suggest that you read xref:deployment:index.adoc[] to get an understanding of how deployment with the Akka Cloud Platform works.
+We suggest that you read the xref:deployment:index.adoc[] section to get an understanding of how deployment with the Akka Cloud Platform works.
 
-Before following the steps below, create Kubernetes cluster and install the Akka Operator. Used the instructions below for:
+=== Akka Workshop
+The fifth video of the https://info.lightbend.com/akka-platform-workshop-part-5-on-demand-recording.html[Akka Workshop Series {tab-icon}, window="tab"] walks you through the process of running in Kubernetes on AWS or GCP. It will take you step-by-step to aid you in understanding the process.
+
+
+Before following the steps below, create a Kubernetes cluster and install the Akka Operator. Used the instructions below for:
 
 [.tabset]
 GCP::
