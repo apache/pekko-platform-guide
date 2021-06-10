@@ -20,6 +20,8 @@ For AWS installation details see the xref:deployment:aws-install.adoc[installing
 * If you have acquired a term license directly from Lightbend, and it expires, your license will automatically revert into a pay-as-you-go license.
 * When you need to renew your license, please contact mailto:aws@lightbend.com[] with your request.
 
+=== Akka Workshop
+
 The fifth video of the https://info.lightbend.com/akka-platform-workshop-part-5-on-demand-recording.html[Akka Workshop Series {tab-icon}, window="tab"] walks you through the process of running in Kubernetes on AWS. It will take you step-by-step to aid you in understanding the process.
 
 == Pre-requisite Skills
