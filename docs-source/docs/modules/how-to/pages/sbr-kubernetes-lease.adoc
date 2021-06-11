@@ -1,6 +1,5 @@
 = Improve SBR's decision process
 
-
 include::partial$include.adoc[]
 
 Deploying on Kubernetes opens the door to use Kubernetes-provided mechanisms for decision-making. The Akka {akka}/split-brain-resolver.html[Split-Brain Resolver {tab-icon}, window="tab"] can use a {akka-management}/kubernetes-lease.html[Lease {tab-icon}, window="tab"] backed by Kubernetes to control  which side of a cluster may remain up during a split-brain scenario.

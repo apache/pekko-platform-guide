@@ -61,9 +61,7 @@ However, please remember that the operator is not involved in any other part of 
 
 == Enable grpcIngress
 
-
 Add the `grpcIngress` section to the deployment descriptor and set its class to `alb`:
-
 
 .kubernetes/shopping-cart-service-cr.yml:
 [source,yaml]
