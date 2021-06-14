@@ -189,7 +189,8 @@ include::example$03-shopping-cart-service-scala/src/main/scala/shopping/cart/Sho
 
 === Run unit tests
 
-That should cover everything for the `Checkout` command. Let's confirm by running the unit tests with:
+That should cover everything for the `Checkout` command. If you shut down the service after the previous exercise you will need to restart it using `docker-compose up -d` in the command line.
+Let's confirm everything by running the unit tests with:
 
 [.group-scala]
 [source,shell script]

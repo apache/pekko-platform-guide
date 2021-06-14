@@ -71,7 +71,7 @@ Follow these steps to prepare for running shopping cart:
 ----
 docker-compose up -d
 ----
-
+This command will build and run the containers. The `-d` flag starts the containers in detached mode. Containers started in detached mode exit when the root process used to run the container exits
 . Create the PostgresSQL tables from the SQL script located inside the `ddl-scripts` at the root of the project:
 +
 [source,shell script]

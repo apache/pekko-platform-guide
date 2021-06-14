@@ -3,11 +3,18 @@
 
 include::partial$include.adoc[]
 
-This guide provides information on using the Akka Platform and Akka Cloud Platform for developers, administrators, and dev/ops. It focuses on getting you up and running by covering the basics of Microservices and Cloud deployment, as well as the fundamental concepts that underlay _Reactive_ development.
 
+=== What is this guide about?
+This guide provides information to aid in understanding and using the Akka Platform and the Akka Cloud Platform.
+
+=== What are Akka Platform, and Akka Cloud Platform?
 Akka Platform is a toolkit for building highly concurrent systems that are scalable, highly efficient, and resilient by using _Reactive Principles_. The Akka Platform includes support for Akka, additional commercial components, and is available from Lightbend as a https://www.lightbend.com/lightbend-subscription[subscription {tab-icon}, window="tab"].
 
 Akka Cloud Platform adds tooling for deployment on Kubernetes and is available from {aws-marketplace}[Amazon Web Services (AWS) {tab-icon}, window="tab"] and {gcp-marketplace}[Google Cloud Platform (GCP) {tab-icon}].
+
+=== Who are the intended audience of this guide?
+
+This guide is for developers, administrators, evaluators and dev/ops. For evaluators the guide will provide a solid demonstration the power and value available via Akka Platform and Akka Cloud Platform. For developers the guide focuses on getting you up and running by covering the basics of Microservices and Cloud deployment, as well as the fundamental concepts that underlay _Reactive_ development. For administrators, and devops the guide lays out the requirements, operations and patterns of usage.
 
 Whether you are new to _Reactive principles_, or an experienced Akka user, you will find something of use in this guide. The guide complements the {akka}[Akka reference documentation {tab-icon}, window="tab"], which presents all Akka features in detail.
 
@@ -44,7 +51,7 @@ Akka Cloud Platform enhances Akka by adding operational tooling, services, and s
 
 == How to get the most out of this guide
 
-For a code-first experience, have a look at the Implementing Microservices with Akka tutorial, which walks you through an example project and explains how features from the Akka ecosystem fit together to build Reactive Systems. The tutorial will point you to the relevant concepts where applicable.
+For a code-first experience, have a look at the Implementing Microservices with Akka tutorial. The tutorial walks you through an example project and explains how features from the Akka ecosystem connect to build Reactive Systems. It will point you to the relevant concepts where applicable.
 
 If this is your first experience with Reactive frameworks or Akka, we recommend reviewing the xref:concepts:index.adoc[What is Reactive?] section. This section presents some background and ideas behind Reactive. You can read about those concepts when introduced in the tutorial, or read them first if you prefer a more theoretical overview before diving into the code. There you will learn, for example:
 
