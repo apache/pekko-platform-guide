@@ -24,5 +24,6 @@
 **** xref:astra.adoc[]
 **** xref:cassandra.adoc[]
 *** xref:jdbc.adoc[Databases that support JDBC]
+* xref:bring-your-kubernetes-cluster.adoc[Custom Kubernetes Deployment]
 * xref:operator-reference.adoc[Akka Operator reference]
 * xref:troubleshooting.adoc[Troubleshooting]
