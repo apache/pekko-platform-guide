@@ -11,7 +11,7 @@ Make sure you read the xref:cloud-deployment.adoc[] and xref:deploy.adoc[] befor
 
 Make sure your `kubectl` context points to your local Kubernetes cluster (for example, {minikube}[minikube {tab-icon}, window="tab"]), or an external Kubernetes cluster (e.g. in https://docs.microsoft.com/en-ca/azure/aks/kubernetes-walkthrough[Azure {tab-icon}, window="tab"]).
 
-Next, make sure you have the commercial Lightbend charts:
+Next, make sure you have the akka-operator-helm chart:
 
 [source,shell script]
 ----
@@ -69,4 +69,3 @@ spec:
 #    certificate: ingress-secret
 #    class: ???
 ----
-
