@@ -12,7 +12,7 @@ Lightbend provides two essential pieces for Monitoring your deployments; Telemet
 
 == Subscriptions and credentials
 
-Use of Lightbend Telemetry requires a subscription and credentials. A Lightbend subscription includes open source components that are distributed from the https://maven.apache.org/repository/[Maven Central Repository], as well as the commercial components which are distributed from a private repository. A https://www.lightbend.com/lightbend-subscription[Lightbend Subscription] entitles you to use all commercial features and includes https://www.lightbend.com/lightbend-subscription[support] and access to https://academy.lightbend.com/[Lightbend Academy].
+Use of Lightbend Telemetry requires a subscription and credentials. A Lightbend subscription includes open source components that are distributed from the https://maven.apache.org/repository/[Maven Central Repository], as well as the commercial components which are distributed from a private repository. A https://www.lightbend.com/akka-platform#subscription[Lightbend Subscription] entitles you to use all commercial features and includes https://www.lightbend.com/akka-platform#subscription[support] and access to https://academy.lightbend.com/[Lightbend Academy].
 
 Lightbend Telemetry is also available by subscription to the Akka Cloud Platform which is via {aws-marketplace}[Amazon Web Services (AWS) {tab-icon}, window="tab"] or {gcp-marketplace}[Google Cloud Platform (GCP) {tab-icon}].
 
@@ -81,7 +81,7 @@ The {cinnamon-docs}/setup/cinnamon-agent-maven.html[Full Telemetry Documentation
 
 === Instrumenting your application
 
-After adding the Cinnamon Agent as described above, make sure that you add the {cinnamon-docs}/instrumentations/instrumentations.html[Cinnamon instrumentations {tab-icon}, window="tab"] that are necessary for your application. In this example, we add instrumentations for {cinnamon-docs}/instrumentations/akka/akka.html[Akka {tab-icon}, window="tab"], {cinnamon-docs}/instrumentations/akka-persistence/akka-persistence.html[Akka Persistence {tab-icon}, window="tab"], {cinnamon-docs}/instrumentations/akka-projection/akka-projection.html[Akka Projection {tab-icon}, window="tab"], and {cinnamon-docs}/instrumentations/akka-http/akka-http.html[Akka HTTP {tab-icon}, window="tab"]:
+After adding the Cinnamon Agent as described above, make sure that you add the {cinnamon-docs}/instrumentations/instrumentations.html[Cinnamon instrumentations {tab-icon}, window="tab"] that are necessary for your application. In this example, we add instrumentations for {cinnamon-docs}/instrumentations/akka/akka.html[Akka {tab-icon}, window="tab"], {cinnamon-docs}/instrumentations/akka-persistence/akka-persistence.html[Akka Persistence {tab-icon}, window="tab"], {cinnamon-docs}/instrumentations/akka-projection/akka-projection.html[Akka Projection {tab-icon}, window="tab"], {cinnamon-docs}/instrumentations/akka-http/akka-http.html[Akka HTTP, and Akka gRPC {tab-icon}, window="tab"]:
 
 [.tabset]
 Java::

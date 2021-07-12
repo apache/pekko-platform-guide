@@ -27,7 +27,7 @@ To install and use the Akka Cloud Platform, you must have the following tools in
 
 * The https://www.pulumi.com/[pulumi {tab-icon}, window="tab"] cloud engineering (provisioning) tool to run the Playbook.
 
-* The https://cloud.google.com/sdk/install[Google Cloud SDK {tab-icon}, window="tab"] 
+* The https://cloud.google.com/sdk/docs/install[Google Cloud SDK {tab-icon}, window="tab"] 
 
 In addition, in order to operate the cluster, you need to set up:
 
@@ -35,9 +35,9 @@ In addition, in order to operate the cluster, you need to set up:
 
 == Setup your Google Cloud Platform (GCP)
 
-The https://www.pulumi.com/docs/intro/cloud-providers/gcp[Pulumi Google Cloud Platform Provider {tab-icon}, window="tab"] needs to be configured with Google credentials before it can be used to create resources. Ensure the following steps are complete before proceeding with the creation of the cluster:
+The https://www.pulumi.com/docs/intro/cloud-providers/gcp/[Pulumi Google Cloud Platform Provider {tab-icon}, window="tab"] needs to be configured with Google credentials before it can be used to create resources. Ensure the following steps are complete before proceeding with the creation of the cluster:
 
-* Install the https://cloud.google.com/sdk/install[Google Cloud SDK {tab-icon}, window="tab"] and then https://cloud.google.com/sdk/docs/authorizing#authorizing_with_a_user_account[authorize access with a user account {tab-icon}, window="tab].
+* Install the https://cloud.google.com/sdk/docs/install[Google Cloud SDK {tab-icon}, window="tab"] and then https://cloud.google.com/sdk/docs/authorizing#authorizing_with_a_user_account[authorize access with a user account {tab-icon}, window="tab].
 
 * Configure `gcloud` to interact with your Google Cloud project using the `config` command:
 
