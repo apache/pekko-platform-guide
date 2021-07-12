@@ -55,7 +55,9 @@ libraryDependencies ++= Seq(
   // Use Akka Projection instrumentation
   Cinnamon.library.cinnamonAkkaProjection,
   // Use Akka HTTP instrumentation
-  Cinnamon.library.cinnamonAkkaHttp)
+  Cinnamon.library.cinnamonAkkaHttp,
+  // Use Akka gRPC instrumentation
+  Cinnamon.library.cinnamonAkkaGrpc)
 // end::telemetry-dependencies[]
 
 // tag::telemetry-prometheus-dependencies[]
