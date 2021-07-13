@@ -32,7 +32,7 @@ Install the operator with the command:
 
 [source,shell script,subs="attributes+"]
 ----
-helm upgrade akka-operator akka-operator-helm/akka-operator \
+helm upgrade -i akka-operator akka-operator-helm/akka-operator \
   --set lightbendSubscription.username=$LIGHTBEND_COMMERCIAL_USERNAME \
   --set lightbendSubscription.password=$LIGHTBEND_COMMERCIAL_PASSWORD \
   --namespace lightbend \
