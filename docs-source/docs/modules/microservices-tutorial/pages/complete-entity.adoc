@@ -281,7 +281,7 @@ mvn test
 == Add new operations to the service descriptor
 
 
-Let's add corresponding operation definitions in `ShoppingCartService.proto`:
+In the existing `ShoppingCartService.proto` add corresponding operation definitions in the form of the two rpc calls listed below:
 
 .src/main/protobuf/ShoppingCartService.proto
 [source,protobuf]
