@@ -378,3 +378,4 @@ Or by populating the stack's `Pulumi.<STACK NAME>.yaml`.
 | The Kubernetes namespace to install the Akka Cloud Platform operator into.
 | No
 | `"lightbend"`
+|===
