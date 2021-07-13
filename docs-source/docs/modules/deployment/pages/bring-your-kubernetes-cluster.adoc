@@ -5,7 +5,7 @@ include::partial$include.adoc[]
 Users with a
 {lightbend-developer-docs}/introduction/getting-started/subscription-and-credentials.html[Lightbend Subscription {tab-icon}, window="tab"] have access to the Akka Cloud Platform operator to run on their own Kubernetes cluster.
 
-Make sure you read the xref:cloud-deployment.adoc[] and xref:deploy.adoc[] before proceeding to understand the basic deployment architecture and workflow.
+In order to best understand the basic deployment architecture and workflow, make sure you read the xref:cloud-deployment.adoc[] and xref:deploy.adoc[] before proceeding further.
 
 == Prepare your cluster
 
