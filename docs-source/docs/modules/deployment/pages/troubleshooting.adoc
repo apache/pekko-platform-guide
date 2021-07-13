@@ -105,6 +105,8 @@ They are similar to application logging, but are more coarse grained. A single e
 |The reconciliation of a Microservice has failed.
 |===
 
+For clarification, reconciliation is the process of ensuring that the data sets across multiple services are in agreement.
+
 === Viewing Events
 
 An operator event references the Pod of the operator and will appear alongside other Pod events in the `Events` summary table in a `kubectl describe pod` command.
