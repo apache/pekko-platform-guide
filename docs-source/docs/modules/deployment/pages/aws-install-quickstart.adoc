@@ -454,3 +454,4 @@ Or by populating the stack's `Pulumi.<STACK NAME>.yaml`.
 | AWS X-Ray Secret Access Key.
 | Yes, when `install-aws-otel-collector` enabled
 | `-`
+
