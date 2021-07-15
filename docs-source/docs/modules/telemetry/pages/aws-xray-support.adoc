@@ -11,7 +11,7 @@ First, you will need to install the AWS OTel Collector into your EKS cluster. We
 
 Once you have the AWS OTel Collector deployed you will need to configure your application.
 
-In order to enable your application to produce traces, you will need to set up Cinnamon agent as described on the {cinnamon-docs}/getting-started/start.html[Lightbend Telemetry Getting started {tab-icon}, window="tab"] page.
+To enable your application for trace production, you will need to set up the Cinnamon agent as described on the {cinnamon-docs}/getting-started/start.html[Lightbend Telemetry Getting started {tab-icon}, window="tab"] page.
 
 After that, you will need to add tracing-specific configuration and dependencies.
 
