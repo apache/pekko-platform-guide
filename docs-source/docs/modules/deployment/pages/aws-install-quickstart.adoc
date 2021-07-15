@@ -13,9 +13,11 @@ By default the following components will be provisioned.
 1. Create an Amazon EKS cluster
 2. Install the Kubernetes Metrics Server
 3. Install the Akka Cloud Platform Helm chart
-4. Setup an Amazon Managed Streaming for Apache Kafka (MSK) cluster
-5. Setup an Amazon Aurora Relational Database Service (RDS) cluster
-6. Optional: Install the https://aws-otel.github.io/[AWS OTel Collector {tab-icon}, window="tab"] to see application traces in the X-Ray Console
+4. Install the Grafana Helm chart
+5. Install the Prometheus Helm Chart
+6. Setup an Amazon Managed Streaming for Apache Kafka (MSK) cluster
+7. Setup an Amazon Aurora Relational Database Service (RDS) cluster
+8. Optional: Install the https://aws-otel.github.io/[AWS OTel Collector {tab-icon}, window="tab"] to see application traces in the X-Ray Console
 
 :sectnums:
 
@@ -34,6 +36,8 @@ To install and use the Akka Cloud Platform, you must have the following tools in
 In addition, in order to operate the cluster, you need to setup:
 
 * The Kubernetes command-line tool, `kubectl`, allows you to run commands against Kubernetes clusters. Follow the instructions in the https://kubernetes.io/docs/tasks/tools/#kubectl[Kubernetes documentation {tab-icon}, window="tab"]  to install `kubectl`.
+
+NOTE: We recommend Node 14 or later.
 
 == Login to your AWS account
 
@@ -99,7 +103,7 @@ Initialize a new Pulumi stack.
 pulumi stack init
 ----
 
-Choose an AWS region to use:
+Choose an AWS region to use, for example:
 
 [source,shell script]
 ----
@@ -134,23 +138,26 @@ After executing `pulumi up` you will see something like the following:
 
 [source,shell script]
 ----
-$ pulumi up
-Previewing update (seglo)
+Previewing update (<STACK NAME>)
 
-View Live: https://app.pulumi.com/<STACK NAME>/akka-cloud-platform-deploy/<STACK NAME>/previews/7d82583e-17db-4d80-be58-49d266029998
+View Live: https://app.pulumi.com/<USER NAME>/akka-cloud-platform-deploy/<STACK NAME>/previews/f8c74175-2815-462a-9925-78022ad1c49d
 
-     Type                                                                 Name                                                                                        Plan
- +   pulumi:pulumi:Stack                                                  akka-cloud-platform-deploy-<STACK NAME>                                                     create
-
+     Type                                    Name                                                                                        Plan
+ +   pulumi:pulumi:Stack                     akka-cloud-platform-deploy-<STACK NAME>                                                     create
+ 
 ...
 
 Resources:
-    + 96 to create
+    + 140 to create
 
 Do you want to perform this update? yes
 
-     Type                                                                 Name                                                                                        Status
- +   pulumi:pulumi:Stack                                                  akka-cloud-platform-deploy-<STACK NAME>                                                     created
+Updating (<STACK NAME>)
+
+View Live: https://app.pulumi.com/<USER NAME>/akka-cloud-platform-deploy/<STACK NAME>/updates/18
+
+     Type                                    Name                                                                                        Status
+ +   pulumi:pulumi:Stack                     akka-cloud-platform-deploy-<STACK NAME>                                                     created
 
 ...
 ----
@@ -160,26 +167,26 @@ When the stack is deployed successfully you will have a list of outputs presente
 [source,shell script]
 ----
 Outputs:
-    clusterName                : "acp-dev-eks-eksCluster-1550877"
-    jdbcClusterId              : "cluster-BJIXQZTDAWWPDSGOZP3ZPBMLII"
-    jdbcEndpoint               : "acp-dev-rds.cluster-c4wajgyncibh.us-west-2.rds.amazonaws.com"
+    clusterName                : "acp-<STACK NAME>-eks-eksCluster-6b31eca"
+    jdbcClusterId              : "cluster-ZJODO3OADYNKFPZVVEMAOMTYLA"
+    jdbcEndpoint               : "acp-<STACK NAME>-rds.cluster-c4wajgyncibh.us-west-2.rds.amazonaws.com"
     jdbcPassword               : "[secret]"
-    jdbcReaderEndpoint         : "acp-dev-rds.cluster-ro-c4wajgyncibh.us-west-2.rds.amazonaws.com"
-    jdbcSecret                 : "acp-dev-jdbc-secret"
+    jdbcReaderEndpoint         : "acp-<STACK NAME>-rds.cluster-ro-c4wajgyncibh.us-west-2.rds.amazonaws.com"
+    jdbcSecret                 : "acp-<STACK NAME>-jdbc-secret"
     jdbcUsername               : "postgres"
-    kafkaBootstrapBrokers      : "b-1.acp-dev-msk-b59fc25.fx64yv.c5.kafka.us-west-2.amazonaws.com:9092,b-2.acp-dev-msk-b59fc25.fx64yv.c5.kafka.us-west-2.amazonaws.com:9092"
-    kafkaBootstrapBrokersTls   : "b-1.acp-dev-msk-b59fc25.fx64yv.c5.kafka.us-west-2.amazonaws.com:9094,b-2.acp-dev-msk-b59fc25.fx64yv.c5.kafka.us-west-2.amazonaws.com:9094"
-    kafkaBootstrapServerSecret : "acp-dev-kafka-secret"
-    kafkaZookeeperConnectString: "z-1.acp-dev-msk-b59fc25.fx64yv.c5.kafka.us-west-2.amazonaws.com:2181,z-2.acp-dev-msk-b59fc25.fx64yv.c5.kafka.us-west-2.amazonaws.com:2181,z-3.acp-dev-msk-b59fc25.fx64yv.c5.kafka.us-west-2.amazonaws.com:2181"
+    kafkaBootstrapBrokers      : "b-1.acp-<STACK NAME>.9fhrqh.c5.kafka.us-west-2.amazonaws.com:9092,b-2.acp-<STACK NAME>.9fhrqh.c5.kafka.us-west-2.amazonaws.com:9092"
+    kafkaBootstrapBrokersTls   : "b-1.acp-<STACK NAME>.9fhrqh.c5.kafka.us-west-2.amazonaws.com:9094,b-2.acp-<STACK NAME>.9fhrqh.c5.kafka.us-west-2.amazonaws.com:9094"
+    kafkaBootstrapServerSecret : "acp-<STACK NAME>-kafka-secret"
+    kafkaZookeeperConnectString: "z-1.acp-<STACK NAME>.9fhrqh.c5.kafka.us-west-2.amazonaws.com:2181,z-2.acp-<STACK NAME>.9fhrqh.c5.kafka.us-west-2.amazonaws.com:2181,z-3.acp-<STACK NAME>.9fhrqh.c5.kafka.us-west-2.amazonaws.com:2181"
     kubeconfig                 : {
-		...
+        ...
     }
     operatorNamespace          : "lightbend"
 
 Resources:
-    + 96 created
+    + 140 created
 
-Duration: 42m39s
+Duration: 40m12s
 ----
 
 These output variables are required to access your cluster and associated resources.
@@ -208,7 +215,7 @@ To setup your local `kubectl` configuration you can obtain the Pulumi `kubeconfi
 [source,shell script]
 ----
 pulumi stack output kubeconfig > kubeconfig.yml
-export KUBECONFIG=./kubeconfig.yml
+export KUBECONFIG=.$PWD/kubeconfig.yml
 ----
 
 Or, if you have the `aws` command line tool you can use `aws eks update-kubeconfig` to update your `\~/.kube/config`.
@@ -335,6 +342,27 @@ aws-otel-collector-svc.aws-otel-collector.svc.cluster.local
 
 In order to see the traces in X-Ray Console, you will need to setup Lightbend Telemetry for your application and configure it to produce traces. Please follow xref:telemetry:aws-xray-support.adoc[AWS X-Ray tracing support] for the details.
 
+[#connect-grafana]
+=== Connect to the Grafana UI
+
+NOTE: The following commands will help you to access the Grafana UI, but they do not expose the Grafana service to the internet.
+
+First you need to get the user and password that you use to login to the Grafana UI:
+
+[source,shell script]
+----
+kubectl get secret --namespace default grafana -o jsonpath="{.data.admin-user}" | base64 --decode ; echo
+kubectl get secret --namespace default grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+----
+
+After that, you need to start a port forwarder to expose the Grafana UI service:
+
+[source,shell script]
+----
+kubectl port-forward --namespace default service/grafana 3000:80
+----
+
+You can then open your browser and access the Grafana UI at <http://localhost:3000> and login with the user and password that you got above. If you navigate to <http://localhost:3000/datasources> you will see the "Cinnamon Prometheus" datasource that was created automatically when running `pulumi up`.
 
 [#output-variables]
 == Output Variables
@@ -347,7 +375,6 @@ pulumi stack output
 ----
 
 To output the value of only one variable use the same command and include the variable. For example, to return the clusterName.
-
 
 [source,shell script]
 ----
@@ -402,27 +429,82 @@ Or by populating the stack's `Pulumi.<STACK NAME>.yaml`.
 | Yes
 | `-`
 
-| `cloud`
-| The cloud vendor to deploy.
-| No
-| `"aws"`
-
-| `operator-namespace`
+| `akka.operator.namespace`
 | The Kubernetes namespace to install the Akka Cloud Platform operator into.
 | No
 | `"lightbend"`
 
-| `install-metrics-server`
-| Install the Kubernetes Metrics Server.
+| `akka.operator.version`
+| The version of the Akka Cloud Platform operator to install.
+| No
+| `"1.1.21"`
+
+| `akka.operator.installTelemetryBackends`
+| Whether to install Lightbend Telemetry backends (Prometheus and Grafana) for monitoring.
 | No
 | `true`
 
-| `deploy-kafka-cluster`
-| Deploy a Kafka cluster (MSK) via a cloud provider managed service.
+| `kubernetes.metrics-server.install`
+| Whether to install the Kubernetes metrics server.
 | No
 | `true`
 
-| `deploy-jdbc-database`
+| `eks.kubernetes.version`
+| The https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html[version of the Amazon EKS Kubernetes {tab-icon}, window="tab"] cluster.
+| No
+| `1.20`
+
+| `eks.kubernetes.node.desiredCapacity`
+| The desired number of nodes in the Amazon EKS Kubernetes cluster.
+| No
+| `3`
+
+| `eks.kubernetes.node.minSize`
+| The minimum number of nodes in the Amazon EKS Kubernetes cluster.
+| No
+| `1`
+
+| `eks.kubernetes.node.maxSize`
+| The maximum number of nodes in the Amazon EKS Kubernetes cluster.
+| No
+| `4`
+
+| `vpc.numberOfAvailabilityZones`
+| The number of Availability Zones in the Amazon EKS VPC.
+| No
+| `3`
+
+| `mks.createCluster`
+| Whether to deploy a Kafka cluster (MSK) via a cloud provider managed service.
+| No
+| `true`
+
+| `msk.kafka.version`
+| The https://docs.aws.amazon.com/msk/latest/developerguide/supported-kafka-versions.html[Kafka version {tab-icon}, window="tab"] for Amazon MSK.
+| No
+| `2.8.0`
+
+| `msk.kafka.numberOfBrokerNodes`
+| The number of Kafka broker nodes in the Amazon MSK cluster.
+| No
+| `2`
+
+| `msk.kafka.brokerNodeGroupInfo.instanceType`
+| The Amazon EC2 instance type for the Kafka broker nodes in the Amazon MSK cluster.
+| No
+| `kafka.m5.large`
+
+| `msk.kafka.brokerNodeGroupInfo.ebsVolumeSize`
+| The size of the EBS volume for the Kafka broker nodes in the Amazon MSK cluster.
+| No
+| `1000`
+
+| `msk.kafka.encryptionInfo.encryptionInTransit`
+| https://www.pulumi.com/docs/reference/pkg/aws/msk/cluster/#clusterencryptioninfoencryptionintransit[Encryption setting {tab-icon}, window="tab"] for data in transit between clients and brokers.
+| No
+| `TLS_PLAINTEXT`
+
+| `rds.createCluster`
 | Deploy a JDBC database (Aurora RDS) via a cloud provider managed service.
 | No
 | `true`
