@@ -323,7 +323,7 @@ pulumi config set aws-xray-secret-access-key <your secret access key>
 
 After that run `pulumi up` to install AWS OTel Collector. If your cluster already exists it will only install AWS OTel Collector if it's not there yet or if its configuration has changed.
 
-Once AWS OTel Collector deployed you can get `awsOTelCollectorServiceEndpoint` that you will need to configure your application to report traces to AWS OTel Collector Zipkin endpoint in the Lightbend Telemetry config:
+Once the AWS OTel Collector is deployed you can get `awsOTelCollectorServiceEndpoint`. You will need that endpoint to configure your application to report traces. The traces are reported to the AWS OTel Collector Zipkin endpoint within the Lightbend Telemetry config:
 
 [source,shell script]
 ----
