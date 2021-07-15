@@ -312,7 +312,7 @@ Opt-in to install AWS OTel Collector into your EKS cluster:
 
 [source,shell script]
 ----
-pulumi config set install-aws-otel-collector true
+pulumi config set otel.collector.install true
 ----
 
 Choose an AWS region for X-Ray if it differs from `aws:region`:
@@ -509,12 +509,12 @@ Or by populating the stack's `Pulumi.<STACK NAME>.yaml`.
 | No
 | `true`
 
-| `install-aws-otel-collector`
+| `otel.collector.install`
 | Install the AWS OTel Collector service to send traces to AWS X-Ray console.
 | No
 | `false`
 
-| `aws-otel-collector-namespace`
+| `otel.collector.namespace`
 | AWS OTel Collector namespace.
 | No
 | `"aws-otel-collector"`
@@ -526,15 +526,15 @@ Or by populating the stack's `Pulumi.<STACK NAME>.yaml`.
 
 | `xray.region`
 | AWS X-Ray Region. By default the same as `aws:region`.
-| Yes, when `install-aws-otel-collector` enabled
+| Yes, when `otel.collector.install` enabled
 | `aws:region`
 
 | `xray.access-key-id`
 | AWS X-Ray Access Key ID.
-| Yes, when `install-aws-otel-collector` enabled
+| Yes, when `otel.collector.install` enabled
 | `-`
 
 | `xray.secret-access-key`
 | AWS X-Ray Secret Access Key.
-| Yes, when `install-aws-otel-collector` enabled
+| Yes, when `otel.collector.install` enabled
 | `-`
