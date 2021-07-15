@@ -299,6 +299,8 @@ kubectl get secret $JDBC_SECRET -n $OPERATOR_NAMESPACE -o yaml | \
 
 The AWS OTel Collector collects traces from applications instrumented with xref:telemetry:index.adoc[Lightbend Telemetry] 2.16.1+ and sends them to X-Ray.
 
+NOTE: If you don't use Pulumi then follow the https://aws-otel.github.io/docs/getting-started/collector[Getting Started with the AWS Distro for OpenTelemetry Collector] instruction.
+
 Opt-in to install AWS OTel Collector into your EKS cluster:
 
 [source,shell script]

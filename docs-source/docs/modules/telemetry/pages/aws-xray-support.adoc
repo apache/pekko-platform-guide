@@ -7,7 +7,9 @@ Lightbend Telemetry 2.16.1+ can report traces to https://aws.amazon.com/xray/[AW
 
 Note that Lightbend Telemetry doesn't send traces directly to AWS X-Ray. You will need to set up the https://github.com/aws-observability/aws-otel-Collector[AWS OTel Collector {tab-icon}, window="tab"] within your EKS cluster. Lightbend Telemetry uses Zipkin protocol to send traces to the AWS OTel Collector which batches them and then pushes them to the AWS X-Ray backend.
 
-First, you will need to install the AWS OTel Collector into your EKS cluster. We provide a Pulumi script that automates EKS cluster and Akka Operator setup. It also has an option to install the AWS OTel Collector. Please follow instructions on the xref:deployment:aws-install-quickstart.adoc#install-aws-otel-collector[AWS OTel Collector] page.
+First, you will need to install the AWS OTel Collector into your EKS cluster. We provide a Pulumi script that automates EKS cluster and Akka Operator setup. It also has an option to install the AWS OTel Collector. Please follow instructions on the xref:deployment:aws-install-quickstart.adoc#install-aws-otel-collector[AWS OTel Collector installation] page. 
+
+NOTE: If you don't use Pulumi then follow the https://aws-otel.github.io/docs/getting-started/collector[Getting Started with the AWS Distro for OpenTelemetry Collector] instruction.
 
 Once you have the AWS OTel Collector deployed you will need to configure your application.
 
