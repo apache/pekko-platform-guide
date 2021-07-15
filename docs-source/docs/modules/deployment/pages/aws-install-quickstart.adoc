@@ -331,7 +331,7 @@ $ pulumi stack output awsOTelCollectorServiceEndpoint
 aws-otel-collector-svc.aws-otel-collector.svc.cluster.local
 ----
 
-In order to see the traces in X-Ray Console, you will need to set Lightbend Telemetry up for your application and configure it to produce traces. Please follow xref:telemetry:aws-xray-support.adoc[AWS X-Ray tracing support] for the details.
+In order to see the traces in X-Ray Console, you will need to setup Lightbend Telemetry for your application and configure it to produce traces. Please follow xref:telemetry:aws-xray-support.adoc[AWS X-Ray tracing support] for the details.
 
 
 [#output-variables]
