@@ -312,15 +312,15 @@ Choose an AWS region for X-Ray if it differs from `aws:region`:
 
 [source,shell script]
 ----
-pulumi config set aws-xray-region eu-central-1
+pulumi config set xray.region eu-central-1
 ----
 
 Set AWS X-Ray credentials:
 
 [source,shell script]
 ----
-pulumi config set aws-xray-access-key-id <your access key id>
-pulumi config set aws-xray-secret-access-key <your secret access key>
+pulumi config set xray.access-key-id <your access key id>
+pulumi config set xray.secret-access-key <your secret access key>
 ----
 
 After that run `pulumi up` to install AWS OTel Collector. If your cluster already exists it will only install AWS OTel Collector if it's not there yet or if its configuration has changed.
@@ -437,22 +437,22 @@ Or by populating the stack's `Pulumi.<STACK NAME>.yaml`.
 | No
 | `"aws-otel-collector"`
 
-| `aws-otel-collector-debug`
+| `otel.collector.debug`
 | Enable debug level logging for the AWS OTel Collector service. When enabled it will produce log to the standard output.
 | No
 | `false`
 
-| `aws-xray-region`
+| `xray.region`
 | AWS X-Ray Region. By default the same as `aws:region`.
 | Yes, when `install-aws-otel-collector` enabled
 | `aws:region`
 
-| `aws-xray-access-key-id`
+| `xray.access-key-id`
 | AWS X-Ray Access Key ID.
 | Yes, when `install-aws-otel-collector` enabled
 | `-`
 
-| `aws-xray-secret-access-key`
+| `xray.secret-access-key`
 | AWS X-Ray Secret Access Key.
 | Yes, when `install-aws-otel-collector` enabled
 | `-`
