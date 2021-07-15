@@ -297,7 +297,7 @@ kubectl get secret $JDBC_SECRET -n $OPERATOR_NAMESPACE -o yaml | \
 [#install-aws-otel-collector]
 === Install AWS OTel Collector to see application traces in X-Ray Console
 
-The AWS OTel Collector collects traces from applications instrumented with Lightbend Telemetry 2.16.1+ and sends them to X-Ray.
+The AWS OTel Collector collects traces from applications instrumented with xref:telemetry:index.adoc[Lightbend Telemetry] 2.16.1+ and sends them to X-Ray.
 
 Opt-in to install AWS OTel Collector into your EKS cluster:
 
