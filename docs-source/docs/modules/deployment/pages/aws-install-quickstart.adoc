@@ -306,7 +306,7 @@ Opt-in to install AWS OTel Collector into your EKS cluster:
 pulumi config set install-aws-otel-collector true
 ----
 
-Choose an AWS region if it differs from `aws:region`:
+Choose an AWS region for X-Ray if it differs from `aws:region`:
 
 [source,shell script]
 ----
