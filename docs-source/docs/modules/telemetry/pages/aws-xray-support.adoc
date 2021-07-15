@@ -15,7 +15,7 @@ To enable your application for trace production, you will need to set up the Cin
 
 After that, you will need to add tracing-specific configuration and dependencies.
 
-The following is the core Cinnamon and Zipkin reporter dependencies that you will need to add to your build tool configuration:
+The following are the core Cinnamon and Zipkin reporter dependencies that you will need to add to your build tool configuration:
 
 [.tabset]
 Java::
