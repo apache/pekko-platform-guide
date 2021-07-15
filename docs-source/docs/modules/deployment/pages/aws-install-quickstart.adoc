@@ -15,7 +15,7 @@ By default the following components will be provisioned.
 3. Install the Akka Cloud Platform Helm chart
 4. Setup an Amazon Managed Streaming for Apache Kafka (MSK) cluster
 5. Setup an Amazon Aurora Relational Database Service (RDS) cluster
-6. Install the AWS OTel Collector to see application traces in the X-Ray Console
+6. Optional: Install the https://aws-otel.github.io/[AWS OTel Collector {tab-icon}, window="tab"] to see application traces in the X-Ray Console
 
 :sectnums:
 
