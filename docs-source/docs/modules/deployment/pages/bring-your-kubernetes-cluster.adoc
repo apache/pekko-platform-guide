@@ -9,6 +9,8 @@ In order to best understand the basic deployment architecture and workflow, make
 
 == Prepare your cluster
 
+NOTE: Running the Akka Cloud Platform operator requires Kubernetes 1.19 or newer.
+
 Verify that your `kubectl` context points to your local Kubernetes cluster (for example, {minikube}[minikube {tab-icon}, window="tab"]), or an external Kubernetes cluster (as illustrated in https://docs.microsoft.com/en-ca/azure/aks/kubernetes-walkthrough[Azure {tab-icon}, window="tab"]).
 
 Next, make sure you have the akka-operator-helm chart:
