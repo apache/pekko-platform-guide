@@ -103,6 +103,19 @@
             <artifactId>cinnamon-prometheus-httpserver</artifactId>
         </dependency>
         <!-- end::telemetry-prometheus-dependencies[] -->
+
+        <!-- tag::telemetry-opentracing-dependencies[] -->
+        <!-- Cinnamon OpenTracing core dependency -->
+        <dependency>
+            <groupId>com.lightbend.cinnamon</groupId>
+            <artifactId>cinnamon-opentracing_${scala.binary.version}</artifactId>
+        </dependency>
+        <!-- Cinnamon OpenTracing Zipkin reporter dependency -->
+        <dependency>
+            <groupId>com.lightbend.cinnamon</groupId>
+            <artifactId>cinnamon-opentracing-zipkin</artifactId>
+        </dependency>
+        <!-- end::telemetry-opentracing-dependencies[] -->
     </dependencies>
 
     <build>

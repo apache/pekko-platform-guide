@@ -15,6 +15,7 @@ By default the following components will be provisioned.
 3. Install the Akka Cloud Platform Helm chart
 4. Setup an Amazon Managed Streaming for Apache Kafka (MSK) cluster
 5. Setup an Amazon Aurora Relational Database Service (RDS) cluster
+6. Optional: Install the https://aws-otel.github.io/[AWS OTel Collector {tab-icon}, window="tab"] to see application traces in the X-Ray Console
 
 :sectnums:
 
@@ -293,6 +294,48 @@ kubectl get secret $JDBC_SECRET -n $OPERATOR_NAMESPACE -o yaml | \
 ----
 ====
 
+[#install-aws-otel-collector]
+=== Install AWS OTel Collector to see application traces in X-Ray Console
+
+The AWS OTel Collector collects traces from applications instrumented with xref:telemetry:index.adoc[Lightbend Telemetry] 2.16.1+ and sends them to X-Ray.
+
+NOTE: If you don't use Pulumi then follow the https://aws-otel.github.io/docs/getting-started/collector[Getting Started with the AWS Distro for OpenTelemetry Collector] instruction.
+
+Opt-in to install AWS OTel Collector into your EKS cluster:
+
+[source,shell script]
+----
+pulumi config set install-aws-otel-collector true
+----
+
+Choose an AWS region for X-Ray if it differs from `aws:region`:
+
+[source,shell script]
+----
+pulumi config set xray.region eu-central-1
+----
+
+Set AWS X-Ray credentials:
+
+[source,shell script]
+----
+pulumi config set xray.access-key-id <your access key id>
+pulumi config set xray.secret-access-key <your secret access key>
+----
+
+After that run `pulumi up` to install AWS OTel Collector. If your cluster already exists it will only install AWS OTel Collector if it's not there yet or if its configuration has changed.
+
+Once the AWS OTel Collector is deployed you can get `awsOTelCollectorServiceEndpoint`. You will need that endpoint to configure your application to report traces. The traces are reported to the AWS OTel Collector Zipkin endpoint within the Lightbend Telemetry config:
+
+[source,shell script]
+----
+$ pulumi stack output awsOTelCollectorServiceEndpoint
+aws-otel-collector-svc.aws-otel-collector.svc.cluster.local
+----
+
+In order to see the traces in X-Ray Console, you will need to setup Lightbend Telemetry for your application and configure it to produce traces. Please follow xref:telemetry:aws-xray-support.adoc[AWS X-Ray tracing support] for the details.
+
+
 [#output-variables]
 == Output Variables
 
@@ -334,6 +377,10 @@ AWS MSK Kafka Cluster
 * `kafkaBootstrapBrokersTls` - Kafka bootstrap servers for `TLS` connection
 * `kafkaZookeeperConnectString` - Kafka ZooKeeper quorum connection string
 * `kafkaBootstrapServerSecret` - The Kubernetes Secret (in `operatorNamespace` namespace) containing the `PLAINTEXT` Kafka bootstrap servers connection string.
+
+AWS OTel Collector
+
+* `awsOTelCollectorServiceEndpoint` - AWS OTel Collector service endpoint. Supports Zipkin protocol for traces.
 
 == Pulumi Playbook configuration
 
@@ -379,3 +426,33 @@ Or by populating the stack's `Pulumi.<STACK NAME>.yaml`.
 | Deploy a JDBC database (Aurora RDS) via a cloud provider managed service.
 | No
 | `true`
+
+| `install-aws-otel-collector`
+| Install the AWS OTel Collector service to send traces to AWS X-Ray console.
+| No
+| `false`
+
+| `aws-otel-collector-namespace`
+| AWS OTel Collector namespace.
+| No
+| `"aws-otel-collector"`
+
+| `otel.collector.debug`
+| Enable debug level logging for the AWS OTel Collector service. When enabled it will produce log to the standard output.
+| No
+| `false`
+
+| `xray.region`
+| AWS X-Ray Region. By default the same as `aws:region`.
+| Yes, when `install-aws-otel-collector` enabled
+| `aws:region`
+
+| `xray.access-key-id`
+| AWS X-Ray Access Key ID.
+| Yes, when `install-aws-otel-collector` enabled
+| `-`
+
+| `xray.secret-access-key`
+| AWS X-Ray Secret Access Key.
+| Yes, when `install-aws-otel-collector` enabled
+| `-`
