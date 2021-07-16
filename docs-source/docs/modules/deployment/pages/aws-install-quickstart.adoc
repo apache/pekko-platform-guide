@@ -8,7 +8,7 @@ NOTE: To install Akka Cloud Platform on Amazon Elastic Kubernetes Service (EKS),
 == Expected Time to Install
 
 A new installation will take approximately _from 40 minutes_ to _1 hour_ depending on which components are installed.
-By default the following components will be provisioned.
+By default, the following steps will be executed:
 
 1. Create an Amazon EKS cluster
 2. Install the Kubernetes Metrics Server
@@ -342,27 +342,7 @@ aws-otel-collector-svc.aws-otel-collector.svc.cluster.local
 
 In order to see the traces in X-Ray Console, you will need to setup Lightbend Telemetry for your application and configure it to produce traces. Please follow xref:telemetry:aws-xray-support.adoc[AWS X-Ray tracing support] for the details.
 
-[#connect-grafana]
-=== Connect to the Grafana UI
-
-NOTE: The following commands will help you to access the Grafana UI, but they do not expose the Grafana service to the internet.
-
-First you need to get the user and password that you use to login to the Grafana UI:
-
-[source,shell script]
-----
-kubectl get secret --namespace default grafana -o jsonpath="{.data.admin-user}" | base64 --decode ; echo
-kubectl get secret --namespace default grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
-----
-
-After that, you need to start a port forwarder to expose the Grafana UI service:
-
-[source,shell script]
-----
-kubectl port-forward --namespace default service/grafana 3000:80
-----
-
-You can then open your browser and access the Grafana UI at <http://localhost:3000> and login with the user and password that you got above. If you navigate to <http://localhost:3000/datasources> you will see the "Cinnamon Prometheus" datasource that was created automatically when running `pulumi up`.
+include::partial$connect-to-grafana.adoc[]
 
 [#output-variables]
 == Output Variables
@@ -441,11 +421,6 @@ Or by populating the stack's `Pulumi.<STACK NAME>.yaml`.
 
 | `akka.operator.installTelemetryBackends`
 | Whether to install Lightbend Telemetry backends (Prometheus and Grafana) for monitoring.
-| No
-| `true`
-
-| `kubernetes.metrics-server.install`
-| Whether to install the Kubernetes metrics server.
 | No
 | `true`
 
