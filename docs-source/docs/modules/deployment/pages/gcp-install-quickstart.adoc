@@ -7,11 +7,13 @@ NOTE: To install Akka Cloud Platform on Google Kubernetes Engine (GKE), you must
 
 == Expected Time to Install
 
-A new installation will take approximately  _20 minutes_ and the following components will be provisioned:
+A new installation will take approximately  _20 minutes_, and by default, the following steps will be executed:
 
-* A Google GKE cluster
-* The Akka Cloud Platform Helm chart
-* A PostgreSQL Database Instance
+1. Create an GKE cluster
+2. Install the Akka Cloud Platform Helm chart
+3. Install the Grafana Helm chart
+4. Install the Prometheus Helm Chart
+5. Setup a PostgreSQL Database Instance
 
 :sectnums:
 
@@ -54,9 +56,9 @@ gcloud auth application-default login
 ----
 
 * Optionally you can set the following environment variables to provide preset default configurations for the Pulumi Google Cloud Platform provider:
-  . GOOGLE_PROJECT - The default project for new resources, if one is not specified when creating a resource
-  . GOOGLE_REGION - The default region for new resources, if one is not specified when creating a resource
-  . GOOGLE_ZONE - The default zone for new resources, if one is not specified when creating a resource.
+  . `GOOGLE_PROJECT` - The default project for new resources, if one is not specified when creating a resource
+  . `GOOGLE_REGION` - The default region for new resources, if one is not specified when creating a resource
+  . `GOOGLE_ZONE` - The default zone for new resources, if one is not specified when creating a resource.
 
 Alternatively these can also be set through `pulumi config` to make them defaults for newly created resources:
 
@@ -175,17 +177,16 @@ After executing `pulumi up`, you will see something like the following:
 [source,shell script]
 ----
 $ pulumi up
-Previewing update (dev)
+Previewing update (<STACK NAME>)
 
-View Live: https://app.pulumi.com/<STACK NAME>/akka-cloud-platform-gcp-deploy/<STACK NAME>/previews/7d82583e-17db-4d80-be58-49d266029998
+View Live: https://app.pulumi.com/<USER NAME>/akka-cloud-platform-gcp-deploy/<STACK NAME>/previews/f7a820f3-0fd8-4f2e-903a-fecdd3c72749
 
-     Type                                                                 Name                                                                                        Plan
- +   pulumi:pulumi:Stack                                                  akka-cloud-platform-gcp-deploy-<STACK NAME>                                                 create
-
+     Type                                                                  Name                                                                                       Plan
+ +   pulumi:pulumi:Stack                                                   akka-cloud-platform-gcp-deploy-<STACK NAME>                                                create
 ...
 
 Resources:
-    + 23 to create
+    + 66 to create
 
 Do you want to perform this update? yes
 
@@ -209,7 +210,7 @@ Outputs:
     postgreSQLInstanceName            : "instance-b787e55"
 
 Resources:
-    + 23 created
+    + 66 created
 
 Duration: 22m39s
 ----
@@ -245,7 +246,7 @@ Diagnostics:
 
 Just run `pulumi up` again, which is basically a noop, but the stack gets updated fully.
 
-NOTE: Another documented issue in Pulumi is a problem in concurrency control. In this case, an operation fails with the following message. This is also documented in https://www.pulumi.com/docs/troubleshooting/#conflict[pulumi troubleshooting section {tab-icon}, window="tab"]
+NOTE: Another documented issue in Pulumi is a problem in concurrency control. In this case, an operation fails with the following message. This is also documented in https://www.pulumi.com/docs/troubleshooting/#conflict[Pulumi troubleshooting section {tab-icon}, window="tab"]
 
 [source,shell script]
 ----
@@ -284,7 +285,7 @@ To set up your local `kubectl` configuration, you can obtain the Pulumi `kubecon
 [source,shell script]
 ----
 pulumi stack output kubeconfig --show-secrets > kubeconfig.yml
-export KUBECONFIG=./kubeconfig.yml
+export KUBECONFIG=$PWD/kubeconfig.yml
 ----
 
 [#connect-cloudsql-database]
@@ -310,6 +311,7 @@ kubectl run -i --tty rds-mgmt --image=postgres --restart=Never --rm \
   psql -h $(pulumi stack output postgreSQLEndpoint) -U postgres
 ----
 
+include::partial$connect-to-grafana.adoc[]
 
 [#output-variables]
 == Output Variables
@@ -369,13 +371,48 @@ Or by populating the stack's `Pulumi.<STACK NAME>.yaml`.
 | Yes (if not set at the provider level)
 | `-`
 
-| `cloud`
-| The cloud vendor to deploy.
-| No
-| `"gcp"`
-
-| `operator-namespace`
+| `akka.operator.namespace`
 | The Kubernetes namespace to install the Akka Cloud Platform operator into.
 | No
 | `"lightbend"`
+
+| `akka.operator.version`
+| The version of the Akka Cloud Platform operator to install.
+| No
+| `"1.1.21"`
+
+| `akka.operator.installTelemetryBackends`
+| Whether to install Lightbend Telemetry backends (Prometheus and Grafana) for monitoring.
+| No
+| `true`
+
+| `gke.nodePool.initialNodeCount`
+| The initial number of nodes in the GKE node pool.
+| No
+| `3`
+
+| `gke.nodePool.autoscaling.maxNodeCount`
+| The maximum number of nodes in the GKE node pool.
+| No
+| `7`
+
+| `gke.nodePool.autoscaling.minNodeCount`
+| The minimum number of nodes in the GKE node pool.
+| No
+| `1`
+
+| `gke.nodePool.nodeConfig.machineType`
+| The machine type for the GKE node pool.
+| No
+| `n1-standard-4`
+
+| `cloudSql.databaseVersion`
+| The version of the Cloud SQL database to use.
+| No
+| `POSTGRES_13`
+
+| `cloudSql.settings.tier`
+| The Cloud SQL instance tier.
+| No
+| `db-f1-micro`
 |===
