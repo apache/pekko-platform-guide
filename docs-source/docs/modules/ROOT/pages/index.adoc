@@ -24,9 +24,9 @@ Akka is a platform for designing scalable, resilient systems that span processor
 
 *Akka provides:*
 
-* Multi-threaded behavior — without the use of low-level concurrency constructs like atomics or locks; relieving you from even thinking about memory visibility issues.
-* Transparent remote communication between systems and their components — relieving you from writing and maintaining difficult networking code.
-* A clustered, high-availability architecture that is elastic, scales in or out, on demand — enabling you to deliver a truly reactive system.
+* *Multi-threaded behavior* — without the use of low-level concurrency constructs like atomics or locks; relieving you from even thinking about memory visibility issues.
+* *Transparent remote communication between systems and their components* — relieving you from writing and maintaining difficult networking code.
+* *Clustered, high-availability, elastic architecture, that scales on demand* — enabling you to deliver a truly reactive system.
 
 Akka’s use of the actor model provides a level of abstraction that makes it easier to write correct concurrent, parallel and distributed systems. The actor model spans the full set of Akka libraries, providing you with a consistent way of understanding and using them.
 
@@ -42,10 +42,10 @@ Akka Cloud Platform enhances Akka by adding operational tooling, services, and s
 
 *What does Akka Cloud Platform provide?*
 
-* Integrated Telemetry — provides insight into applications built with Lightbend technologies and integrates with popular monitoring tools
-* Ops/DevOps tooling — Simple deployment and scaling of Kubernetes-powered Akka applications
-* Simple integration paths for relevant cloud services (e.g., Kafka, Cassandra, data stores)
-* Available through popular Cloud Marketplaces:
+* *Integrated Telemetry* — provides insight into applications built with Lightbend technologies and integrates with popular monitoring tools
+* *Ops/DevOps tooling* — Simple deployment and scaling of Kubernetes-powered Akka applications
+* *Simple integration paths* — Provided for relevant cloud services (for example, Kafka, Cassandra, data stores)
+* *Available through popular Cloud Marketplaces:*
 ** Optional Pay-as-you-go, or custom pricing
 ** Integrated legal, purchasing, and billing with the marketplaces
 
