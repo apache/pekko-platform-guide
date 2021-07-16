@@ -13,7 +13,7 @@ A new installation will take approximately  _20 minutes_, and by default, the fo
 2. Install the Akka Cloud Platform Helm chart
 3. Install the Grafana Helm chart
 4. Install the Prometheus Helm Chart
-5. Setup a PostgreSQL Database Instance
+5. Set up a PostgreSQL Database Instance
 
 :sectnums:
 
@@ -246,7 +246,7 @@ Diagnostics:
 
 Just run `pulumi up` again, which is basically a noop, but the stack gets updated fully.
 
-NOTE: Another documented issue in Pulumi is a problem in concurrency control. In this case, an operation fails with the following message. This is also documented in https://www.pulumi.com/docs/troubleshooting/#conflict[Pulumi troubleshooting section {tab-icon}, window="tab"]
+NOTE: Another documented issue in Pulumi is within concurrency control. In this case, an operation fails with the following message. This is also documented in https://www.pulumi.com/docs/troubleshooting/#conflict[Pulumi troubleshooting section {tab-icon}, window="tab"]
 
 [source,shell script]
 ----
