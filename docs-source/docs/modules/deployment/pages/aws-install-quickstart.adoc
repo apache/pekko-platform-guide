@@ -15,8 +15,8 @@ By default, the following steps will be executed:
 3. Install the Akka Cloud Platform Helm chart
 4. Install the Grafana Helm chart
 5. Install the Prometheus Helm Chart
-6. Setup an Amazon Managed Streaming for Apache Kafka (MSK) cluster
-7. Setup an Amazon Aurora Relational Database Service (RDS) cluster
+6. Set up an Amazon Managed Streaming for Apache Kafka (MSK) cluster
+7. Set up an Amazon Aurora Relational Database Service (RDS) cluster
 8. Optional: Install the https://aws-otel.github.io/[AWS OTel Collector {tab-icon}, window="tab"] to see application traces in the X-Ray Console
 
 :sectnums:
@@ -513,3 +513,5 @@ Or by populating the stack's `Pulumi.<STACK NAME>.yaml`.
 | AWS X-Ray Secret Access Key.
 | Yes, when `otel.collector.install` enabled
 | `-`
+
+|===
