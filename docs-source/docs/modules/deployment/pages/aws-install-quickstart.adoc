@@ -184,7 +184,7 @@ Outputs:
     operatorNamespace          : "lightbend"
 
 Resources:
-    + 140 created
+    + 150 created
 
 Duration: 40m12s
 ----
@@ -207,6 +207,8 @@ To destroy the cluster and all its dependencies:
 ----
 pulumi destroy
 ----
+
+NOTE: You may need to run `pulumi destroy` a couple of times to destroy all resources effectively. Usually, you can run with `--refresh` flag to refresh the state of the stack's resources before destroying resources. For example, `pulumi destroy --refresh`.
 
 === Connect to the Amazon EKS Cluster
 
@@ -417,7 +419,7 @@ Or by populating the stack's `Pulumi.<STACK NAME>.yaml`.
 | `akka.operator.version`
 | The version of the Akka Cloud Platform operator to install.
 | No
-| `"1.1.21"`
+| `"1.1.22"`
 
 | `akka.operator.installTelemetryBackends`
 | Whether to install Lightbend Telemetry backends (Prometheus and Grafana) for monitoring.
