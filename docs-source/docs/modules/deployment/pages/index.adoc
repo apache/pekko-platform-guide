@@ -6,14 +6,14 @@ The Akka Cloud Platform enables developers to quickly build and deploy cloud-nat
 
 An Akka Cloud Platform subscription includes access to Lightbend Telemetry, Lightbend Academy, and basic support. Through the Akka Operator, the Akka Cloud Platform provides the following high level features:
 
-* convenient deployment without the need to define detailed Kubernetes manifests
-* integration with Akka Cluster Bootstrap
-* integration with Akka Management health checks
-* integration with Relational Databases
-* integration with Cassandra
-* integration with Kafka
-* support for gRPC and HTTP services and internet-facing ingress
-* insights into deployment status
+* Convenient deployment without the need to define detailed Kubernetes manifests
+* Integration with Akka Cluster Bootstrap
+* Integration with Akka Management health checks
+* Integration with Relational Databases
+* Integration with Cassandra
+* Integration with Kafka
+* Support for gRPC and HTTP services and internet-facing ingress
+* Insights into deployment status
 
 The Akka Cloud Platform is currently available in xref:gcp-install.adoc[Google Cloud Platform (GCP)] and xref:aws-index.adoc[Amazon Web Services (AWS)]
 
