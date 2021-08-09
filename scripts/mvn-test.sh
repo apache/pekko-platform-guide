@@ -10,7 +10,9 @@ if [ -f docker-compose.yml ]; then
   docker-compose up -d
 fi
 
-mvn test spotless:check
+# Do not display transfer progress when downloading or uploading.
+# This helps to clean up the build output.
+mvn --no-transfer-progress test spotless:check
 
 THE_EXIT_CODE=$?
 
