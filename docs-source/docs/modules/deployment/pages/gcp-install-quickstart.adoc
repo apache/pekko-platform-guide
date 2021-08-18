@@ -278,7 +278,7 @@ To destroy the cluster and all its dependencies:
 pulumi destroy
 ----
 
-NOTE: You may need to run `pulumi destroy` a couple of times to destroy all resources effectively. Usually, you can run with `--refresh` flag to refresh the state of the stack's resources before destroying resources. For example, `pulumi destroy --refresh`.
+NOTE: You may need to run `pulumi destroy` a couple of times to destroy all resources effectively. You can run with a `--refresh` flag to refresh the state of the stack's resources before destroying resources. For example, `pulumi destroy --refresh`.
 
 === Connect to the GKE Cluster
 
