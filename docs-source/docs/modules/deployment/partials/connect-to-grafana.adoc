@@ -18,5 +18,4 @@ After that, you need to start a port forwarder to expose the Grafana UI service:
 kubectl port-forward --namespace default service/grafana 3000:80
 ----
 
-You can then open your browser and access the Grafana UI at <http://localhost:3000> and login with the user and password that you got above. If you navigate to <http://localhost:3000/datasources> you will see the "Cinnamon Prometheus" datasource that was created automatically when running `pulumi up`.
-
+You can then open your browser and access the Grafana UI at <http://localhost:3000>. Log in with the user and password that you got above. If you navigate to <http://localhost:3000/datasources> you will see the "Cinnamon Prometheus" data source that was created automatically when running `pulumi up`. If you navigate to <http://localhost:3000/dashboards> you will see the https://developer.lightbend.com/docs/telemetry/current/visualizations/grafana.html[Grafana dashboards from Lightbend Telemetry] were also installed.
