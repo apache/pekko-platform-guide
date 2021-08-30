@@ -25,7 +25,7 @@ Test / logBuffered := false
 run / fork := false
 Global / cancelable := false // ctrl-c
 
-val AkkaVersion = "2.6.14"
+val AkkaVersion = "2.6.16"
 val AkkaHttpVersion = "10.2.4"
 val AkkaManagementVersion = "1.0.10"
 
