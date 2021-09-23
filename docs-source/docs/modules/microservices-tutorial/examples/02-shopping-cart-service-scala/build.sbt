@@ -2,9 +2,7 @@ name := "shopping-cart-service"
 
 organization := "com.lightbend.akka.samples"
 organizationHomepage := Some(url("https://akka.io"))
-licenses := Seq(
-  ("CC0", url("https://creativecommons.org/publicdomain/zero/1.0"))
-)
+licenses := Seq(("CC0", url("https://creativecommons.org/publicdomain/zero/1.0")))
 
 scalaVersion := "2.13.5"
 
@@ -14,8 +12,7 @@ Compile / scalacOptions ++= Seq(
   "-feature",
   "-unchecked",
   "-Xlog-reflective-calls",
-  "-Xlint"
-)
+  "-Xlint")
 Compile / javacOptions ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")
 
 Test / parallelExecution := false
@@ -30,7 +27,7 @@ val AkkaHttpVersion = "10.2.4"
 val AkkaManagementVersion = "1.0.10"
 val AkkaPersistenceJdbcVersion = "5.0.0"
 val AlpakkaKafkaVersion = "2.0.7"
-val AkkaProjectionVersion = "1.1.0"
+val AkkaProjectionVersion = "1.2.2"
 val ScalikeJdbcVersion = "3.5.0"
 
 enablePlugins(AkkaGrpcPlugin)
@@ -75,5 +72,4 @@ libraryDependencies ++= Seq(
   "org.scalikejdbc" %% "scalikejdbc" % ScalikeJdbcVersion,
   "org.scalikejdbc" %% "scalikejdbc-config" % ScalikeJdbcVersion,
   "com.typesafe.akka" %% "akka-stream-kafka" % AlpakkaKafkaVersion,
-  "com.lightbend.akka" %% "akka-projection-testkit" % AkkaProjectionVersion % Test
-)
+  "com.lightbend.akka" %% "akka-projection-testkit" % AkkaProjectionVersion % Test)

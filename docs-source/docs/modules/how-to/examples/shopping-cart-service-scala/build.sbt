@@ -12,8 +12,7 @@ Compile / scalacOptions ++= Seq(
   "-feature",
   "-unchecked",
   "-Xlog-reflective-calls",
-  "-Xlint"
-)
+  "-Xlint")
 Compile / javacOptions ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")
 
 Test / parallelExecution := false
@@ -30,7 +29,7 @@ val AkkaManagementVersion = "1.0.10"
 // end::dependencies-for-healthchecks[]
 val AkkaPersistenceCassandraVersion = "1.0.5"
 val AlpakkaKafkaVersion = "2.0.7"
-val AkkaProjectionVersion = "1.1.0"
+val AkkaProjectionVersion = "1.2.2"
 
 enablePlugins(AkkaGrpcPlugin)
 
@@ -49,7 +48,6 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-cluster-sharding-typed" % AkkaVersion,
   "com.typesafe.akka" %% "akka-actor-testkit-typed" % AkkaVersion % Test,
   "com.typesafe.akka" %% "akka-stream-testkit" % AkkaVersion % Test,
-
   // Akka Management powers Health Checks and Akka Cluster Bootstrapping
   // tag::dependencies-for-healthchecks[]
   "com.lightbend.akka.management" %% "akka-management" % AkkaManagementVersion,
@@ -62,28 +60,23 @@ libraryDependencies ++= Seq(
   "com.lightbend.akka.management" %% "akka-management-cluster-bootstrap" % AkkaManagementVersion,
   "com.lightbend.akka.discovery" %% "akka-discovery-kubernetes-api" % AkkaManagementVersion,
   "com.typesafe.akka" %% "akka-discovery" % AkkaVersion,
-
   // Common dependencies for logging and testing
   "com.typesafe.akka" %% "akka-slf4j" % AkkaVersion,
   "ch.qos.logback" % "logback-classic" % "1.2.3",
   "org.scalatest" %% "scalatest" % "3.1.2" % Test,
-
   // 2. Using gRPC and/or protobuf
   "com.typesafe.akka" %% "akka-http2-support" % AkkaHttpVersion,
-
   // 3. Using Akka Persistence
   "com.typesafe.akka" %% "akka-persistence-typed" % AkkaVersion,
   "com.typesafe.akka" %% "akka-serialization-jackson" % AkkaVersion,
   "com.typesafe.akka" %% "akka-persistence-cassandra" % AkkaPersistenceCassandraVersion,
   "com.typesafe.akka" %% "akka-persistence-testkit" % AkkaVersion % Test,
-
   // 4. Querying or projecting data from Akka Persistence
   "com.typesafe.akka" %% "akka-persistence-query" % AkkaVersion,
   "com.lightbend.akka" %% "akka-projection-eventsourced" % AkkaProjectionVersion,
   "com.lightbend.akka" %% "akka-projection-cassandra" % AkkaProjectionVersion,
   "com.typesafe.akka" %% "akka-stream-kafka" % AlpakkaKafkaVersion,
   "com.lightbend.akka" %% "akka-projection-testkit" % AkkaProjectionVersion % Test,
-
   // 5. Kubernetes Lease (used by SBR)
   // tag::akka-sbr-kubernetes-lease[]
   "com.lightbend.akka.management" %% "akka-lease-kubernetes" % AkkaManagementVersion

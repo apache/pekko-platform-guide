@@ -2,9 +2,7 @@ name := "cleanup-dependencies-project"
 
 organization := "com.lightbend.akka.samples"
 organizationHomepage := Some(url("https://akka.io"))
-licenses := Seq(
-  ("CC0", url("https://creativecommons.org/publicdomain/zero/1.0"))
-)
+licenses := Seq(("CC0", url("https://creativecommons.org/publicdomain/zero/1.0")))
 
 scalaVersion := "2.13.5"
 
@@ -14,8 +12,7 @@ Compile / scalacOptions ++= Seq(
   "-feature",
   "-unchecked",
   "-Xlog-reflective-calls",
-  "-Xlint"
-)
+  "-Xlint")
 Compile / javacOptions ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")
 
 Test / parallelExecution := false
@@ -39,7 +36,7 @@ val AkkaPersistenceJdbcVersion = "5.0.0"
 val AlpakkaKafkaVersion = "2.0.7"
 // end::remove-alpakka-kafka-version[]
 // tag::remove-akka-projection-version[]
-val AkkaProjectionVersion = "1.1.0"
+val AkkaProjectionVersion = "1.2.2"
 // end::remove-akka-projection-version[]
 
 // tag::remove-grpc-plugin[]
@@ -100,5 +97,4 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-actor-testkit-typed" % AkkaVersion % Test,
   "com.typesafe.akka" %% "akka-persistence-testkit" % AkkaVersion % Test,
   "com.typesafe.akka" %% "akka-stream-testkit" % AkkaVersion % Test,
-  "org.scalatest" %% "scalatest" % "3.1.2" % Test
-)
+  "org.scalatest" %% "scalatest" % "3.1.2" % Test)
