@@ -53,9 +53,9 @@ CREATE TABLE IF NOT EXISTS public.snapshot (
   PRIMARY KEY(persistence_id, sequence_number)
 );
 
---drop table if exists public."AKKA_PROJECTION_OFFSET_STORE";
+--drop table if exists public.akka_projection_offset_store;
 
-CREATE TABLE IF NOT EXISTS akka_projection_offset_store (
+CREATE TABLE IF NOT EXISTS public.akka_projection_offset_store (
     projection_name VARCHAR(255) NOT NULL,
     projection_key VARCHAR(255) NOT NULL,
     current_offset VARCHAR(255) NOT NULL,
@@ -65,4 +65,14 @@ CREATE TABLE IF NOT EXISTS akka_projection_offset_store (
     PRIMARY KEY(projection_name, projection_key)
     );
 
-CREATE INDEX IF NOT EXISTS projection_name_index ON akka_projection_offset_store (projection_name);
+CREATE INDEX IF NOT EXISTS projection_name_index ON public.akka_projection_offset_store (projection_name);
+
+--drop table if exists public.akka_projection_management;
+
+CREATE TABLE IF NOT EXISTS public.akka_projection_management (
+  projection_name VARCHAR(255) NOT NULL,
+  projection_key VARCHAR(255) NOT NULL,
+  paused BOOLEAN NOT NULL,
+  last_updated BIGINT NOT NULL,
+  PRIMARY KEY(projection_name, projection_key)
+);

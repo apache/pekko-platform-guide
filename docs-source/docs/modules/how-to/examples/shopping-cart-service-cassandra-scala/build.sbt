@@ -12,8 +12,7 @@ Compile / scalacOptions ++= Seq(
   "-feature",
   "-unchecked",
   "-Xlog-reflective-calls",
-  "-Xlint"
-)
+  "-Xlint")
 Compile / javacOptions ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")
 
 Test / parallelExecution := false
@@ -31,7 +30,7 @@ val AkkaPersistenceCassandraVersion = "1.0.5"
 
 // end::akka-persistence-cassandra[]
 val AlpakkaKafkaVersion = "2.0.7"
-val AkkaProjectionVersion = "1.1.0"
+val AkkaProjectionVersion = "1.2.2"
 
 enablePlugins(AkkaGrpcPlugin)
 
@@ -50,7 +49,6 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-cluster-sharding-typed" % AkkaVersion,
   "com.typesafe.akka" %% "akka-actor-testkit-typed" % AkkaVersion % Test,
   "com.typesafe.akka" %% "akka-stream-testkit" % AkkaVersion % Test,
-
   // Akka Management powers Health Checks and Akka Cluster Bootstrapping
   "com.lightbend.akka.management" %% "akka-management" % AkkaManagementVersion,
   "com.typesafe.akka" %% "akka-http" % AkkaHttpVersion,
@@ -59,15 +57,12 @@ libraryDependencies ++= Seq(
   "com.lightbend.akka.management" %% "akka-management-cluster-bootstrap" % AkkaManagementVersion,
   "com.lightbend.akka.discovery" %% "akka-discovery-kubernetes-api" % AkkaManagementVersion,
   "com.typesafe.akka" %% "akka-discovery" % AkkaVersion,
-
   // Common dependencies for logging and testing
   "com.typesafe.akka" %% "akka-slf4j" % AkkaVersion,
   "ch.qos.logback" % "logback-classic" % "1.2.3",
   "org.scalatest" %% "scalatest" % "3.1.2" % Test,
-
   // 2. Using gRPC and/or protobuf
   "com.typesafe.akka" %% "akka-http2-support" % AkkaHttpVersion,
-
   // 3. Using Akka Persistence
   "com.typesafe.akka" %% "akka-persistence-typed" % AkkaVersion,
   "com.typesafe.akka" %% "akka-serialization-jackson" % AkkaVersion,
@@ -75,7 +70,6 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-persistence-cassandra" % AkkaPersistenceCassandraVersion,
   // end::akka-persistence-cassandra[]
   "com.typesafe.akka" %% "akka-persistence-testkit" % AkkaVersion % Test,
-
   // 4. Querying or projecting data from Akka Persistence
   "com.typesafe.akka" %% "akka-persistence-query" % AkkaVersion,
   "com.lightbend.akka" %% "akka-projection-eventsourced" % AkkaProjectionVersion,
@@ -83,7 +77,7 @@ libraryDependencies ++= Seq(
   "com.lightbend.akka" %% "akka-projection-cassandra" % AkkaProjectionVersion,
   // end::akka-projection-cassandra[]
   "com.typesafe.akka" %% "akka-stream-kafka" % AlpakkaKafkaVersion,
-  "com.lightbend.akka" %% "akka-projection-testkit" % AkkaProjectionVersion % Test,
+  "com.lightbend.akka" %% "akka-projection-testkit" % AkkaProjectionVersion % Test
   // tag::akka-persistence-cassandra[]
 )
 // end::akka-persistence-cassandra[]
