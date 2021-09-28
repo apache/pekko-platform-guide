@@ -27,6 +27,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <version.number>${git.commit.time}-${git.commit.id.abbrev}</version.number>
+        <lightbend.cinnamon.version>2.16.1</lightbend.cinnamon.version>
     </properties>
     <!-- end::telemetry-build-properties[] -->
 
@@ -63,31 +64,37 @@
         <dependency>
             <groupId>com.lightbend.cinnamon</groupId>
             <artifactId>cinnamon-chmetrics</artifactId>
+            <version>${lightbend.cinnamon.version}</version>
         </dependency>
         <!-- Use Akka instrumentations -->
         <dependency>
             <groupId>com.lightbend.cinnamon</groupId>
             <artifactId>cinnamon-akka_${scala.binary.version}</artifactId>
+            <version>${lightbend.cinnamon.version}</version>
         </dependency>
         <!-- Use Akka Persistence instrumentation -->
         <dependency>
             <groupId>com.lightbend.cinnamon</groupId>
             <artifactId>cinnamon-akka-persistence_${scala.binary.version}</artifactId>
+            <version>${lightbend.cinnamon.version}</version>
         </dependency>
         <!-- Akka Projection instrumentations -->
         <dependency>
             <groupId>com.lightbend.cinnamon</groupId>
             <artifactId>cinnamon-akka-projection_${scala.binary.version}</artifactId>
+            <version>${lightbend.cinnamon.version}</version>
         </dependency>
         <!-- Use Akka HTTP instrumentation -->
         <dependency>
             <groupId>com.lightbend.cinnamon</groupId>
             <artifactId>cinnamon-akka-http_${scala.binary.version}</artifactId>
+            <version>${lightbend.cinnamon.version}</version>
         </dependency>
         <!-- Use Akka gRPC instrumentation -->
         <dependency>
             <groupId>com.lightbend.cinnamon</groupId>
             <artifactId>cinnamon-akka-grpc_${scala.binary.version}</artifactId>
+            <version>${lightbend.cinnamon.version}</version>
         </dependency>
         <!-- end::telemetry-dependencies[] -->
 
@@ -96,11 +103,13 @@
         <dependency>
             <groupId>com.lightbend.cinnamon</groupId>
             <artifactId>cinnamon-prometheus</artifactId>
+            <version>${lightbend.cinnamon.version}</version>
         </dependency>
         <!-- Cinnamon Prometheus HTTP server dependency -->
         <dependency>
             <groupId>com.lightbend.cinnamon</groupId>
             <artifactId>cinnamon-prometheus-httpserver</artifactId>
+            <version>${lightbend.cinnamon.version}</version>
         </dependency>
         <!-- end::telemetry-prometheus-dependencies[] -->
 
@@ -109,11 +118,13 @@
         <dependency>
             <groupId>com.lightbend.cinnamon</groupId>
             <artifactId>cinnamon-opentracing_${scala.binary.version}</artifactId>
+            <version>${lightbend.cinnamon.version}</version>
         </dependency>
         <!-- Cinnamon OpenTracing Zipkin reporter dependency -->
         <dependency>
             <groupId>com.lightbend.cinnamon</groupId>
             <artifactId>cinnamon-opentracing-zipkin</artifactId>
+            <version>${lightbend.cinnamon.version}</version>
         </dependency>
         <!-- end::telemetry-opentracing-dependencies[] -->
     </dependencies>
