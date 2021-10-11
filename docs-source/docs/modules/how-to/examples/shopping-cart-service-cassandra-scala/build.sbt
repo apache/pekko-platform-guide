@@ -23,7 +23,7 @@ run / fork := false
 Global / cancelable := false // ctrl-c
 
 val AkkaVersion = "2.6.16"
-val AkkaHttpVersion = "10.2.4"
+val AkkaHttpVersion = "10.2.6"
 val AkkaManagementVersion = "1.0.10"
 // tag::akka-persistence-cassandra[]
 val AkkaPersistenceCassandraVersion = "1.0.5"
