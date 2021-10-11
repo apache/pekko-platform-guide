@@ -12,7 +12,7 @@ content:
 
 ui:
   bundle:
-    url: https://lightbend.github.io/antora-supplemental-ui-lightbend-theme/default_ui/ui-bundle-1023155878.zip
+    url: https://lightbend.github.io/antora-supplemental-ui-lightbend-theme/default_ui/lightbend-theme-ui-001-bundle.zip
     snapshot: true
   supplemental_files: ./supplemental_ui
     
