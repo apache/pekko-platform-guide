@@ -22,9 +22,9 @@ Test / logBuffered := false
 run / fork := false
 Global / cancelable := false // ctrl-c
 
-val AkkaVersion = "2.6.16"
+val AkkaVersion = "2.6.17"
 // tag::dependencies-for-healthchecks[]
-val AkkaHttpVersion = "10.2.6"
+val AkkaHttpVersion = "10.2.7"
 val AkkaManagementVersion = "1.0.10"
 // end::dependencies-for-healthchecks[]
 val AkkaPersistenceCassandraVersion = "1.0.5"
