@@ -22,7 +22,7 @@ Test / logBuffered := false
 run / fork := false
 Global / cancelable := false // ctrl-c
 
-val AkkaVersion = "2.6.17"
+val AkkaVersion = "2.6.18"
 val AkkaHttpVersion = "10.2.7"
 val AkkaManagementVersion = "1.0.10"
 
@@ -36,7 +36,7 @@ val AkkaPersistenceJdbcVersion = "5.0.4"
 val AlpakkaKafkaVersion = "2.0.7"
 // end::remove-alpakka-kafka-version[]
 // tag::remove-akka-projection-version[]
-val AkkaProjectionVersion = "1.2.2"
+val AkkaProjectionVersion = "1.2.3"
 // end::remove-akka-projection-version[]
 
 // tag::remove-grpc-plugin[]
@@ -92,7 +92,7 @@ libraryDependencies ++= Seq(
 
   // Logging
   "com.typesafe.akka" %% "akka-slf4j" % AkkaVersion,
-  "ch.qos.logback" % "logback-classic" % "1.2.3",
+  "ch.qos.logback" % "logback-classic" % "1.2.9",
   // Test dependencies
   "com.typesafe.akka" %% "akka-actor-testkit-typed" % AkkaVersion % Test,
   "com.typesafe.akka" %% "akka-persistence-testkit" % AkkaVersion % Test,
