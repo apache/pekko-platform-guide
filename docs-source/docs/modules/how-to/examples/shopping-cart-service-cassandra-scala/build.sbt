@@ -24,7 +24,7 @@ Global / cancelable := false // ctrl-c
 
 val AkkaVersion = "2.6.18"
 val AkkaHttpVersion = "10.2.7"
-val AkkaManagementVersion = "1.0.10"
+val AkkaManagementVersion = "1.1.2"
 // tag::akka-persistence-cassandra[]
 val AkkaPersistenceCassandraVersion = "1.0.5"
 
