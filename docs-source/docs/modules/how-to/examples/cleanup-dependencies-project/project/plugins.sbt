@@ -1,5 +1,5 @@
 // tag::remove-grpc-plugin[]
-addSbtPlugin("com.lightbend.akka.grpc" % "sbt-akka-grpc" % "2.1.2")
+addSbtPlugin("com.lightbend.akka.grpc" % "sbt-akka-grpc" % "2.1.3")
 // end::remove-grpc-plugin[]
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.8.1")
