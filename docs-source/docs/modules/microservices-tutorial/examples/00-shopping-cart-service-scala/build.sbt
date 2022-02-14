@@ -23,7 +23,7 @@ run / fork := false
 Global / cancelable := false // ctrl-c
 
 val AkkaVersion = "2.6.18"
-val AkkaHttpVersion = "10.2.8"
+val AkkaHttpVersion = "10.2.7"
 val AkkaManagementVersion = "1.1.2"
 val AkkaPersistenceJdbcVersion = "5.0.4"
 val AlpakkaKafkaVersion = "2.0.7"
