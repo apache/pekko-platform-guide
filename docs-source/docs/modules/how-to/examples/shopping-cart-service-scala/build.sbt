@@ -24,7 +24,7 @@ Global / cancelable := false // ctrl-c
 
 val AkkaVersion = "2.6.18"
 // tag::dependencies-for-healthchecks[]
-val AkkaHttpVersion = "10.2.7"
+val AkkaHttpVersion = "10.2.8"
 val AkkaManagementVersion = "1.1.2"
 // end::dependencies-for-healthchecks[]
 val AkkaPersistenceCassandraVersion = "1.0.5"
