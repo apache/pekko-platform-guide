@@ -35,7 +35,7 @@
             <dependency>
                 <groupId>com.lightbend.akka</groupId>
                 <artifactId>akka-platform-dependencies_${scala.binary.version}</artifactId>
-                <version>0.2.6</version>
+                <version>0.2.7</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

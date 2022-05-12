@@ -27,7 +27,7 @@ val AkkaHttpVersion = "10.2.9"
 val AkkaManagementVersion = "1.1.2"
 val AkkaPersistenceJdbcVersion = "5.0.4"
 val AlpakkaKafkaVersion = "2.0.7"
-val AkkaProjectionVersion = "1.2.3"
+val AkkaProjectionVersion = "1.2.4"
 val ScalikeJdbcVersion = "3.5.0"
 
 enablePlugins(AkkaGrpcPlugin)

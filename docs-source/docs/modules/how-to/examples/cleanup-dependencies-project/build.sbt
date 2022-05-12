@@ -36,7 +36,7 @@ val AkkaPersistenceJdbcVersion = "5.0.4"
 val AlpakkaKafkaVersion = "2.0.7"
 // end::remove-alpakka-kafka-version[]
 // tag::remove-akka-projection-version[]
-val AkkaProjectionVersion = "1.2.3"
+val AkkaProjectionVersion = "1.2.4"
 // end::remove-akka-projection-version[]
 
 // tag::remove-grpc-plugin[]
