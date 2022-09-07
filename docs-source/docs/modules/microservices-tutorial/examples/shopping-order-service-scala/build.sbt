@@ -22,12 +22,12 @@ Test / logBuffered := false
 run / fork := false
 Global / cancelable := false // ctrl-c
 
-val AkkaVersion = "2.6.19"
-val AkkaHttpVersion = "10.2.9"
-val AkkaManagementVersion = "1.1.2"
-val AkkaPersistenceJdbcVersion = "5.0.4"
-val AlpakkaKafkaVersion = "2.0.7"
-val AkkaProjectionVersion = "1.2.4"
+val AkkaVersion = "2.6.20"
+val AkkaHttpVersion = "10.2.10"
+val AkkaManagementVersion = "1.1.4"
+val AkkaPersistenceJdbcVersion = "5.1.0"
+val AlpakkaKafkaVersion = "3.0.1"
+val AkkaProjectionVersion = "1.2.5"
 val ScalikeJdbcVersion = "3.5.0"
 
 enablePlugins(AkkaGrpcPlugin)

@@ -22,21 +22,21 @@ Test / logBuffered := false
 run / fork := false
 Global / cancelable := false // ctrl-c
 
-val AkkaVersion = "2.6.19"
-val AkkaHttpVersion = "10.2.9"
-val AkkaManagementVersion = "1.1.2"
+val AkkaVersion = "2.6.20"
+val AkkaHttpVersion = "10.2.10"
+val AkkaManagementVersion = "1.1.4"
 
 // tag::remove-akka-persistence-cassandra-version[]
-val AkkaPersistenceCassandraVersion = "1.0.5"
+val AkkaPersistenceCassandraVersion = "1.0.6"
 // end::remove-akka-persistence-cassandra-version[]
 // tag::add-akka-persistence-jdbc-version[]
-val AkkaPersistenceJdbcVersion = "5.0.4"
+val AkkaPersistenceJdbcVersion = "5.1.0"
 // end::add-akka-persistence-jdbc-version[]
 // tag::remove-alpakka-kafka-version[]
-val AlpakkaKafkaVersion = "2.0.7"
+val AlpakkaKafkaVersion = "3.0.1"
 // end::remove-alpakka-kafka-version[]
 // tag::remove-akka-projection-version[]
-val AkkaProjectionVersion = "1.2.4"
+val AkkaProjectionVersion = "1.2.5"
 // end::remove-akka-projection-version[]
 
 // tag::remove-grpc-plugin[]

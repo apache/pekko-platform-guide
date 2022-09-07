@@ -22,14 +22,14 @@ Test / logBuffered := false
 run / fork := false
 Global / cancelable := false // ctrl-c
 
-val AkkaVersion = "2.6.19"
+val AkkaVersion = "2.6.20"
 // tag::dependencies-for-healthchecks[]
-val AkkaHttpVersion = "10.2.9"
-val AkkaManagementVersion = "1.1.2"
+val AkkaHttpVersion = "10.2.10"
+val AkkaManagementVersion = "1.1.4"
 // end::dependencies-for-healthchecks[]
-val AkkaPersistenceCassandraVersion = "1.0.5"
-val AlpakkaKafkaVersion = "2.0.7"
-val AkkaProjectionVersion = "1.2.4"
+val AkkaPersistenceCassandraVersion = "1.0.6"
+val AlpakkaKafkaVersion = "3.0.1"
+val AkkaProjectionVersion = "1.2.5"
 
 enablePlugins(AkkaGrpcPlugin)
 
