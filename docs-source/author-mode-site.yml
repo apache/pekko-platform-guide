@@ -1,5 +1,5 @@
 site:
-  title: "Akka Platform Guide"
+  title: "Akka Guide"
   url: https://developer.lightbend.com/docs/akka-platform-guide
   
 content:
@@ -12,7 +12,7 @@ content:
 
 ui:
   bundle:
-    url: https://lightbend.github.io/antora-supplemental-ui-lightbend-theme/default_ui/lightbend-theme-ui-001-bundle.zip
+    url: https://lightbend.github.io/antora-supplemental-ui-lightbend-theme/default_ui/lightbend-theme-ui-002-bundle.zip
     snapshot: true
   supplemental_files: ./supplemental_ui
     
@@ -25,7 +25,7 @@ asciidoc:
     # the following two attributes cause review and todo notes to display
     # review: ''
     todo: ''
-    doc-title: 'Akka Platform Guide'
+    doc-title: 'Akka Guide'
     # the following turns on next and previous links in the new template
     page-pagination: ""
     page-toctitle: "On This Page"
