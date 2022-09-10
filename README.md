@@ -23,4 +23,4 @@ or in the akka/dev chat if a more real time communication would be of benefit.
 License
 -------
 
-Akka is Open Source and available under the Apache 2 License.
+Akka is licensed under the Business Source License 1.1, see [LICENSE](https://github.com/akka/akka/blob/main/LICENSE).
