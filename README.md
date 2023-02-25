@@ -6,8 +6,6 @@ Review and feedback
 
 This is the repository for the Apache Pekko Platform Guide and we would love to hear your feedback.
 
-This guide is published at https://developer.lightbend.com/docs/akka-platform-guide/
-
 Feel free to give your feedback in the form of issues/PRs.
 
 Contributing
