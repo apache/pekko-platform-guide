@@ -1,7 +1,7 @@
 # https://cwiki.apache.org/confluence/display/INFRA/.asf.yaml+features+for+git+repositories
 
 github:
-  description: "Examples how to implement Microservices using Apache Pekko!"
+  description: "Examples how to implement Microservices using Apache Pekko"
   homepage: https://pekko.apache.org/
   labels:
     - pekko
