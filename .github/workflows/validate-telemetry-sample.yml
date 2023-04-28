@@ -1,8 +1,6 @@
 name: Validate Telemetry Samples
 
-on:
-  push:
-    branches: [ main ]
+on: workflow_dispatch
 
 env:
   LIGHTBEND_COMMERCIAL_MVN: ${{ secrets.LIGHTBEND_COMMERCIAL_MVN }}
