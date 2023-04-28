@@ -1,6 +1,6 @@
 site:
   title: "Apache Pekko Guide"
-  url: https://developer.lightbend.com/docs/akka-platform-guide # What will the new value for this be?
+  url: https://pekko.apache.org/docs/pekko-platform-guide/current
   
 content:
   sources:

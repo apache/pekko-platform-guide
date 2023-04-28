@@ -1,4 +1,4 @@
-= Lightbend Akka Platform Guide README
+= Apache Pekko Platform Guide README
 
 The source files for this guide use asciidoc syntax and the project is configured to build with Antora. To review and suggest changes, we recommend building the HTML files locally. This allows you to view the guide structure as a whole and to read pages the way someone using the documentation would.
 
@@ -169,15 +169,13 @@ For example, for `v1.3.3` of the documentation, there's a https://github.com/lig
 
 === Version numbers
 
-As per Lightbend convention, the latest released version is called 'current' and is the default URL for the documentation landing page.
-For Akka, the landing URL is: https://doc.akka.io/docs/akka/current/
+For Apache Pekko, the landing URL is: https://pekko.apache.org/
 
-In Akka, we call `snapshot` the version in the making.
+In Apache Pekko, we call `main-snapshot` the version in the making.
 That is, the _latest-greatest_ changes that aren't released yet.
-The corresponding URL mapping is: https://doc.akka.io/docs/akka/snapshot/
+This is hosted using Apache Nightlies. The corresponding URL mapping is: https://nightlies.apache.org/pekko/docs/pekko/main-snapshot/docs/
 
-Any other version, is addressed by its explicit version number. 
-For example: https://doc.akka.io/docs/akka/2.6.7/index.html
+Not implemented for Pekko yet: "Any other version, is addressed by its explicit version number."
 
 In general, the versions produced by our documentation process follow the current mapping to names and git branches:
 
