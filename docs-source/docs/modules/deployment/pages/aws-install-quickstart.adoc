@@ -17,7 +17,6 @@ By default, the following steps will be executed:
 5. Install the Prometheus Helm Chart
 6. Set up an Amazon Managed Streaming for Apache Kafka (MSK) cluster
 7. Set up an Amazon Aurora Relational Database Service (RDS) cluster
-8. Optional: Install the https://aws-otel.github.io/[AWS OTel Collector {tab-icon}, window="tab"] to see application traces in the X-Ray Console
 
 :sectnums:
 
@@ -302,49 +301,6 @@ kubectl get secret $JDBC_SECRET -n $OPERATOR_NAMESPACE -o yaml | \
 	kubectl apply -n $APP_NAMESPACE -f -
 ----
 ====
-
-[#install-aws-otel-collector]
-=== Install AWS OTel Collector to see application traces in X-Ray Console
-
-The AWS OTel Collector collects traces from applications instrumented with xref:telemetry:index.adoc[Lightbend Telemetry] 2.16.1+ and sends them to X-Ray.
-
-NOTE: If you don't use Pulumi then follow the https://aws-otel.github.io/docs/getting-started/collector[Getting Started with the AWS Distro for OpenTelemetry Collector] instruction.
-
-Opt-in to install AWS OTel Collector into your EKS cluster:
-
-[source,shell script]
-----
-pulumi config set otel.collector.install true
-----
-
-Choose an AWS region for X-Ray if it differs from `aws:region`:
-
-[source,shell script]
-----
-pulumi config set xray.region eu-central-1
-----
-
-Set AWS X-Ray credentials:
-
-[source,shell script]
-----
-pulumi config set xray.access-key-id <your access key id>
-pulumi config set xray.secret-access-key <your secret access key>
-----
-
-After that run `pulumi up` to install AWS OTel Collector. If your cluster already exists it will only install AWS OTel Collector if it's not there yet or if its configuration has changed.
-
-Once the AWS OTel Collector is deployed you can get `awsOTelCollectorServiceEndpoint`. You will need that endpoint to configure your application to report traces. The traces are reported to the AWS OTel Collector Zipkin endpoint within the Lightbend Telemetry config:
-
-[source,shell script]
-----
-$ pulumi stack output awsOTelCollectorServiceEndpoint
-aws-otel-collector-svc.aws-otel-collector.svc.cluster.local
-----
-
-In order to see the traces in X-Ray Console, you will need to setup Lightbend Telemetry for your application and configure it to produce traces. Please follow xref:telemetry:aws-xray-support.adoc[AWS X-Ray tracing support] for the details.
-
-include::partial$connect-to-grafana.adoc[]
 
 [#output-variables]
 == Output Variables
