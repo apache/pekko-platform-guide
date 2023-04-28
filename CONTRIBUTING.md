@@ -2,17 +2,20 @@
 
 We follow the standard GitHub [fork & pull](https://help.github.com/articles/using-pull-requests/#fork--pull) approach to pull requests. Just fork the official repo, develop in a branch, and submit a PR!
 
-You're always welcome to submit your PR straight away and start the discussion (without reading the rest of this wonderful doc, or the README.md). The goal of these notes is to make your experience contributing to Akka as smooth and pleasant as possible. We're happy to guide you through the process once you've submitted your PR.
+You're always welcome to submit your PR straight away and start the discussion (without reading the rest of this wonderful doc, or the README.md). The goal of these notes is to make your experience contributing to Apache Pekko as smooth and pleasant as possible. We're happy to guide you through the process once you've submitted your PR.
 
-# The Akka Community
+# The Apache Pekko Community
 
-In case of questions about the contribution process or for discussion of specific issues please visit the [akka/dev gitter chat](https://gitter.im/akka/dev).
+If you have questions about the contribution process or discuss specific issues, please interact with the community using the following resources.
 
-You may also check out these [other resources](https://akka.io/get-involved/).
+- [GitHub discussions](https://github.com/apache/incubator-pekko-platform-guide/discussions): for questions and general discussion.
+- [Pekko user mailing list](https://lists.apache.org/list.html?user@pekko.apache.org): for Pekko usage discussions.
+- [Pekko dev mailing list](https://lists.apache.org/list.html?dev@pekko.apache.org): for Pekko development discussions.
+- [GitHub issues](https://github.com/apache/incubator-pekko-platform-guide/issues): for bug reports and feature requests. Please search the existing issues before creating new ones. If you are unsure whether you have found a bug, consider asking in GitHub discussions or the mailing list first.
 
-# Antora-based Akka Documentation
+# Antora-based Apache Pekko Documentation
 
-This folder contains the sources for parts of the [Akka Platform Guide web site](https://developer.lightbend.com/docs/akka-platform-guide).
+This folder contains the sources for parts of the [Apache Pekko Platform Guide web site](https://pekko.apache.org/docs/pekko-platform-guide/current).
 
 This folder is structured as follows:
 - The root directory contains the `Makefile` for the documentation generation process.
@@ -27,13 +30,13 @@ Find some hints about the Lightbend Antora theme at https://lightbend.github.io/
 
 The theme sources are in a Lightbend-private project at https://github.com/lightbend/antora-supplemental-ui-lightbend-theme
 
-## Contributing to the Akka Documentation
+## Contributing to the Apache Pekko Documentation
 
 Detailed information about working with the documentation is provided in the [docs-source](docs-source/README.adoc) folder.
 
 ## Building the Documentation
 
-This part of the Akka documentation is built using [Antora](https://docs.antora.org/antora/2.3/), from asciidoc sources.
+This part of the Apache Pekko documentation is built using [Antora](https://docs.antora.org/antora/2.3/), from asciidoc sources.
 The building process is managed by `make` using the [makefile](./Makefile) script.
 
 
