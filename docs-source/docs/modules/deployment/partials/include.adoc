@@ -1,6 +1,0 @@
-:page-partial:
-include::ROOT:partial$include.adoc[]
-
-:docker-docs: https://docs.docker.com
-:helm-site: https://helm.sh
-:minikube: https://minikube.sigs.k8s.io/docs/

@@ -1,6 +1,0 @@
-= Getting started with cloud deployment
-include::partial$include.adoc[]
-
-== Pre-requisite Skills
-
-== Required tools
