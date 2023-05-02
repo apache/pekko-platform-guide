@@ -13,7 +13,6 @@ First, we will create the `ShoppingCartService` with a single operation that add
 * implement the service interface
 * initialize and run an HTTP server and the service locally
 * interact with the service from the command line
-* deploy to the cloud
 
 == Akka Workshop
 The first video of the
@@ -196,88 +195,6 @@ Note the logging from the `ShoppingCartServiceImpl` in the console.
 === Stop the service
 
 You can stop the service with `ctrl-c`.
-
-NOTE: The following steps for cloud deployment are optional. If you are only running locally, you can skip to the next section of the tutorial.
-
-[#kubernetes]
-== Run in Kubernetes
-
-We suggest that you read the xref:deployment:index.adoc[] section to get an understanding of how deployment with the Akka Cloud Platform works.
-
-=== Akka Workshop
-The fifth video of the https://info.lightbend.com/akka-platform-workshop-part-5-on-demand-recording.html[Akka Workshop Series {tab-icon}, window="tab"] walks you through the process of running in Kubernetes on AWS or GCP. It will take you step-by-step to aid you in understanding the process.
-
-
-Before following the steps below, create a Kubernetes cluster and install the Akka Operator. Used the instructions below for:
-
-[.tabset]
-GCP::
-+
-Follow the instructions in https://cloud.google.com/container-registry/docs/using-with-google-cloud-platform[Using Container Registry with Google Cloud {tab-icon}, window="tab"]
-to deploy Docker images on GCP's container registry. We suggest that using the Container Registry https://cloud.google.com/container-registry/docs/quickstart[Quickstart  {tab-icon}, window="tab"] if you aren't already familiar with the registry. You may also use the https://cloud.google.com/artifact-registry[Artifact Registry  {tab-icon}, window="tab"]. There is guidance on https://cloud.google.com/artifact-registry/docs/transition/transition-from-gcr[transitioning  {tab-icon}, window="tab"] as well as  a https://cloud.google.com/artifact-registry/docs/docker/quickstart[Docker  {tab-icon}, window="tab"] quickstart for the Artifact Registry.
-
-AWS::
-+
-Follow the instructions in xref:deployment:aws-ecr.adoc[Amazon Elastic Container Registry] to deploy Docker images on AWS's container registry.
-
-=== Additional steps for Docker and AWS
-
-If you are using AWS, you will also need to complete the following procedures.
-
-The [.group-scala]#`build.sbt and project/plugins.sbt`# [.group-java]#`pom.xml`# contains build plugin settings for building a Docker image.
-
-include::partial$build-docker-for-kube.adoc[]
-
-include::deployment:partial$git-init.adoc[]
-
-
-=== Update the deployment descriptor
-
-In `kubernetes/shopping-cart-service-cr.yml` you will find the deployment descriptor of the `AkkaMicroservice` that the Akka Operator will use when deploying the application in Kubernetes.
-
-.kubernetes/shopping-cart-service-cr.yml:
-[source,yaml]
-----
-include::example$01-shopping-cart-service-scala/kubernetes/shopping-cart-service-cr.yml[]
-----
-
-<1> Replace `<docker-registry>` with your docker registry address and update the image reference with the image tag from the output of the Docker build above, for example: `803424716218.dkr.ecr.eu-central-1.amazonaws.com/shopping-cart-service:20201209-135004-363ae2b`. 
-
-
-=== Apply to Kubernetes
-
-Deploy the `shopping-cart-service-cr.yml` to Kubernetes:
-
-[source,shell script]
-----
-kubectl apply -f kubernetes/shopping-cart-service-cr.yml
-----
-
-It will also create the namespace `shopping`
-
-It can be convenient to set that namespace as current instead of specifying the `--namespace` parameter in all `kubectl` commands.
-
-[source,shell script]
-----
-kubectl config set-context --current --namespace=shopping
-----
-
-The Akka Operator will notice the deployment descriptor and deploy the `shopping-cart-service`. You can see progress by viewing the status:
-
-[source,shell script]
-----
-kubectl get akkamicroservices/shopping-cart-service
-----
-
-See xref:deployment:troubleshooting.adoc[troubleshooting deployment status] for more details.
-
-=== Exercise the service in Kubernetes
-
-include::partial$prepare-to-exercise-in-kube.adoc[]
-
-include::grpc-service.adoc[tag=exercise]
-
-Note the logging from the `ShoppingCartServiceImpl` in the console that is running `kubectl logs -f`.
 
 :!sectnums:
 == Learn more

@@ -21,7 +21,7 @@ The {akka-blog}/news/2020/01/07/akka-event-sourcing-video[Event Sourcing with Ak
 
 This example is using PostgreSQL for storing the events. An alternative is described in xref:how-to:cassandra-alternative.adoc[].
 
-=== Akka Workshop
+== Akka Workshop
 
 The second video of the https://info.lightbend.com/akka-platform-workshop-part-2-on-demand-recording.html[Akka Workshop Series {tab-icon}, window="tab"] covers both the cart entity and Event sourcing. It provides some solid guidance to aid you in digesting this section, and the next section of this guide.
 

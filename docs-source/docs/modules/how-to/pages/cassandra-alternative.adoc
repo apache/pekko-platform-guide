@@ -496,12 +496,6 @@ Stop Cassandra and Kafka with:
 docker-compose down
 ----
 
-== Run in Kubernetes
-
-Create a Cassandra cluster and credentials secret as described in xref:deployment:astra.adoc[DataStax Astra].
-
-FIXME more instructions
-
 == Learn more
 
 * {akka-persistence-cassandra}[Akka Persistence Cassandra plugin reference documentation {tab-icon}, window="tab"]

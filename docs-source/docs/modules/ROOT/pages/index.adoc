@@ -4,23 +4,18 @@
 include::partial$include.adoc[]
 
 
-=== What is this guide about?
-This guide provides information to aid in understanding and using the Akka Platform and the Akka Cloud Platform.
+==  What is this guide about?
+This guide provides information to aid in understanding and using the Apache Pekko.
 
-=== What are Akka Platform, and Akka Cloud Platform?
-Akka Platform is a toolkit for building highly concurrent systems that are scalable, highly efficient, and resilient by using _Reactive Principles_. The Akka Platform includes support for Akka, additional commercial components, and is available from Lightbend as a https://www.lightbend.com/akka-platform#subscription[subscription {tab-icon}, window="tab"]. You can check out our five-part https://info.lightbend.com/akka-platform-workshop-five-parts-on-demand-register.html[Akka Platform workshop {tab-icon}, window="tab"] for developers, for a guided, hands-on walkthrough of Akka Platform.
-
-Akka Cloud Platform adds tooling for deployment on Kubernetes and is available from {aws-marketplace}[Amazon Web Services (AWS) {tab-icon}, window="tab"] and {gcp-marketplace}[Google Cloud Platform (GCP) {tab-icon}].
+== What is Apache Pekko?
+Apache Pekko is a toolkit for building highly concurrent systems that are scalable, highly efficient, and resilient by using _Reactive Principles_. 
 
 === Who are the intended audience of this guide?
 
-This guide is for developers, administrators, evaluators and dev/ops. For evaluators the guide will provide a solid demonstration the power and value available via Akka Platform and Akka Cloud Platform. For developers the guide focuses on getting you up and running by covering the basics of Microservices and Cloud deployment, as well as the fundamental concepts that underlay _Reactive_ development. For administrators, and devops the guide lays out the requirements, operations and patterns of usage.
+This guide is for developers, administrators, evaluators and dev/ops. For evaluators the guide will provide a solid demonstration the power and value available via Apache Pekko. For developers the guide focuses on getting you up and running by covering the basics of Microservices, as well as the fundamental concepts that underlay _Reactive_ development. For administrators, and devops the guide lays out the requirements, operations and patterns of usage.
 
 Whether you are new to _Reactive principles_, or an experienced Akka user, you will find something of use in this guide. The guide complements the {akka}[Akka reference documentation {tab-icon}, window="tab"], which presents all Akka features in detail.
 
-
-== Akka Platform
-Akka is a platform for designing scalable, resilient systems that span processor cores and networks. Akka allows you to focus on meeting business needs instead of writing low-level code to provide reliable behavior, fault tolerance, and high performance.
 
 *Akka provides:*
 
@@ -31,23 +26,6 @@ Akka is a platform for designing scalable, resilient systems that span processor
 Akka’s use of the actor model provides a level of abstraction that makes it easier to write correct concurrent, parallel and distributed systems. The actor model spans the full set of Akka libraries, providing you with a consistent way of understanding and using them.
 
 
-== Akka Cloud Platform
-Akka Cloud Platform enhances Akka by adding operational tooling, services, and support. It is easily accessible from marketplaces, such as xref:deployment:aws-index.adoc[AWS] and xref:deployment:gcp-install.adoc[GCP].
-
-*Why use Akka Cloud Platform?*
-
-* Satisfy easy-to-deploy and operational needs for Development and SRE teams
-* Reduce implementation time for integrating with cloud services
-* Get started without business barriers
-
-*What does Akka Cloud Platform provide?*
-
-* *Integrated Telemetry* — provides insight into applications built with Lightbend technologies and integrates with popular monitoring tools
-* *Ops/DevOps tooling* — Simple deployment and scaling of Kubernetes-powered Akka applications
-* *Simple integration paths* — Provided for relevant cloud services (for example, Kafka, Cassandra, data stores)
-* *Available through popular Cloud Marketplaces:*
-** Optional Pay-as-you-go, or custom pricing
-** Integrated legal, purchasing, and billing with the marketplaces
 
 == How to get the most out of this guide
 
@@ -63,12 +41,6 @@ If you are looking for a deeper dive into the conceptual framework it is also ad
 
 The xref:concepts:akka-actor.adoc[Akka modules for Microservices] section provides a conceptual overview for each of the Akka modules used with Microservices.
 
-== Cloud deployment
-
-Each section of the tutorial provides for both running locally or deploying to the cloud. The cloud deployment steps use the Akka Cloud Platform. If you are working through the cloud deployment steps, we recommend reviewing the xref:deployment:index.adoc[Akka Cloud Platform] section of this guide and the details for xref:deployment:cloud-deployment.adoc[] and your specific platform.
-
-You can deploy your applications anywhere you choose, it can be on your own data centers, or in the cloud. However, the cloud deployment sections of the tutorial specifically describe how to run in Kubernetes.
-
 == Akka Microservices tutorial
 
 The xref:microservices-tutorial:index.adoc[Implementing Microservices with Akka tutorial] illustrates how to implement an Event Sourced CQRS application with Akka Persistence and Akka Projections.
@@ -77,9 +49,6 @@ The tutorial shows how to build and run each service step by step:
 
 include::microservices-tutorial:partial$listing.adoc[]
 
-== Lightbend Telemetry
-
-{cinnamon-docs}/home.html[Lightbend Telemetry {tab-icon}, window="tab"] can capture data for applications using {cinnamon-docs}/instrumentations/instrumentations.html[Akka libraries and modules{tab-icon}, window="tab"], Play, and Lagom. For those interested in adding telemetry to their deployments we advise reviewing the xref:telemetry:index.adoc[Lightbend Telemetry] section of this guide.
 
 == How to...
 
