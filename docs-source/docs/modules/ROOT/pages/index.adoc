@@ -4,7 +4,7 @@
 include::partial$include.adoc[]
 
 
-==  What is this guide about?
+== What is this guide about?
 This guide provides information to aid in understanding and using the Apache Pekko.
 
 == What is Apache Pekko?

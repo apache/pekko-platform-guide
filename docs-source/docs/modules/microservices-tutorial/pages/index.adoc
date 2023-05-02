@@ -16,6 +16,3 @@ The following links provide more information about some of the Akka Platform fea
 * {akka-grpc}/[Akka gRPC {tab-icon}, window="tab"] to implement a gRPC service API and communication with other services
 * {akka-management}/[Akka Management {tab-icon}, window="tab"] for Akka Cluster formation and health checks
 * xref:deployment:index.adoc[Kubernetes deployment with the Akka Operator]
-
-=== Akka Workshop
-In addition to the above resources there is the video based https://info.lightbend.com/akka-platform-workshop-part-1-on-demand-recording.html[Akka Workshop Series {tab-icon}, window="tab"]. The series will walk you through the basics of using the Akka Platform in parallel with much of the material in this guide. It should be especially useful for individuals who are audio/visual learners.
