@@ -1,10 +1,10 @@
 site:
-  title: "Akka Guide"
-  url: https://developer.lightbend.com/docs/akka-platform-guide
+  title: "Apache Pekko Guide"
+  url: https://pekko.apache.org/docs/pekko-platform-guide/current
   
 content:
   sources:
-  - url: git@github.com:akka/akka-platform-guide.git
+  - url: git@github.com:apache/incubator-pekko-platform-guide.git
     start-paths:
     - docs-source/docs
     branches: [current]
@@ -12,7 +12,7 @@ content:
 
 ui: 
   bundle:
-    url: https://lightbend.github.io/antora-supplemental-ui-lightbend-theme/default_ui/lightbend-theme-ui-002-bundle.zip
+    url: https://lightbend.github.io/antora-supplemental-ui-lightbend-theme/default_ui/lightbend-theme-ui-002-bundle.zip # Update this to pekko UI? 
     snapshot: true
   supplemental_files: ./supplemental_ui
 
@@ -25,7 +25,7 @@ asciidoc:
     # the following two attributes cause review and todo notes to display
     # review: ''
     # todo: ''
-    doc-title: 'Akka Guide'
+    doc-title: 'Apache Pekko Guide'
     # the following turns on next and previous links in the new template
     page-pagination: ""
     page-toctitle: "On This Page"
