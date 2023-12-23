@@ -1,6 +1,4 @@
 // tag::remove-grpc-plugin[]
-dependencyOverrides += "org.scala-lang.modules" %% "scala-xml" % "2.2.0"
-
 addSbtPlugin("org.apache.pekko" % "pekko-grpc-sbt-plugin" % "1.0.1")
 // end::remove-grpc-plugin[]
 
