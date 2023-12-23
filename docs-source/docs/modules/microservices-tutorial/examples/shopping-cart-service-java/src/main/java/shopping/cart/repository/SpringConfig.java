@@ -35,7 +35,8 @@ public class SpringConfig {
   /**
    * Configures a {@link JpaTransactionManager} to be used by Pekko Projections. The transaction
    * manager should be used to construct a {@link shopping.cart.repository.HibernateJdbcSession}
-   * that is then used to configure the {@link org.apache.pekko.projection.jdbc.javadsl.JdbcProjection}.
+   * that is then used to configure the {@link
+   * org.apache.pekko.projection.jdbc.javadsl.JdbcProjection}.
    */
   @Bean
   public PlatformTransactionManager transactionManager() {

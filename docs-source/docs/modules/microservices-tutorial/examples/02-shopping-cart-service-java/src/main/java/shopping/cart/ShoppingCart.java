@@ -1,6 +1,10 @@
 // tag::imports[]
 package shopping.cart;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 import org.apache.pekko.actor.typed.ActorRef;
 import org.apache.pekko.actor.typed.ActorSystem;
 import org.apache.pekko.actor.typed.Behavior;
@@ -12,10 +16,6 @@ import org.apache.pekko.cluster.sharding.typed.javadsl.EntityTypeKey;
 import org.apache.pekko.pattern.StatusReply;
 import org.apache.pekko.persistence.typed.PersistenceId;
 import org.apache.pekko.persistence.typed.javadsl.*;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
 
 // end::imports[]
 
