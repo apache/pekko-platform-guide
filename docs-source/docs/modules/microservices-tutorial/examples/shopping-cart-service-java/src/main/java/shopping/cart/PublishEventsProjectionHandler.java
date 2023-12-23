@@ -1,7 +1,7 @@
 // tag::handler[]
 package shopping.cart;
 
-import static pekko.Done.done;
+import static org.apache.pekko.Done.done;
 
 import com.google.protobuf.Any;
 import com.google.protobuf.ByteString;
