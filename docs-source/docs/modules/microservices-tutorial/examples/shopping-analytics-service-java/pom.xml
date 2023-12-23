@@ -5,7 +5,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>shopping-analytics-service</artifactId>
-    <groupId>com.lightbend.akka.samples</groupId>
+    <groupId>org.apache.pekko.samples</groupId>
     <version>1.0</version>
 
     <licenses>
