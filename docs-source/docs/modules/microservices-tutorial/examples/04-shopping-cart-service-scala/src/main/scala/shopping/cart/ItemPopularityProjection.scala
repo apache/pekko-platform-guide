@@ -9,7 +9,10 @@ import org.apache.pekko.persistence.query.Offset
 import org.apache.pekko.projection.eventsourced.EventEnvelope
 import org.apache.pekko.projection.eventsourced.scaladsl.EventSourcedProvider
 import org.apache.pekko.projection.jdbc.scaladsl.JdbcProjection
-import org.apache.pekko.projection.scaladsl.{ ExactlyOnceProjection, SourceProvider }
+import org.apache.pekko.projection.scaladsl.{
+  ExactlyOnceProjection,
+  SourceProvider
+}
 import org.apache.pekko.projection.{ ProjectionBehavior, ProjectionId }
 import shopping.cart.repository.{ ItemPopularityRepository, ScalikeJdbcSession }
 
