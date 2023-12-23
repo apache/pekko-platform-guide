@@ -30,7 +30,7 @@ val PekkoConnectorsKafkaVersion = "1.0.0"
 val PekkoProjectionVersion = "1.0.0"
 val ScalikeJdbcVersion = "3.5.0"
 
-enablePlugins(AkkaGrpcPlugin)
+enablePlugins(PekkoGrpcPlugin)
 
 enablePlugins(JavaAppPackaging, DockerPlugin)
 dockerBaseImage := "docker.io/library/adoptopenjdk:11-jre-hotspot"

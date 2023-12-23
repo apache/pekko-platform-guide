@@ -34,7 +34,7 @@ public final class ShoppingCartServiceImpl implements ShoppingCartService {
       ActorSystem<?> system, ItemPopularityRepository repository) { // <1>
 
     DispatcherSelector dispatcherSelector =
-        DispatcherSelector.fromConfig("akka.projection.jdbc.blocking-jdbc-dispatcher");
+        DispatcherSelector.fromConfig("pekko.projection.jdbc.blocking-jdbc-dispatcher");
     this.blockingJdbcExecutor = system.dispatchers().lookup(dispatcherSelector); // <2>
 
     this.repository = repository;

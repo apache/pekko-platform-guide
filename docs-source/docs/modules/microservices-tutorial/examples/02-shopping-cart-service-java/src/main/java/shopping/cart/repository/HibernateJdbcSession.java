@@ -14,7 +14,7 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 /**
- * Hibernate based implementation of Akka Projection JdbcSession. This class is required when
+ * Hibernate based implementation of Pekko Projection JdbcSession. This class is required when
  * building a JdbcProjection. It provides the means for the projeciton to start a transaction
  * whenever a new event envelope is to be delivered to the user defined projection handler.
  *

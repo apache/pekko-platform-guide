@@ -7,13 +7,13 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 /**
  * Provides an integration point for initializing a Spring {@link ApplicationContext} configured for
- * working with Akka Projections.
+ * working with Pekko Projections.
  */
 public class SpringIntegration {
 
   /**
    * Returns a Spring {@link ApplicationContext} configured to provide all the infrastructure
-   * necessary for working with Akka Projections.
+   * necessary for working with Pekko Projections.
    */
   public static ApplicationContext applicationContext(ActorSystem<?> system) {
     Config config = system.settings().config();

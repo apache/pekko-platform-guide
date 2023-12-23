@@ -44,10 +44,10 @@ public class IntegrationTest {
         "shopping-cart-service.grpc.port = "
             + grcpPort
             + "\n"
-            + "akka.management.http.port = "
+            + "pekko.management.http.port = "
             + managementPorts.get(managementPortIndex)
             + "\n"
-            + "akka.discovery.config.services.shopping-cart-service.endpoints = [\n"
+            + "pekko.discovery.config.services.shopping-cart-service.endpoints = [\n"
             + "  { host = \"127.0.0.1\", port = "
             + managementPorts.get(0)
             + "},\n"

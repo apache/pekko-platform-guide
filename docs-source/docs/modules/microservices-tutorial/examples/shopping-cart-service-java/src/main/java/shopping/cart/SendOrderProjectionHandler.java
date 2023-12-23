@@ -1,6 +1,6 @@
 package shopping.cart;
 
-import static akka.Done.done;
+import static pekko.Done.done;
 
 import org.apache.pekko.Done;
 import org.apache.pekko.actor.typed.ActorSystem;

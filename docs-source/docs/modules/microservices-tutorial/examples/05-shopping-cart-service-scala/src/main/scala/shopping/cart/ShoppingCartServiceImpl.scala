@@ -37,7 +37,7 @@ class ShoppingCartServiceImpl(
   private val blockingJdbcExecutor: ExecutionContext =
     system.dispatchers.lookup(
       DispatcherSelector
-        .fromConfig("akka.projection.jdbc.blocking-jdbc-dispatcher")
+        .fromConfig("pekko.projection.jdbc.blocking-jdbc-dispatcher")
     ) // <2>
 
   // end::getItemPopularity[]

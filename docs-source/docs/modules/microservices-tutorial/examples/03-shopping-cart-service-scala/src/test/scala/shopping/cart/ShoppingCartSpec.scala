@@ -10,7 +10,7 @@ import org.scalatest.wordspec.AnyWordSpecLike
 object ShoppingCartSpec {
   val config = ConfigFactory
     .parseString("""
-      akka.actor.serialization-bindings {
+      pekko.actor.serialization-bindings {
         "shopping.cart.CborSerializable" = jackson-cbor
       }
       """)

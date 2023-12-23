@@ -34,8 +34,8 @@ object IntegrationSpec {
         interface = "localhost"
         port = $grpcPort
       }
-      akka.management.http.port = ${managementPorts(managementPortIndex)}
-      akka.discovery.config.services {
+      pekko.management.http.port = ${managementPorts(managementPortIndex)}
+      pekko.discovery.config.services {
         "shopping-cart-service" {
           endpoints = [
             {host = "127.0.0.1", port = ${managementPorts(0)}},

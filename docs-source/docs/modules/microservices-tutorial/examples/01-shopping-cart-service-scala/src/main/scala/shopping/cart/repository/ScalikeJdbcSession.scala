@@ -18,7 +18,7 @@ object ScalikeJdbcSession {
 }
 
 /**
- * Provide database connections within a transaction to Akka Projections.
+ * Provide database connections within a transaction to Pekko Projections.
  */
 final class ScalikeJdbcSession extends JdbcSession {
   val db: DB = DB.connect()

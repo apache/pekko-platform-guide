@@ -6,7 +6,7 @@
     docker-compose up -d
 
     # creates the tables needed for Pekko Persistence
-    # as well as the offset store table for Akka Projection
+    # as well as the offset store table for Pekko Projection
     docker exec -i shopping-cart-service_postgres-db_1 psql -U shopping-cart -t < ddl-scripts/create_tables.sql
 
     # creates the user defined projection table.
