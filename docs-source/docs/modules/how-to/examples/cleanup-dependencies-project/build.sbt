@@ -40,7 +40,7 @@ val PekkoProjectionVersion = "1.0.0"
 // end::remove-pekko-projection-version[]
 
 // tag::remove-grpc-plugin[]
-enablePlugins(AkkaGrpcPlugin)
+enablePlugins(PekkoGrpcPlugin)
 // end::remove-grpc-plugin[]
 
 enablePlugins(JavaAppPackaging, DockerPlugin)
@@ -75,9 +75,6 @@ libraryDependencies ++= Seq(
   // end::replace-offset-store-for-projections-jdbc[]
    */
   "org.apache.pekko" %% "pekko-http" % PekkoHttpVersion,
-  // tag::remove-grpc-optional[]
-  // "org.apache.pekko" %% "pekko-http2-support" % PekkoHttpVersion,
-  // end::remove-grpc-optional[]
   "org.apache.pekko" %% "pekko-http-spray-json" % PekkoHttpVersion,
   "org.apache.pekko" %% "pekko-management" % PekkoManagementVersion,
   "org.apache.pekko" %% "pekko-management-cluster-http" % PekkoManagementVersion,
