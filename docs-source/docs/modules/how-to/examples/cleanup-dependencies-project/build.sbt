@@ -4,7 +4,7 @@ organization := "com.lightbend.akka.samples"
 organizationHomepage := Some(url("https://akka.io"))
 licenses := Seq(("CC0", url("https://creativecommons.org/publicdomain/zero/1.0")))
 
-scalaVersion := "2.13.5"
+scalaVersion := "2.13.12"
 
 Compile / scalacOptions ++= Seq(
   "-target:11",
@@ -92,7 +92,7 @@ libraryDependencies ++= Seq(
 
   // Logging
   "com.typesafe.akka" %% "akka-slf4j" % AkkaVersion,
-  "ch.qos.logback" % "logback-classic" % "1.2.9",
+  "ch.qos.logback" % "logback-classic" % "1.2.13",
   // Test dependencies
   "com.typesafe.akka" %% "akka-actor-testkit-typed" % AkkaVersion % Test,
   "com.typesafe.akka" %% "akka-persistence-testkit" % AkkaVersion % Test,

@@ -5,7 +5,7 @@ ThisBuild / licenses := Seq(
   ("CC0", url("https://creativecommons.org/publicdomain/zero/1.0")))
 
 // tag::telemetry-build-properties[]
-ThisBuild / scalaVersion := "2.13.5"
+ThisBuild / scalaVersion := "2.13.12"
 // end::telemetry-build-properties[]
 
 Compile / scalacOptions ++= Seq(
