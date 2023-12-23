@@ -4,7 +4,7 @@ import org.apache.pekko.actor.typed.ActorSystem;
 import org.apache.pekko.actor.typed.DispatcherSelector;
 import org.apache.pekko.cluster.sharding.typed.javadsl.ClusterSharding;
 import org.apache.pekko.cluster.sharding.typed.javadsl.EntityRef;
-import org.apache.pekko.GrpcServiceException;
+import org.apache.pekko.grpc.GrpcServiceException;
 import io.grpc.Status;
 import java.time.Duration;
 import java.util.List;

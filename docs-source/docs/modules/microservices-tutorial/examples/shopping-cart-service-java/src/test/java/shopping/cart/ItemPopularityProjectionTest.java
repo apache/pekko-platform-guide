@@ -2,6 +2,13 @@ package shopping.cart;
 
 import static org.junit.Assert.assertEquals;
 
+import java.time.Instant;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 import org.apache.pekko.Done;
 import org.apache.pekko.NotUsed;
 import org.apache.pekko.actor.testkit.typed.javadsl.TestKitJunitResource;
@@ -13,13 +20,6 @@ import org.apache.pekko.projection.testkit.javadsl.ProjectionTestKit;
 import org.apache.pekko.projection.testkit.javadsl.TestProjection;
 import org.apache.pekko.projection.testkit.javadsl.TestSourceProvider;
 import org.apache.pekko.stream.javadsl.Source;
-import java.time.Instant;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
 import org.junit.ClassRule;
 import org.junit.Test;
 import shopping.cart.repository.ItemPopularityRepository;

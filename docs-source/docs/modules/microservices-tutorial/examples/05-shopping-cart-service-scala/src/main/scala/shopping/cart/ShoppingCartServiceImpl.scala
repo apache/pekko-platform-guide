@@ -4,7 +4,7 @@ import java.util.concurrent.TimeoutException
 import scala.concurrent.{ ExecutionContext, Future }
 import org.apache.pekko.actor.typed.{ ActorSystem, DispatcherSelector }
 import org.apache.pekko.cluster.sharding.typed.scaladsl.ClusterSharding
-import org.apache.pekko.GrpcServiceException
+import org.apache.pekko.grpc.GrpcServiceException
 import org.apache.pekko.util.Timeout
 import io.grpc.Status
 import org.slf4j.LoggerFactory

@@ -12,7 +12,7 @@ import shopping.cart.repository.ItemPopularityRepositoryImpl
 import shopping.cart.repository.ScalikeJdbcSetup
 // tag::SendOrderProjection[]
 import shopping.order.proto.{ ShoppingOrderService, ShoppingOrderServiceClient }
-import org.apache.pekko.GrpcClientSettings
+import org.apache.pekko.grpc.GrpcClientSettings
 
 object Main {
 
