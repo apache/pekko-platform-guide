@@ -1,5 +1,8 @@
 package shopping.cart;
 
+import java.util.Optional;
+import org.apache.kafka.common.serialization.ByteArraySerializer;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.apache.pekko.actor.CoordinatedShutdown;
 import org.apache.pekko.actor.typed.ActorSystem;
 import org.apache.pekko.cluster.sharding.typed.ShardedDaemonProcessSettings;
@@ -15,9 +18,6 @@ import org.apache.pekko.projection.eventsourced.javadsl.EventSourcedProvider;
 import org.apache.pekko.projection.javadsl.AtLeastOnceProjection;
 import org.apache.pekko.projection.javadsl.SourceProvider;
 import org.apache.pekko.projection.jdbc.javadsl.JdbcProjection;
-import java.util.Optional;
-import org.apache.kafka.common.serialization.ByteArraySerializer;
-import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import shopping.cart.repository.HibernateJdbcSession;
 

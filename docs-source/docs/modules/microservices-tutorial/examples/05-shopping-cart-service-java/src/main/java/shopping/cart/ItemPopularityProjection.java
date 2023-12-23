@@ -1,6 +1,7 @@
 // tag::projection[]
 package shopping.cart;
 
+import java.util.Optional;
 import org.apache.pekko.actor.typed.ActorSystem;
 import org.apache.pekko.cluster.sharding.typed.ShardedDaemonProcessSettings;
 import org.apache.pekko.cluster.sharding.typed.javadsl.ShardedDaemonProcess;
@@ -13,7 +14,6 @@ import org.apache.pekko.projection.eventsourced.javadsl.EventSourcedProvider;
 import org.apache.pekko.projection.javadsl.ExactlyOnceProjection;
 import org.apache.pekko.projection.javadsl.SourceProvider;
 import org.apache.pekko.projection.jdbc.javadsl.JdbcProjection;
-import java.util.Optional;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import shopping.cart.repository.HibernateJdbcSession;
 import shopping.cart.repository.ItemPopularityRepository;

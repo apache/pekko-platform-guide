@@ -1,12 +1,12 @@
 package shopping.cart;
 
-import static pekko.persistence.testkit.javadsl.EventSourcedBehaviorTestKit.CommandResultWithReply;
 import static org.junit.Assert.*;
+import static pekko.persistence.testkit.javadsl.EventSourcedBehaviorTestKit.CommandResultWithReply;
 
+import com.typesafe.config.ConfigFactory;
 import org.apache.pekko.actor.testkit.typed.javadsl.TestKitJunitResource;
 import org.apache.pekko.pattern.StatusReply;
 import org.apache.pekko.persistence.testkit.javadsl.EventSourcedBehaviorTestKit;
-import com.typesafe.config.ConfigFactory;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
