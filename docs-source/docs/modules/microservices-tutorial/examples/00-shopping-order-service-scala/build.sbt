@@ -2,7 +2,8 @@ name := "shopping-order-service"
 
 organization := "org.apache.pekko.samples"
 organizationHomepage := Some(url("https://pekko.apache.org"))
-licenses := Seq(("CC0", url("https://creativecommons.org/publicdomain/zero/1.0")))
+licenses := Seq(
+  ("CC0", url("https://creativecommons.org/publicdomain/zero/1.0")))
 
 scalaVersion := "2.13.12"
 
@@ -57,7 +58,6 @@ libraryDependencies ++= Seq(
   "org.apache.pekko" %% "pekko-slf4j" % PekkoVersion,
   "ch.qos.logback" % "logback-classic" % "1.2.13",
   "org.scalatest" %% "scalatest" % "3.2.17" % Test,
-
   // 3. Using Pekko Persistence
   "org.apache.pekko" %% "pekko-persistence-typed" % PekkoVersion,
   "org.apache.pekko" %% "pekko-serialization-jackson" % PekkoVersion,
