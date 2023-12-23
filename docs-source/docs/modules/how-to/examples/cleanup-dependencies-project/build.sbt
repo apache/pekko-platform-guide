@@ -4,7 +4,7 @@ organization := "org.apache.pekko.samples"
 organizationHomepage := Some(url("https://pekko.apache.org/"))
 licenses := Seq(("CC0", url("https://creativecommons.org/publicdomain/zero/1.0")))
 
-scalaVersion := "2.13.5"
+scalaVersion := "2.13.12"
 
 Compile / scalacOptions ++= Seq(
   "-target:11",
