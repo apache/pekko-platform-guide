@@ -1,15 +1,15 @@
 // tag::consumer[]
 package shopping.analytics;
 
-import akka.Done;
-import akka.actor.typed.ActorSystem;
-import akka.kafka.CommitterSettings;
-import akka.kafka.ConsumerSettings;
-import akka.kafka.Subscriptions;
-import akka.kafka.javadsl.Committer;
-import akka.kafka.javadsl.Consumer;
-import akka.stream.RestartSettings;
-import akka.stream.javadsl.RestartSource;
+import org.apache.pekko.Done;
+import org.apache.pekko.actor.typed.ActorSystem;
+import org.apache.pekko.kafka.CommitterSettings;
+import org.apache.pekko.kafka.ConsumerSettings;
+import org.apache.pekko.kafka.Subscriptions;
+import org.apache.pekko.kafka.javadsl.Committer;
+import org.apache.pekko.kafka.javadsl.Consumer;
+import org.apache.pekko.stream.RestartSettings;
+import org.apache.pekko.stream.javadsl.RestartSource;
 import com.google.protobuf.Any;
 import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.InvalidProtocolBufferException;
