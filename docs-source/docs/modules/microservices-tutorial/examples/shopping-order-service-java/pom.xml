@@ -108,7 +108,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.pekko</groupId>
-            <artifactId>pekko-discovery-kubernetes-api_${scala.binary.version}</artifactId>
+            <artifactId>pekko-management-cluster-bootstrap_${scala.binary.version}</artifactId>
             <version>${pekko-management.version}</version>
         </dependency>
         <dependency>
