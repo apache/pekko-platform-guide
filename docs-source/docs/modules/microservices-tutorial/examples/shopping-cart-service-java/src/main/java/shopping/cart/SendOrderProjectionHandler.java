@@ -2,12 +2,12 @@ package shopping.cart;
 
 import static akka.Done.done;
 
-import akka.Done;
-import akka.actor.typed.ActorSystem;
-import akka.cluster.sharding.typed.javadsl.ClusterSharding;
-import akka.cluster.sharding.typed.javadsl.EntityRef;
-import akka.projection.eventsourced.EventEnvelope;
-import akka.projection.javadsl.Handler;
+import org.apache.pekko.Done;
+import org.apache.pekko.actor.typed.ActorSystem;
+import org.apache.pekko.cluster.sharding.typed.javadsl.ClusterSharding;
+import org.apache.pekko.cluster.sharding.typed.javadsl.EntityRef;
+import org.apache.pekko.projection.eventsourced.EventEnvelope;
+import org.apache.pekko.projection.javadsl.Handler;
 import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;

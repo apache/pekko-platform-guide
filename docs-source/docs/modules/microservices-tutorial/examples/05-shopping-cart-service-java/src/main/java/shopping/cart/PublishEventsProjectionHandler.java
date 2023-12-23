@@ -3,10 +3,10 @@ package shopping.cart;
 
 import static akka.Done.done;
 
-import akka.Done;
-import akka.kafka.javadsl.SendProducer;
-import akka.projection.eventsourced.EventEnvelope;
-import akka.projection.javadsl.Handler;
+import org.apache.pekko.Done;
+import org.apache.pekko.kafka.javadsl.SendProducer;
+import org.apache.pekko.projection.eventsourced.EventEnvelope;
+import org.apache.pekko.projection.javadsl.Handler;
 import com.google.protobuf.Any;
 import com.google.protobuf.ByteString;
 import java.util.concurrent.CompletionStage;

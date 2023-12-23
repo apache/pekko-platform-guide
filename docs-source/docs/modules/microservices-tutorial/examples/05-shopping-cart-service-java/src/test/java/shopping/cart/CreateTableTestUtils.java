@@ -2,9 +2,9 @@ package shopping.cart;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-import akka.actor.typed.ActorSystem;
-import akka.persistence.jdbc.testkit.javadsl.SchemaUtils;
-import akka.projection.jdbc.javadsl.JdbcProjection;
+import org.apache.pekko.actor.typed.ActorSystem;
+import org.apache.pekko.persistence.jdbc.testkit.javadsl.SchemaUtils;
+import org.apache.pekko.projection.jdbc.javadsl.JdbcProjection;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;

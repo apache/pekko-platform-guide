@@ -1,7 +1,7 @@
 package shopping.cart.repository
 
-import akka.japi.function.Function
-import akka.projection.jdbc.JdbcSession
+import org.apache.pekko.japi.function.Function
+import org.apache.pekko.projection.jdbc.JdbcSession
 import scalikejdbc._
 
 import java.sql.Connection

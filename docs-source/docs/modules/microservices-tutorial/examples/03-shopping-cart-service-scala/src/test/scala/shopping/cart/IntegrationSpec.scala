@@ -3,14 +3,14 @@ package shopping.cart
 import scala.concurrent.Await
 import scala.concurrent.duration._
 
-import akka.actor.CoordinatedShutdown
-import akka.actor.testkit.typed.scaladsl.ActorTestKit
-import akka.actor.typed.ActorSystem
-import akka.cluster.MemberStatus
-import akka.cluster.typed.Cluster
-import akka.grpc.GrpcClientSettings
-import akka.persistence.testkit.scaladsl.PersistenceInit
-import akka.testkit.SocketUtil
+import org.apache.pekko.actor.CoordinatedShutdown
+import org.apache.pekko.actor.testkit.typed.scaladsl.ActorTestKit
+import org.apache.pekko.actor.typed.ActorSystem
+import org.apache.pekko.cluster.MemberStatus
+import org.apache.pekko.cluster.typed.Cluster
+import org.apache.pekko.grpc.GrpcClientSettings
+import org.apache.pekko.persistence.testkit.scaladsl.PersistenceInit
+import org.apache.pekko.testkit.SocketUtil
 import com.typesafe.config.Config
 import com.typesafe.config.ConfigFactory
 import org.scalatest.BeforeAndAfterAll

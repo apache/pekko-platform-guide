@@ -2,16 +2,16 @@ package shopping.cart
 
 import java.time.Instant
 import scala.concurrent.{ ExecutionContext, Future }
-import akka.Done
-import akka.actor.testkit.typed.scaladsl.ScalaTestWithActorTestKit
-import akka.persistence.query.Offset
-import akka.projection.ProjectionId
-import akka.projection.eventsourced.EventEnvelope
-import akka.projection.scaladsl.Handler
-import akka.projection.testkit.scaladsl.TestProjection
-import akka.projection.testkit.scaladsl.TestSourceProvider
-import akka.projection.testkit.scaladsl.ProjectionTestKit
-import akka.stream.scaladsl.Source
+import org.apache.pekko.Done
+import org.apache.pekko.actor.testkit.typed.scaladsl.ScalaTestWithActorTestKit
+import org.apache.pekko.persistence.query.Offset
+import org.apache.pekko.projection.ProjectionId
+import org.apache.pekko.projection.eventsourced.EventEnvelope
+import org.apache.pekko.projection.scaladsl.Handler
+import org.apache.pekko.projection.testkit.scaladsl.TestProjection
+import org.apache.pekko.projection.testkit.scaladsl.TestSourceProvider
+import org.apache.pekko.projection.testkit.scaladsl.ProjectionTestKit
+import org.apache.pekko.stream.scaladsl.Source
 import org.scalatest.wordspec.AnyWordSpecLike
 import shopping.cart.repository.{ ItemPopularityRepository, ScalikeJdbcSession }
 

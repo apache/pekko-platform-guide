@@ -2,17 +2,17 @@ package shopping.cart;
 
 import static org.junit.Assert.assertEquals;
 
-import akka.Done;
-import akka.NotUsed;
-import akka.actor.testkit.typed.javadsl.TestKitJunitResource;
-import akka.persistence.query.Offset;
-import akka.projection.ProjectionId;
-import akka.projection.eventsourced.EventEnvelope;
-import akka.projection.javadsl.Handler;
-import akka.projection.testkit.javadsl.ProjectionTestKit;
-import akka.projection.testkit.javadsl.TestProjection;
-import akka.projection.testkit.javadsl.TestSourceProvider;
-import akka.stream.javadsl.Source;
+import org.apache.pekko.Done;
+import org.apache.pekko.NotUsed;
+import org.apache.pekko.actor.testkit.typed.javadsl.TestKitJunitResource;
+import org.apache.pekko.persistence.query.Offset;
+import org.apache.pekko.projection.ProjectionId;
+import org.apache.pekko.projection.eventsourced.EventEnvelope;
+import org.apache.pekko.projection.javadsl.Handler;
+import org.apache.pekko.projection.testkit.javadsl.ProjectionTestKit;
+import org.apache.pekko.projection.testkit.javadsl.TestProjection;
+import org.apache.pekko.projection.testkit.javadsl.TestSourceProvider;
+import org.apache.pekko.stream.javadsl.Source;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.HashMap;
