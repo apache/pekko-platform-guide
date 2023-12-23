@@ -3,7 +3,7 @@ package shopping.cart;
 import org.apache.pekko.actor.typed.ActorSystem;
 import org.apache.pekko.actor.typed.javadsl.Behaviors;
 // tag::SendOrderProjection[]
-import org.apache.pekko.grpc.GrpcClientSettings;
+import org.apache.pekko.GrpcClientSettings;
 // end::SendOrderProjection[]
 import org.apache.pekko.management.cluster.bootstrap.ClusterBootstrap;
 import org.apache.pekko.management.javadsl.PekkoManagement;

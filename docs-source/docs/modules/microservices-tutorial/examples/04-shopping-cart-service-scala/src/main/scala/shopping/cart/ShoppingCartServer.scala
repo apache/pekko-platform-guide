@@ -7,8 +7,8 @@ import scala.util.Failure
 import scala.util.Success
 
 import org.apache.pekko.actor.typed.ActorSystem
-import org.apache.pekko.grpc.scaladsl.ServerReflection
-import org.apache.pekko.grpc.scaladsl.ServiceHandler
+import org.apache.pekko.scaladsl.ServerReflection
+import org.apache.pekko.scaladsl.ServiceHandler
 import org.apache.pekko.http.scaladsl.Http
 import org.apache.pekko.http.scaladsl.model.HttpRequest
 import org.apache.pekko.http.scaladsl.model.HttpResponse

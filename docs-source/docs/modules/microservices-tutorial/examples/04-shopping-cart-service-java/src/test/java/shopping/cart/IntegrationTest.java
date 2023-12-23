@@ -9,7 +9,7 @@ import org.apache.pekko.actor.testkit.typed.javadsl.TestProbe;
 import org.apache.pekko.actor.typed.ActorSystem;
 import org.apache.pekko.cluster.MemberStatus;
 import org.apache.pekko.cluster.typed.Cluster;
-import org.apache.pekko.grpc.GrpcClientSettings;
+import org.apache.pekko.GrpcClientSettings;
 import org.apache.pekko.testkit.SocketUtil;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;

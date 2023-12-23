@@ -1,8 +1,8 @@
 package shopping.cart;
 
 import org.apache.pekko.actor.typed.ActorSystem;
-import org.apache.pekko.grpc.javadsl.ServerReflection;
-import org.apache.pekko.grpc.javadsl.ServiceHandler;
+import org.apache.pekko.javadsl.ServerReflection;
+import org.apache.pekko.javadsl.ServiceHandler;
 import org.apache.pekko.http.javadsl.Http;
 import org.apache.pekko.http.javadsl.ServerBinding;
 import org.apache.pekko.http.javadsl.model.HttpRequest;

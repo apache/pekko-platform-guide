@@ -70,5 +70,5 @@ libraryDependencies ++= Seq(
   "org.apache.pekko" %% "pekko-projection-jdbc" % PekkoProjectionVersion,
   "org.scalikejdbc" %% "scalikejdbc" % ScalikeJdbcVersion,
   "org.scalikejdbc" %% "scalikejdbc-config" % ScalikeJdbcVersion,
-  "org.apache.pekko" %% "pekko-stream-kafka" % PekkoConnectorsKafkaVersion,
+  "org.apache.pekko" %% "pekko-connectors-kafka" % PekkoConnectorsKafkaVersion,
   "org.apache.pekko" %% "pekko-projection-testkit" % PekkoProjectionVersion % Test)
