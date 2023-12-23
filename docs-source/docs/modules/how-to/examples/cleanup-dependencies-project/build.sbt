@@ -89,9 +89,9 @@ libraryDependencies ++= Seq(
 
   // Logging
   "org.apache.pekko" %% "pekko-slf4j" % PekkoVersion,
-  "ch.qos.logback" % "logback-classic" % "1.2.12",
+  "ch.qos.logback" % "logback-classic" % "1.2.13",
   // Test dependencies
   "org.apache.pekko" %% "pekko-actor-testkit-typed" % PekkoVersion % Test,
   "org.apache.pekko" %% "pekko-persistence-testkit" % PekkoVersion % Test,
   "org.apache.pekko" %% "pekko-stream-testkit" % PekkoVersion % Test,
-  "org.scalatest" %% "scalatest" % "3.2.15" % Test)
+  "org.scalatest" %% "scalatest" % "3.2.17" % Test)
