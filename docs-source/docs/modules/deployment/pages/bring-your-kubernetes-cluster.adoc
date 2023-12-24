@@ -55,7 +55,7 @@ As a consequence, when deploying on custom-managed Kubernetes clusters you can't
 .kubernetes/shopping-cart-service-cr.yml
 [source,yaml]
 ----
-apiVersion: akka.lightbend.com/v1
+apiVersion: pekko.apache.org/v1
 kind: PekkoMicroservice
 metadata:
   name: shopping-cart-service

@@ -17,7 +17,7 @@ The `replicas` field in the deployment descriptor defines the number of Pods tha
 .kubernetes/shopping-cart-service-cr.yml
 [source,yaml]
 ----
-apiVersion: akka.lightbend.com/v1
+apiVersion: pekko.apache.org/v1
 kind: PekkoMicroservice
 metadata:
   name: shopping-cart-service
@@ -49,7 +49,7 @@ Define the roles in the deployment descriptor:
 .kubernetes/shopping-cart-service-cr.yml
 [source,yaml]
 ----
-apiVersion: akka.lightbend.com/v1
+apiVersion: pekko.apache.org/v1
 kind: PekkoMicroservice
 metadata:
   name: shopping-cart-service
@@ -89,7 +89,7 @@ In addition to the `replicasRatio` you can define minimum and maximum boundaries
 .kubernetes/shopping-cart-service-cr.yml
 [source,yaml]
 ----
-apiVersion: akka.lightbend.com/v1
+apiVersion: pekko.apache.org/v1
 kind: PekkoMicroservice
 metadata:
   name: shopping-cart-service
@@ -196,7 +196,7 @@ https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/[R
 .kubernetes/shopping-cart-service-cr.yml
 [source,yaml]
 ----
-apiVersion: akka.lightbend.com/v1
+apiVersion: pekko.apache.org/v1
 kind: PekkoMicroservice
 metadata:
   name: shopping-cart-service
@@ -252,7 +252,7 @@ Modify the deployment descriptor to use this configuration:
 .kubernetes/shopping-cart-service-cr.yml
 [source,yaml]
 ----
-apiVersion: akka.lightbend.com/v1
+apiVersion: pekko.apache.org/v1
 kind: PekkoMicroservice
 metadata:
   name: shopping-cart-service
@@ -288,7 +288,7 @@ Exporting metrics to Prometheus requires opening a port on your Pods. The https:
 .kubernetes/shopping-cart-service-cr.yml
 [source,yaml]
 ----
-apiVersion: akka.lightbend.com/v1
+apiVersion: pekko.apache.org/v1
 kind: PekkoMicroservice
 metadata:
   name: shopping-cart-service
@@ -341,7 +341,7 @@ Secrets with entries that will be mounted as files can be defined in `secretVolu
 .kubernetes/shopping-cart-service-cr.yml
 [source,yaml]
 ----
-apiVersion: akka.lightbend.com/v1
+apiVersion: pekko.apache.org/v1
 kind: PekkoMicroservice
 metadata:
   name: shopping-cart-service
@@ -379,7 +379,7 @@ https://kubernetes.io/docs/concepts/configuration/secret/[Secrets {tab-icon}, wi
 .kubernetes/shopping-cart-service-cr.yml
 [source,yaml]
 ----
-apiVersion: akka.lightbend.com/v1
+apiVersion: pekko.apache.org/v1
 kind: PekkoMicroservice
 metadata:
   name: shopping-cart-service
@@ -416,7 +416,7 @@ The entries in the Secret will be concatenated into a `main.conf` together with 
 .kubernetes/shopping-cart-service-cr.yml
 [source,yaml]
 ----
-apiVersion: akka.lightbend.com/v1
+apiVersion: pekko.apache.org/v1
 kind: PekkoMicroservice
 metadata:
   name: shopping-cart-service

@@ -3,7 +3,7 @@ kind: "Namespace"
 metadata:
   name: "shopping"
 ---
-apiVersion: akka.lightbend.com/v1
+apiVersion: pekko.apache.org/v1
 kind: PekkoMicroservice
 metadata:
   name: shopping-analytics-service
