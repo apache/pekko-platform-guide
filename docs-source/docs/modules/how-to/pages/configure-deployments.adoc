@@ -14,7 +14,7 @@ The default deployment descriptor (CR):
 .base/shopping-cart-service-cr.yml
 [source,yaml]
 ----
-apiVersion: akka.lightbend.com/v1
+apiVersion: pekko.apache.org/v1
 kind: PekkoMicroservice
 metadata:
   name: shopping-cart-service
@@ -49,7 +49,7 @@ The actual customization:
 .custom/custom.yml
 [source,yaml]
 ----
-apiVersion: akka.lightbend.com/v1
+apiVersion: pekko.apache.org/v1
 kind: PekkoMicroservice
 metadata:
   name: shopping-cart-service
