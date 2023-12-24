@@ -28,6 +28,7 @@
         <pekko.persistence.cassandra.version>1.0.0</pekko.persistence.cassandra.version>
         <pekko.connectors.kafka.version>1.0.0</pekko.connectors.kafka.version>
         <pekko.management.version>1.0.0</pekko.management.version>
+        <pekko.discovery.version>1.0.0</pekko.discovery.version>
         <scala.binary.version>2.13</scala.binary.version>
         <!-- needs to be defined to allow for overriding through mvn exec:exec -DAPP_CONFIG=local1.conf -->
         <APP_CONFIG>application.conf</APP_CONFIG>
@@ -75,8 +76,15 @@
         <dependency>
             <groupId>org.apache.pekko</groupId>
             <artifactId>pekko-discovery_${scala.binary.version}</artifactId>
-            <version>${pekko.version}</version>
+            <version>${pekko.discovery.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.pekko/pekko-discovery-kubernetes-api -->
+        <dependency>
+            <groupId>org.apache.pekko</groupId>
+            <artifactId>pekko-discovery-kubernetes-api_${scala.binary.version}</artifactId>
+            <version>${pekko.discovery.version}</version>
+        </dependency>
+
         <!-- tag::pekko-persistence-cassandra[] -->
         <dependency>
             <groupId>org.apache.pekko</groupId>
