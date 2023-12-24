@@ -30,13 +30,13 @@ public class ItemPopularityIntegrationTest {
 
   private static Config config() {
     return ConfigFactory.parseString(
-            "akka.persistence.cassandra.journal.keyspace = "
+            "pekko.persistence.cassandra.journal.keyspace = "
                 + KEYSPACE
                 + "\n"
-                + "akka.persistence.cassandra.snapshot.keyspace = "
+                + "pekko.persistence.cassandra.snapshot.keyspace = "
                 + KEYSPACE
                 + "\n"
-                + "akka.projection.cassandra.offset-store.keyspace = "
+                + "pekko.projection.cassandra.offset-store.keyspace = "
                 + KEYSPACE
                 + "\n")
         .withFallback(ConfigFactory.load("item-popularity-integration-test.conf"));
@@ -57,9 +57,9 @@ public class ItemPopularityIntegrationTest {
 
     // use same keyspace for the item_popularity table as the offset store
     CassandraSession session =
-        CassandraSessionRegistry.get(system).sessionFor("akka.persistence.cassandra");
+        CassandraSessionRegistry.get(system).sessionFor("pekko.persistence.cassandra");
     String itemPopularityKeyspace =
-        system.settings().config().getString("akka.projection.cassandra.offset-store.keyspace");
+        system.settings().config().getString("pekko.projection.cassandra.offset-store.keyspace");
 
     ShoppingCart.init(system);
 

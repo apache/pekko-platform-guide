@@ -36,11 +36,11 @@ public class Main {
 
     // tag::ItemPopularityProjection[]
     CassandraSession session =
-        CassandraSessionRegistry.get(system).sessionFor("akka.persistence.cassandra"); // <1>
+        CassandraSessionRegistry.get(system).sessionFor("pekko.persistence.cassandra"); // <1>
     // use same keyspace for the item_popularity table as the offset store
     Config config = system.settings().config();
     String itemPopularityKeyspace =
-        config.getString("akka.projection.cassandra.offset-store.keyspace");
+        config.getString("pekko.projection.cassandra.offset-store.keyspace");
     ItemPopularityRepository itemPopularityRepository =
         new ItemPopularityRepositoryImpl(session, itemPopularityKeyspace); // <2>
 

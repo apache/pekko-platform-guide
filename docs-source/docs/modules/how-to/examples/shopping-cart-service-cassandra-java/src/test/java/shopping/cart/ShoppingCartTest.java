@@ -19,7 +19,7 @@ public class ShoppingCartTest {
   public static final TestKitJunitResource testKit =
       new TestKitJunitResource(
           ConfigFactory.parseString(
-                  "akka.actor.serialization-bindings {\n"
+                  "pekko.actor.serialization-bindings {\n"
                       + "  \"shopping.cart.CborSerializable\" = jackson-cbor\n"
                       + "}")
               .withFallback(EventSourcedBehaviorTestKit.config()));

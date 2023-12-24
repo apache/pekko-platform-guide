@@ -15,9 +15,9 @@ public class CreateTableTestUtils {
 
     // use same keyspace for the item_popularity table as the offset store
     String keyspace =
-        system.settings().config().getString("akka.projection.cassandra.offset-store.keyspace");
+        system.settings().config().getString("pekko.projection.cassandra.offset-store.keyspace");
     CassandraSession session =
-        CassandraSessionRegistry.get(system).sessionFor("akka.persistence.cassandra");
+        CassandraSessionRegistry.get(system).sessionFor("pekko.persistence.cassandra");
 
     session
         .executeDDL(

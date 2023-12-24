@@ -50,13 +50,13 @@ public class IntegrationTest {
 
   private static Config sharedConfig() {
     return ConfigFactory.parseString(
-            "akka.persistence.cassandra.journal.keyspace = "
+            "pekko.persistence.cassandra.journal.keyspace = "
                 + KEYSPACE
                 + "\n"
-                + "akka.persistence.cassandra.snapshot.keyspace = "
+                + "pekko.persistence.cassandra.snapshot.keyspace = "
                 + KEYSPACE
                 + "\n"
-                + "akka.projection.cassandra.offset-store.keyspace = "
+                + "pekko.projection.cassandra.offset-store.keyspace = "
                 + KEYSPACE
                 + "\n"
                 + "shopping-cart-service.kafka.topic = \"shopping-cart-events_"
@@ -71,10 +71,10 @@ public class IntegrationTest {
         "shopping-cart-service.grpc.port = "
             + grcpPort
             + "\n"
-            + "akka.management.http.port = "
+            + "pekko.management.http.port = "
             + managementPorts.get(managementPortIndex)
             + "\n"
-            + "akka.discovery.config.services.shopping-cart-service.endpoints = [\n"
+            + "pekko.discovery.config.services.shopping-cart-service.endpoints = [\n"
             + "  { host = \"127.0.0.1\", port = "
             + managementPorts.get(0)
             + "},\n"
@@ -195,8 +195,7 @@ public class IntegrationTest {
           @Override
           public CompletionStage<OrderResponse> order(OrderRequest in) {
             orderServiceProbe.getRef().tell(in);
-            return CompletableFuture.completedFuture(
-                OrderResponse.newBuilder().setOk(true).build());
+            return CompletableFuture.completedFuture(OrderResponse.newBuilder().setOk(true).build());
           }
         };
     // avoid concurrent creation of keyspace and tables

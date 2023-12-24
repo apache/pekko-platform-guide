@@ -10,7 +10,7 @@ services:
       timeout: 5s
       retries: 60
   # This exists to force the condition of having the Cassandra service is up before starting the tests.
-  # The healthcheck above is not enough because it does not provide a condition to wait for the service
+  # The health-check above is not enough because it does not provide a condition to wait for the service
   # to be up. And this is simpler than installing cqlsh and using it to check the service status on the
   # CI server.
   cassandra:

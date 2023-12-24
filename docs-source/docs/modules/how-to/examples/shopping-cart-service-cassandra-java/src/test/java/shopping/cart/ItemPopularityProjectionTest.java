@@ -60,7 +60,7 @@ public class ItemPopularityProjectionTest {
                 createEnvelope(
                     new ShoppingCart.CheckedOut("a7079", Instant.parse("2020-01-01T12:00:00.00Z")),
                     2L),
-                createEnvelope(new ShoppingCart.ItemAdded("0d12d", "akka t-shirt", 1), 3L),
+                createEnvelope(new ShoppingCart.ItemAdded("0d12d", "pekko t-shirt", 1), 3L),
                 createEnvelope(new ShoppingCart.ItemAdded("0d12d", "skis", 1), 4L),
                 createEnvelope(new ShoppingCart.ItemRemoved("0d12d", "skis", 1), 5L),
                 createEnvelope(
@@ -82,7 +82,7 @@ public class ItemPopularityProjectionTest {
         () -> {
           assertEquals(3, repository.counts.size());
           assertEquals(2L, repository.counts.get("bowling shoes").longValue());
-          assertEquals(1L, repository.counts.get("akka t-shirt").longValue());
+          assertEquals(1L, repository.counts.get("pekko t-shirt").longValue());
           assertEquals(0L, repository.counts.get("skis").longValue());
         });
   }
