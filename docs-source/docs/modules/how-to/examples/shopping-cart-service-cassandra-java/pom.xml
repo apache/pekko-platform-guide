@@ -21,14 +21,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <pekko-grpc-maven-plugin.version>1.0.1</pekko-grpc-maven-plugin.version>
         <pekko.version>1.0.2</pekko.version>
-        <pekko.connectors.version>1.0.1</pekko.connectors.version>
-        <pekko.projection.version>1.0.0</pekko.projection.version>
-        <pekko.grpc.version>1.0.0</pekko.grpc.version>
-        <pekko.persistence.jdbc.version>1.0.0</pekko.persistence.jdbc.version>
-        <pekko.persistence.cassandra.version>1.0.0</pekko.persistence.cassandra.version>
-        <pekko.connectors.kafka.version>1.0.0</pekko.connectors.kafka.version>
-        <pekko.management.version>1.0.0</pekko.management.version>
-        <pekko.discovery.version>1.0.0</pekko.discovery.version>
+        <pekko-connectors-kafka.version>1.0.0</pekko-connectors-kafka.version>
+        <pekko-grpc.version>1.0.1</pekko-grpc.version>
+        <pekko-management.version>1.0.0</pekko-management.version>
+        <pekko-persistence-cassandra.version>1.0.0</pekko-persistence-cassandra.version>
+        <pekko-projection.version>1.0.0</pekko-projection.version>
         <scala.binary.version>2.13</scala.binary.version>
         <!-- needs to be defined to allow for overriding through mvn exec:exec -DAPP_CONFIG=local1.conf -->
         <APP_CONFIG>application.conf</APP_CONFIG>
@@ -39,6 +36,17 @@
     </properties>
     <!-- end::pekko-persistence-cassandra[] -->
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.pekko</groupId>
+                <artifactId>pekko-bom_${scala.binary.version}</artifactId>
+                <version>${pekko.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <!-- tag::pekko-persistence-cassandra[] -->
     <dependencies>
@@ -46,83 +54,75 @@
         <dependency>
             <groupId>org.apache.pekko</groupId>
             <artifactId>pekko-cluster-typed_${scala.binary.version}</artifactId>
-            <version>${pekko.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.pekko</groupId>
             <artifactId>pekko-cluster-sharding-typed_${scala.binary.version}</artifactId>
-            <version>${pekko.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.pekko</groupId>
             <artifactId>pekko-persistence-typed_${scala.binary.version}</artifactId>
-            <version>${pekko.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.pekko</groupId>
             <artifactId>pekko-persistence-query_${scala.binary.version}</artifactId>
-            <version>${pekko.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.pekko</groupId>
             <artifactId>pekko-serialization-jackson_${scala.binary.version}</artifactId>
-            <version>${pekko.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.pekko</groupId>
             <artifactId>pekko-cluster-tools_${scala.binary.version}</artifactId>
-            <version>${pekko.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.pekko</groupId>
             <artifactId>pekko-discovery_${scala.binary.version}</artifactId>
-            <version>${pekko.discovery.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.pekko/pekko-discovery-kubernetes-api -->
         <dependency>
             <groupId>org.apache.pekko</groupId>
             <artifactId>pekko-discovery-kubernetes-api_${scala.binary.version}</artifactId>
-            <version>${pekko.discovery.version}</version>
+            <version>${pekko-management.version}</version>
         </dependency>
 
         <!-- tag::pekko-persistence-cassandra[] -->
         <dependency>
             <groupId>org.apache.pekko</groupId>
             <artifactId>pekko-persistence-cassandra_${scala.binary.version}</artifactId>
-            <version>${pekko.persistence.cassandra.version}</version>
+            <version>${pekko-persistence-cassandra.version}</version>
         </dependency>
         <!-- end::pekko-persistence-cassandra[] -->
         <dependency>
             <groupId>org.apache.pekko</groupId>
             <artifactId>pekko-projection-eventsourced_${scala.binary.version}</artifactId>
-            <version>${pekko.projection.version}</version>
+            <version>${pekko-projection.version}</version>
         </dependency>
         <!-- tag::pekko-projection-cassandra[] -->
         <dependency>
             <groupId>org.apache.pekko</groupId>
             <artifactId>pekko-projection-cassandra_${scala.binary.version}</artifactId>
-            <version>${pekko.projection.version}</version>
+            <version>${pekko-projection.version}</version>
         </dependency>
         <!-- end::pekko-projection-cassandra[] -->
         <dependency>
             <groupId>org.apache.pekko</groupId>
             <artifactId>pekko-connectors-kafka_${scala.binary.version}</artifactId>
-            <version>${pekko.connectors.kafka.version}</version>
+            <version>${pekko-connectors-kafka.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.pekko</groupId>
             <artifactId>pekko-management-cluster-http_${scala.binary.version}</artifactId>
-            <version>${pekko.management.version}</version>
+            <version>${pekko-management.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.pekko</groupId>
             <artifactId>pekko-management-cluster-bootstrap_${scala.binary.version}</artifactId>
-            <version>${pekko.management.version}</version>
+            <version>${pekko-management.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.pekko</groupId>
             <artifactId>pekko-grpc-runtime_${scala.binary.version}</artifactId>
-            <version>${pekko.management.version}</version>
+            <version>${pekko-management.version}</version>
         </dependency>
 
         <dependency>
@@ -134,25 +134,22 @@
         <dependency>
             <groupId>org.apache.pekko</groupId>
             <artifactId>pekko-actor-testkit-typed_${scala.binary.version}</artifactId>
-            <version>${pekko.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.pekko</groupId>
             <artifactId>pekko-persistence-testkit_${scala.binary.version}</artifactId>
-            <version>${pekko.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.pekko</groupId>
             <artifactId>pekko-projection-testkit_${scala.binary.version}</artifactId>
-            <version>${pekko.projection.version}</version>
+            <version>${pekko-projection.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.pekko</groupId>
             <artifactId>pekko-stream-testkit_${scala.binary.version}</artifactId>
-            <version>${pekko.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -208,7 +205,7 @@
             <plugin>
                 <groupId>org.apache.pekko</groupId>
                 <artifactId>pekko-grpc-maven-plugin</artifactId>
-                <version>${pekko-grpc-maven-plugin.version}</version>
+                <version>${pekko-grpc.version}</version>
                 <configuration>
                     <language>Java</language>
                 </configuration>

@@ -195,7 +195,8 @@ public class IntegrationTest {
           @Override
           public CompletionStage<OrderResponse> order(OrderRequest in) {
             orderServiceProbe.getRef().tell(in);
-            return CompletableFuture.completedFuture(OrderResponse.newBuilder().setOk(true).build());
+            return CompletableFuture.completedFuture(
+                OrderResponse.newBuilder().setOk(true).build());
           }
         };
     // avoid concurrent creation of keyspace and tables
