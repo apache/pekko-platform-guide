@@ -45,7 +45,7 @@ Add the `grpcIngress` or `httpIngress` section to the deployment descriptor with
 [source,yaml]
 ----
 apiVersion: akka.lightbend.com/v1
-kind: AkkaMicroservice
+kind: PekkoMicroservice
 metadata:
   name: shopping-cart-service
   namespace: "shopping"

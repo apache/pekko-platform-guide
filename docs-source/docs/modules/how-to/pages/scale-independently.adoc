@@ -89,7 +89,7 @@ When using the xref:deployment:index.adoc[Akka Operator] you should define the r
 [source,yaml]
 ----
 apiVersion: akka.lightbend.com/v1
-kind: AkkaMicroservice
+kind: PekkoMicroservice
 metadata:
   name: shopping-cart-service
 spec:
@@ -180,7 +180,7 @@ When using the xref:deployment:index.adoc[Akka Operator] you should define the r
 [source,yaml]
 ----
 apiVersion: akka.lightbend.com/v1
-kind: AkkaMicroservice
+kind: PekkoMicroservice
 metadata:
   name: shopping-cart-service
 spec:

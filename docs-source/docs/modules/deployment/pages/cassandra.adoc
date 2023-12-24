@@ -127,7 +127,7 @@ Define the `configSecret` in the deployment descriptor of the application:
 [source,yaml]
 ----
 apiVersion: akka.lightbend.com/v1
-kind: AkkaMicroservice
+kind: PekkoMicroservice
 metadata:
   name: shopping-cart-service
 spec:
