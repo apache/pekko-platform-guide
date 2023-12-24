@@ -1,5 +1,6 @@
 package shopping.cart;
 
+import java.util.Optional;
 import org.apache.pekko.actor.typed.ActorSystem;
 import org.apache.pekko.cluster.sharding.typed.ShardedDaemonProcessSettings;
 import org.apache.pekko.cluster.sharding.typed.javadsl.ShardedDaemonProcess;
@@ -12,7 +13,6 @@ import org.apache.pekko.projection.eventsourced.EventEnvelope;
 import org.apache.pekko.projection.eventsourced.javadsl.EventSourcedProvider;
 import org.apache.pekko.projection.javadsl.AtLeastOnceProjection;
 import org.apache.pekko.projection.javadsl.SourceProvider;
-import java.util.Optional;
 import shopping.order.proto.ShoppingOrderService;
 
 public class SendOrderProjection {

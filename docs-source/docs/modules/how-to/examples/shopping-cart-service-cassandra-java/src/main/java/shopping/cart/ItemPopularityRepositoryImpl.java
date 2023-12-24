@@ -1,9 +1,9 @@
 package shopping.cart;
 
-import org.apache.pekko.Done;
-import org.apache.pekko.stream.connectors.cassandra.javadsl.CassandraSession;
 import java.util.Optional;
 import java.util.concurrent.CompletionStage;
+import org.apache.pekko.Done;
+import org.apache.pekko.stream.connectors.cassandra.javadsl.CassandraSession;
 
 public final class ItemPopularityRepositoryImpl implements ItemPopularityRepository {
 

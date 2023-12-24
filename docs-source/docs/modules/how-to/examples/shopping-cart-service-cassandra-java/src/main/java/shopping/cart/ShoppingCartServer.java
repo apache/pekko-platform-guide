@@ -1,5 +1,9 @@
 package shopping.cart;
 
+import java.net.InetSocketAddress;
+import java.time.Duration;
+import java.util.Collections;
+import java.util.concurrent.CompletionStage;
 import org.apache.pekko.actor.typed.ActorSystem;
 import org.apache.pekko.grpc.javadsl.ServerReflection;
 import org.apache.pekko.grpc.javadsl.ServiceHandler;
@@ -8,10 +12,6 @@ import org.apache.pekko.http.javadsl.ServerBinding;
 import org.apache.pekko.http.javadsl.model.HttpRequest;
 import org.apache.pekko.http.javadsl.model.HttpResponse;
 import org.apache.pekko.japi.function.Function;
-import java.net.InetSocketAddress;
-import java.time.Duration;
-import java.util.Collections;
-import java.util.concurrent.CompletionStage;
 import shopping.cart.proto.ShoppingCartService;
 import shopping.cart.proto.ShoppingCartServiceHandlerFactory;
 
