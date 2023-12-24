@@ -25,7 +25,7 @@ To enable the Astra integration you define the name of the secret in `cassandraD
 [source,yaml]
 ----
 apiVersion: akka.lightbend.com/v1
-kind: AkkaMicroservice
+kind: PekkoMicroservice
 metadata:
   name: shopping-cart-service
 spec:

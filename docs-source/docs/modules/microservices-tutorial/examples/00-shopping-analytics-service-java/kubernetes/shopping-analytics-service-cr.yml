@@ -4,7 +4,7 @@ metadata:
   name: "shopping"
 ---
 apiVersion: akka.lightbend.com/v1
-kind: AkkaMicroservice
+kind: PekkoMicroservice
 metadata:
   name: shopping-analytics-service
   namespace: "shopping"

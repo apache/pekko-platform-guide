@@ -5,9 +5,9 @@ include::partial$include.adoc[]
 
 The deployment descriptor of an Akka Microservice that is managed by the Akka Operator is defined in a https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/[Kubernetes Custom Resource {tab-icon}, window="tab"]. The following sections provide an example and details about configuration of interest.
 
-== AkkaMicroservices deployment descriptor (CRD) example
+== PekkoMicroservices deployment descriptor (CRD) example
 
-You can view the https://lightbend.github.io/akka-operator-helm/akka-operator/crds/v1/akka-microservices-crd.yml[schema definition of the AkkaMicroservices deployment descriptor (CRD) {tab-icon}, window="tab"]. A https://lightbend.github.io/akka-operator-helm/api-reference/v1/shopping-cart-service-full-cr.yml[deployment descriptor (CR) containing all properties {tab-icon}, window="tab"] provides a factitious example.
+You can view the https://lightbend.github.io/akka-operator-helm/akka-operator/crds/v1/akka-microservices-crd.yml[schema definition of the PekkoMicroservices deployment descriptor (CRD) {tab-icon}, window="tab"]. A https://lightbend.github.io/akka-operator-helm/api-reference/v1/shopping-cart-service-full-cr.yml[deployment descriptor (CR) containing all properties {tab-icon}, window="tab"] provides a factitious example.
 
 [#scale]
 == Scale the number of Pods
@@ -18,7 +18,7 @@ The `replicas` field in the deployment descriptor defines the number of Pods tha
 [source,yaml]
 ----
 apiVersion: akka.lightbend.com/v1
-kind: AkkaMicroservice
+kind: PekkoMicroservice
 metadata:
   name: shopping-cart-service
 spec:
@@ -50,7 +50,7 @@ Define the roles in the deployment descriptor:
 [source,yaml]
 ----
 apiVersion: akka.lightbend.com/v1
-kind: AkkaMicroservice
+kind: PekkoMicroservice
 metadata:
   name: shopping-cart-service
 spec:
@@ -90,7 +90,7 @@ In addition to the `replicasRatio` you can define minimum and maximum boundaries
 [source,yaml]
 ----
 apiVersion: akka.lightbend.com/v1
-kind: AkkaMicroservice
+kind: PekkoMicroservice
 metadata:
   name: shopping-cart-service
 spec:
@@ -197,7 +197,7 @@ https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/[R
 [source,yaml]
 ----
 apiVersion: akka.lightbend.com/v1
-kind: AkkaMicroservice
+kind: PekkoMicroservice
 metadata:
   name: shopping-cart-service
 spec:
@@ -253,7 +253,7 @@ Modify the deployment descriptor to use this configuration:
 [source,yaml]
 ----
 apiVersion: akka.lightbend.com/v1
-kind: AkkaMicroservice
+kind: PekkoMicroservice
 metadata:
   name: shopping-cart-service
 spec:
@@ -289,7 +289,7 @@ Exporting metrics to Prometheus requires opening a port on your Pods. The https:
 [source,yaml]
 ----
 apiVersion: akka.lightbend.com/v1
-kind: AkkaMicroservice
+kind: PekkoMicroservice
 metadata:
   name: shopping-cart-service
 spec:
@@ -342,7 +342,7 @@ Secrets with entries that will be mounted as files can be defined in `secretVolu
 [source,yaml]
 ----
 apiVersion: akka.lightbend.com/v1
-kind: AkkaMicroservice
+kind: PekkoMicroservice
 metadata:
   name: shopping-cart-service
 spec:
@@ -380,7 +380,7 @@ https://kubernetes.io/docs/concepts/configuration/secret/[Secrets {tab-icon}, wi
 [source,yaml]
 ----
 apiVersion: akka.lightbend.com/v1
-kind: AkkaMicroservice
+kind: PekkoMicroservice
 metadata:
   name: shopping-cart-service
 spec:
@@ -417,7 +417,7 @@ The entries in the Secret will be concatenated into a `main.conf` together with 
 [source,yaml]
 ----
 apiVersion: akka.lightbend.com/v1
-kind: AkkaMicroservice
+kind: PekkoMicroservice
 metadata:
   name: shopping-cart-service
 spec:
