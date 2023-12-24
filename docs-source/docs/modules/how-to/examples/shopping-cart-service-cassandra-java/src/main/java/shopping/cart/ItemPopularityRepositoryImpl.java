@@ -1,7 +1,7 @@
 package shopping.cart;
 
-import akka.Done;
-import akka.stream.alpakka.cassandra.javadsl.CassandraSession;
+import org.apache.pekko.Done;
+import org.apache.pekko.stream.connectors.cassandra.javadsl.CassandraSession;
 import java.util.Optional;
 import java.util.concurrent.CompletionStage;
 

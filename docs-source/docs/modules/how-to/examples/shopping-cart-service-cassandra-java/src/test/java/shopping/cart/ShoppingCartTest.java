@@ -1,11 +1,11 @@
 package shopping.cart;
 
-import static akka.persistence.testkit.javadsl.EventSourcedBehaviorTestKit.CommandResultWithReply;
+import static org.apache.pekko.persistence.testkit.javadsl.EventSourcedBehaviorTestKit.CommandResultWithReply;
 import static org.junit.Assert.*;
 
-import akka.actor.testkit.typed.javadsl.TestKitJunitResource;
-import akka.pattern.StatusReply;
-import akka.persistence.testkit.javadsl.EventSourcedBehaviorTestKit;
+import org.apache.pekko.actor.testkit.typed.javadsl.TestKitJunitResource;
+import org.apache.pekko.pattern.StatusReply;
+import org.apache.pekko.persistence.testkit.javadsl.EventSourcedBehaviorTestKit;
 import com.typesafe.config.ConfigFactory;
 import org.junit.Before;
 import org.junit.ClassRule;

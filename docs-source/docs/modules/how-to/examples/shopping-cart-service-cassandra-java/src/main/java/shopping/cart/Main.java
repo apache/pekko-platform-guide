@@ -1,12 +1,12 @@
 package shopping.cart;
 
-import akka.actor.typed.ActorSystem;
-import akka.actor.typed.javadsl.Behaviors;
-import akka.grpc.GrpcClientSettings;
-import akka.management.cluster.bootstrap.ClusterBootstrap;
-import akka.management.javadsl.AkkaManagement;
-import akka.stream.alpakka.cassandra.javadsl.CassandraSession;
-import akka.stream.alpakka.cassandra.javadsl.CassandraSessionRegistry;
+import org.apache.pekko.actor.typed.ActorSystem;
+import org.apache.pekko.actor.typed.javadsl.Behaviors;
+import org.apache.pekko.grpc.GrpcClientSettings;
+import org.apache.pekko.management.cluster.bootstrap.ClusterBootstrap;
+import org.apache.pekko.management.javadsl.PekkoManagement;
+import org.apache.pekko.stream.connectors.cassandra.javadsl.CassandraSession;
+import org.apache.pekko.stream.connectors.cassandra.javadsl.CassandraSessionRegistry;
 import com.typesafe.config.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +29,7 @@ public class Main {
   }
 
   public static void init(ActorSystem<Void> system, ShoppingOrderService orderService) {
-    AkkaManagement.get(system).start();
+    PekkoManagement.get(system).start();
     ClusterBootstrap.get(system).start();
 
     ShoppingCart.init(system);
