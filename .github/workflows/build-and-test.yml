@@ -18,10 +18,10 @@ jobs:
           git fetch origin pull/${{ github.event.pull_request.number }}/merge:scratch
           git checkout scratch
 
-      #- name: copy-identical-files
-      #  run: |
-      #    scripts/copy-identical-files.sh
-      #    git diff --exit-code --color || { echo "[error] Found modified file that was expected to be identical. Run scripts/copy-identical-files.sh"; false; }
+      - name: copy-identical-files
+        run: |
+          scripts/copy-identical-files.sh
+          git diff --exit-code --color || { echo "[error] Found modified file that was expected to be identical. Run scripts/copy-identical-files.sh"; false; }
 
   java-compile-and-test-part1:
     name: Compile and Test Part 1 (Java)
