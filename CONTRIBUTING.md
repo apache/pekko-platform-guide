@@ -12,7 +12,7 @@ You may also check out the [Pekko dev mailing list](https://lists.apache.org/lis
 
 # Antora-based Pekko Documentation
 
-This folder contains the sources for parts of the [Akka Platform Guide web site](https://developer.lightbend.com/docs/akka-platform-guide).
+This folder contains the sources for parts of future Pekko Platform Guide web site. The equivalent [Akka Platform Guide web site](https://developer.lightbend.com/docs/akka-guide/) should be a useful guide until we are complete.
 
 This folder is structured as follows:
 - The root directory contains the `Makefile` for the documentation generation process.
@@ -74,5 +74,5 @@ It's often easiest to make changes to the example in the full example (last part
 propagate those changes backwards with `scripts/copy-identical-files.sh` and manual edits of non-identical
 files. IntelliJ has a good diff tool for propagating changes between files and folders.
 
-PR validation in Travis will run the `scripts/copy-identical-files.sh` and fail the build if expected identical
+PR validation in GitHub Actions CI will run the `scripts/copy-identical-files.sh` and fail the build if expected identical
 files are different.
