@@ -6,6 +6,10 @@ This is the repository for the Apache Pekko Platform Guide and we would love to 
 
 Feel free to give your feedback in the form of issues/PRs.
 
+## Status
+
+The code in this repo has been changed to use Pekko libs instead of Akka/Alpakka. The docs themselves still need to be updated. The [Akka Guide](https://developer.lightbend.com/docs/akka-guide/) should still be a reasonably good intro still.
+
 ## Contributing
 
 Contributions are *very* welcome!
