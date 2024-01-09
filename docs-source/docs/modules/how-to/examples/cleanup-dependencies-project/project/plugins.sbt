@@ -1,5 +1,5 @@
 // tag::remove-grpc-plugin[]
-addSbtPlugin("org.apache.pekko" % "pekko-grpc-sbt-plugin" % "1.0.1")
+addSbtPlugin("org.apache.pekko" % "pekko-grpc-sbt-plugin" % "1.0.2")
 // end::remove-grpc-plugin[]
 
 addSbtPlugin("com.github.sbt" % "sbt-native-packager" % "1.9.16")
