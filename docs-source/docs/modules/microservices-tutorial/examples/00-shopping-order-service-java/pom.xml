@@ -20,7 +20,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <pekko.version>1.0.2</pekko.version>
         <pekko-connectors-kafka.version>1.0.0</pekko-connectors-kafka.version>
-        <pekko-grpc.version>1.0.1</pekko-grpc.version>
+        <pekko-grpc.version>1.0.2</pekko-grpc.version>
         <pekko-management.version>1.0.0</pekko-management.version>
         <pekko-persistence-jdbc.version>1.0.0</pekko-persistence-jdbc.version>
         <pekko-projection.version>1.0.0</pekko-projection.version>
