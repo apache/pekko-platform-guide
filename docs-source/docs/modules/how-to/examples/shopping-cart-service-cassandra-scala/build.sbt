@@ -23,7 +23,7 @@ run / fork := false
 Global / cancelable := false // ctrl-c
 
 val PekkoVersion = "1.0.2"
-val PekkoHttpVersion = "1.0.0"
+val PekkoHttpVersion = "1.0.1"
 val PekkoManagementVersion = "1.0.0"
 // tag::pekko-persistence-cassandra[]
 val PekkoPersistenceCassandraVersion = "1.0.0"
