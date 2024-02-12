@@ -24,7 +24,7 @@ Global / cancelable := false // ctrl-c
 
 val PekkoVersion = "1.0.2"
 // tag::dependencies-for-healthchecks[]
-val PekkoHttpVersion = "1.0.0"
+val PekkoHttpVersion = "1.0.1"
 val PekkoManagementVersion = "1.0.0"
 // end::dependencies-for-healthchecks[]
 val PekkoPersistenceCassandraVersion = "1.0.0"
