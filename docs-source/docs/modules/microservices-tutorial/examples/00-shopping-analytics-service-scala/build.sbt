@@ -63,7 +63,7 @@ libraryDependencies ++= Seq(
   "org.apache.pekko" %% "pekko-serialization-jackson" % PekkoVersion,
   "org.apache.pekko" %% "pekko-persistence-jdbc" % PekkoPersistenceJdbcVersion,
   "org.apache.pekko" %% "pekko-persistence-testkit" % PekkoVersion % Test,
-  "org.postgresql" % "postgresql" % "42.3.8",
+  "org.postgresql" % "postgresql" % "42.7.3",
   // 4. Querying or projecting data from Pekko Persistence
   "org.apache.pekko" %% "pekko-persistence-query" % PekkoVersion,
   "org.apache.pekko" %% "pekko-projection-eventsourced" % PekkoProjectionVersion,
