@@ -6,7 +6,7 @@ You're always welcome to submit your PR straight away and start the discussion (
 
 # The Pekko Community
 
-In case of questions about the contribution process or for discussion of specific issues please use the [GitHub Discussions](https://github.com/apache/incubator-pekko-platform-guide/discussions) for this project.
+In case of questions about the contribution process or for discussion of specific issues please use the [GitHub Discussions](https://github.com/apache/pekko-platform-guide/discussions) for this project.
 
 You may also check out the [Pekko dev mailing list](https://lists.apache.org/list.html?dev@pekko.apache.org).
 
