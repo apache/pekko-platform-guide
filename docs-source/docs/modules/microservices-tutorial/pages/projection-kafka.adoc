@@ -18,7 +18,7 @@ This part of the xref:overview.adoc[full example] will focus on the Kafka produc
 * consume messages from a Kafka topic
 
 === Akka Workshop
-The fourth video of the https://info.lightbend.com/pekko-platform-workshop-part-4-on-demand-recording.html[Akka Workshop Series {tab-icon}, window="tab"] covers CQRS and Projections for Kafka and gRPC. It provides some solid guidance to aid you in understanding this section, and the next section of this guide.
+The fourth video of the https://info.lightbend.com/akka-platform-workshop-part-4-on-demand-recording.html[Akka Workshop Series {tab-icon}, window="tab"] covers CQRS and Projections for Kafka and gRPC. It provides some solid guidance to aid you in understanding this section, and the next section of this guide.
 
 == Source downloads
 
@@ -181,7 +181,7 @@ sbt compile
 mvn compile
 ----
 
-. Create a `ShoppingCartEventConsumer` [.group-scala]#object# [.group-java]#class# in `shopping-analytics-service`. It runs an Akka Stream with a Kafka `Consumer.committableSource` from Alppekko Kafka.
+. Create a `ShoppingCartEventConsumer` [.group-scala]#object# [.group-java]#class# in `shopping-analytics-service`. It runs an Pekko Stream with a Kafka `Consumer.committableSource` from Alppekko Kafka.
 +
 [.tabset]
 Java::
@@ -319,7 +319,7 @@ NOTE: The following steps for cloud deployment are optional. If you are only run
 [#kubernetes]
 == Run in Kubernetes
 
-Create a xref:deployment:aws-install.adoc[Kubernetes cluster and install the Akka Operator] if you haven't already.
+Create a xref:deployment:aws-install.adoc[Kubernetes cluster and install the Pekko Operator] if you haven't already.
 
 === Create a Kafka cluster
 
@@ -432,4 +432,4 @@ include::projection-kafka.adoc[tag=exercise]
 == Learn more
 
 * xref:concepts:internal-and-external-communication.adoc[Internal and External Communication concepts].
-* {pekko-projection}/[Akka Projection reference documentation {tab-icon}, window="tab"].
+* {pekko-projection}/[Pekko Projection reference documentation {tab-icon}, window="tab"].

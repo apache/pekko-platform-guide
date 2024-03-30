@@ -1,4 +1,4 @@
-= Implementing Microservices with Akka
+= Implementing Microservices with Pekko
 
 include::ROOT:partial$include.adoc[]
 
@@ -8,14 +8,14 @@ include::partial$listing.adoc[]
 
 == Learn more
 
-The following links provide more information about some of the Akka Platform features used in the tutorial.
+The following links provide more information about some of the Pekko Platform features used in the tutorial.
 
-* {pekko}/typed/cluster-sharding.html[Akka Cluster Sharding {tab-icon}, window="tab"] to distribute Event Sourced cart entities and Projections
-* {pekko}/typed/persistence.html[Akka Event Sourcing {tab-icon}, window="tab"] to store the state of the shopping carts
-* {pekko-projection}/[Akka Projections {tab-icon}, window="tab"] to enable CQRS and event based communication with other services
-* {pekko-grpc}/[Akka gRPC {tab-icon}, window="tab"] to implement a gRPC service API and communication with other services
-* {pekko-management}/[Akka Management {tab-icon}, window="tab"] for Akka Cluster formation and health checks
-* xref:deployment:index.adoc[Kubernetes deployment with the Akka Operator]
+* {pekko}/typed/cluster-sharding.html[Pekko Cluster Sharding {tab-icon}, window="tab"] to distribute Event Sourced cart entities and Projections
+* {pekko}/typed/persistence.html[Pekko Event Sourcing {tab-icon}, window="tab"] to store the state of the shopping carts
+* {pekko-projection}/[Pekko Projections {tab-icon}, window="tab"] to enable CQRS and event based communication with other services
+* {pekko-grpc}/[Pekko gRPC {tab-icon}, window="tab"] to implement a gRPC service API and communication with other services
+* {pekko-management}/[Pekko Management {tab-icon}, window="tab"] for Pekko Cluster formation and health checks
+* xref:deployment:index.adoc[Kubernetes deployment with the Pekko Operator]
 
-=== Akka Workshop
-In addition to the above resources there is the video based https://info.lightbend.com/pekko-platform-workshop-part-1-on-demand-recording.html[Akka Workshop Series {tab-icon}, window="tab"]. The series will walk you through the basics of using the Akka Platform in parallel with much of the material in this guide. It should be especially useful for individuals who are audio/visual learners.
+=== Pekko Workshop
+In addition to the above resources there is the video based https://info.lightbend.com/pekko-platform-workshop-part-1-on-demand-recording.html[Pekko Workshop Series {tab-icon}, window="tab"]. The series will walk you through the basics of using the Pekko Platform in parallel with much of the material in this guide. It should be especially useful for individuals who are audio/visual learners.

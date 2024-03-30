@@ -2,4 +2,4 @@
 
 include::ROOT:partial$include.adoc[]
 
-:pekko-persistence-jdbc:  https://doc.pekko.io/docs/pekko-persistence-jdbc/current
+:pekko-persistence-jdbc: https://pekko.apache.org/docs/pekko-persistence-jdbc/current/

@@ -3,7 +3,7 @@
 
 include::ROOT:partial$include.adoc[]
 
-We will create the gRPC `ShoppingCartService` for the *Cart Service* shown in the architectural overview below. The motivation for using gRPC as the inter-service protocol is explained in xref:concepts:pekko-grpc.adoc[Akka gRPC concepts]. The {pekko-blog}/news/2020/04/08/pekko-grpc-intro-video[Introduction to Akka gRPC video {tab-icon}, window="tab"] is also a good starting point for learning Akka gRPC.
+We will create the gRPC `ShoppingCartService` for the *Cart Service* shown in the architectural overview below. The motivation for using gRPC as the inter-service protocol is explained in xref:concepts:pekko-grpc.adoc[Pekko gRPC concepts]. The {pekko-blog}/news/2020/04/08/pekko-grpc-intro-video[Introduction to Pekko gRPC video {tab-icon}, window="tab"] is also a good starting point for learning Pekko gRPC.
 
 image::example-grpc-server.svg[Example gRPC service]
 
@@ -17,7 +17,7 @@ First, we will create the `ShoppingCartService` with a single operation that add
 
 == Akka Workshop
 The first video of the
-https://info.lightbend.com/pekko-platform-workshop-part-1-on-demand-recording.html[Akka Workshop Series {tab-icon}, window="tab"] covers creating the gRPC series.
+https://info.lightbend.com/akka-platform-workshop-part-1-on-demand-recording.html[Akka Workshop Series {tab-icon}, window="tab"] covers creating the gRPC series.
 
 == Source downloads
 
@@ -58,7 +58,7 @@ include::example$01-shopping-cart-service-scala/src/main/protobuf/ShoppingCartSe
 
 == Generate code
 
-The Akka gRPC plugin will generate code from the service descriptor when you compile the project. Run [.group-scala]#`sbt`# [.group-java]#`mvn`# to compile:
+The Pekko gRPC plugin will generate code from the service descriptor when you compile the project. Run [.group-scala]#`sbt`# [.group-java]#`mvn`# to compile:
 
 [.group-scala]
 [source,shell script]
@@ -100,7 +100,7 @@ include::example$01-shopping-cart-service-scala/src/main/scala/shopping/cart/Sho
 [#server]
 == Initialize HTTP Server
 
-We will run the gRPC service implementation in an Akka HTTP server. Add the following server initialization code in a `ShoppingCartServer` [.group-scala]#`object`# [.group-java]#`class`#:
+We will run the gRPC service implementation in an Pekko HTTP server. Add the following server initialization code in a `ShoppingCartServer` [.group-scala]#`object`# [.group-java]#`class`#:
 
 [.tabset]
 Java::
@@ -143,7 +143,7 @@ include::example$01-shopping-cart-service-scala/src/main/scala/shopping/cart/Mai
 ----
 
 <1> Start an `ActorSystem` with the `Main` actor `Behavior`.
-<2> Initialization of Akka Management that is used for forming the Akka Cluster.
+<2> Initialization of Pekko Management that is used for forming the Pekko Cluster.
 <3> Initialize the gRPC server. This is the code you should add to the existing `Main`.
 
 The `grpc.port` configuration is defined in `local1.conf`, which is included in the generated template project.
@@ -202,13 +202,13 @@ NOTE: The following steps for cloud deployment are optional. If you are only run
 [#kubernetes]
 == Run in Kubernetes
 
-We suggest that you read the xref:deployment:index.adoc[] section to get an understanding of how deployment with the Akka Cloud Platform works.
+We suggest that you read the xref:deployment:index.adoc[] section to get an understanding of how deployment with the Pekko Cloud Platform works.
 
 === Akka Workshop
-The fifth video of the https://info.lightbend.com/pekko-platform-workshop-part-5-on-demand-recording.html[Akka Workshop Series {tab-icon}, window="tab"] walks you through the process of running in Kubernetes on AWS or GCP. It will take you step-by-step to aid you in understanding the process.
+The fifth video of the https://info.lightbend.com/akka-platform-workshop-part-5-on-demand-recording.html[Akka Workshop Series {tab-icon}, window="tab"] walks you through the process of running in Kubernetes on AWS or GCP. It will take you step-by-step to aid you in understanding the process.
 
 
-Before following the steps below, create a Kubernetes cluster and install the Akka Operator. Used the instructions below for:
+Before following the steps below, create a Kubernetes cluster and install the Pekko Operator. Used the instructions below for:
 
 [.tabset]
 GCP::
@@ -233,7 +233,7 @@ include::deployment:partial$git-init.adoc[]
 
 === Update the deployment descriptor
 
-In `kubernetes/shopping-cart-service-cr.yml` you will find the deployment descriptor of the `PekkoMicroservice` that the Akka Operator will use when deploying the application in Kubernetes.
+In `kubernetes/shopping-cart-service-cr.yml` you will find the deployment descriptor of the `PekkoMicroservice` that the Pekko Operator will use when deploying the application in Kubernetes.
 
 .kubernetes/shopping-cart-service-cr.yml:
 [source,yaml]
@@ -262,7 +262,7 @@ It can be convenient to set that namespace as current instead of specifying the 
 kubectl config set-context --current --namespace=shopping
 ----
 
-The Akka Operator will notice the deployment descriptor and deploy the `shopping-cart-service`. You can see progress by viewing the status:
+The Pekko Operator will notice the deployment descriptor and deploy the `shopping-cart-service`. You can see progress by viewing the status:
 
 [source,shell script]
 ----
@@ -282,5 +282,5 @@ Note the logging from the `ShoppingCartServiceImpl` in the console that is runni
 :!sectnums:
 == Learn more
 
-* xref:concepts:pekko-grpc.adoc[Akka gRPC concepts]
-* {pekko-grpc}/server/index.html[Akka gRPC server reference documentation {tab-icon}, window="tab"].
+* xref:concepts:pekko-grpc.adoc[Pekko gRPC concepts]
+* {pekko-grpc}/server/index.html[Pekko gRPC server reference documentation {tab-icon}, window="tab"].
