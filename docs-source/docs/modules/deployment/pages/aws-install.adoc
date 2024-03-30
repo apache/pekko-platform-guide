@@ -23,7 +23,7 @@ A familiarity with the following services and skillsets is recommended before in
 * https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html[Amazon EKS {tab-icon}, window="tab"] and its command line tool https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html[`eksctl` {tab-icon}, window="tab"].
 * https://docs.aws.amazon.com/iam/[AWS IAM {tab-icon}, window="tab"] and https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html[IAM security best practices {tab-icon}, window="tab"].
 * https://helm.sh/docs/intro/quickstart/[Helm {tab-icon}, window="tab"] command line tool `helm`.
-* https://yaml.org/spec/1.2/spec.html[YAML {tab-icon}, window="tab"] to define configuration for Pekko Microservices deployment descriptors.
+* https://yaml.org/spec/1.2/spec.html[YAML {tab-icon}, window="tab"] to define configuration for Akka Microservices deployment descriptors.
 
 :sectnums:
 == Verify Prerequisites
@@ -223,30 +223,30 @@ helm install pekko-operator pekko-operator-helm/pekko-operator \
 kubectl get pods --namespace lightbend
 ----
 
-The Pekko Cloud Platform Helm chart adheres to the https://en.wikipedia.org/wiki/Principle_of_least_privilege[Principle of least privilege {tab-icon}, window="tab"] with the Kubernetes cluster roles that are granted to the operator. For a complete list of Kubernetes cluster roles required by Pekko Cloud Platform you may review the https://github.com/lightbend/pekko-operator-helm/blob/master/pekko-operator/templates/020-clusterrole.yaml[`ClusterRole` template found in the Helm Chart {tab-icon}, window="tab"].
+The Akka Cloud Platform Helm chart adheres to the https://en.wikipedia.org/wiki/Principle_of_least_privilege[Principle of least privilege {tab-icon}, window="tab"] with the Kubernetes cluster roles that are granted to the operator. For a complete list of Kubernetes cluster roles required by Akka Cloud Platform you may review the https://github.com/lightbend/akka-operator-helm/blob/master/akka-operator/templates/020-clusterrole.yaml[`ClusterRole` template found in the Helm Chart {tab-icon}, window="tab"].
 
-With the Pekko Operator running, you can deploy an Pekko Microservice. The next page, xref:deploy.adoc[], provides general steps. The xref:microservices-tutorial:grpc-service.adoc#kubernetes[tutorial] includes examples of build and template files.
+With the Akka Operator running, you can deploy an Akka Microservice. The next page, xref:deploy.adoc[], provides general steps. The xref:microservices-tutorial:grpc-service.adoc#kubernetes[tutorial] includes examples of build and template files.
 
 :!sectnums:
-[#_update_pekko_operator]
-== Update Pekko Operator
+[#_update_akka_operator]
+== Update Akka Operator
 
-To update the Pekko Operator version you have to update the Custom Resource Definition (CRD) separately because Helm will not perform that.
+To update the Akka Operator version you have to update the Custom Resource Definition (CRD) separately because Helm will not perform that.
 
-. Update the Pekko Microservices CRD:
+. Update the Akka Microservices CRD:
 +
 [source,shell script]
 ----
-kubectl apply -f  https://lightbend.github.io/pekko-operator-helm/pekko-operator/crds/v1/pekko-microservices-crd.yml
+kubectl apply -f  https://lightbend.github.io/akka-operator-helm/akka-operator/crds/v1/akka-microservices-crd.yml
 ----
 
-. Update the Pekko Operator with Helm.
+. Update the Akka Operator with Helm.
 +
-Add the Pekko Operator Helm repository and update the local index:
+Add the Akka Operator Helm repository and update the local index:
 +
 [source,shell script]
 ----
-helm repo add pekko-operator-helm https://lightbend.github.io/pekko-operator-helm/
+helm repo add akka-operator-helm https://lightbend.github.io/akka-operator-helm/
 helm repo update
 ----
 +
@@ -254,17 +254,17 @@ Pick a version upgrade to.
 +
 [source,shell script]
 ----
-helm search repo pekko-operator-helm/pekko-operator --versions
+helm search repo akka-operator-helm/akka-operator --versions
 ----
 +
 Upgrade the chart.
 +
 [source,shell script]
 ----
-helm upgrade pekko-operator pekko-operator-helm/pekko-operator \
+helm upgrade akka-operator akka-operator-helm/akka-operator \
   --version=<version> \
   --namespace lightbend \
-  --set serviceAccount.name=pekko-operator
+  --set serviceAccount.name=akka-operator
 ----
 
 Verify that the operator is running:
@@ -274,20 +274,20 @@ Verify that the operator is running:
 kubectl get pods --namespace lightbend
 ----
 
-== Uninstall Pekko Operator
+== Uninstall Akka Operator
 
-Delete the `pekko-operator` with Helm:
+Delete the `akka-operator` with Helm:
 
 [source,shell script]
 ----
-helm delete pekko-operator --namespace lightbend
+helm delete akka-operator --namespace lightbend
 ----
 
 Delete CRD:
 
 [source,shell script]
 ----
-kubectl delete customresourcedefinition pekkomicroservices.pekko.lightbend.com
+kubectl delete customresourcedefinition akkamicroservices.akka.lightbend.com
 ----
 
 == Delete a Kubernetes cluster
@@ -296,7 +296,7 @@ kubectl delete customresourcedefinition pekkomicroservices.pekko.lightbend.com
 ----
 eksctl delete cluster \
     --region eu-central-1 \
-    --name eks-pekko-demo
+    --name eks-akka-demo
 ----
 
 NOTE: Deleting the cluster from the https://console.aws.amazon.com/eks/home[Amazon EKS console {tab-icon}, window="tab"] requires several steps and therefore it's easiest to use `eksctl` for this.
@@ -307,6 +307,6 @@ _Cluster creation fails with "Cannot create cluster '<CLUSTER_NAME>' because <AW
 
 Creating an Amazon EKS cluster will provision many underlying AWS resources such as VPCs, Security Groups, EC2 instances, Elastic IPs, etc. All AWS accounts have default quotas for the number of resources that can be created per region. If you already have an EKS cluster or other AWS resources deployed in a region you may receive this error while creating an Amazon EKS cluster. To resolve you can pick a different region, clean up existing resources, or make a request to AWS https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-resource-limits.html[for a higher resource quota {tab-icon}, window="tab"].
 
-_Pekko Operator pod in `ImagePullBackoff` status_
+_Akka Operator pod in `ImagePullBackoff` status_
 
-After the Pekko Cloud Platform Helm chart is installed you observe an `ImagePullBackOff` status on a pod for the `pekko-operator` `Deployment`. When you describe the pod you may find a `Failed` event, this will inckude a Docker pull error message that mentions _"You are not entitled to pull this AWS Marketplace product image"_. This will occur when your AWS account is not subscribed to the Pekko Cloud Platform on AWS Marketplace. To resolve you must xref:deployment:aws-install.adoc#_amazon_marketplace[subscribe to the product] and then wait for the `pekko-operator` pod to restart and attempt to pull the image again.
+After the Akka Cloud Platform Helm chart is installed you observe an `ImagePullBackOff` status on a pod for the `akka-operator` `Deployment`. When you describe the pod you may find a `Failed` event, this will inckude a Docker pull error message that mentions _"You are not entitled to pull this AWS Marketplace product image"_. This will occur when your AWS account is not subscribed to the Akka Cloud Platform on AWS Marketplace. To resolve you must xref:deployment:aws-install.adoc#_amazon_marketplace[subscribe to the product] and then wait for the `akka-operator` pod to restart and attempt to pull the image again.

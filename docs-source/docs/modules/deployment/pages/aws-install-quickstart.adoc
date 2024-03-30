@@ -3,7 +3,7 @@
 
 include::partial$include.adoc[]
 
-NOTE: To install Pekko Cloud Platform on Amazon Elastic Kubernetes Service (EKS), you must have an Amazon account and a subscription to the {aws-marketplace}[Pekko Cloud Platform {tab-icon}, window="tab"].
+NOTE: To install Akka Cloud Platform on Amazon Elastic Kubernetes Service (EKS), you must have an Amazon account and a subscription to the {aws-marketplace}[Akka Cloud Platform {tab-icon}, window="tab"].
 
 == Expected Time to Install
 
@@ -12,7 +12,7 @@ By default, the following steps will be executed:
 
 1. Create an Amazon EKS cluster
 2. Install the Kubernetes Metrics Server
-3. Install the Pekko Cloud Platform Helm chart
+3. Install the Akka Cloud Platform Helm chart
 4. Install the Grafana Helm chart
 5. Install the Prometheus Helm Chart
 6. Set up an Amazon Managed Streaming for Apache Kafka (MSK) cluster
@@ -23,9 +23,9 @@ By default, the following steps will be executed:
 
 == Verify Prerequisites
 
-Before installation, you must subscribe to the {aws-marketplace}[Pekko Cloud Platform {tab-icon}, window="tab"] on AWS Marketplace by clicking the Subscribe button on the product page and accepting the terms and conditions.
+Before installation, you must subscribe to the {aws-marketplace}[Akka Cloud Platform {tab-icon}, window="tab"] on AWS Marketplace by clicking the Subscribe button on the product page and accepting the terms and conditions.
 
-To install and use the Pekko Cloud Platform, you must have the following tools installed. We recommend using the latest versions of these tools. If you do not have them yet or need to update, we provide links to installation instructions:
+To install and use the Akka Cloud Platform, you must have the following tools installed. We recommend using the latest versions of these tools. If you do not have them yet or need to update, we provide links to installation instructions:
 
 * The https://git-scm.com/book/en/v2/Getting-Started-Installing-Git[`git` {tab-icon}, window="tab"] command-line tool to clone the Pulumi Playbook.
 
@@ -57,22 +57,22 @@ aws configure
 == Quick Start with Pulumi Playbook
 
 Pulumi is a cloud provisioning tool used to set up cloud infrastructure and Kubernetes cluster resources.
-The fastest way to get started with Pekko Cloud Platform on EKS is to run the Pekko Cloud Platform Deployment Pulumi playbook.
+The fastest way to get started with Akka Cloud Platform on EKS is to run the Akka Cloud Platform Deployment Pulumi playbook.
 
 To begin, download and install the https://www.pulumi.com/docs/get-started/install/[Pulumi {tab-icon}, window="tab"] cloud engineering (provisioning) tool for your platform.
 
-Download (clone) the https://github.com/lightbend/pekko-cloud-platform-deploy[Pekko Cloud Platform Deployment Pulumi Playbook {tab-icon}, window="tab"] with https://git-scm.com/book/en/v2/Getting-Started-Installing-Git[`git` {tab-icon}, window="tab"].
+Download (clone) the https://github.com/lightbend/akka-cloud-platform-deploy[Akka Cloud Platform Deployment Pulumi Playbook {tab-icon}, window="tab"] with https://git-scm.com/book/en/v2/Getting-Started-Installing-Git[`git` {tab-icon}, window="tab"].
 
 [source,shell script]
 ----
-git clone https://github.com/lightbend/pekko-cloud-platform-deploy
+git clone https://github.com/lightbend/akka-cloud-platform-deploy
 ----
 
 Navigate to the base directory of the cloned repository in a terminal.
 
 [source,shell script]
 ----
-cd pekko-cloud-platform-deploy
+cd akka-cloud-platform-deploy
 ----
 
 The same repository contains the scripts for AWS and GCP deployment. Navigate to the `aws` folder.
@@ -111,7 +111,7 @@ pulumi config set aws:region eu-central-1
 ----
 
 When you run a `pulumi up` (deploy) all the resources defined in the playbook will be provisioned to your target environment.
-In almost all cases resources will start with a prefix `acp-<STACK NAME>`, where `acp` stands for "Pekko Cloud Platform" and `<STACK NAME>` is the name you chose for the Pulumi stack.
+In almost all cases resources will start with a prefix `acp-<STACK NAME>`, where `acp` stands for "Akka Cloud Platform" and `<STACK NAME>` is the name you chose for the Pulumi stack.
 Most resource names will end with a randomly generated alphanumeric string.
 
 When you run `pulumi up` you will be prompted with a list of resources that the playbook will create.
@@ -140,10 +140,10 @@ After executing `pulumi up` you will see something like the following:
 ----
 Previewing update (<STACK NAME>)
 
-View Live: https://app.pulumi.com/<USER NAME>/pekko-cloud-platform-deploy/<STACK NAME>/previews/f8c74175-2815-462a-9925-78022ad1c49d
+View Live: https://app.pulumi.com/<USER NAME>/akka-cloud-platform-deploy/<STACK NAME>/previews/f8c74175-2815-462a-9925-78022ad1c49d
 
      Type                                    Name                                                                                        Plan
- +   pulumi:pulumi:Stack                     pekko-cloud-platform-deploy-<STACK NAME>                                                     create
+ +   pulumi:pulumi:Stack                     akka-cloud-platform-deploy-<STACK NAME>                                                     create
  
 ...
 
@@ -154,10 +154,10 @@ Do you want to perform this update? yes
 
 Updating (<STACK NAME>)
 
-View Live: https://app.pulumi.com/<USER NAME>/pekko-cloud-platform-deploy/<STACK NAME>/updates/18
+View Live: https://app.pulumi.com/<USER NAME>/akka-cloud-platform-deploy/<STACK NAME>/updates/18
 
      Type                                    Name                                                                                        Status
- +   pulumi:pulumi:Stack                     pekko-cloud-platform-deploy-<STACK NAME>                                                     created
+ +   pulumi:pulumi:Stack                     akka-cloud-platform-deploy-<STACK NAME>                                                     created
 
 ...
 ----
@@ -193,7 +193,7 @@ These output variables are required to access your cluster and associated resour
 You can reference variables manually, or access their values at the command line with `pulumi stack output <OUTPUT KEY>`.
 Later in this documentation page you can find the full list of xref:deployment:aws-install-quickstart.adoc#output-variables[output variables].
 
-For example, to return the Kubernetes namespace that the Pekko Cloud Platform Operator is installed in:
+For example, to return the Kubernetes namespace that the Akka Cloud Platform Operator is installed in:
 
 [source, shell script]
 ----
@@ -246,7 +246,7 @@ kubectl run -i --tty kafka-mgmt --image=confluentinc/cp-kafka --restart=Never --
 
 [NOTE]
 ====
-Kafka Kubernetes secrets are created in the Pekko Cloud Platform Operator namespace.
+Kafka Kubernetes secrets are created in the Akka Cloud Platform Operator namespace.
 These must be copied to each microservice namespace that references them.
 Here is one way to copy a resource from one namespace to another:
 
@@ -286,7 +286,7 @@ kubectl run -i rds-mgmt --image=postgres --restart=Never --rm \
 
 [NOTE]
 ====
-JDBC (RDS) Kubernetes secrets are created in the Pekko Cloud Platform Operator namespace.
+JDBC (RDS) Kubernetes secrets are created in the Akka Cloud Platform Operator namespace.
 These must be copied to each microservice namespace that references them.
 Here is one way to copy a resource from one namespace to another:
 
@@ -369,7 +369,7 @@ Amazon EKS
 
 * `clusterName` - Cluster name
 * `kubeconfig` - Complete contents of a `KUBECONFIG` configuration for the provisioned cluster
-* `operatorNamespace` - Kubernetes namespace where the Pekko Cloud Platform operator is running
+* `operatorNamespace` - Kubernetes namespace where the Akka Cloud Platform operator is running
 
 Amazon Aurora Cluster
 
@@ -411,17 +411,17 @@ Or by populating the stack's `Pulumi.<STACK NAME>.yaml`.
 | Yes
 | `-`
 
-| `pekko.operator.namespace`
-| The Kubernetes namespace to install the Pekko Cloud Platform operator into.
+| `akka.operator.namespace`
+| The Kubernetes namespace to install the Akka Cloud Platform operator into.
 | No
 | `"lightbend"`
 
-| `pekko.operator.version`
-| The version of the Pekko Cloud Platform operator to install.
+| `akka.operator.version`
+| The version of the Akka Cloud Platform operator to install.
 | No
 | `"1.1.22"`
 
-| `pekko.operator.installTelemetryBackends`
+| `akka.operator.installTelemetryBackends`
 | Whether to install Lightbend Telemetry backends (Prometheus and Grafana) for monitoring.
 | No
 | `true`

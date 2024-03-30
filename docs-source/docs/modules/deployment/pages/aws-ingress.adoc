@@ -3,7 +3,7 @@
 
 include::partial$include.adoc[]
 
-To expose your application's gRPC or HTTPS endpoints publicly to the internet you can use the https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/[AWS Load Balancer Controller {tab-icon}, window="tab"] with a https://kubernetes.io/docs/concepts/services-networking/ingress/[Kubernetes Ingress {tab-icon}, window="tab"] created by the Pekko Operator. This is useful when external services, or clients beyond the EKS cluster need to consume the gRPC or HTTPS endpoints.
+To expose your application's gRPC or HTTPS endpoints publicly to the internet you can use the https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/[AWS Load Balancer Controller {tab-icon}, window="tab"] with a https://kubernetes.io/docs/concepts/services-networking/ingress/[Kubernetes Ingress {tab-icon}, window="tab"] created by the Akka Operator. This is useful when external services, or clients beyond the EKS cluster need to consume the gRPC or HTTPS endpoints.
 
 == Install the LoadBalancer Controller
 
@@ -12,9 +12,9 @@ Follow the instructions in the https://docs.aws.amazon.com/eks/latest/userguide/
 [#_tls_certificate]
 == TLS certificate
 
-A Transport Layer Security (TLS) certificate provides privacy and data integrity between two or more communicating applications. You will need a TLS certificate for the internet facing load balancer. The Pekko Cloud Platform does not manage or create TLS certificates.
+A Transport Layer Security (TLS) certificate provides privacy and data integrity between two or more communicating applications. You will need a TLS certificate for the internet facing load balancer. The Akka Cloud Platform does not manage or create TLS certificates.
 
-When you want to expose an Pekko gRPC service through a Load balancer, you will have to provide a TLS certificate. Request or import a certificate using the https://console.aws.amazon.com/acm/home[Amazon Certificate Manager (ACM) console {tab-icon}, window="tab"]. While in the ACM console, you will need to select the region you are working in. You will need to provide the Amazon Resource Name (ARN) of the certificate as you create the Pekko Microservice Custom Resource.
+When you want to expose an Akka gRPC service through a Load balancer, you will have to provide a TLS certificate. Request or import a certificate using the https://console.aws.amazon.com/acm/home[Amazon Certificate Manager (ACM) console {tab-icon}, window="tab"]. While in the ACM console, you will need to select the region you are working in. You will need to provide the Amazon Resource Name (ARN) of the certificate as you create the Akka Microservice Custom Resource.
 
 Alternatively, for development and testing, you can create your own self-signed certificate and then import it.
 You can find additional details regarding self-singed certificates and AWS at https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs.html[Managing server certificates in IAM {tab-icon}, window="tab"] and https://docs.aws.amazon.com/acm/latest/userguide/import-certificate-prerequisites.html[Prerequisites for Importing Certificates {tab-icon}, window="tab"]
@@ -55,7 +55,7 @@ You can verify of the certificate was imported successfully by listing the certi
 aws iam list-server-certificates
 ----
 
-The Pekko Cloud Platform operator will create the Kubernetes `Ingress` which references your TLS certificate with an https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html[Amazon Resource Name (ARN) {tab-icon}, window="tab"]
+The Akka Cloud Platform operator will create the Kubernetes `Ingress` which references your TLS certificate with an https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html[Amazon Resource Name (ARN) {tab-icon}, window="tab"]
 
 However, please remember that the operator is not involved in any other part of the process for TLS certification management, including renewals.
 
@@ -81,7 +81,7 @@ spec:
 
 Replace the certificate `arn` with the one from the previous step.
 
-When the deployment descriptor has been applied, the Pekko Operator will create an Ingress with the appropriate ALB annotations and `NodePort` service.
+When the deployment descriptor has been applied, the Akka Operator will create an Ingress with the appropriate ALB annotations and `NodePort` service.
 You can retrieve the public address with:
 
 [source,shell script]

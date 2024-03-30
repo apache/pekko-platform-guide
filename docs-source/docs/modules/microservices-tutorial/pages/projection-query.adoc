@@ -130,7 +130,7 @@ Java::
 include::example$04-shopping-cart-service-java/src/main/java/shopping/cart/ItemPopularityProjectionHandler.java[tags=handler]
 ----
 +
-<1> Extends `pekko.projection.javadsl.JdbcHandler`.
+<1> Extends `org.apache.pekko.projection.javadsl.JdbcHandler`.
 <2> The `process` method to implement.
 <3> Match events and increment or decrement the count via the `ItemPopularityRepository`, which encapsulates the database access.
 
@@ -142,7 +142,7 @@ Scala::
 include::example$04-shopping-cart-service-scala/src/main/scala/shopping/cart/ItemPopularityProjectionHandler.scala[tags=handler]
 ----
 +
-<1> Extends `pekko.projection.scaladsl.JdbcHandler`.
+<1> Extends `org.apache.pekko.projection.scaladsl.JdbcHandler`.
 <2> The `process` method to implement.
 <3> Match events and increment or decrement the count via the `ItemPopularityRepository`.
 

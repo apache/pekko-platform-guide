@@ -69,7 +69,7 @@ mvn compile
 
 == Send to Kafka from a Projection
 
-ifdef::todo[TODO: add a sentence or two about using the Alppekko Kafka connector, benefits, etc, maybe a link to the doc.]
+ifdef::todo[TODO: add a sentence or two about using the Pekko Kafka connector, benefits, etc, maybe a link to the doc.]
 
 Add a `PublishEventsProjectionHandler` class that is the Projection `Handler` for processing the events:
 
@@ -90,7 +90,7 @@ Scala::
 include::example$05-shopping-cart-service-scala/src/main/scala/shopping/cart/PublishEventsProjectionHandler.scala[tag=handler]
 ----
 
-<1> `SendProducer` comes from the Kafka connector in Alppekko.
+<1> `SendProducer` comes from the Kafka connector in Pekko connectors.
 <2> The events are serialized to Protobuf and sent to the given topic.
 <3> Wrap in Protobuf `Any` to include type information.
 
