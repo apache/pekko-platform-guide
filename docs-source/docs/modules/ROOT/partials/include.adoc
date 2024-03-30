@@ -5,7 +5,7 @@
 :minimum-openshift-platform-version:       3.11
 :minimum-platform-version-major-dot-minor: 3.11
 
-// link shortcuts for `{akka}/typed/index.html` notation
+// link shortcuts for `{pekko}/typed/index.html` notation
 :pekko:  https://pekko.apache.org/docs/pekko/current/
 :pekko-http:  https://pekko.apache.org/docs/pekko-http/current/
 :pekko-grpc:  https://pekko.apache.org/docs/pekko-grpc/current/

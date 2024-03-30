@@ -3,7 +3,7 @@
 
 include::ROOT:partial$include.adoc[]
 
-We will create the gRPC `ShoppingCartService` for the *Cart Service* shown in the architectural overview below. The motivation for using gRPC as the inter-service protocol is explained in xref:concepts:akka-grpc.adoc[Akka gRPC concepts]. The {akka-blog}/news/2020/04/08/akka-grpc-intro-video[Introduction to Akka gRPC video {tab-icon}, window="tab"] is also a good starting point for learning Akka gRPC.
+We will create the gRPC `ShoppingCartService` for the *Cart Service* shown in the architectural overview below. The motivation for using gRPC as the inter-service protocol is explained in xref:concepts:pekko-grpc.adoc[Akka gRPC concepts]. The {pekko-blog}/news/2020/04/08/pekko-grpc-intro-video[Introduction to Akka gRPC video {tab-icon}, window="tab"] is also a good starting point for learning Akka gRPC.
 
 image::example-grpc-server.svg[Example gRPC service]
 
@@ -17,7 +17,7 @@ First, we will create the `ShoppingCartService` with a single operation that add
 
 == Akka Workshop
 The first video of the
-https://info.lightbend.com/akka-platform-workshop-part-1-on-demand-recording.html[Akka Workshop Series {tab-icon}, window="tab"] covers creating the gRPC series.
+https://info.lightbend.com/pekko-platform-workshop-part-1-on-demand-recording.html[Akka Workshop Series {tab-icon}, window="tab"] covers creating the gRPC series.
 
 == Source downloads
 
@@ -205,7 +205,7 @@ NOTE: The following steps for cloud deployment are optional. If you are only run
 We suggest that you read the xref:deployment:index.adoc[] section to get an understanding of how deployment with the Akka Cloud Platform works.
 
 === Akka Workshop
-The fifth video of the https://info.lightbend.com/akka-platform-workshop-part-5-on-demand-recording.html[Akka Workshop Series {tab-icon}, window="tab"] walks you through the process of running in Kubernetes on AWS or GCP. It will take you step-by-step to aid you in understanding the process.
+The fifth video of the https://info.lightbend.com/pekko-platform-workshop-part-5-on-demand-recording.html[Akka Workshop Series {tab-icon}, window="tab"] walks you through the process of running in Kubernetes on AWS or GCP. It will take you step-by-step to aid you in understanding the process.
 
 
 Before following the steps below, create a Kubernetes cluster and install the Akka Operator. Used the instructions below for:
@@ -266,7 +266,7 @@ The Akka Operator will notice the deployment descriptor and deploy the `shopping
 
 [source,shell script]
 ----
-kubectl get akkamicroservices/shopping-cart-service
+kubectl get pekkomicroservices/shopping-cart-service
 ----
 
 See xref:deployment:troubleshooting.adoc[troubleshooting deployment status] for more details.
@@ -282,5 +282,5 @@ Note the logging from the `ShoppingCartServiceImpl` in the console that is runni
 :!sectnums:
 == Learn more
 
-* xref:concepts:akka-grpc.adoc[Akka gRPC concepts]
-* {akka-grpc}/server/index.html[Akka gRPC server reference documentation {tab-icon}, window="tab"].
+* xref:concepts:pekko-grpc.adoc[Akka gRPC concepts]
+* {pekko-grpc}/server/index.html[Akka gRPC server reference documentation {tab-icon}, window="tab"].

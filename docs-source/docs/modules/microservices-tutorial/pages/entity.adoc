@@ -17,13 +17,13 @@ For now, we'll implement the command to add items to the Cart. In the next part 
 ifdef::review[REVIEWERS: re: bullet 3 above, the Initialization section only contains a brief statement about distributing among nodes. I think we should introduce and motivate use in the overview of this page or maybe in the architectural overview to explain that this is one thing that helps us achieve Reactive?]
 
 If you are unfamiliar with Event Sourcing, refer to the xref:concepts:event-sourcing.adoc[Event Sourcing] section for an explanation.
-The {akka-blog}/news/2020/01/07/akka-event-sourcing-video[Event Sourcing with Akka 2.6 video {tab-icon}, window="tab"] is also a good starting point for learning Event Sourcing.
+The {pekko-blog}/news/2020/01/07/pekko-event-sourcing-video[Event Sourcing with Akka 2.6 video {tab-icon}, window="tab"] is also a good starting point for learning Event Sourcing.
 
 This example is using PostgreSQL for storing the events. An alternative is described in xref:how-to:cassandra-alternative.adoc[].
 
 === Akka Workshop
 
-The second video of the https://info.lightbend.com/akka-platform-workshop-part-2-on-demand-recording.html[Akka Workshop Series {tab-icon}, window="tab"] covers both the cart entity and Event sourcing. It provides some solid guidance to aid you in digesting this section, and the next section of this guide.
+The second video of the https://info.lightbend.com/pekko-platform-workshop-part-2-on-demand-recording.html[Akka Workshop Series {tab-icon}, window="tab"] covers both the cart entity and Event sourcing. It provides some solid guidance to aid you in digesting this section, and the next section of this guide.
 
 == Source downloads
 
@@ -148,7 +148,7 @@ include::example$02-shopping-cart-service-scala/src/main/scala/shopping/cart/Sho
 If an `AddItem` command is accepted, the `Effect.persist` applies an event to the cart's state and makes sure this event is stored before replying to the command. The returned `ReplyEffect` reacts on the commands by deciding which effect they should have on the entity. If the validation fails we want to send back an error message. The reply can be a success or an error and that is the reason for using the `StatusReply`.
 
 
-See all available effects in the {akka}/typed/persistence.html#effects-and-side-effects[Akka reference documentation {tab-icon}, window="tab"].
+See all available effects in the {pekko}/typed/persistence.html#effects-and-side-effects[Akka reference documentation {tab-icon}, window="tab"].
 
 == Add the event handler
 
@@ -178,7 +178,7 @@ include::example$02-shopping-cart-service-scala/src/main/scala/shopping/cart/Sho
 [#initialization]
 == Add initialization
 
-To glue the command handler, event handler, and state together, we need some initialization code. Our code will distribute the Cart entities over nodes in the Akka Cluster with https://doc.akka.io/docs/akka/current/cluster-sharding.html[Cluster Sharding {tab-icon}, window="tab"], enable snapshots to reduce recovery time when the entity is started, and restart with backoff in the case of failure.
+To glue the command handler, event handler, and state together, we need some initialization code. Our code will distribute the Cart entities over nodes in the Akka Cluster with https://doc.pekko.io/docs/pekko/current/cluster-sharding.html[Cluster Sharding {tab-icon}, window="tab"], enable snapshots to reduce recovery time when the entity is started, and restart with backoff in the case of failure.
 
 [.tabset]
 Java::
@@ -308,7 +308,7 @@ sbt test
 mvn test
 ----
 
-You can learn more about the [.group-scala]#`EventSourcedBehaviorTestKit`# [.group-java]#`TestKitJunitResource`# in the {akka}/typed/persistence-testing.html#unit-testing[Akka reference documentation {tab-icon}, window="tab"]
+You can learn more about the [.group-scala]#`EventSourcedBehaviorTestKit`# [.group-java]#`TestKitJunitResource`# in the {pekko}/typed/persistence-testing.html#unit-testing[Akka reference documentation {tab-icon}, window="tab"]
 
 == Send commands to the entities
 
@@ -512,7 +512,7 @@ You can see progress by viewing the status:
 
 [source,shell script]
 ----
-kubectl get akkamicroservices/shopping-cart-service
+kubectl get pekkomicroservices/shopping-cart-service
 ----
 
 See xref:deployment:troubleshooting.adoc[troubleshooting deployment status] for more details.
@@ -552,6 +552,6 @@ Note the logging from the `ShoppingCartServiceImpl` in the console that is runni
 == Learn more
 
 * xref:concepts:event-sourcing.adoc[Event Sourcing concepts].
-* {akka}/typed/persistence.html[Akka Event Sourcing reference documentation {tab-icon}, window="tab"].
-* {akka}/typed/cluster-sharding.html[Akka Cluster Sharding reference documentation {tab-icon}, window="tab"].
+* {pekko}/typed/persistence.html[Akka Event Sourcing reference documentation {tab-icon}, window="tab"].
+* {pekko}/typed/cluster-sharding.html[Akka Cluster Sharding reference documentation {tab-icon}, window="tab"].
 * xref:how-to:cassandra-alternative.adoc[]

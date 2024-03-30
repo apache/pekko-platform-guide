@@ -19,7 +19,7 @@ The following sections provide links for downloading and installing:
 We also provide <<Downloadable example source>> of the different phases of completion.
 
 == Akka Workshop
-The video based https://info.lightbend.com/akka-platform-workshop-part-1-on-demand-recording.html[Akka Workshop Series {tab-icon}, window="tab"] series covers the details of setting up your development environment.
+The video based https://info.lightbend.com/pekko-platform-workshop-part-1-on-demand-recording.html[Akka Workshop Series {tab-icon}, window="tab"] series covers the details of setting up your development environment.
 
 :!sectnums:
 == IntelliJ IDEA

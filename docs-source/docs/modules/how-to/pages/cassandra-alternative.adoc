@@ -3,7 +3,7 @@
 
 include::partial$include.adoc[]
 
-This guide describes how to use Cassandra instead of Relational Database. It assumes that you created the project using the xref:microservices-tutorial:index.adoc[Implementing Microservices with Akka tutorial] and it describes the changes relative to the JDBC setup that is used in the tutorial.
+This guide describes how to use Cassandra instead of Relational Database. It assumes that you created the project using the xref:microservices-tutorial:index.adoc[Implementing Microservices with Pekko tutorial] and it describes the changes relative to the JDBC setup that is used in the tutorial.
 
 == Source downloads
 
@@ -28,7 +28,7 @@ To use Cassandra for the xref:microservices-tutorial:entity.adoc[Event Sourced C
 
 === Dependencies
 
-Replace `akka-persistence-jdbc` with `akka-persistence-cassandra`:
+Replace `pekko-persistence-jdbc` with `pekko-persistence-cassandra`:
 
 [.tabset]
 Java::
@@ -36,7 +36,7 @@ Java::
 .pom.xml:
 [source,xml,indent=0]
 ----
-include::example$shopping-cart-service-cassandra-java/pom.xml[tag=akka-persistence-cassandra]
+include::example$shopping-cart-service-cassandra-java/pom.xml[tag=pekko-persistence-cassandra]
 ----
 
 Scala::
@@ -44,17 +44,17 @@ Scala::
 .build.sbt:
 [source,scala,indent=0]
 ----
-include::example$shopping-cart-service-cassandra-scala/build.sbt[tag=akka-persistence-cassandra]
+include::example$shopping-cart-service-cassandra-scala/build.sbt[tag=pekko-persistence-cassandra]
 ----
 
 === Configuration
 
-Change the configuration in `src/main/resources/persistence.conf` to the following to enable `akka-persistence-cassandra`:
+Change the configuration in `src/main/resources/persistence.conf` to the following to enable `pekko-persistence-cassandra`:
 
 .src/main/resources/persistence.conf
 [source,hocon]
 ----
-include::example$shopping-cart-service-cassandra-scala/src/main/resources/persistence.conf[tag=akka-persistence-cassandra]
+include::example$shopping-cart-service-cassandra-scala/src/main/resources/persistence.conf[tag=pekko-persistence-cassandra]
 ----
 
 To make the Projections faster in development environment and tests you can add the following to
@@ -79,7 +79,7 @@ To use Cassandra for the Projections the following changes are needed.
 
 === Dependencies
 
-Replace `akka-projection-jdbc` with `akka-projection-cassandra`:
+Replace `pekko-projection-jdbc` with `pekko-projection-cassandra`:
 
 [.tabset]
 Java::
@@ -87,7 +87,7 @@ Java::
 .pom.xml:
 [source,xml,indent=0]
 ----
-include::example$shopping-cart-service-cassandra-java/pom.xml[tag=akka-projection-cassandra]
+include::example$shopping-cart-service-cassandra-java/pom.xml[tag=pekko-projection-cassandra]
 ----
 
 Scala::
@@ -95,17 +95,17 @@ Scala::
 .build.sbt:
 [source,scala,indent=0]
 ----
-include::example$shopping-cart-service-cassandra-scala/build.sbt[tag=akka-projection-cassandra]
+include::example$shopping-cart-service-cassandra-scala/build.sbt[tag=pekko-projection-cassandra]
 ----
 
 === Configuration
 
-Change the configuration in `src/main/resources/persistence.conf` and add following for `akka-projection-cassandra`:
+Change the configuration in `src/main/resources/persistence.conf` and add following for `pekko-projection-cassandra`:
 
 .src/main/resources/persistence.conf
 [source,hocon]
 ----
-include::example$shopping-cart-service-cassandra-scala/src/main/resources/persistence.conf[tag=akka-projection-cassandra]
+include::example$shopping-cart-service-cassandra-scala/src/main/resources/persistence.conf[tag=pekko-projection-cassandra]
 ----
 
 === Projection for queries
@@ -148,7 +148,7 @@ Java::
 include::example$shopping-cart-service-cassandra-java/src/main/java/shopping/cart/ItemPopularityProjectionHandler.java[tags=handler]
 ----
 +
-<1> extends `akka.projection.javadsl.Handler`
+<1> extends `pekko.projection.javadsl.Handler`
 <2> the `process` method to implement
 <3> match events and increment or decrement the count via the `ItemPopularityRepository`, which encapsulates the database access
 
@@ -160,7 +160,7 @@ Scala::
 include::example$shopping-cart-service-cassandra-scala/src/main/scala/shopping/cart/ItemPopularityProjectionHandler.scala[tags=handler]
 ----
 +
-<1> extends `akka.projection.scaladsl.Handler`
+<1> extends `pekko.projection.scaladsl.Handler`
 <2> the `process` method to implement
 <3> match events and increment or decrement the count via the `ItemPopularityRepository`
 
@@ -194,7 +194,7 @@ Java::
 include::example$shopping-cart-service-cassandra-java/src/main/java/shopping/cart/ItemPopularityRepositoryImpl.java[]
 ----
 +
-The `CassandraSession` comes from the Cassandra connector in Alpakka and provides an asynchronous API for executing __CQL__ statements to Cassandra. In the initialization code, introduced later, we will see how to get access to a `CassandraSession`. You can learn more about the `CassandraSession` in the {alpakka}/cassandra.html[Alpakka reference documentation {tab-icon}, window="tab"].
+The `CassandraSession` comes from the Cassandra connector in Pekko-connectors and provides an asynchronous API for executing __CQL__ statements to Cassandra. In the initialization code, introduced later, we will see how to get access to a `CassandraSession`. You can learn more about the `CassandraSession` in the {alppekko}/cassandra.html[Pekko-connectors reference documentation {tab-icon}, window="tab"].
 
 Scala::
 +
@@ -204,7 +204,7 @@ Scala::
 include::example$shopping-cart-service-cassandra-scala/src/main/scala/shopping/cart/ItemPopularityRepository.scala[tag=impl]
 ----
 +
-The `CassandraSession` comes from the Cassandra connector in Alpakka and provides an asynchronous API for executing __CQL__ statements to Cassandra. In the initialization code, introduced later, we will see how to get access to a `CassandraSession`. You can learn more about the `CassandraSession` in the {alpakka}/cassandra.html[Alpakka reference documentation {tab-icon}, window="tab"].
+The `CassandraSession` comes from the Cassandra connector in Pekko-connectors and provides an asynchronous API for executing __CQL__ statements to Cassandra. In the initialization code, introduced later, we will see how to get access to a `CassandraSession`. You can learn more about the `CassandraSession` in the {alppekko}/cassandra.html[Alppekko reference documentation {tab-icon}, window="tab"].
 
 +
 NOTE: The example will persist the item popularity count with a https://docs.datastax.com/en/cql-oss/3.x/cql/cql_reference/counter_type.html[Cassandra counter {tab-icon}, window="tab"] data type. It's not possible to guarantee that item count updates occur idempotently because we are using at-least-once semantics. However, since the count is only a rough metric to judge how popular an item is it's not critical to have a totally accurate figure.
@@ -222,7 +222,7 @@ Java::
 include::example$shopping-cart-service-cassandra-java/src/main/java/shopping/cart/ItemPopularityProjection.java[tag=projection]
 ----
 +
-<1> `ShardedDaemonProcess` will manage the Projection instances. It ensures the Projection instances are always running and distributes them over the nodes in the Akka Cluster.
+<1> `ShardedDaemonProcess` will manage the Projection instances. It ensures the Projection instances are always running and distributes them over the nodes in the Pekko Cluster.
 <2> The `tag` is selected based on the Projection instance's index, corresponding to *carts-0* to *carts-3* as explained in the tagging in the `ShoppingCart`.
 <3> The source of the Projection is `EventSourcedProvider.eventsByTag` with the selected tag.
 <4> Using the Cassandra event journal.
@@ -237,7 +237,7 @@ Scala::
 include::example$shopping-cart-service-cassandra-scala/src/main/scala/shopping/cart/ItemPopularityProjection.scala[tag=projection]
 ----
 +
-<1> `ShardedDaemonProcess` will manage the Projection instances. It ensures the Projection instances are always running and distributes them over the nodes in the Akka Cluster.
+<1> `ShardedDaemonProcess` will manage the Projection instances. It ensures the Projection instances are always running and distributes them over the nodes in the Pekko Cluster.
 <2> The `tag` is selected based on the Projection instance's index, corresponding to *carts-0* to *carts-3* as explained in the tagging in the `ShoppingCart`.
 <3> The source of the Projection is `EventSourcedProvider.eventsByTag` with the selected tag.
 <4> Using the Cassandra event journal.
@@ -271,7 +271,7 @@ include::example$shopping-cart-service-cassandra-scala/src/main/scala/shopping/c
 <3> Call the initialization of the Projection
 
 +
-NOTE: The `CassandraProjection` uses at-least-once processing semantics. The offset is stored after the event has been processed and if the projection is restarted from a previously stored offset some events may be processed more than once. For a {akka-projection}/jdbc.html[JDBC Projection {tab-icon}, window="tab"] it's possible to have exactly-once semantics because the offset can be stored in the same atomic transaction as the database operation in the event handler.
+NOTE: The `CassandraProjection` uses at-least-once processing semantics. The offset is stored after the event has been processed and if the projection is restarted from a previously stored offset some events may be processed more than once. For a {pekko-projection}/jdbc.html[JDBC Projection {tab-icon}, window="tab"] it's possible to have exactly-once semantics because the offset can be stored in the same atomic transaction as the database operation in the event handler.
 
 
 . Query
@@ -364,7 +364,7 @@ The `SendOrderProjection.init` call from the `Main` class can remain the same as
 
 Replace the `sql` scripts in the `ddl_scripts` folder with corresponding `cql` scripts for Cassandra.
 
-`create_tables.cql` will create the keyspace and all tables needed for Akka Persistence as well as the offset store table for Akka Projection.
+`create_tables.cql` will create the keyspace and all tables needed for pekko Persistence as well as the offset store table for Pekko Projection.
 
 .ddl-scripts/create_tables.cql
 [source,cql,indent=0]
@@ -420,7 +420,7 @@ When loading the CQL script, make sure to use the same name as your running Cass
 
 If you get a connection error with the message *_Unable to connect to any servers_*, it means the Cassandra container is still starting. Wait a few seconds and re-try the command.
 ====
-It will create the keyspace and all tables needed for Akka Persistence as well as the offset store table for Akka Projection.
+It will create the keyspace and all tables needed for pekko Persistence as well as the offset store table for Pekko Projection.
 +
 [CAUTION]
 ====
@@ -504,5 +504,5 @@ FIXME more instructions
 
 == Learn more
 
-* {akka-persistence-cassandra}[Akka Persistence Cassandra plugin reference documentation {tab-icon}, window="tab"]
-* {akka-projection}/[Akka Projection reference documentation {tab-icon}, window="tab"].
+* {pekko-persistence-cassandra}[Pekko Persistence Cassandra plugin reference documentation {tab-icon}, window="tab"]
+* {pekko-projection}/[pekko Projection reference documentation {tab-icon}, window="tab"].
