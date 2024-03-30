@@ -417,7 +417,7 @@ NOTE: The following steps for cloud deployment are optional. If you are only run
 [#kubernetes]
 == Run in Kubernetes
 
-Create a xref:deployment:aws-install.adoc[Kubernetes cluster and install the Akka Operator] if you haven't already.
+Create a xref:deployment:aws-install.adoc[Kubernetes cluster and install the Pekko Operator] if you haven't already.
 
 === Create a PostgresSQL database
 
@@ -462,7 +462,7 @@ You can see progress by viewing the status:
 
 [source,shell script]
 ----
-kubectl get akkamicroservices/shopping-cart-service
+kubectl get pekkomicroservices/shopping-cart-service
 ----
 
 See xref:deployment:troubleshooting.adoc[troubleshooting deployment status] for more details.
@@ -504,5 +504,5 @@ grpcurl -d '{"cartId":"cart1"}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingC
 == Learn more
 
 * xref:concepts:event-sourcing.adoc[Event Sourcing concepts].
-* {akka}/typed/persistence.html[Akka Event Sourcing reference documentation {tab-icon}, window="tab"].
-* {akka}/typed/cluster-sharding.html[Akka Cluster Sharding reference documentation {tab-icon}, window="tab"].
+* {pekko}/typed/persistence.html[Pekko Event Sourcing reference documentation {tab-icon}, window="tab"].
+* {pekko}/typed/cluster-sharding.html[Pekko Cluster Sharding reference documentation {tab-icon}, window="tab"].

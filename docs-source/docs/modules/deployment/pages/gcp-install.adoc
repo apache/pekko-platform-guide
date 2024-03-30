@@ -29,8 +29,8 @@ Once you've purchased a plan to use the Akka Cloud Platform, proceed to configur
 Complete the configuration of the Akka Cloud Platform by filling in a few fields in the Tab "Click to Deploy on GKE":
 
 . A Namespace — Keeping the Marketplace offering in a specific namespace will ease follow up operations and will enforce separation of concerns.
-. An App instance name — Select a unique name. We recommend using the default or `akka-platform-operator-1`.
-. The akka-operator.serviceAccount.name — This is the name of the service account used by the operator to access Kubernetes resources.
+. An App instance name — Select a unique name. We recommend using the default or `pekko-platform-operator-1`.
+. The pekko-operator.serviceAccount.name — This is the name of the service account used by the operator to access Kubernetes resources.
 . The Reporting Service Account — This is the service account used for reporting data to Google.
 
 . Take a moment to review all the permissions the Akka Cloud Platform operator will use in order to operate your applications.
@@ -69,11 +69,11 @@ kubectl create namespace lightbend
 kubectl apply -f license.yaml --namespace lightbend
 ----
 
-. The output will be similar to the following snippet. Take note of the secret name for future reference, in the case below the name is: `akka-cloud-platform-1-license`.
+. The output will be similar to the following snippet. Take note of the secret name for future reference, in the case below the name is: `pekko-cloud-platform-1-license`.
 +
 [source,shell script]
 ----
-secret/akka-cloud-platform-1-license created
+secret/pekko-cloud-platform-1-license created
 ----
 
 . Install the GCP Marketplace `applications` CRD in the cluster, if it's not already installed (e.g. this is the first time you are installing an application from the Marketplace to the reference cluster):
@@ -83,21 +83,21 @@ secret/akka-cloud-platform-1-license created
 kubectl apply -f "https://raw.githubusercontent.com/GoogleCloudPlatform/marketplace-k8s-app-tools/master/crd/app-crd.yaml"
 ----
 
-. Verify the latest version already published to GCP https://console.cloud.google.com/gcr/images/cloud-marketplace/GLOBAL/lightbend-public/akka-cloud-platform?gcrImageListsize=30[here] and take note of the it.
+. Verify the latest version already published to GCP https://console.cloud.google.com/gcr/images/cloud-marketplace/GLOBAL/lightbend-public/pekko-cloud-platform?gcrImageListsize=30[here] and take note of the it.
 
 . Update the Akka Microservices CRD to latest:
 +
 [source,shell script,subs="attributes+"]
 ----
-kubectl apply -f  https://raw.githubusercontent.com/lightbend/akka-operator-helm/v{akka-cloud-platform-version}/akka-operator/crds/v1/akka-microservices-crd.yml # <1>
+kubectl apply -f  https://raw.githubusercontent.com/lightbend/pekko-operator-helm/v{pekko-cloud-platform-version}/pekko-operator/crds/v1/pekko-microservices-crd.yml # <1>
 ----
-<1> `v{akka-cloud-platform-version}` is the latest available version published to GCP (see steps above)
+<1> `v{pekko-cloud-platform-version}` is the latest available version published to GCP (see steps above)
 
 . Add the Akka Operator Helm repository and update the local index:
 +
 [source,shell script]
 ----
-helm repo add akka-operator-helm https://lightbend.github.io/akka-operator-helm/
+helm repo add pekko-operator-helm https://lightbend.github.io/pekko-operator-helm/
 helm repo update
 ----
 
@@ -105,35 +105,35 @@ helm repo update
 +
 [source,shell script,subs="attributes+"]
 ----
-helm install akka-operator akka-operator-helm/akka-operator \
+helm install pekko-operator pekko-operator-helm/pekko-operator \
   --namespace lightbend \
-  --version={akka-cloud-platform-version} \  # <1>
+  --version={pekko-cloud-platform-version} \  # <1>
   --set provider.name=gcp \
-  --set reportingSecret=akka-cloud-platform-1-license  # <2>
+  --set reportingSecret=pekko-cloud-platform-1-license  # <2>
 ----
-<1> `{akka-cloud-platform-version}` is the latest available version published to GCP (see steps above)
-<2> `akka-cloud-platform-1-license` is the previously created secret name (see steps above)
+<1> `{pekko-cloud-platform-version}` is the latest available version published to GCP (see steps above)
+<2> `pekko-cloud-platform-1-license` is the previously created secret name (see steps above)
 
 == Upgrading the Akka Cloud Platform on GKE
 
 Upgrading of Akka Cloud Platform is only supported using the command line option.
 Using the Marketplace UI you forcefully need to uninstall first and install back again Application.
 
-. Verify the version you want to deploy is already published to GCP https://console.cloud.google.com/gcr/images/cloud-marketplace/GLOBAL/lightbend-public/akka-cloud-platform?gcrImageListsize=30[here] and take note of the it.
+. Verify the version you want to deploy is already published to GCP https://console.cloud.google.com/gcr/images/cloud-marketplace/GLOBAL/lightbend-public/pekko-cloud-platform?gcrImageListsize=30[here] and take note of the it.
 
 . Update the Akka Microservices CRD to latest:
 +
 [source,shell script,subs="attributes+"]
 ----
-kubectl apply -f  https://raw.githubusercontent.com/lightbend/akka-operator-helm/v{akka-cloud-platform-version}/akka-operator/crds/v1/akka-microservices-crd.yml # <1>
+kubectl apply -f  https://raw.githubusercontent.com/lightbend/pekko-operator-helm/v{pekko-cloud-platform-version}/pekko-operator/crds/v1/pekko-microservices-crd.yml # <1>
 ----
-<1> `v{akka-cloud-platform-version}` is the version published to GCP (see steps above)
+<1> `v{pekko-cloud-platform-version}` is the version published to GCP (see steps above)
 
 . Add the Akka Operator Helm repository and update the local index:
 +
 [source,shell script]
 ----
-helm repo add akka-operator-helm https://lightbend.github.io/akka-operator-helm/
+helm repo add pekko-operator-helm https://lightbend.github.io/pekko-operator-helm/
 helm repo update
 ----
 
@@ -141,14 +141,14 @@ helm repo update
 +
 [source,shell script,subs="attributes+"]
 ----
-helm upgrade akka-operator akka-operator-helm/akka-operator \
+helm upgrade pekko-operator pekko-operator-helm/pekko-operator \
   --namespace lightbend \
-  --version={akka-cloud-platform-version} \  # <1>
+  --version={pekko-cloud-platform-version} \  # <1>
   --set provider.name=gcp \
-  --set reportingSecret=akka-cloud-platform-1-license  # <2>
+  --set reportingSecret=pekko-cloud-platform-1-license  # <2>
 ----
-<1> `{akka-cloud-platform-version}` is the version published to GCP (see steps above)
-<2> `akka-cloud-platform-1-license` is the previously created secret name (see steps above)
+<1> `{pekko-cloud-platform-version}` is the version published to GCP (see steps above)
+<2> `pekko-cloud-platform-1-license` is the previously created secret name (see steps above)
 
 == Delete a Kubernetes cluster
 

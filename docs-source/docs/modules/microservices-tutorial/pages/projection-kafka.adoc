@@ -69,7 +69,7 @@ mvn compile
 
 == Send to Kafka from a Projection
 
-ifdef::todo[TODO: add a sentence or two about using the Alpakka Kafka connector, benefits, etc, maybe a link to the doc.]
+ifdef::todo[TODO: add a sentence or two about using the Pekko Kafka connector, benefits, etc, maybe a link to the doc.]
 
 Add a `PublishEventsProjectionHandler` class that is the Projection `Handler` for processing the events:
 
@@ -90,7 +90,7 @@ Scala::
 include::example$05-shopping-cart-service-scala/src/main/scala/shopping/cart/PublishEventsProjectionHandler.scala[tag=handler]
 ----
 
-<1> `SendProducer` comes from the Kafka connector in Alpakka.
+<1> `SendProducer` comes from the Kafka connector in Pekko connectors.
 <2> The events are serialized to Protobuf and sent to the given topic.
 <3> Wrap in Protobuf `Any` to include type information.
 
@@ -181,7 +181,7 @@ sbt compile
 mvn compile
 ----
 
-. Create a `ShoppingCartEventConsumer` [.group-scala]#object# [.group-java]#class# in `shopping-analytics-service`. It runs an Akka Stream with a Kafka `Consumer.committableSource` from Alpakka Kafka.
+. Create a `ShoppingCartEventConsumer` [.group-scala]#object# [.group-java]#class# in `shopping-analytics-service`. It runs an Pekko Stream with a Kafka `Consumer.committableSource` from Alppekko Kafka.
 +
 [.tabset]
 Java::
@@ -319,7 +319,7 @@ NOTE: The following steps for cloud deployment are optional. If you are only run
 [#kubernetes]
 == Run in Kubernetes
 
-Create a xref:deployment:aws-install.adoc[Kubernetes cluster and install the Akka Operator] if you haven't already.
+Create a xref:deployment:aws-install.adoc[Kubernetes cluster and install the Pekko Operator] if you haven't already.
 
 === Create a Kafka cluster
 
@@ -393,7 +393,7 @@ You can see progress by viewing the status:
 
 [source,shell script]
 ----
-kubectl get akkamicroservices
+kubectl get pekkomicroservices
 ----
 
 See xref:deployment:troubleshooting.adoc[troubleshooting deployment status] for more details.
@@ -432,4 +432,4 @@ include::projection-kafka.adoc[tag=exercise]
 == Learn more
 
 * xref:concepts:internal-and-external-communication.adoc[Internal and External Communication concepts].
-* {akka-projection}/[Akka Projection reference documentation {tab-icon}, window="tab"].
+* {pekko-projection}/[Pekko Projection reference documentation {tab-icon}, window="tab"].

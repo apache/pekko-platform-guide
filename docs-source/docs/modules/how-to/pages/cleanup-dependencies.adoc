@@ -5,7 +5,7 @@ include::partial$include.adoc[]
 
 This guide will help you clean up the build scripts, so your build only includes the dependencies, plugins, and settings you need.
 
-This guide assumes you created a new project using the xref:microservices-tutorial:template.adoc#seed-template[Akka Microservices template].
+This guide assumes you created a new project using the xref:microservices-tutorial:template.adoc#seed-template[Pekko Microservices template].
 
 The project from the template uses sbt as a build tool. The build is split in two files:
 
@@ -16,10 +16,10 @@ Because the template adds all the dependencies, plugins, and settings required t
 
 == Remove support for gRPC and protobuf
 
-If you don't need to serve or consume gRPC traffic, or use any protobuf serializer, then you can remove the Akka gRPC plugin. You must remove two parts:
+If you don't need to serve or consume gRPC traffic, or use any protobuf serializer, then you can remove the Pekko gRPC plugin. You must remove two parts:
 
 [start=1]
-. the Akka gRPC plugin dependency
+. the Pekko gRPC plugin dependency
 
 [source,scala]
 .project/plugins.sbt
@@ -28,7 +28,7 @@ include::example$cleanup-dependencies-project/project/plugins.sbt[tag=remove-grp
 ----
 
 [start=2]
-. the Akka gRPC plugin activation
+. the Pekko gRPC plugin activation
 
 [source,scala]
 .build.sbt
@@ -37,7 +37,7 @@ include::example$cleanup-dependencies-project/build.sbt[tag=remove-grpc-plugin]
 ----
 
 [start=3]
-If you are not serving any gRPC traffic, you may also remove the dependency to the Akka HTTP artifact that adds support for HTTP/2:
+If you are not serving any gRPC traffic, you may also remove the dependency to the Pekko HTTP artifact that adds support for HTTP/2:
 
 [source,scala]
 .build.sbt
@@ -47,17 +47,17 @@ include::example$cleanup-dependencies-project/build.sbt[tag=remove-grpc-optional
 
 == Replace the Persistence plugin
 
-The project produced with the xref:microservices-tutorial:template.adoc#seed-template[Akka Microservices template] assumes the application will use the {akka-persistence-cassandra}[Akka Persistence Cassandra plugin {tab-icon}, window="tab"]. You can opt out from using that plugin and use the {akka-persistence-jdbc}[Akka Persistence JDBC {tab-icon}, window="tab"] or other plugins instead.
+The project produced with the xref:microservices-tutorial:template.adoc#seed-template[Pekko Microservices template] assumes the application will use the {pekko-persistence-cassandra}[Pekko Persistence Cassandra plugin {tab-icon}, window="tab"]. You can opt out from using that plugin and use the {pekko-persistence-jdbc}[Pekko Persistence JDBC {tab-icon}, window="tab"] or other plugins instead.
 
 [start=1]
-. The first thing you must do is to remove the dependency to the Akka Persistence Cassandra plugin:
+. The first thing you must do is to remove the dependency to the Pekko Persistence Cassandra plugin:
 +
 .. remove the value declaring the dependency version
 +
 [source,scala]
 .build.sbt
 ----
-include::example$cleanup-dependencies-project/build.sbt[tag=remove-akka-persistence-cassandra-version]
+include::example$cleanup-dependencies-project/build.sbt[tag=remove-pekko-persistence-cassandra-version]
 ----
 +
 [start=2]
@@ -66,18 +66,18 @@ include::example$cleanup-dependencies-project/build.sbt[tag=remove-akka-persiste
 [source,scala]
 .build.sbt
 ----
-include::example$cleanup-dependencies-project/build.sbt[tag=remove-akka-persistence-cassandra]
+include::example$cleanup-dependencies-project/build.sbt[tag=remove-pekko-persistence-cassandra]
 ----
 
 [start=2]
-. Now add the dependency of the Akka Persistence plugin you want. Let's use, for example, the JDBC plugin:
+. Now add the dependency of the Pekko Persistence plugin you want. Let's use, for example, the JDBC plugin:
 +
 .. (optional) declare the version as a value:
 +
 [source,scala]
 .build.sbt
 ----
-include::example$cleanup-dependencies-project/build.sbt[tag=add-akka-persistence-jdbc-version]
+include::example$cleanup-dependencies-project/build.sbt[tag=add-pekko-persistence-jdbc-version]
 ----
 +
 [start=2]
@@ -86,12 +86,12 @@ include::example$cleanup-dependencies-project/build.sbt[tag=add-akka-persistence
 [source,scala]
 .build.sbt
 ----
-include::example$cleanup-dependencies-project/build.sbt[tag=add-akka-persistence-jdbc]
+include::example$cleanup-dependencies-project/build.sbt[tag=add-pekko-persistence-jdbc]
 ----
 
 == Replace the Offset Store database
 
-The project produced with the xref:microservices-tutorial:template.adoc#seed-template[Akka Microservices template] assumes the application will use a Cassandra database to store the {akka-projection}/overview.html#overview[offset tracking {tab-icon}, window="tab"] required by the projections. You can replace the artifact to use an RDBMS:
+The project produced with the xref:microservices-tutorial:template.adoc#seed-template[Pekko Microservices template] assumes the application will use a Cassandra database to store the {pekko-projection}/overview.html#overview[offset tracking {tab-icon}, window="tab"] required by the projections. You can replace the artifact to use an RDBMS:
 
 [source,diff]
 .build.sbt
@@ -101,27 +101,27 @@ include::example$cleanup-dependencies-project/build.sbt[tag=replace-offset-store
 
 Note how the artifact version doesn't change.
 
-Replacing the artifact is only the first step. Each of the implementations of Offset Stores for  Akka Projections has slightly different APIs. Refer to the {akka-projection}[Akka Projections reference documentation {tab-icon}, window="tab"] for more details.
+Replacing the artifact is only the first step. Each of the implementations of Offset Stores for  Pekko Projections has slightly different APIs. Refer to the {pekko-projection}[Pekko Projections reference documentation {tab-icon}, window="tab"] for more details.
 
 == Remove support for Kafka
 
-The project produced with the xref:microservices-tutorial:template.adoc#seed-template[Akka Microservices template] projects data include the necessary dependencies to project data to a Kafka topic. If you are not projecting data into Kafka, remove the version declaration and the artifact:
+The project produced with the xref:microservices-tutorial:template.adoc#seed-template[Pekko Microservices template] projects data include the necessary dependencies to project data to a Kafka topic. If you are not projecting data into Kafka, remove the version declaration and the artifact:
 
 [source,diff]
 .build.sbt
 ----
-include::example$cleanup-dependencies-project/build.sbt[tag=remove-alpakka-kafka-version]
+include::example$cleanup-dependencies-project/build.sbt[tag=remove-alppekko-kafka-version]
 ----
 [source,diff]
 .build.sbt
 ----
-include::example$cleanup-dependencies-project/build.sbt[tag=remove-alpakka-kafka]
+include::example$cleanup-dependencies-project/build.sbt[tag=remove-alppekko-kafka]
 ----
 
 
 == Remove projections
 
-If you are not projecting your data to a read-side you can remove all the artifacts provided by {akka-projection}[Akka Projections {tab-icon}, window="tab"]:
+If you are not projecting your data to a read-side you can remove all the artifacts provided by {pekko-projection}[Pekko Projections {tab-icon}, window="tab"]:
 
 
 . remove the value declaring the dependency version
@@ -129,7 +129,7 @@ If you are not projecting your data to a read-side you can remove all the artifa
 [source,scala]
 .build.sbt
 ----
-include::example$cleanup-dependencies-project/build.sbt[tag=remove-akka-projection-version]
+include::example$cleanup-dependencies-project/build.sbt[tag=remove-pekko-projection-version]
 ----
 +
 . remove the value declaring the dependencies (both compile and test scopes)
@@ -137,5 +137,5 @@ include::example$cleanup-dependencies-project/build.sbt[tag=remove-akka-projecti
 [source,scala]
 .build.sbt
 ----
-include::example$cleanup-dependencies-project/build.sbt[tag=remove-akka-projection]
+include::example$cleanup-dependencies-project/build.sbt[tag=remove-pekko-projection]
 ----

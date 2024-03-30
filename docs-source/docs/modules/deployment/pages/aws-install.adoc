@@ -3,7 +3,7 @@
 
 include::partial$include.adoc[]
 
-NOTE: To install Akka Cloud Platform on Amazon Elastic Kubernetes Service (EKS), you must have an Amazon account and a subscription to the {aws-marketplace}[Akka Cloud Platform {tab-icon}, window="tab"].
+NOTE: To install Pekko Cloud Platform on Amazon Elastic Kubernetes Service (EKS), you must have an Amazon account and a subscription to the {aws-marketplace}[Pekko Cloud Platform {tab-icon}, window="tab"].
 
 == Expected Time to Install
 
@@ -11,9 +11,9 @@ A new installation will take approximately _40 minutes_.
 
 * Provision Amazon EKS cluster - _30 minutes_ - Depends on how many nodes are provisioned and what instance types are chosen. It is also variable based on day-to-day AWS region conditions. This estimate is for the cluster parameters described in this guide.
 * Install pre-requisities into Amazon EKS - _5 minutes_ - Subscribe to product, install a Kubernetes `metrics-server`, and set up a service account.
-* Install Akka Cloud Platform - _5 minutes_ - Installation of the Akka Cloud Platform helm chart with minimal configuration.
+* Install Pekko Cloud Platform - _5 minutes_ - Installation of the Pekko Cloud Platform helm chart with minimal configuration.
 
-NOTE: Akka Cloud Platform supports `metrics-server` up to 0.4.4. Installing newer versions will result in an error when using Akka Cloud Platform operator.
+NOTE: Pekko Cloud Platform supports `metrics-server` up to 0.4.4. Installing newer versions will result in an error when using Pekko Cloud Platform operator.
 
 == Pre-requisite Skills
 
@@ -28,11 +28,11 @@ A familiarity with the following services and skillsets is recommended before in
 :sectnums:
 == Verify Prerequisites
 
-To install and use the Akka Cloud Platform, you must have the following tools installed. We recommend using the latest versions of these tools. If you do not have them yet or need to update, we provide links to installation instructions:
+To install and use the Pekko Cloud Platform, you must have the following tools installed. We recommend using the latest versions of these tools. If you do not have them yet or need to update, we provide links to installation instructions:
 
 * The Kubernetes command-line tool, `kubectl`, allows you to run commands against Kubernetes clusters. Follow the instructions in the https://kubernetes.io/docs/tasks/tools/#kubectl[Kubernetes documentation {tab-icon}, window="tab"]  to install `kubectl`.
 
-* Helm is required to install the Akka Operator in the Kubernetes cluster. Follow the instructions in the https://helm.sh/docs/intro/install/[Helm documentation {tab-icon}, window="tab"]  to install `helm`.
+* Helm is required to install the Pekko Operator in the Kubernetes cluster. Follow the instructions in the https://helm.sh/docs/intro/install/[Helm documentation {tab-icon}, window="tab"]  to install `helm`.
 
 * The AWS Command Line Interface (AWS CLI) enables you to interact with AWS services using commands in your command-line shell. Follow the instructions in the https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html[AWS documentation {tab-icon}, window="tab"]  to install `aws`.
 
@@ -59,7 +59,7 @@ A typical cluster takes up to 30 minutes to create.
 
 When following the instructions below, replace:
 
-* `eks-akka-demo` with your own EKS cluster name
+* `eks-pekko-demo` with your own EKS cluster name
 * `eu-central-1` with your preferred AWS region
 
 You can create a Kubernetes cluster with the `eksctl` command line tool. For example:
@@ -67,7 +67,7 @@ You can create a Kubernetes cluster with the `eksctl` command line tool. For exa
 [source,shell script]
 ----
 eksctl create cluster \
-  --name eks-akka-demo \
+  --name eks-pekko-demo \
   --version 1.17 \
   --region eu-central-1 \
   --nodegroup-name linux-nodes \
@@ -90,12 +90,12 @@ After the cluster is available, configure `kubectl` to connect to the cluster
 
 [source, shell script]
 ----
-aws eks update-kubeconfig --region eu-central-1 --name eks-akka-demo
+aws eks update-kubeconfig --region eu-central-1 --name eks-pekko-demo
 ----
 
 == Install the Kubernetes Metrics Server
 
-The Akka Operator depends on the https://github.com/kubernetes-sigs/metrics-server[Kubernetes Metrics Server {tab-icon}, window="tab"] being installed. It is used for usage metering and billing.
+The Pekko Operator depends on the https://github.com/kubernetes-sigs/metrics-server[Kubernetes Metrics Server {tab-icon}, window="tab"] being installed. It is used for usage metering and billing.
 
 You can install version 0.4.4 with:
 
@@ -106,18 +106,18 @@ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/down
 
 == AWS Marketplace
 
-If you have not already done it, subscribe to the {aws-marketplace}[Akka Cloud Platform {tab-icon}, window="tab"] by clicking the Subscribe button on the product page and accepting the terms and conditions.
+If you have not already done it, subscribe to the {aws-marketplace}[Pekko Cloud Platform {tab-icon}, window="tab"] by clicking the Subscribe button on the product page and accepting the terms and conditions.
 
-== Create a service account for the Akka Operator
+== Create a service account for the Pekko Operator
 
-The Akka Operator requires a https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html[service account with IAM roles {tab-icon}, window="tab"] in order to access the Amazon Marketplace usage metering API.
+The Pekko Operator requires a https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html[service account with IAM roles {tab-icon}, window="tab"] in order to access the Amazon Marketplace usage metering API.
 
 . If your Amazon EKS cluster has not been created with https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html[IAM OIDC provider {tab-icon}, window="tab"] (e.g. with the `--with-oidc` option with `eksctl`), enable it with:
 +
 [source,shell script]
 ----
 eksctl utils associate-iam-oidc-provider \
-    --cluster eks-akka-demo \
+    --cluster eks-pekko-demo \
     --region eu-central-1 \
     --approve
 ----
@@ -142,18 +142,18 @@ eksctl utils associate-iam-oidc-provider \
 }
 ----
 
-.. Create the `AkkaPlatformOperator` policy:
+.. Create the `PekkoPlatformOperator` policy:
 +
 [source,shell script]
 ----
 aws iam create-policy \
-    --policy-name AkkaPlatformOperator \
+    --policy-name PekkoPlatformOperator \
     --policy-document file://policy.json
 ----
 +
 Make a note of the policy ARN for the next step.
 +
-If the `AkkaPlatformOperator` policy already exists you can retrieve the policy ARN with:
+If the `PekkoPlatformOperator` policy already exists you can retrieve the policy ARN with:
 +
 [source, shell script]
 ----
@@ -165,9 +165,9 @@ aws iam list-policies
 [source, shell script]
 ----
 eksctl create iamserviceaccount \
-    --name akka-operator \
+    --name pekko-operator \
     --namespace lightbend \
-    --cluster eks-akka-demo \
+    --cluster eks-pekko-demo \
     --region eu-central-1 \
     --attach-policy-arn <policy_arn> \
     --approve \
@@ -180,7 +180,7 @@ If creation of the service account fails for any reason, it is important to dele
 of the service account. If this happens the output will contain:
 
 ----
-[ℹ]  2 iamserviceaccounts (kube-system/aws-node, lightbend/akka-operator) were excluded (based on the include/exclude rules)
+[ℹ]  2 iamserviceaccounts (kube-system/aws-node, lightbend/pekko-operator) were excluded (based on the include/exclude rules)
 ----
 
 To delete the service account, run the following:
@@ -188,21 +188,21 @@ To delete the service account, run the following:
 [source, shell script]
 ----
 eksctl delete iamserviceaccount  \
-    --name akka-operator \
+    --name pekko-operator \
     --namespace lightbend \
-    --cluster eks-akka-demo \
+    --cluster eks-pekko-demo \
     --region eu-central-1
 ----
 ====
-== Install Akka Operator
+== Install Pekko Operator
 
-Install the Akka Operator with Helm:
+Install the Pekko Operator with Helm:
 
-. Add the Akka Operator Helm repository and update the local index:
+. Add the Pekko Operator Helm repository and update the local index:
 +
 [source,shell script]
 ----
-helm repo add akka-operator-helm https://lightbend.github.io/akka-operator-helm/
+helm repo add pekko-operator-helm https://lightbend.github.io/pekko-operator-helm/
 helm repo update
 ----
 
@@ -210,10 +210,10 @@ helm repo update
 +
 [source,shell script]
 ----
-helm install akka-operator akka-operator-helm/akka-operator \
+helm install pekko-operator pekko-operator-helm/pekko-operator \
   --namespace lightbend \
   --create-namespace \
-  --set serviceAccount.name=akka-operator
+  --set serviceAccount.name=pekko-operator
 ----
 
 . Verify that the operator is running:
