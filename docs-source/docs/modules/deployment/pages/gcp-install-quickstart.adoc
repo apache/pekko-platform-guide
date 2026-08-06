@@ -78,18 +78,18 @@ Here are the steps to follow to have your playbook up and running:
 
 * Download and install the https://www.pulumi.com/docs/get-started/install/[Pulumi {tab-icon}, window="tab"] cloud engineering (provisioning) tool for your platform.
 
-* Download (clone) the https://github.com/lightbend/akka-cloud-platform-deploy[Akka Cloud Platform Deployment Pulumi Playbook {tab-icon}, window="tab"] with https://git-scm.com/book/en/v2/Getting-Started-Installing-Git[`git` {tab-icon}, window="tab"].
+* Download (clone) the https://github.com/lightbend/pekko-cloud-platform-deploy[Akka Cloud Platform Deployment Pulumi Playbook {tab-icon}, window="tab"] with https://git-scm.com/book/en/v2/Getting-Started-Installing-Git[`git` {tab-icon}, window="tab"].
 
 [source,shell script]
 ----
-git clone https://github.com/lightbend/akka-cloud-platform-deploy
+git clone https://github.com/lightbend/pekko-cloud-platform-deploy
 ----
 
 * Navigate to the base directory of the cloned repository in a terminal.
 
 [source,shell script]
 ----
-cd akka-cloud-platform-deploy
+cd pekko-cloud-platform-deploy
 ----
 
 * The repository contains scripts for both AWS and GCP deployment. Navigate to the `gcp` folder.
@@ -132,18 +132,18 @@ Alternately they can also be set up using the environment variables as mentioned
 
 NOTE: The setting of project id and zone are mandatory for a GCP installation. In case these are not set, the installation will be aborted with appropriate error messages.
 
-* Set up the license key file path. This is required to be set before you run the playbook. It will be passed to the operator deployment process. If you are deploying from your local environment you need to download the license file once from GCP Marketplace following the instructions in the xref:gcp-install.adoc[installation guide]. In the https://console.cloud.google.com/marketplace/kubernetes/config/lightbend-public/akka-cloud-platform[Akka Cloud Platform {tab-icon}, window="tab"] for GCP page, click on __Configure__ and then go to the tab __Deploy via command line__ and click on __Generate license key__. A `license.yaml` will be generated on your local system.
+* Set up the license key file path. This is required to be set before you run the playbook. It will be passed to the operator deployment process. If you are deploying from your local environment you need to download the license file once from GCP Marketplace following the instructions in the xref:gcp-install.adoc[installation guide]. In the https://console.cloud.google.com/marketplace/kubernetes/config/lightbend-public/pekko-cloud-platform[Akka Cloud Platform {tab-icon}, window="tab"] for GCP page, click on __Configure__ and then go to the tab __Deploy via command line__ and click on __Generate license key__. A `license.yaml` will be generated on your local system.
 
 [source,shell script]
 ----
-pulumi config set akka-cloud-platform-gcp-deploy:license-file-path "/<path>/<to>/license.yaml"
+pulumi config set pekko-cloud-platform-gcp-deploy:license-file-path "/<path>/<to>/license.yaml"
 ----
 
 * Set the version of the operator.
 
 [source,shell script,subs="attributes+"]
 ----
-pulumi config set akka-cloud-platform-gcp-deploy:operator-version {akka-cloud-platform-version}
+pulumi config set pekko-cloud-platform-gcp-deploy:operator-version {pekko-cloud-platform-version}
 ----
 
 NOTE: If you forget to set the license key file path and operator version up, the playbook will give you a gentle reminder to set the values appropriately.
@@ -179,10 +179,10 @@ After executing `pulumi up`, you will see something like the following:
 $ pulumi up
 Previewing update (<STACK NAME>)
 
-View Live: https://app.pulumi.com/<USER NAME>/akka-cloud-platform-gcp-deploy/<STACK NAME>/previews/f7a820f3-0fd8-4f2e-903a-fecdd3c72749
+View Live: https://app.pulumi.com/<USER NAME>/pekko-cloud-platform-gcp-deploy/<STACK NAME>/previews/f7a820f3-0fd8-4f2e-903a-fecdd3c72749
 
      Type                                                                  Name                                                                                       Plan
- +   pulumi:pulumi:Stack                                                   akka-cloud-platform-gcp-deploy-<STACK NAME>                                                create
+ +   pulumi:pulumi:Stack                                                   pekko-cloud-platform-gcp-deploy-<STACK NAME>                                                create
 ...
 
 Resources:
@@ -191,7 +191,7 @@ Resources:
 Do you want to perform this update? yes
 
      Type                                                                 Name                                                                                        Status
- +   pulumi:pulumi:Stack                                                  akka-cloud-platform-gcp-deploy-<STACK NAME>                                                 created
+ +   pulumi:pulumi:Stack                                                  pekko-cloud-platform-gcp-deploy-<STACK NAME>                                                 created
 
 ...
 ----
@@ -228,19 +228,19 @@ lightbend
 ----
 
 NOTE: Pulumi has an issue with tracking ready status for containers with sidecars. In GCP implementation of the Akka Platform Operator, Usage-based Billing Agent (ubbagent)
-is implemented as a sidecar. Hence you may see the following failure in `pulumi up` where the update of the stack fails for akka-operator:
+is implemented as a sidecar. Hence you may see the following failure in `pulumi up` where the update of the stack fails for pekko-operator:
 
 [source,shell script]
 ----
 Diagnostics:
-  kubernetes:apps/v1:Deployment (lightbend/akka-operator):
+  kubernetes:apps/v1:Deployment (lightbend/pekko-operator):
     error: 4 errors occurred:
-    	* resource lightbend/akka-operator was successfully created, but the Kubernetes API server reported that it failed to fully initialize or become live: 'akka-operator' timed out waiting to be Ready
+    	* resource lightbend/pekko-operator was successfully created, but the Kubernetes API server reported that it failed to fully initialize or become live: 'pekko-operator' timed out waiting to be Ready
     	* [MinimumReplicasUnavailable] Deployment does not have minimum availability.
     	* Minimum number of live Pods was not attained
-    	* [Pod lightbend/akka-operator-9b6f567cc-psqhh]: containers with unready status: [akka-operator ubbagent]
+    	* [Pod lightbend/pekko-operator-9b6f567cc-psqhh]: containers with unready status: [pekko-operator ubbagent]
  
-  pulumi:pulumi:Stack (akka-cloud-platform-gcp-deploy-dev):
+  pulumi:pulumi:Stack (pekko-cloud-platform-gcp-deploy-dev):
     error: update failed
 ----
 
@@ -252,10 +252,10 @@ NOTE: Another documented issue in Pulumi is within concurrency control. In this 
 ----
 gcp:sql:DatabaseInstance (pg12instance):
   error: 1 error occurred:
-  	* updating urn:pulumi:dev::akka-cloud-platform-gcp-deploy::gcp:sql/databaseInstance:DatabaseInstance::pg12instance: 1 error occurred:
+  	* updating urn:pulumi:dev::pekko-cloud-platform-gcp-deploy::gcp:sql/databaseInstance:DatabaseInstance::pg12instance: 1 error occurred:
   	* Error, failed to update instance settings for : googleapi: Error 409: Operation failed because another operation was already in progress., operationInProgress
  
- pulumi:pulumi:Stack (akka-cloud-platform-gcp-deploy-dev):
+ pulumi:pulumi:Stack (pekko-cloud-platform-gcp-deploy-dev):
   error: update failed
 ----
 
@@ -373,17 +373,17 @@ Or by populating the stack's `Pulumi.<STACK NAME>.yaml`.
 | Yes (if not set at the provider level)
 | `-`
 
-| `akka.operator.namespace`
+| `pekko.operator.namespace`
 | The Kubernetes namespace to install the Akka Cloud Platform operator into.
 | No
 | `"lightbend"`
 
-| `akka.operator.version`
+| `pekko.operator.version`
 | The version of the Akka Cloud Platform operator to install.
 | No
 | `"1.1.22"`
 
-| `akka.operator.installTelemetryBackends`
+| `pekko.operator.installTelemetryBackends`
 | Whether to install Lightbend Telemetry backends (Prometheus and Grafana) for monitoring.
 | No
 | `true`

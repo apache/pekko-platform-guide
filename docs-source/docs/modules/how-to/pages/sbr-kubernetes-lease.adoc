@@ -2,9 +2,9 @@
 
 include::partial$include.adoc[]
 
-Deploying on Kubernetes opens the door to use Kubernetes-provided mechanisms for decision-making. The Akka {akka}/split-brain-resolver.html[Split-Brain Resolver {tab-icon}, window="tab"] can use a {akka-management}/kubernetes-lease.html[Lease {tab-icon}, window="tab"] backed by Kubernetes to control  which side of a cluster may remain up during a split-brain scenario.
+Deploying on Kubernetes opens the door to use Kubernetes-provided mechanisms for decision-making. The Pekko {pekko}/split-brain-resolver.html[Split-Brain Resolver {tab-icon}, window="tab"] can use a {pekko-management}/kubernetes-lease.html[Lease {tab-icon}, window="tab"] backed by Kubernetes to control  which side of a cluster may remain up during a split-brain scenario.
 
-NOTE: This How-To guide assumes you are developing an application based on Akka Cluster and already enabled and configured xref:concepts:akka-cluster.adoc#_split_brain_resolver[Akka Cluster's Split-Brain Resolver].
+NOTE: This How-To guide assumes you are developing an application based on Pekko Cluster and already enabled and configured xref:concepts:pekko-cluster.adoc#_split_brain_resolver[Pekko Cluster's Split-Brain Resolver].
 
 == Add the Kubernetes Lease dependency
 
@@ -16,7 +16,7 @@ Java::
 .pom.xml:
 [source,xml,indent=0]
 ----
-include::example$shopping-cart-service-java/pom.xml[tag=akka-sbr-kubernetes-lease]
+include::example$shopping-cart-service-java/pom.xml[tag=pekko-sbr-kubernetes-lease]
 ----
 
 Scala::
@@ -24,14 +24,14 @@ Scala::
 .build.sbt:
 [source,scala,indent=0]
 ----
-include::example$shopping-cart-service-scala/build.sbt[tag=akka-sbr-kubernetes-lease]
+include::example$shopping-cart-service-scala/build.sbt[tag=pekko-sbr-kubernetes-lease]
 ----
 
 == Setup your Kubernetes Cluster and PekkoMicroservice
 
-When xref:deployment:aws-install.adoc#_install_akka_operator[installing the Akka Operator] on your Kubernetes cluster using the Helm chart you will also install the Akka Kubernetes Lease CRD.
+When xref:deployment:aws-install.adoc#_install_pekko_operator[installing the Pekko Operator] on your Kubernetes cluster using the Helm chart you will also install the Pekko Kubernetes Lease CRD.
 
-Once the CRD is installed, you can configure your Akka Microservice to back the SBR implementation with a Kubernetes Lease enabling it on the PekkoMicroservice CR:
+Once the CRD is installed, you can configure your Pekko Microservice to back the SBR implementation with a Kubernetes Lease enabling it on the PekkoMicroservice CR:
 
 .kubernetes/shopping-cart-service-cr.yml
 [source,yaml]
@@ -47,4 +47,4 @@ spec:
 
 ----
 
-<1> When using a kubernetes lease as a backend for the Split-Brain Resolver, the operator will name the lease `<metadata.name>-akka-sbr`. In the example above, the lease will be named `shopping-cart-service-akka-sbr`.
+<1> When using a kubernetes lease as a backend for the Split-Brain Resolver, the operator will name the lease `<metadata.name>-pekko-sbr`. In the example above, the lease will be named `shopping-cart-service-pekko-sbr`.

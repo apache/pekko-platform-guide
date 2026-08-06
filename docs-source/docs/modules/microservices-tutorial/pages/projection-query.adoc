@@ -3,7 +3,7 @@
 
 include::ROOT:partial$include.adoc[]
 
-Next, we will create an {akka-projection}/[Akka Projection {tab-icon}, window="tab"] from the events emitted by the `ShoppingCart` entity. The Projection will update counts in the database to track item popularity. Then, we can query the database to find how popular an item is. Since `ShoppingCart` entities can only be addressed by individual cart identifiers, we can find a particular cart, but we can't find all carts that contain a particular item.
+Next, we will create an {pekko-projection}/[Pekko Projection {tab-icon}, window="tab"] from the events emitted by the `ShoppingCart` entity. The Projection will update counts in the database to track item popularity. Then, we can query the database to find how popular an item is. Since `ShoppingCart` entities can only be addressed by individual cart identifiers, we can find a particular cart, but we can't find all carts that contain a particular item.
 
 ifdef::review[REVIEWERS: I don't follow the logic at the end of the last sentence in the prev para. Is it that each shopping cart only knows about its own items?]
 
@@ -14,10 +14,10 @@ image::example-projection-query.svg[Example query]
 This piece of the xref:overview.adoc[full example] focuses on the `ItemPopularityProjection` and a query representation in the database. On this page you will learn how to:
 
 * implement a Projection
-* distribute the Projection instances over the nodes in the Akka Cluster
+* distribute the Projection instances over the nodes in the Pekko Cluster
 * work with the Projection JDBC API
 
-The xref:concepts:cqrs.adoc[CQRS] section explains why it is a good practice to build a Projection from entity events that can be queried. The {akka-blog}/news/2020/09/10/akka-projection-intro-video[Introduction to Akka Projections video {tab-icon}, window="tab"] is also a good starting point for learning about Akka Projections.
+The xref:concepts:cqrs.adoc[CQRS] section explains why it is a good practice to build a Projection from entity events that can be queried. The {pekko-blog}/news/2020/09/10/pekko-projection-intro-video[Introduction to Pekko Projections video {tab-icon}, window="tab"] is also a good starting point for learning about Pekko Projections.
 
 This example is using PostgreSQL for storing the Projection result, and the Projection offset. An alternative is described in xref:how-to:cassandra-alternative.adoc[].
 
@@ -130,7 +130,7 @@ Java::
 include::example$04-shopping-cart-service-java/src/main/java/shopping/cart/ItemPopularityProjectionHandler.java[tags=handler]
 ----
 +
-<1> Extends `akka.projection.javadsl.JdbcHandler`.
+<1> Extends `org.apache.pekko.projection.javadsl.JdbcHandler`.
 <2> The `process` method to implement.
 <3> Match events and increment or decrement the count via the `ItemPopularityRepository`, which encapsulates the database access.
 
@@ -142,13 +142,13 @@ Scala::
 include::example$04-shopping-cart-service-scala/src/main/scala/shopping/cart/ItemPopularityProjectionHandler.scala[tags=handler]
 ----
 +
-<1> Extends `akka.projection.scaladsl.JdbcHandler`.
+<1> Extends `org.apache.pekko.projection.scaladsl.JdbcHandler`.
 <2> The `process` method to implement.
 <3> Match events and increment or decrement the count via the `ItemPopularityRepository`.
 
 == Initialize the Projection
 
-We want to connect the events from the `ShoppingCart` with the Projection. Several instances of the Projection may run on different nodes of the Akka Cluster. Each Projection instance will consume a slice of the events to distribute the load. All events from a specific entity (cart id) will always be processed by the same Projection instance so that it can build a stateful model from the events if needed.
+We want to connect the events from the `ShoppingCart` with the Projection. Several instances of the Projection may run on different nodes of the Pekko Cluster. Each Projection instance will consume a slice of the events to distribute the load. All events from a specific entity (cart id) will always be processed by the same Projection instance so that it can build a stateful model from the events if needed.
 
 [#tagging]
 === Create tags
@@ -204,7 +204,7 @@ include::example$04-shopping-cart-service-scala/src/main/scala/shopping/cart/Sho
 <1> Use `withTagger` to assign the `projectionTag`.
 
 
-NOTE: In this example, we use five different tags. Tagging is not easy to change later without system downtime. Before going live in production you should consider how many tags to use, see {akka-projection}/running.html[Akka Projections reference documentation {tab-icon}, window="tab"] for more information.
+NOTE: In this example, we use five different tags. Tagging is not easy to change later without system downtime. Before going live in production you should consider how many tags to use, see {pekko-projection}/running.html[Pekko Projections reference documentation {tab-icon}, window="tab"] for more information.
 
 [#projection]
 === Create Projection
@@ -222,7 +222,7 @@ Java::
 include::example$04-shopping-cart-service-java/src/main/java/shopping/cart/ItemPopularityProjection.java[tag=projection]
 ----
 +
-<1> `ShardedDaemonProcess` will manage the Projection instances. It ensures the Projection instances are always running and distributes them over the nodes in the Akka Cluster.
+<1> `ShardedDaemonProcess` will manage the Projection instances. It ensures the Projection instances are always running and distributes them over the nodes in the Pekko Cluster.
 <2> The `tag` is selected based on the Projection instance's index, corresponding to *carts-0* to *carts-3* as explained in the tagging in the `ShoppingCart`.
 <3> The source of the Projection is `EventSourcedProvider.eventsByTag` with the selected tag.
 <4> Using the JDBC event journal.
@@ -238,7 +238,7 @@ Scala::
 include::example$04-shopping-cart-service-scala/src/main/scala/shopping/cart/ItemPopularityProjection.scala[tag=projection]
 ----
 +
-<1> `ShardedDaemonProcess` will manage the Projection instances. It ensures the Projection instances are always running and distributes them over the nodes in the Akka Cluster.
+<1> `ShardedDaemonProcess` will manage the Projection instances. It ensures the Projection instances are always running and distributes them over the nodes in the Pekko Cluster.
 <2> The `tag` is selected based on the Projection instance's index, corresponding to *carts-0* to *carts-3* as explained in the tagging in the `ShoppingCart`.
 <3> The source of the Projection is `EventSourcedProvider.eventsByTag` with the selected tag.
 <4> Using the JDBC event journal.
@@ -335,7 +335,7 @@ include::example$04-shopping-cart-service-scala/src/main/scala/shopping/cart/Sho
 [.group-java]
 [IMPORTANT]
 ====
-Calls to the repository are blocking therefore we wrap it with `CompletableFuture.supplyAsync` and we use the JDBC blocking executor to run it. This is a pre-configured dispatcher provided by Akka Projections. Its pool size can be configured with settings `akka.projection.jdbc.blocking-jdbc-dispatcher.thread-pool-executor.fixed-pool-size` (see src/main/resources/persistence.conf).
+Calls to the repository are blocking therefore we wrap it with `CompletableFuture.supplyAsync` and we use the JDBC blocking executor to run it. This is a pre-configured dispatcher provided by Pekko Projections. Its pool size can be configured with settings `pekko.projection.jdbc.blocking-jdbc-dispatcher.thread-pool-executor.fixed-pool-size` (see src/main/resources/persistence.conf).
 
 Make sure to follow that pattern whenever you interact with a DB repository.
 ====
@@ -343,7 +343,7 @@ Make sure to follow that pattern whenever you interact with a DB repository.
 [.group-scala]
 [IMPORTANT]
 ====
-Calls to the repository are blocking therefore we run them in a `Future` with the JDBC blocking execution context. This is a pre-configured dispatcher provided by Akka Projections. Its pool size can be configured with settings `akka.projection.jdbc.blocking-jdbc-dispatcher.thread-pool-executor.fixed-pool-size` (see src/main/resources/persistence.conf).
+Calls to the repository are blocking therefore we run them in a `Future` with the JDBC blocking execution context. This is a pre-configured dispatcher provided by Pekko Projections. Its pool size can be configured with settings `pekko.projection.jdbc.blocking-jdbc-dispatcher.thread-pool-executor.fixed-pool-size` (see src/main/resources/persistence.conf).
 
 Make sure to follow that pattern whenever you interact with a DB repository.
 ====
@@ -444,7 +444,7 @@ NOTE: The following steps for cloud deployment are optional. If you are only run
 [#kubernetes]
 == Run in Kubernetes
 
-Create a xref:deployment:aws-install.adoc[Kubernetes cluster and install the Akka Operator] if you haven't already.
+Create a xref:deployment:aws-install.adoc[Kubernetes cluster and install the Pekko Operator] if you haven't already.
 
 === Create a Item Popularity table
 
@@ -465,7 +465,7 @@ If you created your database with the xref:deployment:aws-install-quickstart.ado
 See the xref:deployment:aws-install-quickstart.adoc#connect-aurora-database[Connect to the Aurora RDS database {tab-icon}, window="tab"] section of the quick start for an example.
 ====
 
-Before following the steps below, create Kubernetes cluster and install the Akka Operator. Used the instructions below for:
+Before following the steps below, create Kubernetes cluster and install the Pekko Operator. Used the instructions below for:
 
 === Build Docker image
 
@@ -505,7 +505,7 @@ You can see progress by viewing the status:
 
 [source,shell script]
 ----
-kubectl get akkamicroservices/shopping-cart-service
+kubectl get pekkomicroservices/shopping-cart-service
 ----
 
 See xref:deployment:troubleshooting.adoc[troubleshooting deployment status] for more details.
@@ -525,6 +525,6 @@ If you decide to compile and run your tests you may encounter aan error `reason:
 == Learn more
 
 * xref:concepts:cqrs.adoc[CQRS concepts].
-* {akka-projection}/[Akka Projection reference documentation {tab-icon}, window="tab"].
-* {akka}/typed/cluster-sharded-daemon-process.html[Akka Sharded Daemon Process reference documentation {tab-icon}, window="tab"].
+* {pekko-projection}/[Pekko Projection reference documentation {tab-icon}, window="tab"].
+* {pekko}/typed/cluster-sharded-daemon-process.html[Pekko Sharded Daemon Process reference documentation {tab-icon}, window="tab"].
 * xref:how-to:cassandra-alternative.adoc[]

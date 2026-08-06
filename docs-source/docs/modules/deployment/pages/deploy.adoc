@@ -3,9 +3,9 @@
 
 include::partial$include.adoc[]
 
-This page describes the general workflow for deploying an application. Each step of the xref:microservices-tutorial:index.adoc[Implementing Microservices with Akka tutorial] also has instructions of how to run in Kubernetes. The tutorial includes build files for creating Docker images and template deployment descriptors.
+This page describes the general workflow for deploying an application. Each step of the xref:microservices-tutorial:index.adoc[Implementing Microservices with Pekko tutorial] also has instructions of how to run in Kubernetes. The tutorial includes build files for creating Docker images and template deployment descriptors.
 
-The steps below assume that you have already read the xref:deployment:index.adoc[overview of Kubernetes deployment], and have created a Kubernetes cluster and installed the Akka Operator (in xref:deployment:aws-install.adoc[AWS] or xref:deployment:gcp-install.adoc[GCP]).
+The steps below assume that you have already read the xref:deployment:index.adoc[overview of Kubernetes deployment], and have created a Kubernetes cluster and installed the Pekko Operator (in xref:deployment:aws-install.adoc[AWS] or xref:deployment:gcp-install.adoc[GCP]).
 
 :sectnums:
 == Build Docker image
@@ -23,7 +23,7 @@ Follow the instructions in https://cloud.google.com/container-registry/docs/usin
 
 == Update the deployment descriptor
 
-Update the deployment descriptor in `kubernetes/shopping-cart-service-cr.yml` of the `PekkoMicroservice` that the Akka Operator will use when deploying the application in Kubernetes.
+Update the deployment descriptor in `kubernetes/shopping-cart-service-cr.yml` of the `PekkoMicroservice` that the Pekko Operator will use when deploying the application in Kubernetes.
 
 .kubernetes/shopping-cart-service-cr.yml:
 [source,yaml]
@@ -56,11 +56,11 @@ It can be convenient to set that namespace as current instead of specifying the 
 kubectl config set-context --current --namespace=shopping
 ----
 
-The Akka Operator will notice the deployment descriptor and deploy the `shopping-cart-service`. You can see progress by viewing the status:
+The Pekko Operator will notice the deployment descriptor and deploy the `shopping-cart-service`. You can see progress by viewing the status:
 
 [source,shell script]
 ----
-kubectl get akkamicroservices
+kubectl get pekkomicroservices
 ----
 
 See xref:deployment:troubleshooting.adoc[troubleshooting deployment status] for more details.
@@ -89,7 +89,7 @@ You can terminate all Pods of the application by deleting the deployment descrip
 
 [source,shell script]
 ----
-kubectl delete akkamicroservices/shopping-cart-service --namespace=shopping
+kubectl delete pekkomicroservices/shopping-cart-service --namespace=shopping
 ----
 
 :!Sectnums:

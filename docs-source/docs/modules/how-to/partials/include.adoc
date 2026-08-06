@@ -2,4 +2,4 @@
 
 include::ROOT:partial$include.adoc[]
 
-:akka-persistence-jdbc:  https://doc.akka.io/docs/akka-persistence-jdbc/current
+:pekko-persistence-jdbc: https://pekko.apache.org/docs/pekko-persistence-jdbc/current/

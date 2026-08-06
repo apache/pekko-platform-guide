@@ -12,7 +12,7 @@ https://strimzi.io/docs/operators/latest/using.html[Strimzi {tab-icon}, window="
 
 [source,shell script]
 ----
-kubectl create namespace akka-demo
+kubectl create namespace pekko-demo
 ----
 
 Add the Strimzi Helm repository and update the local index.
@@ -27,14 +27,14 @@ Install the latest version of Strimzi.
 
 [source,shell script]
 ----
-helm install strimzi strimzi/strimzi-kafka-operator --namespace akka-demo
+helm install strimzi strimzi/strimzi-kafka-operator --namespace pekko-demo
 ----
 
 After the install completed, the Strimzi Kafka operator should be running in the given namespace.
 
 [source,shell script]
 ----
-kubectl config set-context --current --namespace=akka-demo
+kubectl config set-context --current --namespace=pekko-demo
 ----
 
 [source,shell script]
@@ -135,5 +135,5 @@ If you want to remove Strimzi, you can do that with the following Helm command:
 
 [source,shell script]
 ----
-helm delete strimzi -n akka-demo
+helm delete strimzi -n pekko-demo
 ----

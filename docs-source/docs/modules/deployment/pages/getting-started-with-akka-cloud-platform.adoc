@@ -1,1 +1,1 @@
-= Getting started with Akka Cloud Platform
+= Getting started with Pekko Cloud Platform
