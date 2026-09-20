@@ -10,7 +10,7 @@ image::example-projection-grpc-client.svg[Example gRPC client]
 
 This part of the xref:overview.adoc[full example] focuses on the gRPC client in the `SendOrderProjection`. On this page you will learn how to:
 
-* call another service with xref:concepts:akka-grpc.adoc[Akka gRPC]
+* call another service with xref:concepts:pekko-grpc.adoc[Pekko gRPC]
 * implement another gRPC service by adding the `ShoppingOrderService`
 
 == Source downloads
@@ -302,7 +302,7 @@ NOTE: The following steps for cloud deployment are optional. If you are only run
 [#kubernetes]
 == Run in Kubernetes
 
-Create a xref:deployment:aws-install.adoc[Kubernetes cluster and install the Akka Operator] if you haven't already.
+Create a xref:deployment:aws-install.adoc[Kubernetes cluster and install the Pekko Operator] if you haven't already.
 
 === Build Docker image
 
@@ -346,7 +346,7 @@ You can see progress by viewing the status:
 
 [source,shell script]
 ----
-kubectl get akkamicroservices
+kubectl get pekkomicroservices
 ----
 
 See xref:deployment:troubleshooting.adoc[troubleshooting deployment status] for more details.
@@ -405,5 +405,5 @@ Order 15 items from cart cart1
 Congratulations, you finished the tutorial! The examples of gRPC, event sourcing, and Projections should be helpful when you create your own Reactive Microservices. The following sections go into more detail:
 
 * xref:concepts:internal-and-external-communication.adoc[Internal and External Communication concepts].
-* {akka-grpc}/client/index.html[Akka gRPC client reference documentation {tab-icon}, window="tab"].
-* {akka-projection}/[Akka Projection reference documentation {tab-icon}, window="tab"].
+* {pekko-grpc}/client/index.html[Pekko gRPC client reference documentation {tab-icon}, window="tab"].
+* {pekko-projection}/[Pekko Projection reference documentation {tab-icon}, window="tab"].

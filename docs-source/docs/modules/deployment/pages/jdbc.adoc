@@ -3,7 +3,7 @@
 
 include::partial$include.adoc[]
 
-The Akka Operator can provide configuration for JDBC databases for use as the event store or in projection.
+The Pekko Operator can provide configuration for JDBC databases for use as the event store or in projection.
 This can be either:
 
 - Your own JDBC managed data base
@@ -31,7 +31,7 @@ kubectl run -i rds-mgmt --image=postgres \
   psql -h <hostname> -U postgres -t < ddl-scripts/create_tables.sql
 ----
 
-It creates all tables needed for Akka Persistence as well as the offset store table for Akka Projection.
+It creates all tables needed for Pekko Persistence as well as the offset store table for Pekko Projection.
 
 For an interactive `psql` session you can use:
 
@@ -43,7 +43,7 @@ kubectl run -i --tty rds-mgmt --image=postgres --restart=Never --rm -- \
 
 == JDBC configuration
 
-To use the JDBC integration in the Akka Operator you place the connection credentials in a
+To use the JDBC integration in the Pekko Operator you place the connection credentials in a
 https://kubernetes.io/docs/concepts/configuration/secret/[Secret {tab-icon}, window="tab"]. The Secret must contain three entries:
 
 * `connectionUrl` - the JDBC connection URL
@@ -76,11 +76,11 @@ Apply the deployment descriptor:
 kubectl apply -f kubernetes/shopping-cart-service-cr.yml
 ----
 
-The Akka Operator will automatically xref:config-secret.adoc#main-conf[provide the configuration] for the connection based on the Secret when the application starts the `ActorSystem`.
+The Pekko Operator will automatically xref:config-secret.adoc#main-conf[provide the configuration] for the connection based on the Secret when the application starts the `ActorSystem`.
 
 === JDBC configuration details
 
-It can be useful to have access to the database connection settings for additional application specific components in addition to the Akka Persistence journal and snapshot plugins that are automatically set up. The operator sets up the `jdbc-connection-settings` top level config object with the following properties based on the Secret in the config the application is started with:
+It can be useful to have access to the database connection settings for additional application specific components in addition to the Pekko Persistence journal and snapshot plugins that are automatically set up. The operator sets up the `jdbc-connection-settings` top level config object with the following properties based on the Secret in the config the application is started with:
 
 [source]
 ----
