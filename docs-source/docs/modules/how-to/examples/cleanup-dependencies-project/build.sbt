@@ -95,3 +95,6 @@ libraryDependencies ++= Seq(
   "org.apache.pekko" %% "pekko-persistence-testkit" % PekkoVersion % Test,
   "org.apache.pekko" %% "pekko-stream-testkit" % PekkoVersion % Test,
   "org.scalatest" %% "scalatest" % "3.2.17" % Test)
+
+addCommandAlias("applyCodeStyle", "scalafmtAll; scalafmtSbt")
+addCommandAlias("checkCodeStyle", "scalafmtCheckAll; scalafmtSbtCheck")

@@ -79,3 +79,6 @@ libraryDependencies ++= Seq(
   // tag::pekko-persistence-cassandra[]
 )
 // end::pekko-persistence-cassandra[]
+
+addCommandAlias("applyCodeStyle", "scalafmtAll; scalafmtSbt")
+addCommandAlias("checkCodeStyle", "scalafmtCheckAll; scalafmtSbtCheck")
