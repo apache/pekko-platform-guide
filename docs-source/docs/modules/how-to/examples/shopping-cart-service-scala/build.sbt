@@ -83,3 +83,7 @@ libraryDependencies ++= Seq(
 // tag::dependencies-for-healthchecks[]
 )
 // end::dependencies-for-healthchecks[]
+
+addCommandAlias(
+  "sortImports",
+  """;scalafixEnable;scalafixAll OrganizeImports;scalafmtAll""")
