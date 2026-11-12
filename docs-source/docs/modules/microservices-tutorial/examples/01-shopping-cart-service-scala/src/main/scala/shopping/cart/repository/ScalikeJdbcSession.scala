@@ -1,10 +1,11 @@
 package shopping.cart.repository
 
-import org.apache.pekko.japi.function.Function
-import org.apache.pekko.projection.jdbc.JdbcSession
+import java.sql.Connection
+
 import scalikejdbc._
 
-import java.sql.Connection
+import org.apache.pekko.japi.function.Function
+import org.apache.pekko.projection.jdbc.JdbcSession
 
 object ScalikeJdbcSession {
   def withSession[R](f: ScalikeJdbcSession => R): R = {
