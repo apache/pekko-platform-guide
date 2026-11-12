@@ -83,3 +83,6 @@ libraryDependencies ++= Seq(
 // tag::dependencies-for-healthchecks[]
 )
 // end::dependencies-for-healthchecks[]
+
+addCommandAlias("applyCodeStyle", "scalafmtAll; scalafmtSbt")
+addCommandAlias("checkCodeStyle", "scalafmtCheckAll; scalafmtSbtCheck")
