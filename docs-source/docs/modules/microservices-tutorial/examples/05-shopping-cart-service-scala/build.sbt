@@ -72,3 +72,6 @@ libraryDependencies ++= Seq(
   "org.scalikejdbc" %% "scalikejdbc-config" % ScalikeJdbcVersion,
   "org.apache.pekko" %% "pekko-connectors-kafka" % PekkoConnectorsKafkaVersion,
   "org.apache.pekko" %% "pekko-projection-testkit" % PekkoProjectionVersion % Test)
+
+addCommandAlias("applyCodeStyle", "scalafmtAll; scalafmtSbt")
+addCommandAlias("checkCodeStyle", "scalafmtCheckAll; scalafmtSbtCheck")

@@ -11,15 +11,9 @@ import org.apache.pekko.persistence.query.Offset
 import org.apache.pekko.projection.eventsourced.EventEnvelope
 import org.apache.pekko.projection.eventsourced.scaladsl.EventSourcedProvider
 import org.apache.pekko.projection.jdbc.scaladsl.JdbcProjection
-import org.apache.pekko.projection.scaladsl.{
-  AtLeastOnceProjection,
-  SourceProvider
-}
+import org.apache.pekko.projection.scaladsl.{ AtLeastOnceProjection, SourceProvider }
 import org.apache.pekko.projection.{ ProjectionBehavior, ProjectionId }
-import org.apache.kafka.common.serialization.{
-  ByteArraySerializer,
-  StringSerializer
-}
+import org.apache.kafka.common.serialization.{ ByteArraySerializer, StringSerializer }
 import shopping.cart.repository.ScalikeJdbcSession
 
 object PublishEventsProjection {

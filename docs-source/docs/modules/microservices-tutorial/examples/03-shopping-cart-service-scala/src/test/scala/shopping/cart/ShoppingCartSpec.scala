@@ -38,8 +38,8 @@ class ShoppingCartSpec
 
     "add item" in {
       val result1 =
-        eventSourcedTestKit.runCommand[StatusReply[ShoppingCart.Summary]](
-          replyTo => ShoppingCart.AddItem("foo", 42, replyTo))
+        eventSourcedTestKit.runCommand[StatusReply[ShoppingCart.Summary]](replyTo =>
+          ShoppingCart.AddItem("foo", 42, replyTo))
       result1.reply should ===(
         StatusReply.Success(
           ShoppingCart.Summary(Map("foo" -> 42), checkedOut = false)))
