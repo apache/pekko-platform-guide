@@ -7,7 +7,7 @@ The deployment descriptor of an Akka Microservice that is managed by the Akka Op
 
 == PekkoMicroservices deployment descriptor (CRD) example
 
-You can view the https://lightbend.github.io/akka-operator-helm/akka-operator/crds/v1/akka-microservices-crd.yml[schema definition of the PekkoMicroservices deployment descriptor (CRD) {tab-icon}, window="tab"]. A https://lightbend.github.io/akka-operator-helm/api-reference/v1/shopping-cart-service-full-cr.yml[deployment descriptor (CR) containing all properties {tab-icon}, window="tab"] provides a factitious example.
+You can view the https://lightbend.github.io/pekko-operator-helm/pekko-operator/crds/v1/pekko-microservices-crd.yml[schema definition of the PekkoMicroservices deployment descriptor (CRD) {tab-icon}, window="tab"]. A https://lightbend.github.io/pekko-operator-helm/api-reference/v1/shopping-cart-service-full-cr.yml[deployment descriptor (CR) containing all properties {tab-icon}, window="tab"] provides a factitious example.
 
 [#scale]
 == Scale the number of Pods
@@ -37,12 +37,12 @@ Another way of changing number of Pods is to use `kubectl scale` without changin
 
 [source,shell script]
 ----
-kubectl scale --replicas=3 akkamicroservices shopping-cart-servics
+kubectl scale --replicas=3 pekkomicroservices shopping-cart-servics
 ----
 
 === Scale Akka Cluster roles
 
-{akka}/typed/cluster.html#node-roles[Akka Cluster node roles {tab-icon}, window="tab"] can be used to scale portions of your application independently. For example, scaling persistent entities separately from projections.
+{pekko}/typed/cluster.html#node-roles[Akka Cluster node roles {tab-icon}, window="tab"] can be used to scale portions of your application independently. For example, scaling persistent entities separately from projections.
 
 Define the roles in the deployment descriptor:
 
@@ -71,15 +71,15 @@ The `replicasRatio` for a role defines the proportion of the total number of `re
 
 In this example we have used the ratio 40:60 because the sum is 100 and therefore corresponds to percentage of the total replicas. However, it's not required to have a sum of 100. The same ratio could be defined as 2:3.
 
-The Akka Operator will automatically provide the `akka.cluster.roles` configuration to the application. Roles defined in `application.conf` will be overridden.
+The Akka Operator will automatically provide the `pekko.cluster.roles` configuration to the application. Roles defined in `application.conf` will be overridden.
 
 See xref:how-to:scale-independently.adoc[] for information about what is needed in the application to make use of the Akka Cluster roles.
 
-The Akka Operator adds a label `akka.lightbend.com/cluster-role` to the Pods, which for example can be used to select Pods with a certain role:
+The Akka Operator adds a label `pekko.lightbend.com/cluster-role` to the Pods, which for example can be used to select Pods with a certain role:
 
 [source,shell script]
 ----
-kubectl get pods -label akka.lightbend.com/cluster-role=entity
+kubectl get pods -label pekko.lightbend.com/cluster-role=entity
 ----
 
 Only one role per Akka Cluster member is currently supported.
@@ -217,7 +217,7 @@ To avoid CFS scheduler limits, it is best not to use `resources.limits.cpu` limi
 [#logback]
 == Configure Logback
 
-A custom Logback configuration can be provided to the deployment without building a new image. Make sure that your application is already configured to use the {akka}/typed/logging.html#slf4j-backend[Slf4j backend {tab-icon}, window="tab"] for logging.
+A custom Logback configuration can be provided to the deployment without building a new image. Make sure that your application is already configured to use the {pekko}/typed/logging.html#slf4j-backend[Slf4j backend {tab-icon}, window="tab"] for logging.
 
 Create a logback configuration you want to apply in a `logback.xml` file:
 
@@ -320,7 +320,7 @@ You can define a specific namespace that the operator should manage with the fol
 [source,shell script]
 ----
 --set java_tool_options="\
-   -Dakka.operator.application-namespace=the-app-ns \
+   -Dpekko.operator.application-namespace=the-app-ns \
    -Xlog:gc -XX:InitialRAMPercentage=75 \
    -XX:MaxRAMPercentage=75"
 ----
