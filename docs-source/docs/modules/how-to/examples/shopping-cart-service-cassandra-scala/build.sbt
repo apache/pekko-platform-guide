@@ -79,3 +79,7 @@ libraryDependencies ++= Seq(
   // tag::pekko-persistence-cassandra[]
 )
 // end::pekko-persistence-cassandra[]
+
+addCommandAlias(
+  "sortImports",
+  """;scalafixEnable;scalafixAll OrganizeImports;scalafmtAll""")

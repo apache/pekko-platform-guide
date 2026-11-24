@@ -1,7 +1,5 @@
 package shopping.cart.repository
 
-import org.apache.pekko.actor.typed.ActorSystem
-import com.typesafe.config.Config
 import com.zaxxer.hikari.HikariDataSource
 import scalikejdbc.ConnectionPool
 import scalikejdbc.DataSourceCloser
@@ -10,6 +8,10 @@ import scalikejdbc.config.DBs
 import scalikejdbc.config.NoEnvPrefix
 import scalikejdbc.config.TypesafeConfig
 import scalikejdbc.config.TypesafeConfigReader
+
+import org.apache.pekko.actor.typed.ActorSystem
+
+import com.typesafe.config.Config
 
 object ScalikeJdbcSetup {
 

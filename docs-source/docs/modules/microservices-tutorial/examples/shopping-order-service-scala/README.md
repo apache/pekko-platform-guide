@@ -17,3 +17,10 @@
     ```
     grpcurl -d '{"cartId":"cart1", "items":[{"itemId":"socks", "quantity":3}, {"itemId":"t-shirt", "quantity":2}]}' -plaintext 127.0.0.1:8301 shoppingorder.ShoppingOrderService.Order
     ```
+
+### Organize Scala imports
+
+Run `sbt sortImports` to organize Scala imports with Scalafix and remove unused
+imports. The command enables SemanticDB and unused-import diagnostics for this sbt session
+and processes both
+main and test sources. Java sources are not rewritten.

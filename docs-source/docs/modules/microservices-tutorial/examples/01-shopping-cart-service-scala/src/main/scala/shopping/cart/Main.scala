@@ -1,11 +1,13 @@
 package shopping.cart
 
-import org.apache.pekko.actor.typed.scaladsl.Behaviors
+import scala.util.control.NonFatal
+
 import org.apache.pekko.actor.typed.ActorSystem
+import org.apache.pekko.actor.typed.scaladsl.Behaviors
 import org.apache.pekko.management.cluster.bootstrap.ClusterBootstrap
 import org.apache.pekko.management.scaladsl.PekkoManagement
+
 import org.slf4j.LoggerFactory
-import scala.util.control.NonFatal
 
 object Main {
 

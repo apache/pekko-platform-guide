@@ -72,3 +72,7 @@ libraryDependencies ++= Seq(
   "org.scalikejdbc" %% "scalikejdbc-config" % ScalikeJdbcVersion,
   "org.apache.pekko" %% "pekko-connectors-kafka" % PekkoConnectorsKafkaVersion,
   "org.apache.pekko" %% "pekko-projection-testkit" % PekkoProjectionVersion % Test)
+
+addCommandAlias(
+  "sortImports",
+  """;scalafixEnable;scalafixAll OrganizeImports;scalafmtAll""")
