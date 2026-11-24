@@ -29,6 +29,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          fetch-depth: ${{ github.event_name == 'pull_request' && 2 || 1 }}
 
       - name: Checkout GitHub merge
         if: github.event.pull_request
@@ -36,46 +38,108 @@ jobs:
           git fetch origin pull/${{ github.event.pull_request.number }}/merge:scratch
           git checkout scratch
 
+      - &root-readme-scope
+        name: Identify root README-only pull requests
+        id: pr_scope
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          if python3 -I - <<'PY'
+          import os
+          import re
+          import subprocess
+
+          def git(*args):
+              return subprocess.check_output(["git", *args])
+
+          def docs_only():
+              base = os.environ.get("BASE_SHA", "")
+              head = os.environ.get("HEAD_SHA", "")
+              merge = os.environ.get("GITHUB_SHA", "")
+              if not all(re.fullmatch("[0-9a-f]{40}", sha) for sha in (base, head, merge)):
+                  return False
+              if git("rev-list", "--parents", "-n", "1", "HEAD").split() != [
+                  sha.encode() for sha in (merge, base, head)
+              ]:
+                  return False
+
+              # Compare the tree actually tested, not mutable branch refs or a truncated API list.
+              # Treat both sides of a rename independently; allow only modified regular files.
+              changes = git(
+                  "diff", "--raw", "-z", "--no-renames", "--no-abbrev",
+                  "--ignore-submodules=none", "--no-ext-diff", base, merge
+              ).split(b"\0")
+              return (
+                  len(changes) == 3
+                  and changes[1:] == [b"README.md", b""]
+                  and re.fullmatch(rb":100644 100644 [0-9a-f]{40} [0-9a-f]{40} M", changes[0])
+              )
+
+          try:
+              raise SystemExit(0 if docs_only() else 1)
+          except (OSError, subprocess.SubprocessError):
+              raise SystemExit(1)
+          PY
+          then
+            echo "skip_build=true" >> "$GITHUB_OUTPUT"
+            echo "Only the root README was modified. The example build and tests was not run."
+            echo "Skipped the example build and tests: only the root README was modified." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
       - name: Set up JDK 11
+        if: steps.pr_scope.outputs.skip_build != 'true'
         uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: 11
 
       - uses: actions/cache@v6
+        if: steps.pr_scope.outputs.skip_build != 'true'
         with:
           path: ~/.m2/repository
           key: maven-repo-${{ hashFiles('**/pom.xml') }}
           restore-keys: maven-repo-
 
       - name: "Shopping analytics service (Java)"
+        if: steps.pr_scope.outputs.skip_build != 'true'
         run: scripts/mvn-test.sh docs-source/docs/modules/microservices-tutorial/examples/shopping-analytics-service-java
 
       - name: "Shopping cart service (Java)"
+        if: steps.pr_scope.outputs.skip_build != 'true'
         run: scripts/mvn-test.sh docs-source/docs/modules/microservices-tutorial/examples/shopping-cart-service-java
 
       - name: "Shopping order service (Java)"
+        if: steps.pr_scope.outputs.skip_build != 'true'
         run: scripts/mvn-test.sh docs-source/docs/modules/microservices-tutorial/examples/shopping-order-service-java
 
       - name: "00 Shopping analytics service (Java)"
+        if: steps.pr_scope.outputs.skip_build != 'true'
         run: scripts/mvn-test.sh docs-source/docs/modules/microservices-tutorial/examples/00-shopping-analytics-service-java
 
       - name: "00 Shopping cart service (Java)"
+        if: steps.pr_scope.outputs.skip_build != 'true'
         run: scripts/mvn-test.sh docs-source/docs/modules/microservices-tutorial/examples/00-shopping-cart-service-java
 
       - name: "00 Shopping order service (Java)"
+        if: steps.pr_scope.outputs.skip_build != 'true'
         run: scripts/mvn-test.sh docs-source/docs/modules/microservices-tutorial/examples/00-shopping-order-service-java
 
       - name: "01 Shopping cart service (Java)"
+        if: steps.pr_scope.outputs.skip_build != 'true'
         run: scripts/mvn-test.sh docs-source/docs/modules/microservices-tutorial/examples/01-shopping-cart-service-java
 
       - name: "02 Shopping cart service (Java)"
+        if: steps.pr_scope.outputs.skip_build != 'true'
         run: scripts/mvn-test.sh docs-source/docs/modules/microservices-tutorial/examples/02-shopping-cart-service-java
 
       - name: "03 Shopping cart service (Java)"
+        if: steps.pr_scope.outputs.skip_build != 'true'
         run: scripts/mvn-test.sh docs-source/docs/modules/microservices-tutorial/examples/03-shopping-cart-service-java
 
       - name: "04 Shopping cart service (Java)"
+        if: steps.pr_scope.outputs.skip_build != 'true'
         run: scripts/mvn-test.sh docs-source/docs/modules/microservices-tutorial/examples/04-shopping-cart-service-java
 
   java-compile-and-test-part2:
@@ -84,6 +148,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          fetch-depth: ${{ github.event_name == 'pull_request' && 2 || 1 }}
 
       - name: Checkout GitHub merge
         if: github.event.pull_request
@@ -91,22 +157,28 @@ jobs:
           git fetch origin pull/${{ github.event.pull_request.number }}/merge:scratch
           git checkout scratch
 
+      - *root-readme-scope
+
       - name: Set up JDK 11
+        if: steps.pr_scope.outputs.skip_build != 'true'
         uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: 11
 
       - uses: actions/cache@v6
+        if: steps.pr_scope.outputs.skip_build != 'true'
         with:
           path: ~/.m2/repository
           key: maven-repo-${{ hashFiles('**/pom.xml') }}
           restore-keys: maven-repo-
 
       - name: "05 Shopping cart service (Java)"
+        if: steps.pr_scope.outputs.skip_build != 'true'
         run: scripts/mvn-test.sh docs-source/docs/modules/microservices-tutorial/examples/05-shopping-cart-service-java
 
       - name: "Howto Cassandra code (Java)"
+        if: steps.pr_scope.outputs.skip_build != 'true'
         run: scripts/mvn-test.sh docs-source/docs/modules/how-to/examples/shopping-cart-service-cassandra-java
 
   scala-compile-and-test-part1:
@@ -115,6 +187,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          fetch-depth: ${{ github.event_name == 'pull_request' && 2 || 1 }}
 
       - name: Checkout GitHub merge
         if: github.event.pull_request
@@ -122,43 +196,57 @@ jobs:
           git fetch origin pull/${{ github.event.pull_request.number }}/merge:scratch
           git checkout scratch
 
+      - *root-readme-scope
+
       - name: Set up JDK 11
+        if: steps.pr_scope.outputs.skip_build != 'true'
         uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: 11
 
       - name: Cache Coursier cache
+        if: steps.pr_scope.outputs.skip_build != 'true'
         uses: coursier/cache-action@95e5b1029b6b86e7bac033ee44a0697d8a527d2d # v8.1.1
 
       - name: "Shopping analytics service (Scala)"
+        if: steps.pr_scope.outputs.skip_build != 'true'
         run: scripts/sbt-test.sh docs-source/docs/modules/microservices-tutorial/examples/shopping-analytics-service-scala
 
       - name: "Shopping cart service (Scala)"
+        if: steps.pr_scope.outputs.skip_build != 'true'
         run: scripts/sbt-test.sh docs-source/docs/modules/microservices-tutorial/examples/shopping-cart-service-scala
 
       - name: "Shopping order service (Scala)"
+        if: steps.pr_scope.outputs.skip_build != 'true'
         run: scripts/sbt-test.sh docs-source/docs/modules/microservices-tutorial/examples/shopping-order-service-scala
 
       - name: "00 Shopping analytics service (Scala)"
+        if: steps.pr_scope.outputs.skip_build != 'true'
         run: scripts/sbt-test.sh docs-source/docs/modules/microservices-tutorial/examples/00-shopping-analytics-service-scala
 
       - name: "00 Shopping cart service (Scala)"
+        if: steps.pr_scope.outputs.skip_build != 'true'
         run: scripts/sbt-test.sh docs-source/docs/modules/microservices-tutorial/examples/00-shopping-cart-service-scala
 
       - name: "00 Shopping order service (Scala)"
+        if: steps.pr_scope.outputs.skip_build != 'true'
         run: scripts/sbt-test.sh docs-source/docs/modules/microservices-tutorial/examples/00-shopping-order-service-scala
 
       - name: "01 Shopping cart service (Scala)"
+        if: steps.pr_scope.outputs.skip_build != 'true'
         run: scripts/sbt-test.sh docs-source/docs/modules/microservices-tutorial/examples/01-shopping-cart-service-scala
 
       - name: "02 Shopping cart service (Scala)"
+        if: steps.pr_scope.outputs.skip_build != 'true'
         run: scripts/sbt-test.sh docs-source/docs/modules/microservices-tutorial/examples/02-shopping-cart-service-scala
 
       - name: "03 Shopping cart service (Scala)"
+        if: steps.pr_scope.outputs.skip_build != 'true'
         run: scripts/sbt-test.sh docs-source/docs/modules/microservices-tutorial/examples/03-shopping-cart-service-scala
 
       - name: "04 Shopping cart service (Scala)"
+        if: steps.pr_scope.outputs.skip_build != 'true'
         run: scripts/sbt-test.sh docs-source/docs/modules/microservices-tutorial/examples/04-shopping-cart-service-scala
 
   scala-compile-and-test-part2:
@@ -167,6 +255,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          fetch-depth: ${{ github.event_name == 'pull_request' && 2 || 1 }}
 
       - name: Checkout GitHub merge
         if: github.event.pull_request
@@ -174,24 +264,32 @@ jobs:
           git fetch origin pull/${{ github.event.pull_request.number }}/merge:scratch
           git checkout scratch
 
+      - *root-readme-scope
+
       - name: Set up JDK 11
+        if: steps.pr_scope.outputs.skip_build != 'true'
         uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: 11
 
       - name: Cache Coursier cache
+        if: steps.pr_scope.outputs.skip_build != 'true'
         uses: coursier/cache-action@95e5b1029b6b86e7bac033ee44a0697d8a527d2d # v8.1.1
 
       - name: "05 Shopping cart service (Scala)"
+        if: steps.pr_scope.outputs.skip_build != 'true'
         run: scripts/sbt-test.sh docs-source/docs/modules/microservices-tutorial/examples/05-shopping-cart-service-scala
 
       - name: "Howto example code"
+        if: steps.pr_scope.outputs.skip_build != 'true'
         run: scripts/sbt-test.sh docs-source/docs/modules/how-to/examples/shopping-cart-service-scala
 
       - name: "Howto cleanup dependencies"
+        if: steps.pr_scope.outputs.skip_build != 'true'
         run: scripts/sbt-test.sh docs-source/docs/modules/how-to/examples/cleanup-dependencies-project
 
       - name: "Howto Cassandra code (Scala)"
+        if: steps.pr_scope.outputs.skip_build != 'true'
         run: scripts/sbt-test.sh docs-source/docs/modules/how-to/examples/shopping-cart-service-cassandra-scala
 
