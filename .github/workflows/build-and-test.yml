@@ -129,7 +129,7 @@ jobs:
           java-version: 11
 
       - name: Cache Coursier cache
-        uses: coursier/cache-action@95e5b1029b6b86e7bac033ee44a0697d8a527d2d # v8.1.1
+        uses: coursier/cache-action@ee0650f98295f27a505e4bfd284c9bfaa913a465 # v9.0.1
 
       - name: "Shopping analytics service (Scala)"
         run: scripts/sbt-test.sh docs-source/docs/modules/microservices-tutorial/examples/shopping-analytics-service-scala
@@ -181,7 +181,7 @@ jobs:
           java-version: 11
 
       - name: Cache Coursier cache
-        uses: coursier/cache-action@95e5b1029b6b86e7bac033ee44a0697d8a527d2d # v8.1.1
+        uses: coursier/cache-action@ee0650f98295f27a505e4bfd284c9bfaa913a465 # v9.0.1
 
       - name: "05 Shopping cart service (Scala)"
         run: scripts/sbt-test.sh docs-source/docs/modules/microservices-tutorial/examples/05-shopping-cart-service-scala
