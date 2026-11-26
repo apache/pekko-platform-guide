@@ -7,7 +7,11 @@ DIR=$1
 cd ${DIR}
 
 if [ -f docker-compose.yml ]; then
-  docker-compose up -d
+  docker compose up -d || {
+    THE_EXIT_CODE=$?
+    docker compose stop
+    exit "$THE_EXIT_CODE"
+  }
 fi
 
 # Do not display transfer progress when downloading or uploading.
@@ -17,7 +21,7 @@ mvn --no-transfer-progress test spotless:check
 THE_EXIT_CODE=$?
 
 if [ -f docker-compose.yml ]; then
-  docker-compose stop
+  docker compose stop
 fi
 
 cd ${PROJECT_ROOT}
