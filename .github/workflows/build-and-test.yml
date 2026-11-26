@@ -7,7 +7,7 @@ on:
 jobs:
   copy-identical-files:
     name: Verify identical files are correct
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -25,7 +25,7 @@ jobs:
 
   java-compile-and-test-part1:
     name: Compile and Test Part 1 (Java)
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -80,7 +80,7 @@ jobs:
 
   java-compile-and-test-part2:
     name: Compile and Test Part 2 (Java)
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -111,7 +111,7 @@ jobs:
 
   scala-compile-and-test-part1:
     name: Compile and Test Part 1 (Scala)
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -127,6 +127,12 @@ jobs:
         with:
           distribution: temurin
           java-version: 11
+
+      - name: Install sbt
+        uses: sbt/setup-sbt@7e114eae4f32ec3f93c851c2793376a77f384409 # v1.5.15
+        with:
+          sbt-runner-version: 1.9.9
+          disk-cache: false
 
       - name: Cache Coursier cache
         uses: coursier/cache-action@95e5b1029b6b86e7bac033ee44a0697d8a527d2d # v8.1.1
@@ -163,7 +169,7 @@ jobs:
 
   scala-compile-and-test-part2:
     name: Compile and Test Part 2 (Scala)
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -179,6 +185,12 @@ jobs:
         with:
           distribution: temurin
           java-version: 11
+
+      - name: Install sbt
+        uses: sbt/setup-sbt@7e114eae4f32ec3f93c851c2793376a77f384409 # v1.5.15
+        with:
+          sbt-runner-version: 1.9.9
+          disk-cache: false
 
       - name: Cache Coursier cache
         uses: coursier/cache-action@95e5b1029b6b86e7bac033ee44a0697d8a527d2d # v8.1.1

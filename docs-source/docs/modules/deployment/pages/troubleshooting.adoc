@@ -87,7 +87,7 @@ kubectl logs -f <pod name>
 
 == Operator Events
 
-The operator will create Kubernetes https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.19/#event-v1-core[Events {tab-icon}, window="tab"]] when notable actions take place during its operation. Events may have a type of `Normal`, `Warning`, or `Error`.
+The operator will create Kubernetes https://kubernetes.io/docs/reference/kubernetes-api/core/event-v1/[Events {tab-icon}, window="tab"] when notable actions take place during its operation. Events may have a type of `Normal`, `Warning`, or `Error`.
 
 They are similar to application logging, but are more coarse grained. A single event may be observed multiple times.
 

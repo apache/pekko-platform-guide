@@ -5,6 +5,7 @@ antora_docker_image     := local/antora-doc
 antora_docker_image_tag := latest
 
 target_dir := ${ROOT_DIR}/target
+ANTORA_PLAYBOOK ?= docs-source/site.yml
 
 all: build
 
@@ -36,7 +37,7 @@ html: clean docker-image
 		--rm \
 		-t ${antora_docker_image}:${antora_docker_image_tag} \
 		--cache-dir=./.cache/antora \
-		docs-source/site.yml
+		$(ANTORA_PLAYBOOK)
 
 done:
 	@echo "Done ${target_dir}/index.html"

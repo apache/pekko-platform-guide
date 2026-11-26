@@ -7,7 +7,11 @@ DIR=$1
 cd ${DIR}
 
 if [ -f docker-compose.yml ]; then
-  docker-compose up -d
+  docker compose up -d || {
+    THE_EXIT_CODE=$?
+    docker compose stop
+    exit "$THE_EXIT_CODE"
+  }
 fi
 
 sbt "test; scalafmtCheckAll"
@@ -15,7 +19,7 @@ sbt "test; scalafmtCheckAll"
 THE_EXIT_CODE=$?
 
 if [ -f docker-compose.yml ]; then
-  docker-compose stop
+  docker compose stop
 fi
 
 cd ${PROJECT_ROOT}
